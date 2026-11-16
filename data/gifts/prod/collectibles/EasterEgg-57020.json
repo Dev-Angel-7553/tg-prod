@@ -120,7 +120,7 @@
         "text_color": 15455432
       }
     ],
-    "availability_issued": 164161,
+    "availability_issued": 164162,
     "availability_total": 173176,
     "burned": false,
     "craft_chance_permille": null,
@@ -142,12 +142,12 @@
     "resell_amount": [
       {
         "_": "StarsAmount",
-        "amount": 500,
+        "amount": 450,
         "nanos": 0
       },
       {
         "_": "StarsTonAmount",
-        "amount": 7160000000
+        "amount": 6450000000
       }
     ],
     "slug": "EasterEgg-57020",

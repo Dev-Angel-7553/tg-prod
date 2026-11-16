@@ -1,0 +1,6 @@
+{
+  "check": "http.https://raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/telegram_api.tl",
+  "error": null,
+  "scope": "This session and endpoint only; not proof of a global outage.",
+  "status": "ok"
+}

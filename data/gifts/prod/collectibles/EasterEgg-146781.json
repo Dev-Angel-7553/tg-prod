@@ -1,0 +1,177 @@
+{
+  "_": "UniqueStarGift",
+  "gift": {
+    "_": "StarGiftUnique",
+    "attributes": [
+      {
+        "_": "StarGiftAttributeModel",
+        "crafted": false,
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🥚",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 1145788388561911828
+              },
+              "text_color": false
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5474601744841337235,
+          "mime_type": "application/x-tgsticker",
+          "size": 30723,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1907b008dc55424a034d4b025c4649954c954e8147484a4c4e50535b67667d6246066c4f074356038b51995ba66981804658465c8048925e9063424752594a5f924e9991a39685838f80958286828a8a8f888b4594549f5ba3568803568b0981b8a4a88901a68e06808f8b9d89ad418d47a580b28b939fa19bba46a7678b688c42816087026688014a90599f58a08884a282a48f818b4a089e4c039e",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 5112,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Ice Cream",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 15
+        }
+      },
+      {
+        "_": "StarGiftAttributePattern",
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🎁",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 7742538463613812729
+              },
+              "text_color": true
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5433653767159438204,
+          "mime_type": "application/x-tgsticker",
+          "size": 705,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1901b108dc7843480496490968475a4f735447078080964398438b4189004488064f43494c03834e044c514d5166547951490988077b8e0846078080425542564446654e6b516b554b06470549094d019947098c01568f039082828f9992998481935a975ea0648a0147088e005ba7b3668b0747068d09488478967a99808042964296a38f8e005d8f01a384994587075a890146845d845f87498d4bae4fbe5689024d87064a088706",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 1116,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Garden Pot",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 2
+        }
+      },
+      {
+        "_": "StarGiftAttributeBackdrop",
+        "backdrop_id": 32,
+        "center_color": 11634363,
+        "edge_color": 8870545,
+        "name": "English Violet",
+        "pattern_color": 5513823,
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 15
+        },
+        "text_color": 15124461
+      },
+      {
+        "_": "StarGiftAttributeOriginalDetails",
+        "message": {
+          "_": "TextWithEntities",
+          "entities": [],
+          "text": "ХВ"
+        },
+        "recipient_id": {
+          "_": "PeerUser",
+          "user_id": 907279175
+        },
+        "sender_id": {
+          "_": "PeerUser",
+          "user_id": 829982476
+        }
+      }
+    ],
+    "availability_issued": 164161,
+    "availability_total": 173176,
+    "burned": false,
+    "craft_chance_permille": null,
+    "crafted": false,
+    "gift_address": null,
+    "gift_id": 5773668482394620318,
+    "id": 5895342041147114127,
+    "num": 146781,
+    "offer_min_stars": null,
+    "owner_visibility": {
+      "blockchain_address": false,
+      "display_name": true,
+      "peer": false
+    },
+    "peer_color": null,
+    "released_by": null,
+    "require_premium": false,
+    "resale_ton_only": false,
+    "resell_amount": [
+      {
+        "_": "StarsAmount",
+        "amount": 740,
+        "nanos": 0
+      },
+      {
+        "_": "StarsTonAmount",
+        "amount": 10520000000
+      }
+    ],
+    "slug": "EasterEgg-146781",
+    "theme_available": false,
+    "theme_peer": null,
+    "title": "Easter Egg",
+    "value_amount": 1100,
+    "value_currency": "USD",
+    "value_usd_amount": 1100
+  }
+}

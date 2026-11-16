@@ -1,0 +1,161 @@
+{
+  "_": "UniqueStarGift",
+  "gift": {
+    "_": "StarGiftUnique",
+    "attributes": [
+      {
+        "_": "StarGiftAttributeModel",
+        "crafted": false,
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🍭",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 669159254791290919
+              },
+              "text_color": false
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5393211972848215112,
+          "mime_type": "application/x-tgsticker",
+          "size": 57850,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "2c01ad04dc60474c024c094e014d0444816a98789c798e4b07454f066f4b014c00995f019105590087029e8b028a0989039205438c48994fa543864d8b4c92859b93038e028b029003",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 3290,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Dark Delight",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 12
+        }
+      },
+      {
+        "_": "StarGiftAttributePattern",
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🎩",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 1860749763008266267
+              },
+              "text_color": true
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5424997398013306322,
+          "mime_type": "application/x-tgsticker",
+          "size": 669,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1003b103dc608046058049054c47015c46044b088b4d02aa478808838c06968784ac9fb2968a4e7e7d47074608554a704e46075a4b4748075001480451058350945e9f6987014609910949009b01769086a98fb59c8586898f8897819647ac49860743a7438708438b07808644a181a58382954599459d43bf8588029e888b889a89a8858a035a008c0661028c07",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 1166,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Top Hat",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 5
+        }
+      },
+      {
+        "_": "StarGiftAttributeBackdrop",
+        "backdrop_id": 31,
+        "center_color": 11632037,
+        "edge_color": 9197434,
+        "name": "Dark Lilac",
+        "pattern_color": 6629458,
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 20
+        },
+        "text_color": 15779042
+      }
+    ],
+    "availability_issued": 435247,
+    "availability_total": 468745,
+    "burned": false,
+    "craft_chance_permille": null,
+    "crafted": false,
+    "gift_address": "EQBJgf4lOZyqbi2h-9vlnSY8lQaVtBG1jwmYxW23GXhoETMV",
+    "gift_id": 5170594532177215681,
+    "id": 5870703961253611086,
+    "num": 153517,
+    "offer_min_stars": null,
+    "owner_visibility": {
+      "blockchain_address": false,
+      "display_name": true,
+      "peer": false
+    },
+    "peer_color": null,
+    "released_by": null,
+    "require_premium": false,
+    "resale_ton_only": false,
+    "resell_amount": [
+      {
+        "_": "StarsAmount",
+        "amount": 800,
+        "nanos": 0
+      },
+      {
+        "_": "StarsTonAmount",
+        "amount": 11380000000
+      }
+    ],
+    "slug": "LolPop-153517",
+    "theme_available": false,
+    "theme_peer": null,
+    "title": "Lol Pop",
+    "value_amount": 860,
+    "value_currency": "USD",
+    "value_usd_amount": 860
+  }
+}

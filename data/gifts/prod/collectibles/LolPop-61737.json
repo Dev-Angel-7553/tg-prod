@@ -1,0 +1,161 @@
+{
+  "_": "UniqueStarGift",
+  "gift": {
+    "_": "StarGiftUnique",
+    "attributes": [
+      {
+        "_": "StarGiftAttributeModel",
+        "crafted": false,
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🍭",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 669159254791290919
+              },
+              "text_color": false
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5208560814713237390,
+          "mime_type": "application/x-tgsticker",
+          "size": 38428,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1203b003dc52815d605d6e814384468249464d5b5555678143a588ac868c439c5fa36882434b8159424b81564461484281564b584a498492bf5093484c53575b6343459584918062697a46067a4c03804609b34d068b094f029445b483860541844185468848904aa046b141a3898f02a19106b18d898b9989a780818e4e924a82828d998c9b539467a97cbb4484474a4a454d915ca172a755868560866681445d495d4849908e8901888b08818448824b8443804980498281938d048a058b008d0346874e8e588a5749490549034b074b0446464a515253438146844986518c819e819d854e415597818483469b479f448e849a82a9428b4b02b64c07b7",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 9312,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Comic Crunch",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 10
+        }
+      },
+      {
+        "_": "StarGiftAttributePattern",
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "👛",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 1860749763008266267
+              },
+              "text_color": true
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5440780019846634454,
+          "mime_type": "application/x-tgsticker",
+          "size": 1080,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1803b100dc66814705454b00514743514a584b5c434a03b949024b86679e4606ab4a018856874706924a098e68a5480287014a088b489a4da4558a484a0170764802a1578805948c028d9744ae598701568d828ba0959c8d459b51a9469a944cb15bbd428159935994b7a6890689008b018f07859681bd8487068aa3b5bcae8a0246a44809484a02494a806a967499608b46058e49098ff3cc1407aa00dc12418e53955f818097849a84aa82880658880047014746054801684b057f46444c4f48579c7088089d8a0593a4555e6f68794344a361816c534656a15fa4448149814e805c84789c76ba8387038e039f8c0589005386054c01504d06476196a1aba0af44934fa388aa",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 1718,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Money Bag",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 4
+        }
+      },
+      {
+        "_": "StarGiftAttributeBackdrop",
+        "backdrop_id": 28,
+        "center_color": 14711685,
+        "edge_color": 11950464,
+        "name": "Raspberry",
+        "pattern_color": 8980024,
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 20
+        },
+        "text_color": 16766694
+      }
+    ],
+    "availability_issued": 435247,
+    "availability_total": 468745,
+    "burned": false,
+    "craft_chance_permille": null,
+    "crafted": false,
+    "gift_address": null,
+    "gift_id": 5170594532177215681,
+    "id": 5841277649955062516,
+    "num": 61737,
+    "offer_min_stars": null,
+    "owner_visibility": {
+      "blockchain_address": false,
+      "display_name": true,
+      "peer": false
+    },
+    "peer_color": null,
+    "released_by": null,
+    "require_premium": false,
+    "resale_ton_only": false,
+    "resell_amount": [
+      {
+        "_": "StarsAmount",
+        "amount": 930,
+        "nanos": 0
+      },
+      {
+        "_": "StarsTonAmount",
+        "amount": 13230000000
+      }
+    ],
+    "slug": "LolPop-61737",
+    "theme_available": false,
+    "theme_peer": null,
+    "title": "Lol Pop",
+    "value_amount": 860,
+    "value_currency": "USD",
+    "value_usd_amount": 860
+  }
+}

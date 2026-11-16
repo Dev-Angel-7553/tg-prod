@@ -1,0 +1,161 @@
+{
+  "_": "UniqueStarGift",
+  "gift": {
+    "_": "StarGiftUnique",
+    "attributes": [
+      {
+        "_": "StarGiftAttributeModel",
+        "crafted": false,
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🥚",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 1145788388561911828
+              },
+              "text_color": false
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5195083044129631819,
+          "mime_type": "application/x-tgsticker",
+          "size": 42062,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1a00b001dc56814c03824d0454464da453a95491434147494c4343464549477d6e47034c09715307875494669b7a81425e465a51844aac50b65689469153995ba361890146078e01718a07a88c01950488049e0550a66bba470488034584b285ab9549924904944b0494",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 3598,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Free Flight",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 20
+        }
+      },
+      {
+        "_": "StarGiftAttributePattern",
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🎁",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 7742538463613812729
+              },
+              "text_color": true
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5434137758434093445,
+          "mime_type": "application/x-tgsticker",
+          "size": 945,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "0e09b008dc4e4a6370604608824e96629d6e82438c4e8a52495273a04605a252847d474705544e4e87027e870246064462544c04a947088a88a2a4a8a39e43b96589015e9c864f88084d89098083838485868b8d95999ea6b187074607a64705af54945eb97a8607f3cc2508a102dc5a4347088c49074e52598f72a27daa598c046b90064b8f8c969a95ac42a86faa4709aa4f805e806d80f3cc1f039604dc4881508155466a7389094b058e024a08a185b7a99d87004b8c5e8f6e934f835f866f8b5385668c798ef3cc12059509dc6c444947028549028f56a169b77998538b0947018d014c89a8470687064a00890459937a860549018607",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 1552,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Shooting Star",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 5
+        }
+      },
+      {
+        "_": "StarGiftAttributeBackdrop",
+        "backdrop_id": 39,
+        "center_color": 11636862,
+        "edge_color": 8151894,
+        "name": "Cappuccino",
+        "pattern_color": 4862502,
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 12
+        },
+        "text_color": 15455432
+      }
+    ],
+    "availability_issued": 164161,
+    "availability_total": 173176,
+    "burned": false,
+    "craft_chance_permille": null,
+    "crafted": false,
+    "gift_address": null,
+    "gift_id": 5773668482394620318,
+    "id": 5778505173915665276,
+    "num": 57020,
+    "offer_min_stars": null,
+    "owner_visibility": {
+      "blockchain_address": false,
+      "display_name": true,
+      "peer": false
+    },
+    "peer_color": null,
+    "released_by": null,
+    "require_premium": false,
+    "resale_ton_only": false,
+    "resell_amount": [
+      {
+        "_": "StarsAmount",
+        "amount": 500,
+        "nanos": 0
+      },
+      {
+        "_": "StarsTonAmount",
+        "amount": 7110000000
+      }
+    ],
+    "slug": "EasterEgg-57020",
+    "theme_available": false,
+    "theme_peer": null,
+    "title": "Easter Egg",
+    "value_amount": 1100,
+    "value_currency": "USD",
+    "value_usd_amount": 1100
+  }
+}

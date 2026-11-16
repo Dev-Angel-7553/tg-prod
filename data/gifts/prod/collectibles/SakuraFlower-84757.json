@@ -1,0 +1,161 @@
+{
+  "_": "UniqueStarGift",
+  "gift": {
+    "_": "StarGiftUnique",
+    "attributes": [
+      {
+        "_": "StarGiftAttributeModel",
+        "crafted": false,
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🌸",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 2394781740280315956
+              },
+              "text_color": false
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5289925237809376454,
+          "mime_type": "application/x-tgsticker",
+          "size": 16987,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1008ae04dc56816b43705b81448249414c444557825e43514d55745047028553b779b77a808058465a475c497554460471516e477099460881814557445a8556b0638608628c80a590a59083438056805a835c9e79ba7f8e439993a191858187478c4a9750b18cbe9d8b8e8c9d8aae8180439141909f51b55a8807488984978c9a968386469e439f8a879a879b9883a14d86056b87094481628a628a8084868589878d8d9e9ca4ae879582be51870548865a4260834383429344974a91678e778c62437464460446044242495a4b5b80804ea550a851a166b84706ba",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 5136,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Geranium",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 11
+        }
+      },
+      {
+        "_": "StarGiftAttributePattern",
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🎩",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 1503026064387997715
+              },
+              "text_color": true
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5276170321576093265,
+          "mime_type": "application/x-tgsticker",
+          "size": 886,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1908ae00dc4609814e024d5402704944524a595049475350565a54470486056f86057b8378474a068f4f09a148008c084a08940749038a07948e048b078e069505808642908097848eba4fbf9a84994aac5bbd7ab94e01870656008706f3cc1906a500dc18818e05468f0660844b835b8266424d805d49684242468149815b89768f4802926d854902864d06815042734f46044d4a8147860744870787998c009b8e069a",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 1342,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Bowler Hat",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 5
+        }
+      },
+      {
+        "_": "StarGiftAttributeBackdrop",
+        "backdrop_id": 31,
+        "center_color": 11632037,
+        "edge_color": 9197434,
+        "name": "Dark Lilac",
+        "pattern_color": 6629458,
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 10
+        },
+        "text_color": 15779042
+      }
+    ],
+    "availability_issued": 88010,
+    "availability_total": 93115,
+    "burned": false,
+    "craft_chance_permille": null,
+    "crafted": false,
+    "gift_address": null,
+    "gift_id": 5167939598143193218,
+    "id": 6012438637935855112,
+    "num": 84757,
+    "offer_min_stars": null,
+    "owner_visibility": {
+      "blockchain_address": false,
+      "display_name": true,
+      "peer": false
+    },
+    "peer_color": null,
+    "released_by": null,
+    "require_premium": false,
+    "resale_ton_only": false,
+    "resell_amount": [
+      {
+        "_": "StarsAmount",
+        "amount": 2499,
+        "nanos": 0
+      },
+      {
+        "_": "StarsTonAmount",
+        "amount": 35530000000
+      }
+    ],
+    "slug": "SakuraFlower-84757",
+    "theme_available": false,
+    "theme_peer": null,
+    "title": "Sakura Flower",
+    "value_amount": 1800,
+    "value_currency": "USD",
+    "value_usd_amount": 1800
+  }
+}

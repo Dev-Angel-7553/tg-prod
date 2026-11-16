@@ -1,0 +1,161 @@
+{
+  "_": "UniqueStarGift",
+  "gift": {
+    "_": "StarGiftUnique",
+    "attributes": [
+      {
+        "_": "StarGiftAttributeModel",
+        "crafted": false,
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🌸",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 2394781740280315956
+              },
+              "text_color": false
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5292022367260793778,
+          "mime_type": "application/x-tgsticker",
+          "size": 23995,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1008ae04dc56816b43705b81448249414c444557825e43514d55745047028553b779b77a808058465a475c497554460471516e477099460881814557445a8556b0638608628c80a590a59083438056805a835c9e79ba7f8e439993a191858187478c4a9750b18cbe9d8b8e8c9d8aae8180439141909f51b55a8807488984978c9a968386469e439f8a879a879b9883a14d86056b87094481628a628a8084868589878d8d9e9ca4ae879582be51870548865a4260834383429344974a91678e778c62437464460446044242495a4b5b80804ea550a851a166b84706ba",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 6144,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Celestara",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 15
+        }
+      },
+      {
+        "_": "StarGiftAttributePattern",
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🎁",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 328917524764688486
+              },
+              "text_color": true
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 1,
+          "id": 5550877572289527833,
+          "mime_type": "application/x-tgsticker",
+          "size": 1604,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "1707b105dc65447449087e4c05495967607674535a837941480581446b4b724f765f47054b046d500896688807738a04808da56e816ea380a6a09ab8968c429b8ba5879748b3548705458181438904868a048384845a845c4258487d8f47079851ac818607818e809647a6458a81958aa08790449d5e916c474847038d66619961860759890283a8ad938c0956900655936f8f7b9745848bb9858708489a6ba076b84b994c88025c8a0144854a884f8d4486489350955184485350534e8053816142808083954995",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 1714,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Cow Skull",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 5
+        }
+      },
+      {
+        "_": "StarGiftAttributeBackdrop",
+        "backdrop_id": 79,
+        "center_color": 12738790,
+        "edge_color": 9522905,
+        "name": "French Violet",
+        "pattern_color": 4850058,
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 15
+        },
+        "text_color": 15452159
+      }
+    ],
+    "availability_issued": 88010,
+    "availability_total": 93115,
+    "burned": false,
+    "craft_chance_permille": null,
+    "crafted": false,
+    "gift_address": null,
+    "gift_id": 5167939598143193218,
+    "id": 5904251117579010773,
+    "num": 58372,
+    "offer_min_stars": null,
+    "owner_visibility": {
+      "blockchain_address": false,
+      "display_name": true,
+      "peer": false
+    },
+    "peer_color": null,
+    "released_by": null,
+    "require_premium": false,
+    "resale_ton_only": true,
+    "resell_amount": [
+      {
+        "_": "StarsAmount",
+        "amount": 1329,
+        "nanos": 0
+      },
+      {
+        "_": "StarsTonAmount",
+        "amount": 18900000000
+      }
+    ],
+    "slug": "SakuraFlower-58372",
+    "theme_available": false,
+    "theme_peer": null,
+    "title": "Sakura Flower",
+    "value_amount": 1800,
+    "value_currency": "USD",
+    "value_usd_amount": 1800
+  }
+}

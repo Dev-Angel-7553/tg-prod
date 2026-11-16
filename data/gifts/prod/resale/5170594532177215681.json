@@ -1,0 +1,3813 @@
+{
+  "_": "ResaleStarGifts",
+  "attributes": [],
+  "attributes_hash": null,
+  "count": 22275,
+  "counters": [
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5208479510982321993
+      },
+      "count": 235
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5208560814713237390
+      },
+      "count": 245
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5208572368175262810
+      },
+      "count": 252
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5208726716414981909
+      },
+      "count": 197
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5208797884023073494
+      },
+      "count": 190
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5208846262534695841
+      },
+      "count": 184
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5208943560723820702
+      },
+      "count": 155
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5210697539468157364
+      },
+      "count": 233
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5210953622598214587
+      },
+      "count": 206
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5211156821795956908
+      },
+      "count": 257
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5219696148788307720
+      },
+      "count": 116
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5219947262641207064
+      },
+      "count": 308
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5220035141967046212
+      },
+      "count": 152
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5220123403544980177
+      },
+      "count": 135
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5221961357489892670
+      },
+      "count": 251
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5222121319251860086
+      },
+      "count": 276
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5222287908148371157
+      },
+      "count": 147
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5222303112332598744
+      },
+      "count": 132
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5222305195391740380
+      },
+      "count": 159
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5222379030174526318
+      },
+      "count": 241
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224306392453640289
+      },
+      "count": 130
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224338222456283026
+      },
+      "count": 182
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224343488086173151
+      },
+      "count": 137
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224496122633941486
+      },
+      "count": 115
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224524039921365315
+      },
+      "count": 142
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224531289826157876
+      },
+      "count": 155
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224537882600955399
+      },
+      "count": 176
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224565799888382217
+      },
+      "count": 134
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224659060808250648
+      },
+      "count": 198
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5224681093990478312
+      },
+      "count": 124
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226448795155331278
+      },
+      "count": 212
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226504410686845283
+      },
+      "count": 202
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226526310725086929
+      },
+      "count": 145
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226534191990074874
+      },
+      "count": 222
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226641548992606428
+      },
+      "count": 242
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226754927539287314
+      },
+      "count": 150
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226763178171460533
+      },
+      "count": 191
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226839516920181422
+      },
+      "count": 252
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226934878079052543
+      },
+      "count": 260
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226936291123295076
+      },
+      "count": 216
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226938803679162970
+      },
+      "count": 149
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5226963985072422325
+      },
+      "count": 250
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5228714622332203932
+      },
+      "count": 231
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5228863326984887787
+      },
+      "count": 200
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5228882959280401161
+      },
+      "count": 149
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5228904829253869947
+      },
+      "count": 264
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5228934185355338030
+      },
+      "count": 240
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5229039502248405031
+      },
+      "count": 195
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5229057012830071691
+      },
+      "count": 252
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5229197127548170112
+      },
+      "count": 278
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386329055828140582
+      },
+      "count": 259
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386385843885727670
+      },
+      "count": 259
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386407920017631586
+      },
+      "count": 268
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386526748877808886
+      },
+      "count": 206
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386579160363721492
+      },
+      "count": 253
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386678442827735983
+      },
+      "count": 249
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386698680713635368
+      },
+      "count": 232
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386727010317920597
+      },
+      "count": 258
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386734333237162176
+      },
+      "count": 257
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5386843094693995053
+      },
+      "count": 236
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5388615662056790632
+      },
+      "count": 261
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5388749201179959909
+      },
+      "count": 239
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5388817285001536041
+      },
+      "count": 236
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5388828366017157449
+      },
+      "count": 216
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5388930315655863699
+      },
+      "count": 264
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5388976843036583988
+      },
+      "count": 250
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5389015179914667119
+      },
+      "count": 249
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5389067170493784235
+      },
+      "count": 263
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5389094198722975595
+      },
+      "count": 228
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393156941432253434
+      },
+      "count": 231
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393188835859392016
+      },
+      "count": 229
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393194015589951343
+      },
+      "count": 251
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393211972848215112
+      },
+      "count": 229
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393228800530082595
+      },
+      "count": 247
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393257984832857275
+      },
+      "count": 244
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393260136611470776
+      },
+      "count": 233
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393278836899078174
+      },
+      "count": 244
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393284854148268468
+      },
+      "count": 243
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393335697971113024
+      },
+      "count": 239
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393341968623362615
+      },
+      "count": 452
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393350318039787181
+      },
+      "count": 229
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393358920859280345
+      },
+      "count": 261
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393374129338477486
+      },
+      "count": 270
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393390622012891887
+      },
+      "count": 222
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393404778225101298
+      },
+      "count": 260
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393420832812854353
+      },
+      "count": 257
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393451821001892023
+      },
+      "count": 181
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393457593437940730
+      },
+      "count": 264
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393469795440029242
+      },
+      "count": 223
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393564598253154765
+      },
+      "count": 279
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393574416548390339
+      },
+      "count": 231
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393593292929654216
+      },
+      "count": 273
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5393619092798203738
+      },
+      "count": 241
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5395371804527190140
+      },
+      "count": 263
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5395394061047715094
+      },
+      "count": 264
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5395470326781993189
+      },
+      "count": 209
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5395485573915893671
+      },
+      "count": 272
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5395513809030898022
+      },
+      "count": 231
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5395644994511985494
+      },
+      "count": 232
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdModel",
+        "document_id": 5395727200186031468
+      },
+      "count": 224
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5582258274096381967
+      },
+      "count": 65
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584779707661942808
+      },
+      "count": 64
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5582653522756763665
+      },
+      "count": 102
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584928884761034765
+      },
+      "count": 108
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584662918911229963
+      },
+      "count": 64
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5582609220169105413
+      },
+      "count": 115
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584796500984070156
+      },
+      "count": 99
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5582666983184269318
+      },
+      "count": 83
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584758520588271634
+      },
+      "count": 113
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5582359682569207817
+      },
+      "count": 110
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5582286784089292815
+      },
+      "count": 71
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584781618922389518
+      },
+      "count": 107
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584553246921326607
+      },
+      "count": 71
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584655063416045578
+      },
+      "count": 80
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5584927647810453525
+      },
+      "count": 65
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5418023891543024129
+      },
+      "count": 77
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5422475891433304226
+      },
+      "count": 80
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5422574937674115533
+      },
+      "count": 121
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5422575423005417377
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5422596236416936455
+      },
+      "count": 113
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5422791593004393932
+      },
+      "count": 82
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5424748805306211426
+      },
+      "count": 104
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5424763360950380146
+      },
+      "count": 63
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5424853890271044722
+      },
+      "count": 107
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5424858399986705924
+      },
+      "count": 17
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5424903810675924078
+      },
+      "count": 129
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5424997398013306322
+      },
+      "count": 109
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5425080690314078227
+      },
+      "count": 104
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5427383398375122352
+      },
+      "count": 116
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433604121632464930
+      },
+      "count": 113
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433611053709680326
+      },
+      "count": 35
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433613007919800239
+      },
+      "count": 56
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433619166902903696
+      },
+      "count": 41
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433651456467038506
+      },
+      "count": 66
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433653767159438204
+      },
+      "count": 96
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433654656217668498
+      },
+      "count": 120
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433660003451955542
+      },
+      "count": 111
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433680215568048177
+      },
+      "count": 53
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433690600798970670
+      },
+      "count": 99
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433707415595935861
+      },
+      "count": 108
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433727855345296125
+      },
+      "count": 80
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433748320864461333
+      },
+      "count": 99
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433775744230644578
+      },
+      "count": 82
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433797377980918182
+      },
+      "count": 110
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433846813054494068
+      },
+      "count": 107
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433889827151964956
+      },
+      "count": 49
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433912985615624386
+      },
+      "count": 60
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433924809660588407
+      },
+      "count": 93
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433932673745708750
+      },
+      "count": 112
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433934065315110448
+      },
+      "count": 55
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433949381168489107
+      },
+      "count": 54
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5433978836054203452
+      },
+      "count": 66
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434002913640866822
+      },
+      "count": 102
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434006117686470301
+      },
+      "count": 103
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434016365478437472
+      },
+      "count": 83
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434026974047658205
+      },
+      "count": 98
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434029520963265587
+      },
+      "count": 116
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434033386433830171
+      },
+      "count": 89
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434036581889501237
+      },
+      "count": 64
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434047181868785167
+      },
+      "count": 101
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434064267248688787
+      },
+      "count": 122
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434080145742782526
+      },
+      "count": 106
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434085488682100281
+      },
+      "count": 129
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434094602602701296
+      },
+      "count": 78
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434106495367144379
+      },
+      "count": 73
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434137758434093445
+      },
+      "count": 55
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434145691238690190
+      },
+      "count": 89
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434150660515850858
+      },
+      "count": 71
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5434154624770664862
+      },
+      "count": 104
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5435900468846945304
+      },
+      "count": 62
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5435918821242201089
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5435931478510822418
+      },
+      "count": 107
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5435956178867741187
+      },
+      "count": 74
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436036168338660466
+      },
+      "count": 66
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436045368158609968
+      },
+      "count": 19
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436047004541147339
+      },
+      "count": 100
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436063346891712376
+      },
+      "count": 47
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436064270309679512
+      },
+      "count": 110
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436157677258431414
+      },
+      "count": 83
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436199355621072900
+      },
+      "count": 106
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436207056497437331
+      },
+      "count": 69
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436212648544854698
+      },
+      "count": 98
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436213773826285560
+      },
+      "count": 126
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436241476365344257
+      },
+      "count": 91
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436321727829273227
+      },
+      "count": 44
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436346024459266141
+      },
+      "count": 77
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436357135539658505
+      },
+      "count": 117
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5436400690803009263
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5438165909476763503
+      },
+      "count": 49
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5438209649423704242
+      },
+      "count": 67
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5438330514098381824
+      },
+      "count": 95
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5438410885821392267
+      },
+      "count": 44
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5438503377942111917
+      },
+      "count": 64
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5438588220726077688
+      },
+      "count": 94
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5438636453208812240
+      },
+      "count": 83
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440349071418088591
+      },
+      "count": 128
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440353070032641447
+      },
+      "count": 105
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440356965567977657
+      },
+      "count": 119
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440361101621484148
+      },
+      "count": 121
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440362952752389413
+      },
+      "count": 85
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440395491424625401
+      },
+      "count": 120
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440404794323786424
+      },
+      "count": 114
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440406533785540876
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440416579714047896
+      },
+      "count": 129
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440443612238208788
+      },
+      "count": 41
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440449131271182960
+      },
+      "count": 49
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440460955316150110
+      },
+      "count": 96
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440482941253739929
+      },
+      "count": 86
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440484014995558888
+      },
+      "count": 43
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440487188976393935
+      },
+      "count": 61
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440487373659987419
+      },
+      "count": 94
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440488593430702038
+      },
+      "count": 89
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440489074467037612
+      },
+      "count": 120
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440498647949137932
+      },
+      "count": 46
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440500005158804832
+      },
+      "count": 127
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440508543553788998
+      },
+      "count": 62
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440518297424518899
+      },
+      "count": 115
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440522820025081877
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440544067228292901
+      },
+      "count": 34
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440548920541339106
+      },
+      "count": 45
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440572770494734727
+      },
+      "count": 41
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440588210902163577
+      },
+      "count": 97
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440588533024712814
+      },
+      "count": 90
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440595495166696665
+      },
+      "count": 56
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440602010632084801
+      },
+      "count": 108
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440606859650160817
+      },
+      "count": 120
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440607637039243262
+      },
+      "count": 88
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440616278513442267
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440625946484824815
+      },
+      "count": 97
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440642151396435007
+      },
+      "count": 80
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440664154513889996
+      },
+      "count": 61
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440665872500809370
+      },
+      "count": 106
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440666370717017730
+      },
+      "count": 71
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440676141767615131
+      },
+      "count": 112
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440679027985636145
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440709011152333768
+      },
+      "count": 98
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440722007723368230
+      },
+      "count": 90
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440727526756342476
+      },
+      "count": 114
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440737538325112126
+      },
+      "count": 94
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440746209864081065
+      },
+      "count": 88
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440749770391969728
+      },
+      "count": 68
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440758648089371170
+      },
+      "count": 76
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440759193550217775
+      },
+      "count": 107
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440762122717911802
+      },
+      "count": 69
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440767903743892503
+      },
+      "count": 101
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440775819368620198
+      },
+      "count": 128
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440776901700379950
+      },
+      "count": 108
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440780019846634454
+      },
+      "count": 101
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440786196009607446
+      },
+      "count": 94
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440792556856173329
+      },
+      "count": 90
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440799905545215818
+      },
+      "count": 72
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440810471164763266
+      },
+      "count": 87
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440812129022142235
+      },
+      "count": 123
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440820989539673389
+      },
+      "count": 100
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440848485920301619
+      },
+      "count": 113
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440853115895045152
+      },
+      "count": 46
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440859644245335988
+      },
+      "count": 31
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5440869715943644373
+      },
+      "count": 77
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5543951520912900106
+      },
+      "count": 73
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5543960982725853188
+      },
+      "count": 79
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544006633933242386
+      },
+      "count": 108
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544006887336312835
+      },
+      "count": 77
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544028714360111114
+      },
+      "count": 72
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544053917228204050
+      },
+      "count": 69
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544085429403254798
+      },
+      "count": 76
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544096716577308681
+      },
+      "count": 89
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544138734242365458
+      },
+      "count": 85
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544210060764250122
+      },
+      "count": 22
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544236900014882832
+      },
+      "count": 113
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544328988408676361
+      },
+      "count": 78
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5544443646855610386
+      },
+      "count": 63
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546231074805252131
+      },
+      "count": 77
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546248748595675149
+      },
+      "count": 82
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546267590617202699
+      },
+      "count": 74
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546270326511370267
+      },
+      "count": 106
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546293540809605130
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546300734879825939
+      },
+      "count": 44
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546364467899531299
+      },
+      "count": 97
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546378581162065931
+      },
+      "count": 49
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546411141309136921
+      },
+      "count": 55
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546458596402790437
+      },
+      "count": 26
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546470136979914792
+      },
+      "count": 120
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546520615730544657
+      },
+      "count": 78
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546605024722812982
+      },
+      "count": 112
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546610367662129158
+      },
+      "count": 119
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546618291876790280
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546636489653223478
+      },
+      "count": 74
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546697774541570072
+      },
+      "count": 96
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546722831380774936
+      },
+      "count": 89
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5546726460628140073
+      },
+      "count": 66
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548440397392379911
+      },
+      "count": 49
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548506475464228910
+      },
+      "count": 88
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548537790070784015
+      },
+      "count": 71
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548538533100126223
+      },
+      "count": 89
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548605440100663337
+      },
+      "count": 116
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548626219152441384
+      },
+      "count": 116
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548635229993828394
+      },
+      "count": 81
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548705246550687755
+      },
+      "count": 99
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548733550385168415
+      },
+      "count": 97
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548780425658236946
+      },
+      "count": 118
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548853865304031242
+      },
+      "count": 70
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548864765931028547
+      },
+      "count": 79
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548866518277685287
+      },
+      "count": 113
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548873050922942478
+      },
+      "count": 85
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548888405431025670
+      },
+      "count": 120
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548919496699281419
+      },
+      "count": 98
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548934649343901709
+      },
+      "count": 119
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5548962682595442701
+      },
+      "count": 121
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550702217364766734
+      },
+      "count": 97
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550707431455064112
+      },
+      "count": 84
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550716588325339144
+      },
+      "count": 105
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550802595045441600
+      },
+      "count": 64
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550811601591861258
+      },
+      "count": 96
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550848478181064732
+      },
+      "count": 46
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550877572289527833
+      },
+      "count": 93
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550885238806151178
+      },
+      "count": 97
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550920152595300360
+      },
+      "count": 125
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550943564462030865
+      },
+      "count": 91
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550968350718296080
+      },
+      "count": 95
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5550987214214660101
+      },
+      "count": 101
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551036086647521285
+      },
+      "count": 113
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551044324394795023
+      },
+      "count": 70
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551062109854367759
+      },
+      "count": 75
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551071537307582479
+      },
+      "count": 77
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551086286225276942
+      },
+      "count": 103
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551096022916136968
+      },
+      "count": 119
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551112227827744789
+      },
+      "count": 117
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551121045395603469
+      },
+      "count": 98
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551122174972002314
+      },
+      "count": 64
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551127401947201559
+      },
+      "count": 51
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551140097870528520
+      },
+      "count": 116
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551178202820378637
+      },
+      "count": 85
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551215749424480286
+      },
+      "count": 92
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5551237516318736388
+      },
+      "count": 96
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5721848477902700557
+      },
+      "count": 22
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5721952626564661261
+      },
+      "count": 90
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722053983497879559
+      },
+      "count": 71
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722120379397308437
+      },
+      "count": 109
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722165274690453518
+      },
+      "count": 123
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722222002618499077
+      },
+      "count": 117
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722284966839058444
+      },
+      "count": 87
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722318746756841477
+      },
+      "count": 45
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722361541810978822
+      },
+      "count": 99
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722378975083233292
+      },
+      "count": 73
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5722379245666172949
+      },
+      "count": 128
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5724531393648656402
+      },
+      "count": 45
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5726594038807658503
+      },
+      "count": 106
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5726780101085888521
+      },
+      "count": 65
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5728738168086200327
+      },
+      "count": 41
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5728818737377706026
+      },
+      "count": 91
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5728874473168306185
+      },
+      "count": 105
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5728923706378420234
+      },
+      "count": 48
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5728966707590987806
+      },
+      "count": 116
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5729015485534568475
+      },
+      "count": 85
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5731235627144314888
+      },
+      "count": 82
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdPattern",
+        "document_id": 5731262410560372759
+      },
+      "count": 122
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 0
+      },
+      "count": 441
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 1
+      },
+      "count": 459
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 2
+      },
+      "count": 416
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 3
+      },
+      "count": 451
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 4
+      },
+      "count": 396
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 5
+      },
+      "count": 439
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 6
+      },
+      "count": 433
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 7
+      },
+      "count": 339
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 8
+      },
+      "count": 445
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 9
+      },
+      "count": 457
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 10
+      },
+      "count": 417
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 11
+      },
+      "count": 413
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 12
+      },
+      "count": 422
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 13
+      },
+      "count": 416
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 14
+      },
+      "count": 358
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 15
+      },
+      "count": 309
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 16
+      },
+      "count": 205
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 17
+      },
+      "count": 440
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 18
+      },
+      "count": 218
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 19
+      },
+      "count": 424
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 20
+      },
+      "count": 369
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 21
+      },
+      "count": 506
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 22
+      },
+      "count": 366
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 23
+      },
+      "count": 438
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 24
+      },
+      "count": 417
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 25
+      },
+      "count": 216
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 26
+      },
+      "count": 296
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 27
+      },
+      "count": 434
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 28
+      },
+      "count": 406
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 29
+      },
+      "count": 439
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 30
+      },
+      "count": 415
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 31
+      },
+      "count": 414
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 32
+      },
+      "count": 299
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 33
+      },
+      "count": 458
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 34
+      },
+      "count": 414
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 35
+      },
+      "count": 209
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 36
+      },
+      "count": 315
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 37
+      },
+      "count": 200
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 38
+      },
+      "count": 444
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 39
+      },
+      "count": 325
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 40
+      },
+      "count": 314
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 41
+      },
+      "count": 231
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 42
+      },
+      "count": 454
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 43
+      },
+      "count": 332
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 44
+      },
+      "count": 445
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 45
+      },
+      "count": 340
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 46
+      },
+      "count": 232
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 47
+      },
+      "count": 213
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 48
+      },
+      "count": 406
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 49
+      },
+      "count": 525
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 50
+      },
+      "count": 209
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 51
+      },
+      "count": 435
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 52
+      },
+      "count": 329
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 53
+      },
+      "count": 423
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 54
+      },
+      "count": 340
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 55
+      },
+      "count": 342
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 56
+      },
+      "count": 192
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 57
+      },
+      "count": 432
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 58
+      },
+      "count": 367
+    },
+    {
+      "_": "StarGiftAttributeCounter",
+      "attribute": {
+        "_": "StarGiftAttributeIdBackdrop",
+        "backdrop_id": 59
+      },
+      "count": 436
+    }
+  ],
+  "gifts": [
+    {
+      "_": "StarGiftUnique",
+      "attributes": [
+        {
+          "_": "StarGiftAttributeModel",
+          "crafted": false,
+          "document": {
+            "_": "Document",
+            "attributes": [
+              {
+                "_": "DocumentAttributeImageSize",
+                "h": 512,
+                "w": 512
+              },
+              {
+                "_": "DocumentAttributeCustomEmoji",
+                "alt": "🍭",
+                "free": false,
+                "stickerset": {
+                  "_": "InputStickerSetID",
+                  "id": 669159254791290919
+                },
+                "text_color": false
+              },
+              {
+                "_": "DocumentAttributeFilename",
+                "file_name": "AnimatedSticker.tgs"
+              }
+            ],
+            "dc_id": 2,
+            "id": 5208479510982321993,
+            "mime_type": "application/x-tgsticker",
+            "size": 16401,
+            "thumbs": [
+              {
+                "_": "PhotoPathSize",
+                "bytes": "2c01ad04dc7962490649094e094e018180818141824287448e469446944b87056687075a816a7179460445454a964e984a834d4e5351484554865a45454b975687644d4b4909984a0352435c8702480186084a0543547c4c01544c0799448a03aa8b09a18c4789044607890847058345444f845286438a868f8785818b4690448982808f819381848687888b868c558559954594438709808a0083948a04b689088805459b4905a34904a9818a8d8d94949797aeae860986099091880486069c8801",
+                "type": "j"
+              },
+              {
+                "_": "PhotoSize",
+                "h": 128,
+                "size": 5872,
+                "type": "m",
+                "w": 128
+              }
+            ],
+            "video_thumbs": []
+          },
+          "name": "Magic Wand",
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 10
+          }
+        },
+        {
+          "_": "StarGiftAttributePattern",
+          "document": {
+            "_": "Document",
+            "attributes": [
+              {
+                "_": "DocumentAttributeImageSize",
+                "h": 512,
+                "w": 512
+              },
+              {
+                "_": "DocumentAttributeCustomEmoji",
+                "alt": "🎁",
+                "free": false,
+                "stickerset": {
+                  "_": "InputStickerSetID",
+                  "id": 328917524764688486
+                },
+                "text_color": true
+              },
+              {
+                "_": "DocumentAttributeFilename",
+                "file_name": "AnimatedSticker.tgs"
+              }
+            ],
+            "dc_id": 1,
+            "id": 5546610367662129158,
+            "mime_type": "application/x-tgsticker",
+            "size": 990,
+            "thumbs": [
+              {
+                "_": "PhotoPathSize",
+                "bytes": "0d01b200dc5e64470246054a004a03494c806481708947008a4f01a55507b14b08950350009f0347098606b587028e058806960286a09788018f8b034492480589064a018b0144844f76507a465b664d03614f03834dbc58bb5d414945734e7552444905964908a847a9a8a9818a00468a4d95569c4886605e66656c7b86044803764c024b445f4c6a4445844594469a80824699469a9088b68886049985896693046e9502",
+                "type": "j"
+              },
+              {
+                "_": "PhotoSize",
+                "h": 128,
+                "size": 1518,
+                "type": "m",
+                "w": 128
+              }
+            ],
+            "video_thumbs": []
+          },
+          "name": "Greek Helmet",
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 5
+          }
+        },
+        {
+          "_": "StarGiftAttributeBackdrop",
+          "backdrop_id": 52,
+          "center_color": 10319041,
+          "edge_color": 7949728,
+          "name": "Grape",
+          "pattern_color": 4065899,
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 15
+          },
+          "text_color": 14728702
+        }
+      ],
+      "availability_issued": 435247,
+      "availability_total": 468745,
+      "burned": false,
+      "craft_chance_permille": null,
+      "crafted": false,
+      "gift_address": null,
+      "gift_id": 5170594532177215681,
+      "id": 5868668035086156802,
+      "num": 340028,
+      "offer_min_stars": null,
+      "owner_visibility": {
+        "blockchain_address": false,
+        "display_name": true,
+        "peer": false
+      },
+      "peer_color": null,
+      "released_by": null,
+      "require_premium": false,
+      "resale_ton_only": false,
+      "resell_amount": [
+        {
+          "_": "StarsAmount",
+          "amount": 564,
+          "nanos": 0
+        },
+        {
+          "_": "StarsTonAmount",
+          "amount": 8030000000
+        }
+      ],
+      "slug": "LolPop-340028",
+      "theme_available": false,
+      "theme_peer": null,
+      "title": "Lol Pop",
+      "value_amount": 860,
+      "value_currency": "USD",
+      "value_usd_amount": 860
+    },
+    {
+      "_": "StarGiftUnique",
+      "attributes": [
+        {
+          "_": "StarGiftAttributeModel",
+          "crafted": false,
+          "document": {
+            "_": "Document",
+            "attributes": [
+              {
+                "_": "DocumentAttributeImageSize",
+                "h": 512,
+                "w": 512
+              },
+              {
+                "_": "DocumentAttributeCustomEmoji",
+                "alt": "🍭",
+                "free": false,
+                "stickerset": {
+                  "_": "InputStickerSetID",
+                  "id": 669159254791290919
+                },
+                "text_color": false
+              },
+              {
+                "_": "DocumentAttributeFilename",
+                "file_name": "AnimatedSticker.tgs"
+              }
+            ],
+            "dc_id": 2,
+            "id": 5393211972848215112,
+            "mime_type": "application/x-tgsticker",
+            "size": 57850,
+            "thumbs": [
+              {
+                "_": "PhotoPathSize",
+                "bytes": "2c01ad04dc60474c024c094e014d0444816a98789c798e4b07454f066f4b014c00995f019105590087029e8b028a0989039205438c48994fa543864d8b4c92859b93038e028b029003",
+                "type": "j"
+              },
+              {
+                "_": "PhotoSize",
+                "h": 128,
+                "size": 3290,
+                "type": "m",
+                "w": 128
+              }
+            ],
+            "video_thumbs": []
+          },
+          "name": "Dark Delight",
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 12
+          }
+        },
+        {
+          "_": "StarGiftAttributePattern",
+          "document": {
+            "_": "Document",
+            "attributes": [
+              {
+                "_": "DocumentAttributeImageSize",
+                "h": 512,
+                "w": 512
+              },
+              {
+                "_": "DocumentAttributeCustomEmoji",
+                "alt": "🎩",
+                "free": false,
+                "stickerset": {
+                  "_": "InputStickerSetID",
+                  "id": 1860749763008266267
+                },
+                "text_color": true
+              },
+              {
+                "_": "DocumentAttributeFilename",
+                "file_name": "AnimatedSticker.tgs"
+              }
+            ],
+            "dc_id": 2,
+            "id": 5424997398013306322,
+            "mime_type": "application/x-tgsticker",
+            "size": 669,
+            "thumbs": [
+              {
+                "_": "PhotoPathSize",
+                "bytes": "1003b103dc608046058049054c47015c46044b088b4d02aa478808838c06968784ac9fb2968a4e7e7d47074608554a704e46075a4b4748075001480451058350945e9f6987014609910949009b01769086a98fb59c8586898f8897819647ac49860743a7438708438b07808644a181a58382954599459d43bf8588029e888b889a89a8858a035a008c0661028c07",
+                "type": "j"
+              },
+              {
+                "_": "PhotoSize",
+                "h": 128,
+                "size": 1166,
+                "type": "m",
+                "w": 128
+              }
+            ],
+            "video_thumbs": []
+          },
+          "name": "Top Hat",
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 5
+          }
+        },
+        {
+          "_": "StarGiftAttributeBackdrop",
+          "backdrop_id": 31,
+          "center_color": 11632037,
+          "edge_color": 9197434,
+          "name": "Dark Lilac",
+          "pattern_color": 6629458,
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 20
+          },
+          "text_color": 15779042
+        }
+      ],
+      "availability_issued": 435247,
+      "availability_total": 468745,
+      "burned": false,
+      "craft_chance_permille": null,
+      "crafted": false,
+      "gift_address": "EQBJgf4lOZyqbi2h-9vlnSY8lQaVtBG1jwmYxW23GXhoETMV",
+      "gift_id": 5170594532177215681,
+      "id": 5870703961253611086,
+      "num": 153517,
+      "offer_min_stars": null,
+      "owner_visibility": {
+        "blockchain_address": false,
+        "display_name": true,
+        "peer": false
+      },
+      "peer_color": null,
+      "released_by": null,
+      "require_premium": false,
+      "resale_ton_only": false,
+      "resell_amount": [
+        {
+          "_": "StarsAmount",
+          "amount": 800,
+          "nanos": 0
+        },
+        {
+          "_": "StarsTonAmount",
+          "amount": 11390000000
+        }
+      ],
+      "slug": "LolPop-153517",
+      "theme_available": false,
+      "theme_peer": null,
+      "title": "Lol Pop",
+      "value_amount": 860,
+      "value_currency": "USD",
+      "value_usd_amount": 860
+    },
+    {
+      "_": "StarGiftUnique",
+      "attributes": [
+        {
+          "_": "StarGiftAttributeModel",
+          "crafted": false,
+          "document": {
+            "_": "Document",
+            "attributes": [
+              {
+                "_": "DocumentAttributeImageSize",
+                "h": 512,
+                "w": 512
+              },
+              {
+                "_": "DocumentAttributeCustomEmoji",
+                "alt": "🍭",
+                "free": false,
+                "stickerset": {
+                  "_": "InputStickerSetID",
+                  "id": 669159254791290919
+                },
+                "text_color": false
+              },
+              {
+                "_": "DocumentAttributeFilename",
+                "file_name": "AnimatedSticker.tgs"
+              }
+            ],
+            "dc_id": 2,
+            "id": 5208560814713237390,
+            "mime_type": "application/x-tgsticker",
+            "size": 38428,
+            "thumbs": [
+              {
+                "_": "PhotoPathSize",
+                "bytes": "1203b003dc52815d605d6e814384468249464d5b5555678143a588ac868c439c5fa36882434b8159424b81564461484281564b584a498492bf5093484c53575b6343459584918062697a46067a4c03804609b34d068b094f029445b483860541844185468848904aa046b141a3898f02a19106b18d898b9989a780818e4e924a82828d998c9b539467a97cbb4484474a4a454d915ca172a755868560866681445d495d4849908e8901888b08818448824b8443804980498281938d048a058b008d0346874e8e588a5749490549034b074b0446464a515253438146844986518c819e819d854e415597818483469b479f448e849a82a9428b4b02b64c07b7",
+                "type": "j"
+              },
+              {
+                "_": "PhotoSize",
+                "h": 128,
+                "size": 9312,
+                "type": "m",
+                "w": 128
+              }
+            ],
+            "video_thumbs": []
+          },
+          "name": "Comic Crunch",
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 10
+          }
+        },
+        {
+          "_": "StarGiftAttributePattern",
+          "document": {
+            "_": "Document",
+            "attributes": [
+              {
+                "_": "DocumentAttributeImageSize",
+                "h": 512,
+                "w": 512
+              },
+              {
+                "_": "DocumentAttributeCustomEmoji",
+                "alt": "👛",
+                "free": false,
+                "stickerset": {
+                  "_": "InputStickerSetID",
+                  "id": 1860749763008266267
+                },
+                "text_color": true
+              },
+              {
+                "_": "DocumentAttributeFilename",
+                "file_name": "AnimatedSticker.tgs"
+              }
+            ],
+            "dc_id": 2,
+            "id": 5440780019846634454,
+            "mime_type": "application/x-tgsticker",
+            "size": 1080,
+            "thumbs": [
+              {
+                "_": "PhotoPathSize",
+                "bytes": "1803b100dc66814705454b00514743514a584b5c434a03b949024b86679e4606ab4a018856874706924a098e68a5480287014a088b489a4da4558a484a0170764802a1578805948c028d9744ae598701568d828ba0959c8d459b51a9469a944cb15bbd428159935994b7a6890689008b018f07859681bd8487068aa3b5bcae8a0246a44809484a02494a806a967499608b46058e49098ff3cc1407aa00dc12418e53955f818097849a84aa82880658880047014746054801684b057f46444c4f48579c7088089d8a0593a4555e6f68794344a361816c534656a15fa4448149814e805c84789c76ba8387038e039f8c0589005386054c01504d06476196a1aba0af44934fa388aa",
+                "type": "j"
+              },
+              {
+                "_": "PhotoSize",
+                "h": 128,
+                "size": 1718,
+                "type": "m",
+                "w": 128
+              }
+            ],
+            "video_thumbs": []
+          },
+          "name": "Money Bag",
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 4
+          }
+        },
+        {
+          "_": "StarGiftAttributeBackdrop",
+          "backdrop_id": 28,
+          "center_color": 14711685,
+          "edge_color": 11950464,
+          "name": "Raspberry",
+          "pattern_color": 8980024,
+          "rarity": {
+            "_": "StarGiftAttributeRarity",
+            "permille": 20
+          },
+          "text_color": 16766694
+        }
+      ],
+      "availability_issued": 435247,
+      "availability_total": 468745,
+      "burned": false,
+      "craft_chance_permille": null,
+      "crafted": false,
+      "gift_address": null,
+      "gift_id": 5170594532177215681,
+      "id": 5841277649955062516,
+      "num": 61737,
+      "offer_min_stars": null,
+      "owner_visibility": {
+        "blockchain_address": false,
+        "display_name": true,
+        "peer": false
+      },
+      "peer_color": null,
+      "released_by": null,
+      "require_premium": false,
+      "resale_ton_only": false,
+      "resell_amount": [
+        {
+          "_": "StarsAmount",
+          "amount": 930,
+          "nanos": 0
+        },
+        {
+          "_": "StarsTonAmount",
+          "amount": 13240000000
+        }
+      ],
+      "slug": "LolPop-61737",
+      "theme_available": false,
+      "theme_peer": null,
+      "title": "Lol Pop",
+      "value_amount": 860,
+      "value_currency": "USD",
+      "value_usd_amount": 860
+    }
+  ],
+  "next_offset": "9043027988293637418_5"
+}

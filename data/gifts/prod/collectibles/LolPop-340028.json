@@ -1,0 +1,161 @@
+{
+  "_": "UniqueStarGift",
+  "gift": {
+    "_": "StarGiftUnique",
+    "attributes": [
+      {
+        "_": "StarGiftAttributeModel",
+        "crafted": false,
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🍭",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 669159254791290919
+              },
+              "text_color": false
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 2,
+          "id": 5208479510982321993,
+          "mime_type": "application/x-tgsticker",
+          "size": 16401,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "2c01ad04dc7962490649094e094e018180818141824287448e469446944b87056687075a816a7179460445454a964e984a834d4e5351484554865a45454b975687644d4b4909984a0352435c8702480186084a0543547c4c01544c0799448a03aa8b09a18c4789044607890847058345444f845286438a868f8785818b4690448982808f819381848687888b868c558559954594438709808a0083948a04b689088805459b4905a34904a9818a8d8d94949797aeae860986099091880486069c8801",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 5872,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Magic Wand",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 10
+        }
+      },
+      {
+        "_": "StarGiftAttributePattern",
+        "document": {
+          "_": "Document",
+          "attributes": [
+            {
+              "_": "DocumentAttributeImageSize",
+              "h": 512,
+              "w": 512
+            },
+            {
+              "_": "DocumentAttributeCustomEmoji",
+              "alt": "🎁",
+              "free": false,
+              "stickerset": {
+                "_": "InputStickerSetID",
+                "id": 328917524764688486
+              },
+              "text_color": true
+            },
+            {
+              "_": "DocumentAttributeFilename",
+              "file_name": "AnimatedSticker.tgs"
+            }
+          ],
+          "dc_id": 1,
+          "id": 5546610367662129158,
+          "mime_type": "application/x-tgsticker",
+          "size": 990,
+          "thumbs": [
+            {
+              "_": "PhotoPathSize",
+              "bytes": "0d01b200dc5e64470246054a004a03494c806481708947008a4f01a55507b14b08950350009f0347098606b587028e058806960286a09788018f8b034492480589064a018b0144844f76507a465b664d03614f03834dbc58bb5d414945734e7552444905964908a847a9a8a9818a00468a4d95569c4886605e66656c7b86044803764c024b445f4c6a4445844594469a80824699469a9088b68886049985896693046e9502",
+              "type": "j"
+            },
+            {
+              "_": "PhotoSize",
+              "h": 128,
+              "size": 1518,
+              "type": "m",
+              "w": 128
+            }
+          ],
+          "video_thumbs": []
+        },
+        "name": "Greek Helmet",
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 5
+        }
+      },
+      {
+        "_": "StarGiftAttributeBackdrop",
+        "backdrop_id": 52,
+        "center_color": 10319041,
+        "edge_color": 7949728,
+        "name": "Grape",
+        "pattern_color": 4065899,
+        "rarity": {
+          "_": "StarGiftAttributeRarity",
+          "permille": 15
+        },
+        "text_color": 14728702
+      }
+    ],
+    "availability_issued": 435247,
+    "availability_total": 468745,
+    "burned": false,
+    "craft_chance_permille": null,
+    "crafted": false,
+    "gift_address": null,
+    "gift_id": 5170594532177215681,
+    "id": 5868668035086156802,
+    "num": 340028,
+    "offer_min_stars": null,
+    "owner_visibility": {
+      "blockchain_address": false,
+      "display_name": true,
+      "peer": false
+    },
+    "peer_color": null,
+    "released_by": null,
+    "require_premium": false,
+    "resale_ton_only": false,
+    "resell_amount": [
+      {
+        "_": "StarsAmount",
+        "amount": 564,
+        "nanos": 0
+      },
+      {
+        "_": "StarsTonAmount",
+        "amount": 8020000000
+      }
+    ],
+    "slug": "LolPop-340028",
+    "theme_available": false,
+    "theme_peer": null,
+    "title": "Lol Pop",
+    "value_amount": 860,
+    "value_currency": "USD",
+    "value_usd_amount": 860
+  }
+}

@@ -500,6 +500,23 @@
       },
       {
         "_": "JsonObjectValue",
+        "key": "ignore_restriction_reasons",
+        "value": {
+          "_": "JsonArray",
+          "value": [
+            {
+              "_": "JsonString",
+              "value": "sensitive"
+            },
+            {
+              "_": "JsonString",
+              "value": "porn"
+            }
+          ]
+        }
+      },
+      {
+        "_": "JsonObjectValue",
         "key": "autologin_domains",
         "value": {
           "_": "JsonArray",

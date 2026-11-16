@@ -11894,9 +11894,6 @@
   "Gift.MoveToWallet.Text": [
     "Transfer this gift to your blockchain wallet?"
   ],
-  "Gift.MoveToWallet.Title": [
-    "Move to My Wallet"
-  ],
   "Gift.NotAccepting": [
     "Sorry, %@ is not accepting gifts."
   ],

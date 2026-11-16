@@ -142,12 +142,12 @@
     "resell_amount": [
       {
         "_": "StarsAmount",
-        "amount": 2499,
+        "amount": 2500,
         "nanos": 0
       },
       {
         "_": "StarsTonAmount",
-        "amount": 35550000000
+        "amount": 35610000000
       }
     ],
     "slug": "SakuraFlower-84757",

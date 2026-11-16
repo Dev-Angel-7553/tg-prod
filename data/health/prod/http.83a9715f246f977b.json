@@ -1,6 +1,6 @@
 {
   "check": "http.https://translations.telegram.org/en/weba/stars_and_gifts",
-  "error": null,
+  "error": "ValueError",
   "scope": "This session and endpoint only; not proof of a global outage.",
-  "status": "checking"
+  "status": "api_error"
 }

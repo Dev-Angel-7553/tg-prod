@@ -1,6 +1,6 @@
 {
   "check": "http.https://webappinternal.telegram.org/botfather",
-  "error": null,
+  "error": "HTTPError",
   "scope": "This session and endpoint only; not proof of a global outage.",
-  "status": "checking"
+  "status": "transport_error"
 }

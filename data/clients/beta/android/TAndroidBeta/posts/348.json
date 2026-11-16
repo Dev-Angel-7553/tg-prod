@@ -1,0 +1,18 @@
+{
+  "attachment": {
+    "filename": "Telegram-Beta.apk",
+    "mime_type": "application/octet-stream",
+    "size_bytes": 80694617
+  },
+  "download_url": "https://telegram.org/dl/android/apk-public-beta",
+  "platform": "android",
+  "post_id": 348,
+  "published_at": "2026-11-09T15:19:37+00:00",
+  "release_hint": {
+    "build": 7302,
+    "version": "13.2.2"
+  },
+  "source_url": "https://t.me/TAndroidBeta/348",
+  "text": "13.2.2 (7302)\n- twidget fixes\n- possible fix for round recorder zoom",
+  "track": "beta"
+}

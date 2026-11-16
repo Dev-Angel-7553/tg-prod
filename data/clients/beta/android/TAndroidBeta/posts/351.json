@@ -1,0 +1,18 @@
+{
+  "attachment": {
+    "filename": "Telegram-Beta.apk",
+    "mime_type": "application/octet-stream",
+    "size_bytes": 81528636
+  },
+  "download_url": "https://telegram.org/dl/android/apk-public-beta",
+  "platform": "android",
+  "post_id": 351,
+  "published_at": "2026-11-15T17:37:01+00:00",
+  "release_hint": {
+    "build": 7322,
+    "version": "13.3.0"
+  },
+  "source_url": "https://t.me/TAndroidBeta/351",
+  "text": "13.3.0 (7322)\n- fix detecting language for transcribing voice message when selected different language in settings\n- fixed downloading models with test backend account",
+  "track": "beta"
+}

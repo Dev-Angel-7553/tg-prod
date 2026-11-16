@@ -1,0 +1,18 @@
+{
+  "attachment": {
+    "filename": "Telegram-Beta.apk",
+    "mime_type": "application/octet-stream",
+    "size_bytes": 81530018
+  },
+  "download_url": "https://telegram.org/dl/android/apk-public-beta",
+  "platform": "android",
+  "post_id": 350,
+  "published_at": "2026-11-15T16:19:55+00:00",
+  "release_hint": {
+    "build": 7321,
+    "version": "13.3.0"
+  },
+  "source_url": "https://t.me/TAndroidBeta/350",
+  "text": "13.3.0 (7321)\n- local speech to text models with tinyasr, supporting currently 9 languages\n- text dictation feature from locked voice recording\n- word/characters timestamps on local voice transcriptions\n- (experimental) live captions in calls",
+  "track": "beta"
+}

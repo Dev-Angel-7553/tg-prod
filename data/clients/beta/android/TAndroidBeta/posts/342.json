@@ -1,0 +1,18 @@
+{
+  "attachment": {
+    "filename": "Telegram-Beta.apk",
+    "mime_type": "application/octet-stream",
+    "size_bytes": 79927203
+  },
+  "download_url": "https://telegram.org/dl/android/apk-public-beta",
+  "platform": "android",
+  "post_id": 342,
+  "published_at": "2026-11-06T11:43:14+00:00",
+  "release_hint": {
+    "build": 7289,
+    "version": "13.2.1"
+  },
+  "source_url": "https://t.me/TAndroidBeta/342",
+  "text": "13.2.1 (7289)\n- possible fix for dark round video",
+  "track": "beta"
+}

@@ -142,12 +142,12 @@
     "resell_amount": [
       {
         "_": "StarsAmount",
-        "amount": 800,
+        "amount": 799,
         "nanos": 0
       },
       {
         "_": "StarsTonAmount",
-        "amount": 11600000000
+        "amount": 11570000000
       }
     ],
     "slug": "LolPop-153517",

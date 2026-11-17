@@ -23,7 +23,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 926,
+      "resell_min_stars": 924,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -727,7 +727,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 22248,
+      "availability_resale": 22243,
       "availability_total": 500000,
       "background": null,
       "birthday": false,
@@ -743,7 +743,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 438,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -871,7 +871,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 13096,
+      "availability_resale": null,
       "availability_total": 180000,
       "background": null,
       "birthday": false,
@@ -887,7 +887,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 450,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -933,7 +933,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Easter Egg",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1269760
     },
@@ -943,7 +943,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 10670,
+      "availability_resale": null,
       "availability_total": 250000,
       "background": null,
       "birthday": false,
@@ -959,7 +959,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -1005,7 +1005,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Spring Basket",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 800000
     },
@@ -1159,7 +1159,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 13819,
+      "availability_resale": null,
       "availability_total": 250000,
       "background": null,
       "birthday": false,
@@ -1175,7 +1175,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 778,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -1221,7 +1221,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Myth Mask",
+      "title": null,
       "upgrade_stars": 100,
       "upgrade_variants": 2116960
     },
@@ -1303,7 +1303,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 13834,
+      "availability_resale": null,
       "availability_total": 500000,
       "background": null,
       "birthday": true,
@@ -1319,7 +1319,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 350,
       "sticker": {
@@ -1365,7 +1365,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "B-Day Candle",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1536000
     },
@@ -1391,7 +1391,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -1447,7 +1447,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7179,
+      "availability_resale": 7180,
       "availability_total": 500000,
       "background": null,
       "birthday": true,
@@ -1463,7 +1463,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -1668,7 +1668,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 3528,
+      "availability_resale": 3529,
       "availability_total": 50000,
       "background": null,
       "birthday": false,
@@ -1684,7 +1684,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 539,
+      "resell_min_stars": 538,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -1740,7 +1740,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 6972,
+      "availability_resale": null,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -1756,7 +1756,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 576,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -1802,7 +1802,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Spy Agaric",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 652800
     },
@@ -1812,7 +1812,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4780,
+      "availability_resale": null,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -1828,7 +1828,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 528,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -1874,7 +1874,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Witch Hat",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 828000
     },
@@ -1884,7 +1884,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5953,
+      "availability_resale": null,
       "availability_total": 120000,
       "background": null,
       "birthday": false,
@@ -1900,7 +1900,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 686,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -1946,7 +1946,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Evil Eye",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 414000
     },
@@ -1956,7 +1956,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4386,
+      "availability_resale": 4387,
       "availability_total": 120000,
       "background": null,
       "birthday": false,
@@ -1972,7 +1972,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -2028,7 +2028,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5000,
+      "availability_resale": 5002,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -2044,7 +2044,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 468,
+      "resell_min_stars": 450,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -2172,7 +2172,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 9429,
+      "availability_resale": 9427,
       "availability_total": 150000,
       "background": null,
       "birthday": false,
@@ -2188,7 +2188,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 430,
+      "resell_min_stars": 450,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -2260,7 +2260,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 40457,
+      "resell_min_stars": 40369,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -2460,7 +2460,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4732,
+      "availability_resale": null,
       "availability_total": 40000,
       "background": null,
       "birthday": false,
@@ -2476,7 +2476,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 608,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 2500,
       "sticker": {
@@ -2522,7 +2522,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Surge Board",
+      "title": null,
       "upgrade_stars": 500,
       "upgrade_variants": 1000000
     },
@@ -2532,7 +2532,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 18213,
+      "availability_resale": 18211,
       "availability_total": 250000,
       "background": null,
       "birthday": false,
@@ -2620,7 +2620,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 11604,
+      "resell_min_stars": 11578,
       "sold_out": true,
       "stars": 30000,
       "sticker": {
@@ -2748,7 +2748,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2254,
+      "availability_resale": null,
       "availability_total": 30000,
       "background": null,
       "birthday": false,
@@ -2764,7 +2764,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3168,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -2810,7 +2810,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Voodoo Doll",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 414000
     },
@@ -2820,7 +2820,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 807,
+      "availability_resale": null,
       "availability_total": 20000,
       "background": null,
       "birthday": false,
@@ -2836,7 +2836,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 22759,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -2882,7 +2882,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Scared Cat",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 414000
     },
@@ -2892,7 +2892,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5934,
+      "availability_resale": null,
       "availability_total": 30000,
       "background": null,
       "birthday": false,
@@ -2908,7 +2908,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1029,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -2954,7 +2954,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Flying Broom",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 414000
     },
@@ -2980,7 +2980,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1021,
+      "resell_min_stars": 1019,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -3036,7 +3036,7 @@
       "auction_slug": "KhabibsPapakha",
       "auction_start_date": "2025-11-22T17:00:00+00:00",
       "availability_remains": 0,
-      "availability_resale": 3750,
+      "availability_resale": null,
       "availability_total": 29000,
       "background": {
         "_": "StarGiftBackground",
@@ -3060,7 +3060,7 @@
         "channel_id": 1719954244
       },
       "require_premium": false,
-      "resell_min_stars": 2255,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 2900,
       "sticker": {
@@ -3116,7 +3116,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2600,
+      "availability_resale": 2601,
       "availability_total": 30000,
       "background": null,
       "birthday": false,
@@ -3132,7 +3132,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1151,
+      "resell_min_stars": 1148,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -3204,7 +3204,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1509,
+      "resell_min_stars": 1505,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -3260,7 +3260,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1746,
+      "availability_resale": null,
       "availability_total": 30000,
       "background": null,
       "birthday": false,
@@ -3276,7 +3276,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1081,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -3322,7 +3322,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Mad Pumpkin",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 414000
     },
@@ -3348,7 +3348,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 4080,
+      "resell_min_stars": 4071,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -3420,7 +3420,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 5825,
+      "resell_min_stars": 5813,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -3492,7 +3492,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3976,
+      "resell_min_stars": 3967,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -3564,7 +3564,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2467,
+      "resell_min_stars": 2462,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -3620,7 +3620,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 431,
+      "availability_resale": null,
       "availability_total": 5000,
       "background": null,
       "birthday": false,
@@ -3636,7 +3636,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 5006,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -3682,7 +3682,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Magic Potion",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 414000
     },
@@ -3708,7 +3708,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1097,
+      "resell_min_stars": 1095,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -3764,7 +3764,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2170,
+      "availability_resale": 2169,
       "availability_total": 50000,
       "background": null,
       "birthday": false,
@@ -3780,7 +3780,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3291,
+      "resell_min_stars": 3284,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -3852,7 +3852,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 5714,
+      "resell_min_stars": 5701,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -3924,7 +3924,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2927,
+      "resell_min_stars": 2920,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -3980,7 +3980,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2851,
+      "availability_resale": null,
       "availability_total": 35000,
       "background": null,
       "birthday": false,
@@ -3996,7 +3996,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1330,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -4042,7 +4042,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Love Potion",
+      "title": null,
       "upgrade_stars": 200,
       "upgrade_variants": 1108800
     },
@@ -4052,7 +4052,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 33,
+      "availability_resale": 34,
       "availability_total": 2000,
       "background": null,
       "birthday": false,
@@ -4068,7 +4068,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 137143,
+      "resell_min_stars": 130001,
       "sold_out": true,
       "stars": 10000,
       "sticker": {
@@ -4140,7 +4140,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2964,
+      "resell_min_stars": 2957,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -4196,7 +4196,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2753,
+      "availability_resale": null,
       "availability_total": 40000,
       "background": null,
       "birthday": false,
@@ -4212,7 +4212,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1884,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -4258,7 +4258,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Cupid Charm",
+      "title": null,
       "upgrade_stars": 100,
       "upgrade_variants": 800000
     },
@@ -4268,7 +4268,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2096,
+      "availability_resale": 2097,
       "availability_total": 50000,
       "background": null,
       "birthday": false,
@@ -4284,7 +4284,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1007,
+      "resell_min_stars": 1005,
       "sold_out": true,
       "stars": 400,
       "sticker": {
@@ -4340,7 +4340,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 834,
+      "availability_resale": null,
       "availability_total": 15000,
       "background": null,
       "birthday": false,
@@ -4356,7 +4356,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 11513,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 2500,
       "sticker": {
@@ -4402,7 +4402,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Loot Bag",
+      "title": null,
       "upgrade_stars": 500,
       "upgrade_variants": 1257600
     },
@@ -4428,7 +4428,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3614,
+      "resell_min_stars": 3606,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -4484,7 +4484,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 439,
+      "availability_resale": null,
       "availability_total": 5000,
       "background": null,
       "birthday": false,
@@ -4500,7 +4500,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 10217,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 10000,
       "sticker": {
@@ -4546,7 +4546,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Nail Bracelet",
+      "title": null,
       "upgrade_stars": 2000,
       "upgrade_variants": 1048000
     },
@@ -4556,7 +4556,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5217,
+      "availability_resale": null,
       "availability_total": 150000,
       "background": null,
       "birthday": false,
@@ -4572,7 +4572,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -4618,7 +4618,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Restless Jar",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1048000
     },
@@ -4628,7 +4628,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 3460,
+      "availability_resale": null,
       "availability_total": 150000,
       "background": null,
       "birthday": false,
@@ -4644,7 +4644,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 651,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -4690,7 +4690,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Joyful Bundle",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 800000
     },
@@ -4700,7 +4700,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 12263,
+      "availability_resale": null,
       "availability_total": 70000,
       "background": null,
       "birthday": false,
@@ -4716,7 +4716,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1714,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -4762,7 +4762,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Sky Stilettos",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 800000
     },
@@ -4772,7 +4772,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7930,
+      "availability_resale": 7929,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -4788,7 +4788,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 535,
+      "resell_min_stars": 534,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -4844,7 +4844,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4668,
+      "availability_resale": null,
       "availability_total": 180000,
       "background": null,
       "birthday": false,
@@ -4860,7 +4860,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 250,
       "sticker": {
@@ -4906,7 +4906,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Lush Bouquet",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1048000
     },
@@ -4916,7 +4916,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 3772,
+      "availability_resale": 3770,
       "availability_total": 80000,
       "background": null,
       "birthday": false,
@@ -4932,7 +4932,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1165,
+      "resell_min_stars": 1162,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -4988,7 +4988,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 517,
+      "availability_resale": null,
       "availability_total": 10000,
       "background": null,
       "birthday": false,
@@ -5004,7 +5004,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 6031,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -5050,7 +5050,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Mini Oscar",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1572000
     },
@@ -5060,7 +5060,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2070,
+      "availability_resale": null,
       "availability_total": 50000,
       "background": null,
       "birthday": false,
@@ -5076,7 +5076,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2229,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -5122,7 +5122,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Eternal Rose",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 573000
     },
@@ -5148,7 +5148,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 685,
+      "resell_min_stars": 683,
       "sold_out": true,
       "stars": 2500,
       "sticker": {
@@ -5204,7 +5204,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 3115,
+      "availability_resale": null,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -5220,7 +5220,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 753,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -5266,7 +5266,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Berry Box",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 802200
     },
@@ -5297,7 +5297,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1439,
+      "resell_min_stars": 1435,
       "sold_out": true,
       "stars": 250,
       "sticker": {
@@ -5425,7 +5425,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 10548,
+      "availability_resale": 10550,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -5441,7 +5441,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -5497,7 +5497,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 19897,
+      "availability_resale": null,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -5513,7 +5513,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 450,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -5559,7 +5559,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Mood Pack",
+      "title": null,
       "upgrade_stars": 100,
       "upgrade_variants": 800000
     },
@@ -5585,7 +5585,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 14606,
+      "resell_min_stars": 14574,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -5641,7 +5641,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 444,
+      "availability_resale": null,
       "availability_total": 5000,
       "background": null,
       "birthday": false,
@@ -5657,7 +5657,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 9929,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 10000,
       "sticker": {
@@ -5703,7 +5703,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Mighty Arm",
+      "title": null,
       "upgrade_stars": 2000,
       "upgrade_variants": 800000
     },
@@ -5713,7 +5713,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4305,
+      "availability_resale": 4307,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -5729,7 +5729,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -5785,7 +5785,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 9598,
+      "availability_resale": null,
       "availability_total": 250000,
       "background": null,
       "birthday": false,
@@ -5801,7 +5801,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -5847,7 +5847,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Fresh Socks",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1000000
     },
@@ -5857,7 +5857,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 8784,
+      "availability_resale": null,
       "availability_total": 150000,
       "background": null,
       "birthday": false,
@@ -5873,7 +5873,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 525,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -5919,7 +5919,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Light Sword",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1064960
     },
@@ -5929,7 +5929,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 3323,
+      "availability_resale": null,
       "availability_total": 40000,
       "background": null,
       "birthday": false,
@@ -5945,7 +5945,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 821,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -5991,7 +5991,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Top Hat",
+      "title": null,
       "upgrade_stars": 200,
       "upgrade_variants": 1467200
     },
@@ -6073,7 +6073,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 30353,
+      "availability_resale": null,
       "availability_total": 500000,
       "background": null,
       "birthday": false,
@@ -6089,7 +6089,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 300,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 75,
       "sticker": {
@@ -6135,7 +6135,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Vice Cream",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1200000
     },
@@ -6145,7 +6145,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 19072,
+      "availability_resale": 19071,
       "availability_total": 350000,
       "background": null,
       "birthday": false,
@@ -6161,7 +6161,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 461,
+      "resell_min_stars": 450,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -6217,7 +6217,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1765,
+      "availability_resale": null,
       "availability_total": 10000,
       "background": null,
       "birthday": false,
@@ -6233,7 +6233,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2217,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -6279,7 +6279,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Bling Binky",
+      "title": null,
       "upgrade_stars": 1000,
       "upgrade_variants": 800000
     },
@@ -6305,7 +6305,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -6361,7 +6361,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 15225,
+      "availability_resale": null,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -6377,7 +6377,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -6423,7 +6423,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Spiced Wine",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1536000
     },
@@ -6449,7 +6449,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 6850,
+      "resell_min_stars": 6835,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -6505,7 +6505,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4033,
+      "availability_resale": 4034,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -6521,7 +6521,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 727,
+      "resell_min_stars": 725,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -6593,7 +6593,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 34279,
+      "resell_min_stars": 34204,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -6649,7 +6649,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1439,
+      "availability_resale": 1440,
       "availability_total": 50000,
       "background": null,
       "birthday": true,
@@ -6665,7 +6665,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 955,
+      "resell_min_stars": 953,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -6721,7 +6721,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2872,
+      "availability_resale": 2871,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -6737,7 +6737,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 801,
+      "resell_min_stars": 800,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -6793,7 +6793,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 691,
+      "availability_resale": null,
       "availability_total": 15000,
       "background": null,
       "birthday": false,
@@ -6809,7 +6809,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3015,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 350,
       "sticker": {
@@ -6855,7 +6855,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Genie Lamp",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 594000
     },
@@ -6865,7 +6865,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 12701,
+      "availability_resale": 12699,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -6881,7 +6881,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -7009,7 +7009,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 391,
+      "availability_resale": 390,
       "availability_total": 10000,
       "background": null,
       "birthday": false,
@@ -7025,7 +7025,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 10211,
+      "resell_min_stars": 10188,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -7081,7 +7081,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 225,
+      "availability_resale": null,
       "availability_total": 5000,
       "background": null,
       "birthday": false,
@@ -7097,7 +7097,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 20777,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -7143,7 +7143,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Precious Peach",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1387200
     },
@@ -7153,7 +7153,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5720,
+      "availability_resale": null,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -7169,7 +7169,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -7215,7 +7215,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Pretty Posy",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 800000
     },
@@ -7313,7 +7313,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3257,
+      "resell_min_stars": 3250,
       "sold_out": true,
       "stars": 2500,
       "sticker": {
@@ -7369,7 +7369,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1596,
+      "availability_resale": null,
       "availability_total": 40000,
       "background": null,
       "birthday": false,
@@ -7385,7 +7385,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1337,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -7431,7 +7431,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Ionic Dryer",
+      "title": null,
       "upgrade_stars": 200,
       "upgrade_variants": 960000
     },
@@ -7441,7 +7441,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 6511,
+      "availability_resale": 6509,
       "availability_total": 250000,
       "background": null,
       "birthday": false,
@@ -7457,7 +7457,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 450,
+      "resell_min_stars": 435,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -7513,7 +7513,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2723,
+      "availability_resale": null,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -7529,7 +7529,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 706,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -7575,7 +7575,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Bunny Muffin",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1134000
     },
@@ -7601,7 +7601,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 586632,
+      "resell_min_stars": 585345,
       "sold_out": true,
       "stars": 2000,
       "sticker": {
@@ -7657,7 +7657,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4739,
+      "availability_resale": 4741,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -7729,7 +7729,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1626,
+      "availability_resale": 1627,
       "availability_total": 50000,
       "background": null,
       "birthday": false,
@@ -7745,7 +7745,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 4799,
+      "resell_min_stars": 4788,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -7817,7 +7817,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2880,
+      "resell_min_stars": 2874,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -7950,7 +7950,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 11109,
+      "availability_resale": null,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -7966,7 +7966,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -8012,7 +8012,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Clover Pin",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1000000
     },
@@ -8022,7 +8022,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5866,
+      "availability_resale": 5863,
       "availability_total": 120000,
       "background": null,
       "birthday": false,
@@ -8038,7 +8038,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 250,
       "sticker": {
@@ -8110,7 +8110,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 686,
+      "resell_min_stars": 684,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -8166,7 +8166,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1736,
+      "availability_resale": null,
       "availability_total": 50000,
       "background": null,
       "birthday": false,
@@ -8182,7 +8182,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 813,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -8228,7 +8228,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Sleigh Bell",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1024000
     },
@@ -8238,7 +8238,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4451,
+      "availability_resale": null,
       "availability_total": 120000,
       "background": null,
       "birthday": false,
@@ -8254,7 +8254,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 549,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 75,
       "sticker": {
@@ -8300,7 +8300,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Snow Globe",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 544000
     },
@@ -8310,7 +8310,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5803,
+      "availability_resale": null,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -8326,7 +8326,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -8372,7 +8372,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Winter Wreath",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 772800
     },
@@ -8454,7 +8454,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7450,
+      "availability_resale": 7451,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -8470,7 +8470,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -8526,7 +8526,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7127,
+      "availability_resale": 7126,
       "availability_total": 120000,
       "background": null,
       "birthday": false,
@@ -8542,7 +8542,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 543,
+      "resell_min_stars": 542,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -8598,7 +8598,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1481,
+      "availability_resale": null,
       "availability_total": 15000,
       "background": null,
       "birthday": false,
@@ -8614,7 +8614,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2263,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -8660,7 +8660,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Rare Bird",
+      "title": null,
       "upgrade_stars": 1000,
       "upgrade_variants": 816000
     },
@@ -8670,7 +8670,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 32826,
+      "availability_resale": null,
       "availability_total": 500000,
       "background": null,
       "birthday": false,
@@ -8686,7 +8686,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 410,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -8732,7 +8732,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Chill Flame",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1248000
     },
@@ -8742,7 +8742,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 28443,
+      "availability_resale": 28441,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -8758,7 +8758,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 250,
       "sticker": {
@@ -8974,7 +8974,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 807,
+      "resell_min_stars": 805,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -9046,7 +9046,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -9102,7 +9102,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 13177,
+      "availability_resale": null,
       "availability_total": 600000,
       "background": null,
       "birthday": false,
@@ -9118,7 +9118,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 449,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 10,
       "sticker": {
@@ -9164,7 +9164,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Candy Cane",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 552000
     },
@@ -9174,7 +9174,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 8697,
+      "availability_resale": 8694,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -9190,7 +9190,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -9318,7 +9318,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 23361,
+      "availability_resale": null,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -9334,7 +9334,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -9380,7 +9380,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Party Sparkler",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 816000
     },
@@ -9390,7 +9390,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5286,
+      "availability_resale": 5285,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -9462,7 +9462,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 17280,
+      "availability_resale": 17278,
       "availability_total": 600000,
       "background": null,
       "birthday": false,
@@ -9534,7 +9534,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 19177,
+      "availability_resale": null,
       "availability_total": 500000,
       "background": null,
       "birthday": false,
@@ -9550,7 +9550,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 430,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -9596,7 +9596,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Instant Ramen",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1000000
     },
@@ -9606,7 +9606,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 6204,
+      "availability_resale": null,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -9622,7 +9622,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -9668,7 +9668,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Jack-in-the-Box",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1187840
     },
@@ -9694,7 +9694,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 6507,
+      "resell_min_stars": 6493,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -9750,7 +9750,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 8993,
+      "availability_resale": 8994,
       "availability_total": 150000,
       "background": null,
       "birthday": false,
@@ -9766,7 +9766,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 672,
+      "resell_min_stars": 671,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -9822,7 +9822,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 10236,
+      "availability_resale": null,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -9838,7 +9838,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -9884,7 +9884,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Happy Brownie",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1000000
     },
@@ -9894,7 +9894,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 9946,
+      "availability_resale": null,
       "availability_total": 120000,
       "background": null,
       "birthday": false,
@@ -9913,7 +9913,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 1234,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -9959,7 +9959,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Snoop Cigar",
+      "title": null,
       "upgrade_stars": 200,
       "upgrade_variants": 700000
     },
@@ -9969,7 +9969,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 13869,
+      "availability_resale": 13868,
       "availability_total": 240000,
       "background": null,
       "birthday": false,
@@ -9988,7 +9988,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -10044,7 +10044,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 35586,
+      "availability_resale": 35589,
       "availability_total": 600000,
       "background": null,
       "birthday": false,
@@ -10063,7 +10063,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -10138,7 +10138,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 5753,
+      "resell_min_stars": 5741,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -10194,7 +10194,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1025,
+      "availability_resale": 1024,
       "availability_total": 12000,
       "background": null,
       "birthday": false,
@@ -10213,7 +10213,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 9517,
+      "resell_min_stars": 9495,
       "sold_out": true,
       "stars": 10000,
       "sticker": {
@@ -10269,7 +10269,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 8304,
+      "availability_resale": null,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -10285,7 +10285,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 400,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -10331,7 +10331,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Snake Box",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 761600
     },
@@ -10341,7 +10341,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5840,
+      "availability_resale": 5841,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -10357,7 +10357,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 479,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -10413,7 +10413,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 8070,
+      "availability_resale": null,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -10429,7 +10429,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -10475,7 +10475,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Pet Snake",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 652800
     },
@@ -10485,7 +10485,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 6674,
+      "availability_resale": null,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -10501,7 +10501,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 420,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -10547,7 +10547,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Big Year",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1126400
     },
@@ -10557,7 +10557,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 12182,
+      "availability_resale": 12185,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -10573,7 +10573,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 400,
+      "resell_min_stars": 398,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -10701,7 +10701,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7905,
+      "availability_resale": null,
       "availability_total": 180000,
       "background": null,
       "birthday": false,
@@ -10717,7 +10717,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": null,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -10763,7 +10763,7 @@
         ],
         "video_thumbs": []
       },
-      "title": "Stellar Rocket",
+      "title": null,
       "upgrade_stars": 25,
       "upgrade_variants": 1000000
     },
@@ -10789,7 +10789,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 106218,
+      "resell_min_stars": 105985,
       "sold_out": true,
       "stars": 20000,
       "sticker": {
@@ -10861,7 +10861,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 171361,
+      "resell_min_stars": 170985,
       "sold_out": true,
       "stars": 20000,
       "sticker": {

@@ -139,17 +139,7 @@
     "released_by": null,
     "require_premium": false,
     "resale_ton_only": false,
-    "resell_amount": [
-      {
-        "_": "StarsAmount",
-        "amount": 2499,
-        "nanos": 0
-      },
-      {
-        "_": "StarsTonAmount",
-        "amount": 36420000000
-      }
-    ],
+    "resell_amount": [],
     "slug": "SakuraFlower-84757",
     "theme_available": false,
     "theme_peer": null,

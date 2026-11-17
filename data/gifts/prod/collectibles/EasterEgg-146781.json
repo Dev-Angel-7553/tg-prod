@@ -163,15 +163,15 @@
       },
       {
         "_": "StarsTonAmount",
-        "amount": 10680000000
+        "amount": 10690000000
       }
     ],
     "slug": "EasterEgg-146781",
     "theme_available": false,
     "theme_peer": null,
     "title": "Easter Egg",
-    "value_amount": 562,
+    "value_amount": 1200,
     "value_currency": "USD",
-    "value_usd_amount": 562
+    "value_usd_amount": 1200
   }
 }

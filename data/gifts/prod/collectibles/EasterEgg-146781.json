@@ -158,12 +158,12 @@
     "resell_amount": [
       {
         "_": "StarsAmount",
-        "amount": 739,
+        "amount": 740,
         "nanos": 0
       },
       {
         "_": "StarsTonAmount",
-        "amount": 10720000000
+        "amount": 10690000000
       }
     ],
     "slug": "EasterEgg-146781",

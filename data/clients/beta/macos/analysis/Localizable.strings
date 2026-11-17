@@ -4860,6 +4860,8 @@
   "Deprecated.Title": "Update macOS",
   "Developer.ViewController.ResetApp": "Reset App",
   "Developer.ViewController.ResetAppLoginNotPreserved": "Could not preserve your login. The database has not been cleared.",
+  "DeviceKeyRecovery.AutomaticContinuation": "Telegram will continue automatically.",
+  "DeviceKeyRecovery.Waiting": "Waiting for macOS to unlock your keychain…",
   "DiceRoll.EmojiStake": "Emoji Stake",
   "DiceRoll.EmojiStakeDescription": "A limited play-test of the upcoming emoji mini-game platform for a small group of users.",
   "DiceRoll.EnterStakePlaceholder": "Enter your stake",

@@ -569,7 +569,7 @@
       "pattern_color": 289542,
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 12
+        "permille": 11
       },
       "text_color": 12775358
     },
@@ -15144,7 +15144,7 @@
       "name": "Magic Hat",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 6
+        "permille": 5
       }
     },
     {

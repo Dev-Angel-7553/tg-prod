@@ -136,7 +136,7 @@
         }
       }
     ],
-    "availability_issued": 164164,
+    "availability_issued": 164165,
     "availability_total": 173176,
     "burned": false,
     "craft_chance_permille": null,
@@ -163,7 +163,7 @@
       },
       {
         "_": "StarsTonAmount",
-        "amount": 10680000000
+        "amount": 10690000000
       }
     ],
     "slug": "EasterEgg-146781",

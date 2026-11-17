@@ -139,17 +139,7 @@
     "released_by": null,
     "require_premium": false,
     "resale_ton_only": false,
-    "resell_amount": [
-      {
-        "_": "StarsAmount",
-        "amount": 564,
-        "nanos": 0
-      },
-      {
-        "_": "StarsTonAmount",
-        "amount": 7960000000
-      }
-    ],
+    "resell_amount": [],
     "slug": "LolPop-340028",
     "theme_available": false,
     "theme_peer": null,

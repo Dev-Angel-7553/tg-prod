@@ -569,7 +569,7 @@
       "pattern_color": 289542,
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 11
+        "permille": 12
       },
       "text_color": 12775358
     },
@@ -907,7 +907,7 @@
       "pattern_color": 869814,
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 10
+        "permille": 9
       },
       "text_color": 12705535
     },

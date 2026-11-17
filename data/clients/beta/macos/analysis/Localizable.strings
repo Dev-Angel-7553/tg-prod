@@ -354,6 +354,7 @@
   "AIAssistant.PlanWidget.NothingChangesUntilYouRunIt": " · nothing changes until you run it",
   "AIAssistant.PlanWidget.Steps_one": "%1$d step",
   "AIAssistant.PlanWidget.Steps_other": "%1$d steps",
+  "AIAssistant.ProtectedChat.Placeholder": "This chat is protected. Ask anything else…",
   "AIAssistant.SafetyController.AgentAccess": "Agent Access",
   "AIAssistant.SafetyController.AgentAccessInfo": "Limit what each agent may change and which folders it can see. Agents never see chats outside their folders, even when searching.",
   "AIAssistant.SafetyController.Agents": "AGENTS",

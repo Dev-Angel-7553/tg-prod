@@ -142,20 +142,20 @@
     "resell_amount": [
       {
         "_": "StarsAmount",
-        "amount": 800,
+        "amount": 799,
         "nanos": 0
       },
       {
         "_": "StarsTonAmount",
-        "amount": 11400000000
+        "amount": 11410000000
       }
     ],
     "slug": "LolPop-153517",
     "theme_available": false,
     "theme_peer": null,
     "title": "Lol Pop",
-    "value_amount": 872,
+    "value_amount": 871,
     "value_currency": "USD",
-    "value_usd_amount": 872
+    "value_usd_amount": 871
   }
 }

@@ -147,15 +147,15 @@
       },
       {
         "_": "StarsTonAmount",
-        "amount": 8250000000
+        "amount": 8270000000
       }
     ],
     "slug": "LolPop-340028",
     "theme_available": false,
     "theme_peer": null,
     "title": "Lol Pop",
-    "value_amount": 495,
+    "value_amount": 872,
     "value_currency": "USD",
-    "value_usd_amount": 495
+    "value_usd_amount": 872
   }
 }

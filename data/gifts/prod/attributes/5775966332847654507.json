@@ -439,7 +439,7 @@
       "pattern_color": 264202,
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 12
+        "permille": 11
       },
       "text_color": 11978188
     },
@@ -569,7 +569,7 @@
       "pattern_color": 289542,
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 12
+        "permille": 11
       },
       "text_color": 12775358
     },
@@ -3007,7 +3007,7 @@
       "name": "Evil Genius",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 13
+        "permille": 12
       }
     },
     {

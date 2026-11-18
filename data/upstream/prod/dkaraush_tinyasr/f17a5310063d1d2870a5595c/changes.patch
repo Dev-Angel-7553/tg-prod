@@ -1,0 +1,1697 @@
+diff --git a/include/tinyasr.h b/include/tinyasr.h
+@@ -1,5 +1,6 @@
+ /* tinyasr: on-device speech recognition (streaming with pause / end-of-turn detection, or a whole file).
+- * Audio: mono float, 16 kHz, [-1, 1]. Not thread-safe per object; models can serve several sessions.
++ * Audio: mono float, 16 kHz, [-1, 1]. Not thread-safe per object; models can serve several sessions (each call runs
++ * on the caller's thread, or on more: see tinyasr_set_threads).
+  * Returned strings are UTF-8 JSON owned by the object, valid until its next call.
+  * Model files are checked when loaded: a corrupted file, or one for another version, makes tinyasr_load return NULL
+  * with the reason; it never crashes. Every function accepts NULL for its object and then does nothing: it returns
+@@ -26,6 +27,71 @@ tinyasr_models *tinyasr_load(const uint8_t *asr, size_t asr_len, const uint8_t *
+ void tinyasr_free(tinyasr_models *m);
+ uint32_t tinyasr_chunk_ms(const tinyasr_models *m); /* 0 for NULL */
+ 
++/* Threads. By default every call runs on the thread that makes it. The bigger steps of a pass (matrix products,
++ * attention heads, row blocks of a layer) can be split over more threads instead, with the same results to the bit for
++ * any number of threads. Two ways, set on the models while no session or file of them is running (simplest: right
++ * after tinyasr_load):
++ *
++ * tinyasr_set_threads(m, n): the library's own n - 1 extra threads (n = 0, 1: none). They start on the first parallel
++ *   step, from the thread that makes that call, and inherit its CPU affinity (Linux, Android): pin that thread to the
++ *   cores you want and the extra threads follow. Between steps they spin briefly (~0.1 ms), then sleep; tinyasr_free
++ *   ends them.
++ * tinyasr_set_parallel_for(m, parallel_for, user, n): your own pool runs the tasks; the library starts no thread.
++ *   parallel_for(user, count, task, ctx) must call task(ctx, i) for every i in [0, count) - from any threads, in any
++ *   order, possibly at the same time - and return when all have finished. It may be called from any thread, also from
++ *   several at once (sessions of the same models on different threads). task must not call back into tinyasr. n: how
++ *   many tasks run at once (steps too small to be worth splitting stay on the calling thread). NULL: back to one thread.
++ *
++ * How many: the cores of the fastest cluster. Steps wait for their slowest task, so mixing big and little cores (or two
++ * clusters) is often slower than the big ones alone. Measured: Snapdragon 8 Elite, 2 threads on its 2 prime cores:
++ * ~1.5x (more threads: no faster); Apple M5 Pro, 4 threads: ~2x on files, ~1.7x streaming. Builds without std: one
++ * thread, both functions do nothing.
++ *
++ * Android: pin the thread that calls tinyasr to the big cores (cpu_capacity close to the largest), then give that many
++ * threads. Call this on that thread before the first session / file call:
++ *
++ *     #define _GNU_SOURCE
++ *     #include <sched.h>
++ *     #include <stdio.h>
++ *     static int pin_to_big_cores(void) {           // returns the number of big cores (0: unknown, nothing pinned)
++ *         int cap[CPU_SETSIZE], n = 0, max = 0, big = 0;
++ *         for (; n < CPU_SETSIZE; n++) {
++ *             char path[64];
++ *             snprintf(path, sizeof path, "/sys/devices/system/cpu/cpu%d/cpu_capacity", n);
++ *             FILE *f = fopen(path, "r");
++ *             if (f == NULL) break;
++ *             if (fscanf(f, "%d", &cap[n]) != 1) cap[n] = 0;
++ *             fclose(f);
++ *             if (cap[n] > max) max = cap[n];
++ *         }
++ *         cpu_set_t set;
++ *         CPU_ZERO(&set);
++ *         for (int i = 0; i < n; i++) if (max > 0 && cap[i] * 10 >= max * 9) { CPU_SET(i, &set); big++; }
++ *         if (big > 0) sched_setaffinity(0, sizeof set, &set);
++ *         return big;
++ *     }
++ *     ...
++ *     int big = pin_to_big_cores();               // on the thread that will call tinyasr
++ *     tinyasr_set_threads(m, big > 0 ? big : 1);  // then sessions / files as usual, from this thread
++ *
++ * Apple (iOS, macOS): run the calls on a thread or queue of high QoS (user-initiated or user-interactive), and either
++ * tinyasr_set_threads(m, P) with P = sysctlbyname("hw.perflevel0.physicalcpu") (the performance cores), or GCD, whose
++ * dispatch_apply_f has exactly the task signature:
++ *
++ *     #include <dispatch/dispatch.h>
++ *     static void gcd_parallel_for(void *user, size_t n, tinyasr_task task, void *ctx) {
++ *         dispatch_apply_f(n, DISPATCH_APPLY_AUTO, ctx, task);   // returns when all n have run
++ *     }
++ *     ...
++ *     tinyasr_set_parallel_for(m, gcd_parallel_for, NULL, P);
++ *
++ * With the built-in threads, one parallel step of the models runs at a time: a session on another thread that reaches
++ * a step meanwhile runs that step on its own thread (correct, just not split). */
++typedef void (*tinyasr_task)(void *ctx, size_t i);
++typedef void (*tinyasr_parallel_for)(void *user, size_t n, tinyasr_task task, void *ctx);
++void tinyasr_set_threads(tinyasr_models *m, uint32_t threads);
++void tinyasr_set_parallel_for(tinyasr_models *m, tinyasr_parallel_for parallel_for, void *user, uint32_t threads);
++
+ /* Live audio. langs: the languages to recognize in, comma-separated ("en", "en,ru"; NULL or "": all), e.g. from a
+  * language ID the host runs. One fixes the language; with several every full-context pass runs in each of them and
+  * the surest wins (that many times the cost). Starts from start_lang (may be NULL).
+diff --git a/src/fbank.rs b/src/fbank.rs
+@@ -116,9 +116,12 @@ impl Fbank {
+     /// Frames lo..hi of the audio whose samples from `off` on are `x` (see `frame`).
+     pub fn frames_at(&self, x: &[f32], off: usize, lo: usize, hi: usize) -> Vec<f32> {
+         let mut out = vec![0.0; (hi - lo) * BINS];
+-        for i in lo..hi {
+-            self.frame(x, off, i, &mut out[(i - lo) * BINS..(i - lo + 1) * BINS]);
+-        }
++        // frames are independent: blocks of 64, one task each (~10k operations a frame)
++        crate::par::chunks_mut(&mut out, 64 * BINS, (hi - lo) * 10_000, |b, o| {
++            for (j, f) in o.chunks_exact_mut(BINS).enumerate() {
++                self.frame(x, off, lo + b * 64 + j, f);
++            }
++        });
+         out
+     }
+ 
+diff --git a/src/ffi.rs b/src/ffi.rs
+@@ -166,6 +166,67 @@ pub unsafe extern "C" fn tinyasr_free(m: *mut Models) {
+     }
+ }
+ 
++/// Run the bigger steps on up to `threads` threads (0, 1: only the calling one). See `Models::set_threads`.
++#[unsafe(no_mangle)]
++pub unsafe extern "C" fn tinyasr_set_threads(m: *mut Models, threads: u32) {
++    // SAFETY: m is null or came from tinyasr_load, and no session or file uses it at the moment.
++    #[cfg(feature = "std")]
++    if let Some(m) = unsafe { m.as_mut() } {
++        m.set_threads(threads as usize);
++    }
++    #[cfg(not(feature = "std"))]
++    let _ = (m, threads);
++}
++
++/// A task of a parallel step: the host's parallel-for calls it with `ctx` and each index.
++pub type Task = unsafe extern "C" fn(ctx: *mut core::ffi::c_void, i: usize);
++/// The host's parallel-for: call `task(ctx, i)` for every i in 0..n (any threads, any order, possibly at the same time),
++/// return when all have finished.
++pub type ParallelFor = unsafe extern "C" fn(user: *mut core::ffi::c_void, n: usize, task: Task, ctx: *mut core::ffi::c_void);
++
++/// The host's `user` pointer, handed back to its parallel-for from whichever thread runs a step.
++#[cfg(feature = "std")]
++struct User(*mut core::ffi::c_void);
++// SAFETY: the host promises its parallel-for may be called from any thread (tinyasr.h).
++#[cfg(feature = "std")]
++unsafe impl Send for User {}
++#[cfg(feature = "std")]
++unsafe impl Sync for User {}
++
++#[cfg(feature = "std")]
++impl User {
++    /// (a method: closures capture the whole wrapper, not its field)
++    fn get(&self) -> *mut core::ffi::c_void {
++        self.0
++    }
++}
++
++/// Run the bigger steps through the host's parallel-for (`threads`: how many it runs at once); NULL: one thread.
++#[unsafe(no_mangle)]
++pub unsafe extern "C" fn tinyasr_set_parallel_for(m: *mut Models, f: Option<ParallelFor>, user: *mut core::ffi::c_void, threads: u32) {
++    // SAFETY: m is null or came from tinyasr_load, and no session or file uses it at the moment.
++    #[cfg(feature = "std")]
++    if let Some(m) = unsafe { m.as_mut() } {
++        let Some(f) = f else {
++            m.set_threads(1);
++            return;
++        };
++        let user = User(user);
++        m.set_parallel_for(threads as usize, move |n, task: &(dyn Fn(usize) + Sync)| {
++            unsafe extern "C" fn tramp(ctx: *mut core::ffi::c_void, i: usize) {
++                // SAFETY: ctx is the `&task` below, alive until the host's parallel-for returns.
++                let task = unsafe { &*(ctx as *const &(dyn Fn(usize) + Sync)) };
++                task(i);
++            }
++            let ctx = &task as *const &(dyn Fn(usize) + Sync) as *mut core::ffi::c_void;
++            // SAFETY: the host's function, with its pointer; it returns only when every task has run.
++            unsafe { f(user.get(), n, tramp, ctx) };
++        });
++    }
++    #[cfg(not(feature = "std"))]
++    let _ = (m, f, user, threads);
++}
++
+ /// Streaming chunk of the recognizer (ms).
+ #[unsafe(no_mangle)]
+ pub unsafe extern "C" fn tinyasr_chunk_ms(m: *const Models) -> u32 {
+diff --git a/src/file.rs b/src/file.rs
+@@ -86,6 +86,13 @@ impl Iterator for Transcription<'_> {
+     type Item = Vec<Word>;
+ 
+     fn next(&mut self) -> Option<Vec<Word>> {
++        let m = self.m;
++        m.with_threads(|| self.next_here())
++    }
++}
++
++impl Transcription<'_> {
++    fn next_here(&mut self) -> Option<Vec<Word>> {
+         let n = self.vf.len();
+         loop {
+             let first = (self.open0..n).find(|&i| self.vf[i])?;
+diff --git a/src/kernels.rs b/src/kernels.rs
+@@ -76,13 +76,16 @@ impl Panels for Packed {
+ }
+ 
+ /// The cache-blocked loop around the micro-kernel: blocks of MB rows of `a`, one weight panel at a time.
+-fn blocked(a: &[f32], b: &impl Panels, bias: Option<&[f32]>, out: &mut [f32]) {
++fn blocked(a: &[f32], b: &(impl Panels + Sync), bias: Option<&[f32]>, out: &mut [f32]) {
+     let (n, k) = (b.n(), b.k());
+     let m = a.len() / k;
+-    let mut tile = [[0f32; NR]; MR];
+-    let mut scratch = vec![0f32; k * NR];
+-    for i0 in (0..m).step_by(MB) {
+-        let i1 = (i0 + MB).min(m);
++    // blocks of rows are independent: one task each
++    let mb = crate::par::block_rows(m, MB);
++    crate::par::chunks_mut(out, mb * n, m * n * k, |blk, out| {
++        let i0 = blk * mb;
++        let i1 = (i0 + mb).min(m);
++        let mut tile = [[0f32; NR]; MR];
++        let mut scratch = vec![0f32; k * NR];
+         for jp in 0..n.div_ceil(NR) {
+             let panel = b.panel(jp, &mut scratch);
+             let j0 = jp * NR;
+@@ -104,12 +107,13 @@ fn blocked(a: &[f32], b: &impl Panels, bias: Option<&[f32]>, out: &mut [f32]) {
+                     }
+                 }
+                 for r in 0..rows {
+-                    out[(i + r) * n + j0..(i + r) * n + j0 + cols].copy_from_slice(&tile[r][..cols]);
++                    let o = (i + r - i0) * n + j0;
++                    out[o..o + cols].copy_from_slice(&tile[r][..cols]);
+                 }
+                 i += rows;
+             }
+         }
+-    }
++    });
+ }
+ 
+ /// out = init + rows(a) x panel, for R rows of `a` (each k long) and one panel of NR columns.
+@@ -134,7 +138,7 @@ fn kernel<const R: usize>(a: &[f32], k: usize, panel: &[f32], init: &[f32; NR],
+ #[inline(always)]
+ #[allow(unsafe_code)]
+ fn kernel<const R: usize>(a: &[f32], k: usize, panel: &[f32], init: &[f32; NR], out: &mut [[f32; NR]; R]) {
+-    use core::arch::aarch64::{float32x4_t, vdupq_n_f32, vfmaq_f32, vld1q_f32, vst1q_f32};
++    use core::arch::aarch64::{float32x4_t, vdupq_n_f32, vfmaq_f32, vfmaq_laneq_f32, vld1q_f32, vst1q_f32};
+     const { assert!(NR == 16) };
+     assert!(a.len() >= R * k && panel.len() >= k * NR);
+     // SAFETY: NEON is mandatory on aarch64; every load/store stays inside the slices checked above
+@@ -144,7 +148,30 @@ fn kernel<const R: usize>(a: &[f32], k: usize, panel: &[f32], init: &[f32; NR],
+         let start: [float32x4_t; 4] = [vld1q_f32(ip), vld1q_f32(ip.add(4)), vld1q_f32(ip.add(8)), vld1q_f32(ip.add(12))];
+         let mut acc = [start; R];
+         let (ap, bp) = (a.as_ptr(), panel.as_ptr());
+-        for p in 0..k {
++        // 4 k at a time: one load of each row's 4 values, used by lane (the same multiply-adds in the same order)
++        macro_rules! step {
++            ($l:literal, $p:expr, $av:expr) => {
++                let b = bp.add($p * NR);
++                let (b0, b1, b2, b3) = (vld1q_f32(b), vld1q_f32(b.add(4)), vld1q_f32(b.add(8)), vld1q_f32(b.add(12)));
++                for (acc, x) in acc.iter_mut().zip($av.iter()) {
++                    acc[0] = vfmaq_laneq_f32::<$l>(acc[0], b0, *x);
++                    acc[1] = vfmaq_laneq_f32::<$l>(acc[1], b1, *x);
++                    acc[2] = vfmaq_laneq_f32::<$l>(acc[2], b2, *x);
++                    acc[3] = vfmaq_laneq_f32::<$l>(acc[3], b3, *x);
++                }
++            };
++        }
++        let k4 = k / 4 * 4;
++        let mut p = 0;
++        while p < k4 {
++            let av: [float32x4_t; R] = core::array::from_fn(|r| vld1q_f32(ap.add(r * k + p)));
++            step!(0, p, av);
++            step!(1, p + 1, av);
++            step!(2, p + 2, av);
++            step!(3, p + 3, av);
++            p += 4;
++        }
++        for p in k4..k {
+             let b = bp.add(p * NR);
+             let (b0, b1, b2, b3) = (vld1q_f32(b), vld1q_f32(b.add(4)), vld1q_f32(b.add(8)), vld1q_f32(b.add(12)));
+             for (r, acc) in acc.iter_mut().enumerate() {
+@@ -263,6 +290,7 @@ pub fn tanh(x: f32) -> f32 {
+ 
+ /// How `Quant` multiplies, picked once from the CPU.
+ #[derive(Clone, Copy, PartialEq, Eq, Debug)]
++#[allow(dead_code)] // each target builds only its own paths
+ pub enum Path {
+     /// Weights widened to f32, float micro-kernel (exact; no activation quantization).
+     F32,
+@@ -275,7 +303,6 @@ pub enum Path {
+     /// aarch64 `smmla` (ARMv8.6 i8mm).
+     Mmla,
+     /// wasm SIMD128: widening multiplies (`i16x8.extmul_*_i8x16_s`).
+-    #[cfg_attr(not(all(target_arch = "wasm32", target_feature = "simd128")), allow(dead_code))]
+     Wasm,
+ }
+ 
+@@ -463,54 +490,91 @@ impl Quant {
+             return out;
+         }
+         let (n, k, g) = (self.n, self.k, self.group);
+-        let ng = k / g;
+-        let act = pack_act(a, m, k, g, path == Path::Dot);
++        let dot = path == Path::Dot;
+         let pairs = m.div_ceil(2);
+-        let pb = self.panel_bytes();
+-        let zero = vec![0f32; if bias.is_some() { 0 } else { n.div_ceil(8) * 8 }];
++        let np = n.div_ceil(8);
++        let zero = vec![0f32; if bias.is_some() { 0 } else { np * 8 }];
+         let bias = bias.unwrap_or(&zero);
++        let work = m * n * k;
+         const MBP: usize = 16; // row pairs per cache block (32 rows: 16 KiB of activations at k = 512)
+-        for p0 in (0..pairs).step_by(MBP) {
+-            let p1 = (p0 + MBP).min(pairs);
+-            for jp in 0..n.div_ceil(8) {
+-                let w = &self.w[jp * pb..(jp + 1) * pb];
+-                let sw = &self.s[jp * ng * 8..(jp + 1) * ng * 8];
+-                let mut p = p0;
+-                while p < p1 {
+-                    let rp = if path == Path::Mmla && p1 - p >= 4 { 4 } else if p1 - p >= 2 { 2 } else { 1 };
+-                    let a = &act.q[p * 2 * k..(p + rp) * 2 * k];
+-                    let sa = &act.s[p * ng * 4..(p + rp) * ng * 4];
+-                    let mut t = [[[0f32; 4]; 4]; RPMAX];
+-                    tile(path, rp, self.int4, a, sa, w, sw, k, g, &mut t);
+-                    let j0 = jp * 8;
+-                    for (r, t) in t.iter().enumerate().take(rp) {
+-                        let r0 = 2 * (p + r);
+-                        if r0 + 2 <= m && j0 + 8 <= n {
+-                            // whole block: row r0 is lanes 0, 1 of every pair, row r0 + 1 lanes 2, 3
+-                            let b = &bias[j0..j0 + 8];
+-                            for h in 0..2 {
+-                                let o = &mut out[(r0 + h) * n + j0..(r0 + h) * n + j0 + 8];
+-                                for pp in 0..4 {
+-                                    o[2 * pp] = t[pp][2 * h] + b[2 * pp];
+-                                    o[2 * pp + 1] = t[pp][2 * h + 1] + b[2 * pp + 1];
+-                                }
++        let mbp = crate::par::block_rows(2 * pairs, 2 * MBP) / 2;
++        let threads = crate::par::threads();
++        if threads > 1 && pairs.div_ceil(mbp) < 2 * threads && np >= 2 * threads && work >= crate::par::MIN_WORK {
++            // few rows (streaming chunks, decoding): groups of output panels instead, one task each, into their own
++            // columns
++            let act = pack_act(a, m, k, g, dot);
++            let pg = np.div_ceil(4 * threads);
++            let parts = crate::par::map(np.div_ceil(pg), work, |grp| {
++                let (jp0, jp1) = (grp * pg, (grp * pg + pg).min(np));
++                let w = (jp1 - jp0) * 8;
++                let mut o = vec![0f32; m * w];
++                self.block(path, &act, 0, pairs, m, jp0, jp1, bias, &mut o, 0, jp0 * 8, w);
++                o
++            });
++            for (grp, o) in parts.iter().enumerate() {
++                let j0 = grp * pg * 8;
++                let w = o.len() / m;
++                let c = w.min(n - j0);
++                for r in 0..m {
++                    out[r * n + j0..r * n + j0 + c].copy_from_slice(&o[r * w..r * w + c]);
++                }
++            }
++            return out;
++        }
++        // blocks of row pairs are independent: one task each, which quantizes its own rows
++        crate::par::chunks_mut(&mut out, 2 * mbp * n, work, |blk, out| {
++            let (p0, r0) = (blk * mbp, 2 * blk * mbp); // first pair, first row of the block
++            let rows = out.len() / n;
++            let act = pack_act(&a[r0 * k..(r0 + rows) * k], rows, k, g, dot);
++            self.block(path, &act, p0, (p0 + mbp).min(pairs), m, 0, np, bias, out, r0, 0, n);
++        });
++        out
++    }
++
++    /// Row pairs p0..p1 x output panels jp0..jp1 into `out` (row r, column j at (r - r0) * stride + j - c0). `act`
++    /// holds the rows from pair p0 on; `m`: all rows of the product.
++    #[allow(clippy::too_many_arguments)]
++    fn block(&self, path: Path, act: &Act, p0: usize, p1: usize, m: usize, jp0: usize, jp1: usize, bias: &[f32], out: &mut [f32], r0: usize, c0: usize, stride: usize) {
++        let (n, k, g) = (self.n, self.k, self.group);
++        let ng = k / g;
++        let pb = self.panel_bytes();
++        for jp in jp0..jp1 {
++            let w = &self.w[jp * pb..(jp + 1) * pb];
++            let sw = &self.s[jp * ng * 8..(jp + 1) * ng * 8];
++            let j0 = jp * 8;
++            let mut p = p0;
++            while p < p1 {
++                let rp = if path == Path::Mmla && p1 - p >= 4 { 4 } else if p1 - p >= 2 { 2 } else { 1 };
++                let (a, sa) = (&act.q[(p - p0) * 2 * k..(p - p0 + rp) * 2 * k], &act.s[(p - p0) * ng * 4..(p - p0 + rp) * ng * 4]);
++                let mut t = [[[0f32; 4]; 4]; RPMAX];
++                tile(path, rp, rp == 1 && 2 * p + 1 == m, self.int4, a, sa, w, sw, k, g, &mut t);
++                for (r, t) in t.iter().enumerate().take(rp) {
++                    let rr = 2 * (p + r);
++                    if rr + 2 <= m && j0 + 8 <= n {
++                        // whole block: row rr is lanes 0, 1 of every pair, row rr + 1 lanes 2, 3
++                        let b = &bias[j0..j0 + 8];
++                        for h in 0..2 {
++                            let o0 = (rr + h - r0) * stride + j0 - c0;
++                            let o = &mut out[o0..o0 + 8];
++                            for pp in 0..4 {
++                                o[2 * pp] = t[pp][2 * h] + b[2 * pp];
++                                o[2 * pp + 1] = t[pp][2 * h + 1] + b[2 * pp + 1];
+                             }
+-                            continue;
+                         }
+-                        for (pp, t) in t.iter().enumerate() {
+-                            for (lane, &(ri, oi)) in MMLA_LANES.iter().enumerate() {
+-                                let (row, o) = (r0 + ri, j0 + 2 * pp + oi);
+-                                if row < m && o < n {
+-                                    out[row * n + o] = t[lane] + bias[o];
+-                                }
++                        continue;
++                    }
++                    for (pp, t) in t.iter().enumerate() {
++                        for (lane, &(ri, oi)) in MMLA_LANES.iter().enumerate() {
++                            let (row, o) = (rr + ri, j0 + 2 * pp + oi);
++                            if row < m && o < n {
++                                out[(row - r0) * stride + o - c0] = t[lane] + bias[o];
+                             }
+                         }
+                     }
+-                    p += rp;
+                 }
++                p += rp;
+             }
+         }
+-        out
+     }
+ }
+ 
+@@ -536,11 +600,17 @@ fn pack_act(a: &[f32], m: usize, k: usize, g: usize, dot: bool) -> Act {
+             let sv = &mut s[(p * ng + c) * 4..(p * ng + c + 1) * 4];
+             let lanes = if dot { &DOT_LANES } else { &MMLA_LANES };
+             for (l, &(ri, _)) in lanes.iter().enumerate() {
+-                if ri == h {
++                // `dot`: a lone last row fills the whole pair (both halves are it: see `neon::dot`, SINGLE)
++                if ri == h || dot && r + 1 == m && h == 0 {
+                     sv[l] = max / 127.0;
+                 }
+             }
+         }
++        if dot && r + 1 == m && h == 0 {
++            for st in 0..k / 8 {
++                dst.copy_within(st * 16..st * 16 + 8, st * 16 + 8);
++            }
++        }
+     }
+     Act { q, s }
+ }
+@@ -581,8 +651,9 @@ fn quant8(x: &[f32], inv: f32, out: &mut [i8]) {
+ /// One kernel call: rp (1, 2) row pairs x the 4 output pairs of one panel, 2 x 2 blocks of f32 into t[row pair][pair].
+ #[allow(clippy::too_many_arguments)]
+ #[inline(always)]
+-fn tile(path: Path, rp: usize, int4: bool, a: &[i8], sa: &[f32], w: &[u8], sw: &[f32], k: usize, g: usize, t: &mut [[[f32; 4]; 4]; RPMAX]) {
++fn tile(path: Path, rp: usize, single: bool, int4: bool, a: &[i8], sa: &[f32], w: &[u8], sw: &[f32], k: usize, g: usize, t: &mut [[[f32; 4]; 4]; RPMAX]) {
+     let ng = k / g;
++    let _ = single; // the `sdot` path only
+     assert!((1..=RPMAX).contains(&rp) && (rp <= 2 || path == Path::Mmla) && a.len() >= rp * 2 * k && sa.len() >= rp * ng * 4);
+     assert!(w.len() >= k * if int4 { 4 } else { 8 } && sw.len() >= ng * 8 && g.is_multiple_of(16) && k.is_multiple_of(g));
+     match path {
+@@ -603,6 +674,14 @@ fn tile(path: Path, rp: usize, int4: bool, a: &[i8], sa: &[f32], w: &[u8], sw: &
+                     };
+                 }
+                 match path {
++                    Path::Dot if single => {
++                        // one row (packed twice): the diagonal sdot gives both of its outputs per pair
++                        if int4 {
++                            neon::dot::<1, true, true>(a.as_ptr(), sa.as_ptr(), w.as_ptr(), sw.as_ptr(), k, g, t)
++                        } else {
++                            neon::dot::<1, false, true>(a.as_ptr(), sa.as_ptr(), w.as_ptr(), sw.as_ptr(), k, g, t)
++                        }
++                    }
+                     Path::Mmla if rp == 4 => {
+                         if int4 {
+                             neon::mmla::<4, true>(a.as_ptr(), sa.as_ptr(), w.as_ptr(), sw.as_ptr(), k, g, t)
+@@ -611,7 +690,7 @@ fn tile(path: Path, rp: usize, int4: bool, a: &[i8], sa: &[f32], w: &[u8], sw: &
+                         }
+                     }
+                     Path::Mmla => go!(mmla),
+-                    Path::Dot => go!(dot),
++                    Path::Dot => go!(dot2),
+                     _ => go!(plain),
+                 }
+             }
+@@ -758,8 +837,17 @@ mod neon {
+ 
+     /// dotprod: per (row pair, output pair) and 8 k, sdot of [r0|r1] . [o0|o1] (r0 o0, r1 o1) and of [r1|r0] . [o0|o1]
+     /// (r1 o0, r0 o1), two lanes each; added pairwise at the group end: DOT_LANES. Two output pairs at a time (registers).
++    /// `dot` for full row pairs (`go!` takes kernels with two const parameters).
++    #[inline(always)]
++    pub unsafe fn dot2<const RP: usize, const INT4: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, g: usize, t: &mut [[[f32; 4]; 4]; super::RPMAX]) {
++        // SAFETY: as `dot`.
++        unsafe { dot::<RP, INT4, false>(a, sa, w, sw, k, g, t) }
++    }
++
++    /// SINGLE (RP = 1): the pair holds one row twice ([r0|r0], `pack_act`); the diagonal sdot alone gives r0 o0 and
++    /// r0 o1, already in MMLA_LANES order (lanes 0, 1), with no cross products.
+     #[target_feature(enable = "dotprod")]
+-    pub unsafe fn dot<const RP: usize, const INT4: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, g: usize, t: &mut [[[f32; 4]; 4]; super::RPMAX]) {
++    pub unsafe fn dot<const RP: usize, const INT4: bool, const SINGLE: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, g: usize, t: &mut [[[f32; 4]; 4]; super::RPMAX]) {
+         let ng = k / g;
+         // SAFETY: as `mmla`.
+         unsafe {
+@@ -779,9 +867,11 @@ mod neon {
+                                 let (x0, x1) = (vextq_s8::<8>(a0, a0), vextq_s8::<8>(a1, a1));
+                                 for p in 0..2 {
+                                     sdot!(ad[r][p], a0, wv[p].0);
+-                                    sdot!(ax[r][p], x0, wv[p].0);
+                                     sdot!(ad[r][p], a1, wv[p].1);
+-                                    sdot!(ax[r][p], x1, wv[p].1);
++                                    if !SINGLE {
++                                        sdot!(ax[r][p], x0, wv[p].0);
++                                        sdot!(ax[r][p], x1, wv[p].1);
++                                    }
+                                 }
+                             }
+                             kk += 16;
+@@ -793,7 +883,9 @@ mod neon {
+                                 let x0 = vextq_s8::<8>(a0, a0);
+                                 for p in 0..2 {
+                                     sdot!(ad[r][p], a0, wv[p]);
+-                                    sdot!(ax[r][p], x0, wv[p]);
++                                    if !SINGLE {
++                                        sdot!(ax[r][p], x0, wv[p]);
++                                    }
+                                 }
+                             }
+                             kk += 8;
+@@ -804,14 +896,15 @@ mod neon {
+                         let s = wscale(sw.add(c * 8 + 2 * pp));
+                         for r in 0..RP {
+                             let sc = vmulq_f32(vld1q_f32(sa.add((r * ng + c) * 4)), s);
+-                            accf[r][pp] = vfmaq_f32(accf[r][pp], vcvtq_f32_s32(vpaddq_s32(ad[r][p], ax[r][p])), sc);
++                            let x = if SINGLE { ad[r][p] } else { ax[r][p] };
++                            accf[r][pp] = vfmaq_f32(accf[r][pp], vcvtq_f32_s32(vpaddq_s32(ad[r][p], x)), sc);
+                         }
+                     }
+                 }
+             }
+-            // DOT_LANES -> MMLA_LANES: lanes 0, 3, 2, 1
++            // DOT_LANES -> MMLA_LANES: lanes 0, 3, 2, 1 (SINGLE: already)
+             let idx = vld1q_u8([0u8, 1, 2, 3, 12, 13, 14, 15, 8, 9, 10, 11, 4, 5, 6, 7].as_ptr());
+-            for r in 0..RP {
++            for r in 0..if SINGLE { 0 } else { RP } {
+                 for p in 0..4 {
+                     accf[r][p] = vreinterpretq_f32_u8(vqtbl1q_u8(vreinterpretq_u8_f32(accf[r][p]), idx));
+                 }
+@@ -1017,32 +1110,50 @@ impl QuantF {
+         assert!(a.len() >= m * self.k);
+         let mut out = vec![0.0; m * self.n];
+         if m <= 8 {
+-            // few rows (decoding): widen in registers instead of a scratch panel per call
++            // few rows (decoding): widen in registers instead of a scratch panel per call; groups of panels are
++            // independent (one task each when worth it), each into its own columns
+             let (n, k) = (self.n, self.k);
+-            for jp in 0..n.div_ceil(NR) {
+-                let j0 = jp * NR;
+-                let cols = NR.min(n - j0);
+-                let mut init = [0f32; NR];
+-                if let Some(b) = bias {
+-                    init[..cols].copy_from_slice(&b[j0..j0 + cols]);
+-                }
+-                let panel = &self.q[jp * k * NR..(jp + 1) * k * NR];
+-                let sc: &[f32; NR] = self.s[j0..j0 + NR].try_into().unwrap();
+-                let mut i = 0;
+-                while i < m {
+-                    let rows = 4.min(m - i);
+-                    let mut tile = [[0f32; NR]; 4];
+-                    let a = &a[i * k..(i + rows) * k];
+-                    match rows {
+-                        4 => kernel_q8::<4>(a, k, panel, sc, &init, &mut tile),
+-                        3 => kernel_q8::<3>(a, k, panel, sc, &init, (&mut tile[..3]).try_into().unwrap()),
+-                        2 => kernel_q8::<2>(a, k, panel, sc, &init, (&mut tile[..2]).try_into().unwrap()),
+-                        _ => kernel_q8::<1>(a, k, panel, sc, &init, (&mut tile[..1]).try_into().unwrap()),
++            let np = n.div_ceil(NR);
++            const PG: usize = 8; // panels per task
++            let cols = crate::par::map(np.div_ceil(PG), m * n * k, |grp| {
++                let (jp0, jp1) = (grp * PG, (grp * PG + PG).min(np));
++                let w = (jp1 - jp0) * NR;
++                let mut o = vec![0f32; m * w];
++                for jp in jp0..jp1 {
++                    let j0 = jp * NR;
++                    let cols = NR.min(n - j0);
++                    let mut init = [0f32; NR];
++                    if let Some(b) = bias {
++                        init[..cols].copy_from_slice(&b[j0..j0 + cols]);
+                     }
+-                    for r in 0..rows {
+-                        out[(i + r) * n + j0..(i + r) * n + j0 + cols].copy_from_slice(&tile[r][..cols]);
++                    let panel = &self.q[jp * k * NR..(jp + 1) * k * NR];
++                    let sc: &[f32; NR] = self.s[j0..j0 + NR].try_into().unwrap();
++                    let mut i = 0;
++                    while i < m {
++                        let rows = 4.min(m - i);
++                        let mut tile = [[0f32; NR]; 4];
++                        let a = &a[i * k..(i + rows) * k];
++                        match rows {
++                            4 => kernel_q8::<4>(a, k, panel, sc, &init, &mut tile),
++                            3 => kernel_q8::<3>(a, k, panel, sc, &init, (&mut tile[..3]).try_into().unwrap()),
++                            2 => kernel_q8::<2>(a, k, panel, sc, &init, (&mut tile[..2]).try_into().unwrap()),
++                            _ => kernel_q8::<1>(a, k, panel, sc, &init, (&mut tile[..1]).try_into().unwrap()),
++                        }
++                        for r in 0..rows {
++                            let o0 = (i + r) * w + (jp - jp0) * NR;
++                            o[o0..o0 + NR].copy_from_slice(&tile[r]);
++                        }
++                        i += rows;
+                     }
+-                    i += rows;
++                }
++                o
++            });
++            for (grp, o) in cols.iter().enumerate() {
++                let j0 = grp * PG * NR;
++                let w = o.len() / m;
++                let c = w.min(n - j0);
++                for r in 0..m {
++                    out[r * n + j0..r * n + j0 + c].copy_from_slice(&o[r * w..r * w + c]);
+                 }
+             }
+             return out;
+@@ -1228,7 +1339,7 @@ mod tests {
+                 for p in 0..m.div_ceil(2) {
+                     for jp in 0..n.div_ceil(8) {
+                         let mut t = [[[0f32; 4]; 4]; RPMAX];
+-                        tile(path, 1, int4, &act.q[p * 2 * k..], &act.s[p * ng * 4..], &q.w[jp * pb..], &q.s[jp * ng * 8..], k, g, &mut t);
++                        tile(path, 1, 2 * p + 1 == m, int4, &act.q[p * 2 * k..], &act.s[p * ng * 4..], &q.w[jp * pb..], &q.s[jp * ng * 8..], k, g, &mut t);
+                         for pp in 0..4 {
+                             for (l, &(ri, oi)) in lanes.iter().enumerate() {
+                                 let (r, o) = (2 * p + ri, jp * 8 + 2 * pp + oi);
+@@ -1282,6 +1393,41 @@ mod tests {
+         }
+     }
+ 
++    /// Any number of threads gives the same bits (row blocks, column groups, the few-rows paths).
++    #[cfg(feature = "std")]
++    #[test]
++    fn threads_same_bits() {
++        use crate::par::{Exec, Pool, enter};
++        let ex = std::sync::Arc::new(Exec::Pool(Pool::new(3)));
++        let mut seed = 11;
++        for &(m, n, k, g, int4) in &[(1, 2080, 512, 512, false), (4, 2048, 512, 512, false), (16, 1536, 512, 64, true), (300, 768, 256, 64, true), (77, 384, 128, 128, false)] {
++            let codes: Vec<i8> = (0..n * k).map(|_| (rnd(&mut seed) * 7.9).floor() as i8).collect();
++            let sc: Vec<f32> = (0..n * k / g).map(|_| 0.01 + rnd(&mut seed).abs() * 0.05).collect();
++            let q = Quant::new(n, k, g, int4, |j, p| codes[j * k + p], |j, c| sc[j * (k / g) + c]);
++            let qf = QuantF::new(n, k, |j, p| codes[j * k + p], |j| sc[j * (k / g)]);
++            let a: Vec<f32> = (0..m * k).map(|_| rnd(&mut seed)).collect();
++            let bias: Vec<f32> = (0..n).map(|_| rnd(&mut seed)).collect();
++            let one = (q.gemm(&a, m, Some(&bias)), qf.gemm(&a, m, Some(&bias)), gemm(&a, m, &Packed::from_rows(&qf_dense(&qf), n, k), None));
++            let three = enter(Some(&ex), || (q.gemm(&a, m, Some(&bias)), qf.gemm(&a, m, Some(&bias)), gemm(&a, m, &Packed::from_rows(&qf_dense(&qf), n, k), None)));
++            assert!(one == three, "m{m} n{n} k{k}");
++        }
++    }
++
++    #[cfg(feature = "std")]
++    fn qf_dense(q: &QuantF) -> Vec<f32> {
++        let mut s = vec![0f32; q.k * NR];
++        let mut d = vec![0f32; q.n * q.k];
++        for jp in 0..q.n.div_ceil(NR) {
++            let p = Panels::panel(q, jp, &mut s);
++            for l in 0..NR.min(q.n - jp * NR) {
++                for kk in 0..q.k {
++                    d[(jp * NR + l) * q.k + kk] = p[kk * NR + l];
++                }
++            }
++        }
++        d
++    }
++
+     #[test]
+     fn quantf_matches_f32() {
+         let mut seed = 7;
+diff --git a/src/lib.rs b/src/lib.rs
+@@ -11,8 +11,9 @@
+ //!
+ //! Every model is a file the caller hands over as bytes ([`Files`]): the recognizer (.tzf, int4, with its end-of-turn
+ //! head; uncompressed - the host unzips a .tzf.gz) and Silero VAD straight from its ONNX file. Which languages to recognize
+-//! in is the host's choice (it may run a language ID such as tinylid first). Single-threaded: the host calls in from
+-//! whatever thread it likes.
++//! in is the host's choice (it may run a language ID such as tinylid first). The host calls in from whatever thread it
++//! likes; the work runs on that thread, or on as many as the host allows ([`Models::set_threads`], or its own
++//! parallel-for: [`Models::set_parallel_for`]), with the same results.
+ //!
+ //! ```no_run
+ //! # let read = |p: &str| std::fs::read(p).unwrap();
+@@ -42,6 +43,7 @@ mod file;
+ #[cfg(all(not(feature = "std"), not(target_arch = "wasm32"), not(test)))]
+ mod no_std_runtime;
+ mod onnx;
++mod par;
+ mod session;
+ mod text;
+ mod vad;
+@@ -138,16 +140,44 @@ pub struct Files<'a> {
+ pub struct Models {
+     asr: model::Model,
+     vad: Vad,
++    #[cfg(feature = "std")]
++    exec: Option<alloc::sync::Arc<par::Exec>>,
+ }
+ 
+ impl Models {
+     pub fn load(f: Files) -> Result<Models, &'static str> {
+         Ok(Models {
+             asr: crate::model::Model::from_bytes(f.asr)?,
+             vad: Vad::from_onnx(f.vad)?,
++            #[cfg(feature = "std")]
++            exec: None,
+         })
+     }
+ 
++    /// Run the bigger steps on up to `threads` threads (1, the default: only the calling one). The extra threads
++    /// start on first use, from the thread that calls in, and inherit its CPU affinity (Linux, Android): pin that
++    /// thread to the cores you want them on. Results are the same for any number of threads.
++    #[cfg(feature = "std")]
++    pub fn set_threads(&mut self, threads: usize) {
++        self.exec = (threads > 1).then(|| alloc::sync::Arc::new(par::Exec::Pool(par::Pool::new(threads))));
++    }
++
++    /// Run the bigger steps through the host's parallel-for instead: `f(n, task)` must call `task(i)` for every i in
++    /// 0..n, possibly at the same time, and return when all have finished. `threads`: how many it runs at once (steps
++    /// too small to be worth splitting stay on one thread).
++    #[cfg(feature = "std")]
++    pub fn set_parallel_for(&mut self, threads: usize, f: impl Fn(usize, &(dyn Fn(usize) + Sync)) + Send + Sync + 'static) {
++        self.exec = (threads > 1).then(|| alloc::sync::Arc::new(par::Exec::Host(alloc::boxed::Box::new(f), threads)));
++    }
++
++    /// Runs `body` with this instance's threads.
++    fn with_threads<R>(&self, body: impl FnOnce() -> R) -> R {
++        #[cfg(feature = "std")]
++        return par::enter(self.exec.as_ref(), body);
++        #[cfg(not(feature = "std"))]
++        body()
++    }
++
+     /// The languages of the recognizer: en, ru, uk; en, es, it, pt; en, ru, uz; en, fa; or en, km.
+     pub fn langs(&self) -> &[Lang] {
+         &self.asr.langs
+diff --git a/src/model.rs b/src/model.rs
+@@ -255,6 +255,30 @@ impl<'a> Tensors<'a> {
+         self.linear_named(&alloc::format!("{k}.weight"), b.as_deref(), n, kk)
+     }
+ 
++    /// A 3x3 convolution `k` (cout x cin x 3 x 3, with bias) as a Linear over im2col rows with tap-major columns:
++    /// column (a * 3 + b) * cin + ci is PyTorch's ci * 9 + a * 3 + b. Integer weights stay integer when one group
++    /// spans the row (the reordering keeps every group's set of weights); otherwise f32.
++    fn conv_linear(&mut self, k: &str, cout: usize, cin: usize) -> R<Linear> {
++        let kk = 9 * cin;
++        let (d, data) = self.take(&alloc::format!("{k}.weight"))?;
++        if d.first() != Some(&cout) || d[1..].iter().product::<usize>() != kk {
++            return Err(SHAPE);
++        }
++        let b = Some(self.vec(&alloc::format!("{k}.bias"), cout)?);
++        let perm = |p: usize| (p % cin) * 9 + p / cin;
++        let w = match data {
++            Data::Int(q) if q.row == kk && q.group == kk && kk.is_multiple_of(16) => {
++                Weight::Int(Quant::new(cout, kk, kk, q.bits == 4, |j, p| q.code(j, perm(p)), |j, _| q.scale(j, 0)))
++            }
++            data => {
++                let v = data.f32(&d);
++                let pv: Vec<f32> = (0..cout * kk).map(|i| v[(i / kk) * kk + perm(i % kk)]).collect();
++                Weight::F32(Packed::from_rows(&pv, cout, kk))
++            }
++        };
++        Ok(Linear { w, b })
++    }
++
+     /// As `linear`, for tensors not named X.weight / X.bias (the LSTM's weight_ih_l0 ...).
+     fn linear_named(&mut self, name: &str, bias: Option<&str>, n: Option<usize>, kk: usize) -> R<Linear> {
+         let (d, data) = self.t.remove(name).ok_or(MISSING)?;
+@@ -335,6 +359,17 @@ fn bypass(orig: &[f32], x: &mut [f32], scale: &[f32]) {
+     }
+ }
+ 
++/// x (t rows) += f(x rows, first row, rows) for blocks of rows, one task each: a module's output added to the residual
++/// where it is computed (no separate pass). f may read the block's rows of x (row-wise modules) or ignore them.
++fn add_rows(x: &mut [f32], t: usize, work: usize, f: impl Fn(&[f32], usize, usize) -> Vec<f32> + Sync) {
++    let d = x.len() / t;
++    let rb = crate::par::block_rows(t, RB);
++    crate::par::chunks_mut(x, rb * d, work, |b, xo| {
++        let y = f(xo, b * rb, xo.len() / d);
++        add(xo, &y);
++    });
++}
++
+ fn add(x: &mut [f32], y: &[f32]) {
+     x.iter_mut().zip(y).for_each(|(a, b)| *a += b);
+ }
+@@ -359,16 +394,14 @@ struct FeedForward {
+ }
+ 
+ impl FeedForward {
+-    fn apply(&self, x: &[f32], t: usize) -> Vec<f32> {
++    /// x += FF(x).
++    fn add_to(&self, x: &mut [f32], t: usize) {
+         let k = x.len() / t;
+-        let mut out = Vec::with_capacity(t * self.out.n());
+-        for r0 in (0..t).step_by(RB) {
+-            let r = RB.min(t - r0);
+-            let mut h = self.inp.apply(&x[r0 * k..(r0 + r) * k], r);
++        add_rows(x, t, 2 * t * k * self.inp.n(), |xb, _, r| {
++            let mut h = self.inp.apply(xb, r);
+             swoosh_l(&mut h);
+-            out.extend_from_slice(&self.out.apply(&h, r));
+-        }
+-        out
++            self.out.apply(&h, r)
++        });
+     }
+ }
+ 
+@@ -397,7 +430,8 @@ struct AttnWeights {
+ impl AttnWeights {
+     /// Attention weights heads x t x (left + t). `keys`: cached keys (left x heads*qd), updated.
+     /// `masked`: key slots to ignore (len left + t).
+-    fn apply(&self, x: &[f32], t: usize, keys: Option<&mut Vec<f32>>, left: usize, masked: &[bool], pos_dim: usize) -> Vec<f32> {
++    /// `pe`: encodings of the relative positions -(left + t - 1) ..= t - 1 (`rel_pes`, the same for every layer).
++    fn apply(&self, x: &[f32], t: usize, keys: Option<&mut Vec<f32>>, left: usize, masked: &[bool], pe: &[f32]) -> Vec<f32> {
+         let (h, qd, pd) = (self.heads, self.qd, self.pd);
+         let y = self.in_proj.apply(x, t);
+         let w = y.len() / t;
+@@ -410,16 +444,11 @@ impl AttnWeights {
+         let tk = left + t;
+         // projected encodings of relative positions -(left + t - 1) ..= t - 1
+         let np = left + 2 * t - 1;
+-        let mut pe = vec![0.0; np * pos_dim];
+-        for n in 0..np {
+-            rel_pe(n as f32 - (left + t - 1) as f32, pos_dim, &mut pe[n * pos_dim..(n + 1) * pos_dim]);
+-        }
+-        let p = self.pos.apply(&pe, np);
++        let p = self.pos.apply(pe, np);
+         let mut out = vec![0.0; h * t * tk];
+-        let mut qh = vec![0.0; t * qd];
+-        let mut kh = vec![0.0; tk * qd];
+-        let mut pt = vec![0.0; pd * np];
+-        for hh in 0..h {
++        // heads: one task each
++        crate::par::chunks_mut(&mut out, t * tk, h * t * tk * (qd + pd), |hh, out| {
++            let (mut qh, mut kh, mut pt) = (vec![0.0; t * qd], vec![0.0; tk * qd], vec![0.0; pd * np]);
+             // content scores: Q_h (t x qd) K_h^T, as one product
+             for i in 0..t {
+                 qh[i * qd..(i + 1) * qd].copy_from_slice(&y[i * w + hh * qd..i * w + (hh + 1) * qd]);
+@@ -436,7 +465,7 @@ impl AttnWeights {
+                 }
+             }
+             for i in 0..t {
+-                let row = &mut out[(hh * t + i) * tk..(hh * t + i + 1) * tk];
++                let row = &mut out[i * tk..(i + 1) * tk];
+                 row.copy_from_slice(&sc[i * tk..(i + 1) * tk]);
+                 let n0 = t - 1 - i;
+                 for c in 0..pd {
+@@ -457,7 +486,7 @@ impl AttnWeights {
+                 let inv = 1.0 / s;
+                 row.iter_mut().for_each(|v| *v *= inv);
+             }
+-        }
++        });
+         out
+     }
+ }
+@@ -514,15 +543,18 @@ fn transpose(x: &[f32], rows: usize, cols: usize) -> Vec<f32> {
+ fn weighted(wts: &[f32], heads: usize, t: usize, tk: usize, v: &[f32], d: usize) -> Vec<f32> {
+     let vd = v.len() / tk;
+     let mut out = vec![0.0; t * heads * d];
+-    let mut vt = vec![0.0; d * tk];
+-    for hh in 0..heads {
++    // heads: one task each
++    let per_head = crate::par::map(heads, heads * t * tk * d, |hh| {
+         // values of this head, transposed (d x tk): the right-hand matrix of W_h (t x tk) V_h
++        let mut vt = vec![0.0; d * tk];
+         for j in 0..tk {
+             for c in 0..d {
+                 vt[c * tk + j] = v[j * vd + hh * d + c];
+             }
+         }
+-        let o = gemm(&wts[hh * t * tk..(hh + 1) * t * tk], t, &Packed::from_rows(&vt, d, tk), None);
++        gemm(&wts[hh * t * tk..(hh + 1) * t * tk], t, &Packed::from_rows(&vt, d, tk), None)
++    });
++    for (hh, o) in per_head.iter().enumerate() {
+         for i in 0..t {
+             out[i * heads * d + hh * d..i * heads * d + (hh + 1) * d].copy_from_slice(&o[i * d..(i + 1) * d]);
+         }
+@@ -537,10 +569,13 @@ struct SelfAttn {
+ }
+ 
+ impl SelfAttn {
+-    fn apply(&self, x: &[f32], t: usize, wts: &[f32], tk: usize, cache: Option<&mut Vec<f32>>) -> Vec<f32> {
++    /// x += SelfAttn(x).
++    fn add_to(&self, x: &mut [f32], t: usize, wts: &[f32], tk: usize, cache: Option<&mut Vec<f32>>) {
+         let v = cat_cache(cache, self.inp.apply(x, t));
+         let d = self.inp.n() / self.heads;
+-        self.out.apply(&weighted(wts, self.heads, t, tk, &v, d), t)
++        let o = weighted(wts, self.heads, t, tk, &v, d);
++        let k = o.len() / t;
++        add_rows(x, t, t * k * self.out.n(), |_, r0, r| self.out.apply(&o[r0 * k..(r0 + r) * k], r));
+     }
+ }
+ 
+@@ -551,25 +586,29 @@ struct NonlinAttn {
+ }
+ 
+ impl NonlinAttn {
+-    /// Uses head 0 of the attention weights.
+-    fn apply(&self, x: &[f32], t: usize, wts: &[f32], tk: usize, cache: Option<&mut Vec<f32>>) -> Vec<f32> {
++    /// x += NonlinAttn(x). Uses head 0 of the attention weights.
++    fn add_to(&self, x: &mut [f32], t: usize, wts: &[f32], tk: usize, cache: Option<&mut Vec<f32>>) {
+         let hid = self.hid;
+         let z = self.inp.apply(x, t);
+         let mut xs = vec![0.0; t * hid];
+-        for i in 0..t {
+-            let r = &z[i * 3 * hid..(i + 1) * 3 * hid];
+-            for c in 0..hid {
+-                xs[i * hid + c] = r[hid + c] * tanh(r[c]);
++        crate::par::chunks_mut(&mut xs, 64 * hid, t * hid * 16, |b, o| {
++            for (i, row) in o.chunks_exact_mut(hid).enumerate() {
++                let r = &z[(b * 64 + i) * 3 * hid..(b * 64 + i + 1) * 3 * hid];
++                for c in 0..hid {
++                    row[c] = r[hid + c] * tanh(r[c]);
++                }
+             }
+-        }
++        });
+         let xs = cat_cache(cache, xs);
+-        let mut o = weighted(&wts[..t * tk], 1, t, tk, &xs, hid);
+-        for i in 0..t {
+-            for c in 0..hid {
+-                o[i * hid + c] *= z[i * 3 * hid + 2 * hid + c];
++        let o = weighted(&wts[..t * tk], 1, t, tk, &xs, hid);
++        add_rows(x, t, t * hid * self.out.n(), |_, r0, r| {
++            let mut ob = o[r0 * hid..(r0 + r) * hid].to_vec();
++            for (i, row) in ob.chunks_exact_mut(hid).enumerate() {
++                let zr = &z[(r0 + i) * 3 * hid + 2 * hid..(r0 + i + 1) * 3 * hid];
++                row.iter_mut().zip(zr).for_each(|(v, z)| *v *= z);
+             }
+-        }
+-        self.out.apply(&o, t)
++            self.out.apply(&ob, r)
++        });
+     }
+ }
+ 
+@@ -587,17 +626,22 @@ struct Conv {
+ }
+ 
+ impl Conv {
+-    /// `cache`: the last kernel/2 rows of gated input before this chunk (streaming), updated.
+-    fn apply(&self, x: &[f32], t: usize, cache: Option<&mut Vec<f32>>) -> Vec<f32> {
++    /// x += Conv(x). `cache`: the last kernel/2 rows of gated input before this chunk (streaming), updated.
++    fn add_to(&self, x: &mut [f32], t: usize, cache: Option<&mut Vec<f32>>) {
+         let (d, k) = (self.dim, self.kernel);
+         let lp = k / 2;
+-        let z = self.inp.apply(x, t);
++        // input projection and gate, row blocks: one task each
+         let mut g = vec![0.0; t * d];
+-        for i in 0..t {
+-            for c in 0..d {
+-                g[i * d + c] = z[i * 2 * d + c] * sigmoid(z[i * 2 * d + d + c]);
++        let rb = crate::par::block_rows(t, RB);
++        crate::par::chunks_mut(&mut g, rb * d, 2 * t * d * d, |b, o| {
++            let r = o.len() / d;
++            let z = self.inp.apply(&x[b * rb * d..(b * rb + r) * d], r);
++            for (row, z) in o.chunks_exact_mut(d).zip(z.chunks_exact(2 * d)) {
++                for c in 0..d {
++                    row[c] = z[c] * sigmoid(z[d + c]);
++                }
+             }
+-        }
++        });
+         // causal part over (left pad or cache) + this input
+         let mut pad = match &cache {
+             Some(c) => (*c).clone(),
+@@ -608,24 +652,27 @@ impl Conv {
+             *c = pad[pad.len() - lp * d..].to_vec();
+         }
+         let half = lp + 1;
+-        let mut y = vec![0.0; t * d];
+-        let mut b = vec![0.0; d];
+-        for i in 0..t {
+-            let a = &mut y[i * d..(i + 1) * d];
+-            taps(a, &self.causal_b, (0..half).map(|u| (&self.causal_w[u * d..(u + 1) * d], &pad[(i + u) * d..(i + u + 1) * d])));
+-            // chunkwise part: centred kernel inside this chunk, zero outside, edge-scaled
+-            let (u0, u1) = (lp.saturating_sub(i), k.min(t + lp - i));
+-            taps(&mut b, &self.chunk_b, (u0..u1).map(|u| (&self.chunk_w[u * d..(u + 1) * d], &g[(i + u - lp) * d..(i + u - lp + 1) * d])));
+-            let (l, r) = if t < k { (Some(i), Some(k - t + i)) } else { ((i < k).then_some(i), (i >= t - k).then(|| i - (t - k))) };
+-            let row = |j: Option<usize>, half: usize| j.map(|j| &self.scale[(half * k + j) * d..(half * k + j + 1) * d]);
+-            let (le, re) = (row(l, 0), row(r, 1));
+-            for c in 0..d {
+-                let (le, re) = (le.map_or(0.0, |v| v[c]), re.map_or(0.0, |v| v[c]));
+-                a[c] += b[c] * (1.0 + le + re);
++        // depthwise, output projection and the residual, row blocks: one task each
++        add_rows(x, t, t * d * (half + k + d), |_, r0, rows| {
++            let mut yo = vec![0.0; rows * d];
++            let mut b = vec![0.0; d];
++            for i in r0..r0 + rows {
++                let a = &mut yo[(i - r0) * d..(i - r0 + 1) * d];
++                taps(a, &self.causal_b, (0..half).map(|u| (&self.causal_w[u * d..(u + 1) * d], &pad[(i + u) * d..(i + u + 1) * d])));
++                // chunkwise part: centred kernel inside this chunk, zero outside, edge-scaled
++                let (u0, u1) = (lp.saturating_sub(i), k.min(t + lp - i));
++                taps(&mut b, &self.chunk_b, (u0..u1).map(|u| (&self.chunk_w[u * d..(u + 1) * d], &g[(i + u - lp) * d..(i + u - lp + 1) * d])));
++                let (l, r) = if t < k { (Some(i), Some(k - t + i)) } else { ((i < k).then_some(i), (i >= t - k).then(|| i - (t - k))) };
++                let row = |j: Option<usize>, half: usize| j.map(|j| &self.scale[(half * k + j) * d..(half * k + j + 1) * d]);
++                let (le, re) = (row(l, 0), row(r, 1));
++                for c in 0..d {
++                    let (le, re) = (le.map_or(0.0, |v| v[c]), re.map_or(0.0, |v| v[c]));
++                    a[c] += b[c] * (1.0 + le + re);
++                }
+             }
+-        }
+-        swoosh_r(&mut y);
+-        self.out.apply(&y, t)
++            swoosh_r(&mut yo);
++            self.out.apply(&yo, rows)
++        });
+     }
+ }
+ 
+@@ -656,7 +703,7 @@ struct Layer {
+ }
+ 
+ impl Layer {
+-    fn forward(&self, x: &mut Vec<f32>, t: usize, st: Option<&mut LayerState>, left: usize, masked: &[bool], pos_dim: usize) {
++    fn forward(&self, x: &mut Vec<f32>, t: usize, st: Option<&mut LayerState>, left: usize, masked: &[bool], pe: &[f32]) {
+         let orig = x.clone();
+         let tk = left + t;
+         let (mut key, mut nl, mut v1, mut v2, mut c1, mut c2) = (None, None, None, None, None, None);
+@@ -668,26 +715,22 @@ impl Layer {
+             c1 = Some(&mut s.conv1);
+             c2 = Some(&mut s.conv2);
+         }
+-        let w = self.attn.apply(x, t, key, left, masked, pos_dim);
+-        let y = self.ff1.apply(x, t);
+-        add(x, &y);
+-        let y = self.nonlin.apply(x, t, &w, tk, nl);
+-        add(x, &y);
+-        let y = self.sa1.apply(x, t, &w, tk, v1);
+-        add(x, &y);
+-        let y = self.conv1.apply(x, t, c1);
+-        add(x, &y);
+-        let y = self.ff2.apply(x, t);
+-        add(x, &y);
+-        bypass(&orig, x, &self.bypass_mid);
+-        let y = self.sa2.apply(x, t, &w, tk, v2);
+-        add(x, &y);
+-        let y = self.conv2.apply(x, t, c2);
+-        add(x, &y);
+-        let y = self.ff3.apply(x, t);
+-        add(x, &y);
+-        self.norm.apply(x);
+-        bypass(&orig, x, &self.bypass);
++        let w = self.attn.apply(x, t, key, left, masked, pe);
++        self.ff1.add_to(x, t);
++        self.nonlin.add_to(x, t, &w, tk, nl);
++        self.sa1.add_to(x, t, &w, tk, v1);
++        self.conv1.add_to(x, t, c1);
++        self.ff2.add_to(x, t);
++        let d = x.len() / t;
++        let rb = crate::par::block_rows(t, RB);
++        crate::par::chunks_mut(x, rb * d, 8 * t * d, |b, xo| bypass(&orig[b * rb * d..b * rb * d + xo.len()], xo, &self.bypass_mid));
++        self.sa2.add_to(x, t, &w, tk, v2);
++        self.conv2.add_to(x, t, c2);
++        self.ff3.add_to(x, t);
++        crate::par::chunks_mut(x, rb * d, 8 * t * d, |b, xo| {
++            self.norm.apply(xo);
++            bypass(&orig[b * rb * d..b * rb * d + xo.len()], xo, &self.bypass);
++        });
+     }
+ }
+ 
+@@ -745,9 +788,17 @@ impl Stack {
+ }
+ 
+ fn run(layers: &[Layer], x: &mut Vec<f32>, t: usize, st: Option<&mut [LayerState]>, left: usize, masked: &[bool], pos_dim: usize) {
++    // the relative-position encodings depend on (left, t) alone: once for all the layers of the stack
++    let np = left + 2 * t - 1;
++    let mut pe = vec![0.0; np * pos_dim];
++    crate::par::chunks_mut(&mut pe, 64 * pos_dim, np * pos_dim * 16, |b, o| {
++        for (i, row) in o.chunks_exact_mut(pos_dim).enumerate() {
++            rel_pe((b * 64 + i) as f32 - (left + t - 1) as f32, pos_dim, row);
++        }
++    });
+     match st {
+-        Some(s) => layers.iter().zip(s.iter_mut()).for_each(|(l, s)| l.forward(x, t, Some(s), left, masked, pos_dim)),
+-        None => layers.iter().for_each(|l| l.forward(x, t, None, left, masked, pos_dim)),
++        Some(s) => layers.iter().zip(s.iter_mut()).for_each(|(l, s)| l.forward(x, t, Some(s), left, masked, &pe)),
++        None => layers.iter().for_each(|l| l.forward(x, t, None, left, masked, &pe)),
+     }
+ }
+ 
+@@ -770,33 +821,50 @@ const FW: usize = 19; // frequency width after the convolutions
+ const C3: usize = 128;
+ 
+ /// 3x3 convolution of a channels-last image (t x f x cin), no time padding, `pf` frequency padding.
++/// The front end's 3 convolutions have 1, 8 and 32 input channels: a constant, so the copies of each tap unroll.
+ fn conv3(x: &[f32], t: usize, f: usize, cin: usize, lin: &Linear, st: usize, sf: usize, pf: usize) -> (Vec<f32>, usize, usize) {
++    match cin {
++        1 => conv3c::<1>(x, t, f, lin, st, sf, pf),
++        8 => conv3c::<8>(x, t, f, lin, st, sf, pf),
++        32 => conv3c::<32>(x, t, f, lin, st, sf, pf),
++        _ => unreachable!("front-end convolution with {cin} input channels"),
++    }
++}
++
++fn conv3c<const CIN: usize>(x: &[f32], t: usize, f: usize, lin: &Linear, st: usize, sf: usize, pf: usize) -> (Vec<f32>, usize, usize) {
++    let cin = CIN;
+     let to = (t - 3) / st + 1;
+     let fo = (f + 2 * pf - 3) / sf + 1;
+     // output time rows per block: about 256 Ki values of im2col at a time
+     let tb = ((1 << 18) / (fo * 9 * cin)).max(1);
+-    let mut y = Vec::with_capacity(to * fo * lin.n());
+-    let mut col = vec![0.0; tb.min(to) * fo * 9 * cin];
+-    for i0 in (0..to).step_by(tb) {
+-        let nb = tb.min(to - i0);
++    let n = lin.n();
++    let mut y = vec![0.0; to * fo * n];
++    // blocks of tb output time rows: one task each
++    crate::par::chunks_mut(&mut y, tb * fo * n, to * fo * 9 * cin * n, |blk, yo| {
++        let (i0, nb) = (blk * tb, yo.len() / (fo * n));
++        let mut col = vec![0.0; nb * fo * 9 * cin];
+         for i in i0..i0 + nb {
+             for j in 0..fo {
+                 let row = &mut col[((i - i0) * fo + j) * 9 * cin..((i - i0) * fo + j + 1) * 9 * cin];
+-                for ci in 0..cin {
+-                    for a in 0..3 {
+-                        for b in 0..3 {
+-                            let (tt, ff) = (i * st + a, (j * sf + b) as isize - pf as isize);
+-                            // PyTorch weight layout (cout, cin, 3, 3) -> column index ci*9 + a*3 + b
+-                            row[ci * 9 + a * 3 + b] = if ff >= 0 && (ff as usize) < f { x[(tt * f + ff as usize) * cin + ci] } else { 0.0 };
+-                        }
++                // tap-major columns (a * 3 + b) * cin + ci (`Tensors::conv_linear`): each tap is cin contiguous inputs
++                for a in 0..3 {
++                    for b in 0..3 {
++                        let (tt, ff) = (i * st + a, (j * sf + b) as isize - pf as isize);
++                        let d: &mut [f32; CIN] = (&mut row[(a * 3 + b) * cin..(a * 3 + b + 1) * cin]).try_into().unwrap();
++                        *d = if ff >= 0 && (ff as usize) < f {
++                            let s0 = (tt * f + ff as usize) * cin;
++                            x[s0..s0 + cin].try_into().unwrap()
++                        } else {
++                            [0.0; CIN]
++                        };
+                     }
+                 }
+             }
+         }
+-        let mut yb = lin.apply(&col[..nb * fo * 9 * cin], nb * fo);
++        let mut yb = lin.apply(&col, nb * fo);
+         swoosh_r(&mut yb);
+-        y.extend_from_slice(&yb);
+-    }
++        yo.copy_from_slice(&yb);
++    });
+     (y, to, fo)
+ }
+ 
+@@ -814,11 +882,12 @@ impl Embed {
+     fn convnext(&self, rows: &[f32], t_in: usize) -> Vec<f32> {
+         let t = t_in - 6;
+         let row = FW * C3;
+-        let tb = (RB / FW).max(1); // time rows per block (x 19 frequency rows each)
+-        let mut z = Vec::with_capacity(t * row);
+-        let mut y = vec![0.0; tb.min(t) * row];
+-        for i0 in (0..t).step_by(tb) {
+-            let nb = tb.min(t - i0);
++        let tb = (RB / FW).max(1); // time rows per block (x 19 frequency rows each): one task each
++        let mut z = vec![0.0; t * row];
++        let work = t * FW * (2 * C3 * self.pw1.n() + 49 * C3);
++        crate::par::chunks_mut(&mut z, tb * row, work, |blk, zo| {
++            let (i0, nb) = (blk * tb, zo.len() / row);
++            let mut y = vec![0.0; nb * row];
+             for i in i0..i0 + nb {
+                 for f in 0..FW {
+                     let a = &mut y[(i - i0) * row + f * C3..(i - i0) * row + (f + 1) * C3];
+@@ -830,12 +899,12 @@ impl Embed {
+                     taps(a, &self.dw_b, (0..7).flat_map(|dt| (f0..f1).map(move |df| (dt, df))).map(|(dt, df)| tap(dt, df)));
+                 }
+             }
+-            let mut h = self.pw1.apply(&y[..nb * row], nb * FW);
++            let mut h = self.pw1.apply(&y, nb * FW);
+             swoosh_l(&mut h);
+             let mut zb = self.pw2.apply(&h, nb * FW);
+             add(&mut zb, &rows[(3 + i0) * row..(3 + i0 + nb) * row]);
+-            z.extend_from_slice(&zb);
+-        }
++            zo.copy_from_slice(&zb);
++        });
+         z
+     }
+ 
+@@ -978,6 +1047,35 @@ impl Emb {
+     }
+ }
+ 
++/// LSTM input products (W_ih x + b) by token, for one beam-search pass (a few hundred KiB at most).
++#[derive(Default)]
++struct IhCache {
++    ids: Vec<u32>,
++    rows: Vec<Vec<f32>>,
++}
++
++impl IhCache {
++    const MAX: usize = 64;
++
++    fn has(&self, id: u32) -> bool {
++        self.ids.contains(&id)
++    }
++
++    fn get(&self, id: u32) -> &[f32] {
++        &self.rows[self.ids.iter().position(|&i| i == id).expect("cached")]
++    }
++
++    /// Keeps the newest MAX (the oldest goes: a beam search moves on through the text).
++    fn put(&mut self, id: u32, row: &[f32]) {
++        if self.ids.len() == Self::MAX {
++            self.ids.remove(0);
++            self.rows.remove(0);
++        }
++        self.ids.push(id);
++        self.rows.push(row.to_vec());
++    }
++}
++
+ /// Most zero-duration tokens on one frame in TDT greedy before it is forced on (the server scorer's max_sym).
+ const TDT_MAX_SYM: usize = 5;
+ 
+@@ -1148,9 +1246,9 @@ impl Model {
+         };
+         let pw1 = w.linear("encoder_embed.convnext.pointwise_conv1", true, None, C3)?;
+         let embed = Embed {
+-            c0: w.linear("encoder_embed.conv.0", true, Some(8), 9)?,
+-            c1: w.linear("encoder_embed.conv.4", true, Some(32), 8 * 9)?,
+-            c2: w.linear("encoder_embed.conv.7", true, Some(C3), 32 * 9)?,
++            c0: w.conv_linear("encoder_embed.conv.0", 8, 1)?,
++            c1: w.conv_linear("encoder_embed.conv.4", 32, 8)?,
++            c2: w.conv_linear("encoder_embed.conv.7", C3, 32)?,
+             dw_w: transpose(&w.vec("encoder_embed.convnext.depthwise_conv.weight", C3 * 49)?, C3, 49),
+             dw_b: w.vec("encoder_embed.convnext.depthwise_conv.bias", C3)?,
+             pw2: w.linear("encoder_embed.convnext.pointwise_conv2", true, Some(C3), pw1.n())?,
+@@ -1347,7 +1445,7 @@ impl Model {
+ 
+     /// `advance` for several hypotheses at once: the LSTM, its projection and the joiner's decoder projection run as
+     /// one batch.
+-    fn advance_batch(&self, decs: &mut [&mut Decoding], ids: &[u32]) {
++    fn advance_batch(&self, decs: &mut [&mut Decoding], ids: &[u32], ihc: &mut IhCache) {
+         let n = decs.len();
+         if n == 0 {
+             return;
+@@ -1360,13 +1458,35 @@ impl Model {
+         }
+         if let Some(l) = &self.lstm {
+             let hn = l.hidden;
+-            let mut x = Vec::with_capacity(n * d);
+             let mut hp = Vec::with_capacity(n * hn);
+-            for (dec, &id) in decs.iter().zip(ids) {
+-                x.extend_from_slice(&self.dec_emb.row(id));
++            for dec in decs.iter() {
+                 hp.extend_from_slice(&dec.h);
+             }
+-            let mut g = l.ih.apply(&x, n);
++            // the input part depends on the token alone: computed once per token in this pass (row-wise, so the
++            // same values as in a batch)
++            let mut new: Vec<u32> = Vec::new();
++            for &id in ids {
++                if !ihc.has(id) && !new.contains(&id) {
++                    new.push(id);
++                }
++            }
++            let gi = if new.is_empty() {
++                Vec::new()
++            } else {
++                let mut x = Vec::with_capacity(new.len() * d);
++                new.iter().for_each(|&id| x.extend_from_slice(&self.dec_emb.row(id)));
++                l.ih.apply(&x, new.len())
++            };
++            let mut g = Vec::with_capacity(n * 4 * hn);
++            for &id in ids {
++                match new.iter().position(|&j| j == id) {
++                    Some(j) => g.extend_from_slice(&gi[j * 4 * hn..(j + 1) * 4 * hn]),
++                    None => g.extend_from_slice(ihc.get(id)),
++                }
++            }
++            for (j, &id) in new.iter().enumerate() {
++                ihc.put(id, &gi[j * 4 * hn..(j + 1) * 4 * hn]);
++            }
+             let r = l.hh.apply(&hp, n);
+             g.iter_mut().zip(&r).for_each(|(a, b)| *a += b);
+             for (b, dec) in decs.iter_mut().enumerate() {
+@@ -1463,6 +1583,7 @@ impl Model {
+     /// per frame; hypotheses with the same tokens are merged (log-add). Continues from `hyps`.
+     fn beam_rnnt(&self, enc: &[f32], t: usize, lang: usize, hyps: &mut Vec<Hyp>, frame0: u32, beam: usize) {
+         let ep = self.joiner.enc.apply(enc, t);
++        let mut ihc = IhCache::default();
+         let (out, ids) = &self.joiner.out[lang];
+         for i in 0..t {
+             let mut cand: Vec<(f32, usize, usize, f32)> = Vec::new(); // (score, hyp, output index, token logp)
+@@ -1499,13 +1620,14 @@ impl Model {
+             }
+             let pend: Vec<u32> = next.iter().filter(|h| h.pending).map(|h| h.toks.last().unwrap().id).collect();
+             let mut decs: Vec<&mut Decoding> = next.iter_mut().filter(|h| h.pending).map(|h| { h.pending = false; &mut h.dec }).collect();
+-            self.advance_batch(&mut decs, &pend);
++            self.advance_batch(&mut decs, &pend, &mut ihc);
+             *hyps = next;
+         }
+     }
+ 
+     fn beam_tdt(&self, dur: &Linear, enc: &[f32], t: usize, lang: usize, beam: usize) -> Vec<Token> {
+         let ep = self.joiner.enc.apply(enc, t);
++        let mut ihc = IhCache::default();
+         let (out, ids) = &self.joiner.out[lang];
+         let lsm = |v: &[f32]| {
+             let m = v.iter().cloned().fold(f32::MIN, f32::max);
+@@ -1539,7 +1661,7 @@ impl Model {
+                 {  // decoder step for the survivors only, as one batch
+                     let pend: Vec<u32> = cur.iter().filter(|h| h.pending).map(|h| h.toks.last().unwrap().id).collect();
+                     let mut decs: Vec<&mut Decoding> = cur.iter_mut().filter(|h| h.pending).map(|h| { h.pending = false; &mut h.dec }).collect();
+-                    self.advance_batch(&mut decs, &pend);
++                    self.advance_batch(&mut decs, &pend, &mut ihc);
+                 }
+                 let mut stay: Vec<Hyp> = Vec::new(); // zero-duration tokens: same frame, next round
+                 let nh = cur.len();
+diff --git a/src/par.rs b/src/par.rs
+@@ -0,0 +1,375 @@
++//! Parallel work. One thread unless the host allows more (`crate::Models::set_threads`) or hands over its own
++//! parallel-for (`crate::Models::set_parallel_for`). The model's passes split their bigger steps into independent
++//! tasks (`chunks_mut`, `map`); every output value is computed by the same code whichever thread runs it, so the
++//! results do not depend on the number of threads.
++//!
++//! Which cores run the work is the host's choice: the built-in threads start on first use, from the thread that
++//! asks, and inherit its CPU affinity (Linux, Android); a host parallel-for runs tasks wherever it likes.
++
++#[cfg(feature = "std")]
++pub use imp::*;
++
++/// Work (multiply-adds, roughly) below which a step stays on one thread (~7 us on one core): handing out tasks to
++/// spinning workers costs ~1-2 us, waking sleeping ones 5-20.
++pub const MIN_WORK: usize = 1 << 19;
++
++/// Rows per task for `rows` rows: `max` on one thread; with more, about 4 tasks per thread (whole multiples of 8 rows,
++/// at least 16) so they balance. How rows are grouped never changes a result.
++pub fn block_rows(rows: usize, max: usize) -> usize {
++    let t = threads();
++    if t < 2 {
++        return max;
++    }
++    rows.div_ceil(4 * t).div_ceil(8).saturating_mul(8).clamp(16, max)
++}
++
++#[cfg(feature = "std")]
++mod imp {
++    use std::cell::RefCell;
++    use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
++    use std::sync::{Arc, Condvar, Mutex};
++
++    /// Spins (~tens of us) before sleeping: the next parallel step usually comes sooner, and a sleeping thread takes
++    /// 5-20 us to wake on a phone.
++    const SPIN: u32 = 20_000;
++
++    fn spin_until(mut done: impl FnMut() -> bool) -> bool {
++        for _ in 0..SPIN {
++            if done() {
++                return true;
++            }
++            core::hint::spin_loop();
++        }
++        false
++    }
++
++    /// A host's parallel-for: run task(i) for every i in 0..n, possibly at the same time, and return when all have
++    /// finished.
++    pub type ParallelFor = Box<dyn Fn(usize, &(dyn Fn(usize) + Sync)) + Send + Sync>;
++
++    /// How tasks run.
++    pub enum Exec {
++        Pool(Pool),
++        Host(ParallelFor, usize),
++    }
++
++    impl Exec {
++        fn threads(&self) -> usize {
++            match self {
++                Exec::Pool(p) => p.threads,
++                Exec::Host(_, t) => *t,
++            }
++        }
++    }
++
++    thread_local! {
++        /// The executor of the pass running on this thread (none: one thread; also none inside a task, so nested
++        /// steps run where they are).
++        static CUR: RefCell<Option<Arc<Exec>>> = const { RefCell::new(None) };
++    }
++
++    fn swap(e: Option<Arc<Exec>>) -> Option<Arc<Exec>> {
++        CUR.with(|c| c.replace(e))
++    }
++
++    /// Puts the previous executor back, also when unwinding.
++    struct Restore(Option<Arc<Exec>>);
++
++    impl Drop for Restore {
++        fn drop(&mut self) {
++            swap(self.0.take());
++        }
++    }
++
++    /// Runs `body` with `exec` as this thread's executor.
++    pub fn enter<R>(exec: Option<&Arc<Exec>>, body: impl FnOnce() -> R) -> R {
++        let _r = Restore(swap(exec.cloned()));
++        body()
++    }
++
++    /// Threads the current step may use.
++    pub fn threads() -> usize {
++        CUR.with(|c| c.borrow().as_ref().map_or(1, |e| e.threads()))
++    }
++
++    /// f(i) for every i in 0..n, on the current executor's threads.
++    pub fn run(n: usize, f: &(dyn Fn(usize) + Sync)) {
++        let ex = if n > 1 { CUR.with(|c| c.borrow().clone()) } else { None };
++        let Some(ex) = ex.filter(|e| e.threads() > 1) else {
++            (0..n).for_each(f);
++            return;
++        };
++        let _r = Restore(swap(None)); // tasks run single-threaded inside
++        match &*ex {
++            Exec::Pool(p) => p.run(n, f),
++            Exec::Host(h, _) => h(n, f),
++        }
++    }
++
++    /// f(i, chunk i) for the chunks of `out` (`len` values each, the last one shorter), in parallel when the current
++    /// executor has threads and the step (`work` in all) is worth it.
++    pub fn chunks_mut<T: Send>(out: &mut [T], len: usize, work: usize, f: impl Fn(usize, &mut [T]) + Sync) {
++        if work < super::MIN_WORK || out.len() <= len || threads() < 2 {
++            out.chunks_mut(len.max(1)).enumerate().for_each(|(i, c)| f(i, c));
++            return;
++        }
++        // one lock per chunk, each taken once: disjoint &mut access, checked by the compiler
++        let parts: Vec<Mutex<&mut [T]>> = out.chunks_mut(len.max(1)).map(Mutex::new).collect();
++        run(parts.len(), &|i| f(i, &mut parts[i].lock().unwrap_or_else(|e| e.into_inner())));
++    }
++
++    /// [f(0), .., f(n - 1)], in parallel when the current executor has threads and the step (`work` in all) is
++    /// worth it.
++    pub fn map<T: Send>(n: usize, work: usize, f: impl Fn(usize) -> T + Sync) -> Vec<T> {
++        if work < super::MIN_WORK || n < 2 || threads() < 2 {
++            return (0..n).map(f).collect();
++        }
++        let slots: Vec<Mutex<Option<T>>> = (0..n).map(|_| Mutex::new(None)).collect();
++        run(n, &|i| *slots[i].lock().unwrap_or_else(|e| e.into_inner()) = Some(f(i)));
++        slots.into_iter().map(|s| s.into_inner().unwrap_or_else(|e| e.into_inner()).expect("every task ran")).collect()
++    }
++
++    // ------------------------------------------------------------------------------------------ the built-in pool
++
++    /// `threads - 1` workers (the caller is the last thread), started on first use. Workers take task indices from a
++    /// shared counter: a slower or busier core just takes fewer.
++    pub struct Pool {
++        threads: usize,
++        sh: Arc<Shared>,
++        workers: Mutex<Vec<std::thread::JoinHandle<()>>>,
++        busy: Mutex<()>,
++    }
++
++    struct Shared {
++        st: Mutex<State>,
++        wake: Condvar,
++        done: Condvar,
++        // copies of `State::epoch` and `State::active` to spin on (the lock decides)
++        epoch: AtomicU64,
++        active: AtomicUsize,
++    }
++
++    #[derive(Default)]
++    struct State {
++        job: Option<Job>,
++        epoch: u64,
++        active: usize, // workers inside the current job
++        quit: bool,
++        panicked: bool,
++    }
++
++    /// The task of one `run`, lent to the workers: valid while `run` waits for them (see `Pool::run`).
++    #[derive(Clone, Copy)]
++    struct Job {
++        f: *const (dyn Fn(usize) + Sync),
++        next: *const std::sync::atomic::AtomicUsize,
++        n: usize,
++    }
++
++    // SAFETY: the pointees are Sync (a Sync closure, an atomic) and outlive every use (`Pool::run`).
++    #[allow(unsafe_code)]
++    unsafe impl Send for Job {}
++
++    impl Pool {
++        pub fn new(threads: usize) -> Pool {
++            Pool {
++                threads: threads.max(1),
++                sh: Arc::new(Shared {
++                    st: Mutex::new(State::default()),
++                    wake: Condvar::new(),
++                    done: Condvar::new(),
++                    epoch: AtomicU64::new(0),
++                    active: AtomicUsize::new(0),
++                }),
++                workers: Mutex::new(Vec::new()),
++                busy: Mutex::new(()),
++            }
++        }
++
++        fn lock(&self) -> std::sync::MutexGuard<'_, State> {
++            self.sh.st.lock().unwrap_or_else(|e| e.into_inner())
++        }
++
++        #[allow(unsafe_code)]
++        fn run(&self, n: usize, f: &(dyn Fn(usize) + Sync)) {
++            // one parallel step at a time (several sessions on one Models): the others run where they are
++            let Ok(_busy) = self.busy.try_lock() else {
++                (0..n).for_each(f);
++                return;
++            };
++            self.start();
++            let next = AtomicUsize::new(0);
++            // SAFETY: only the lifetime is erased. Workers use `f` and `next` only between taking the job (under the
++            // lock, `active += 1`) and reporting back (`active -= 1`); `Finish` (below; it also runs when unwinding)
++            // withdraws the job and waits for `active == 0` before this frame - and `f`, `next` - can go.
++            let f: &'static (dyn Fn(usize) + Sync) = unsafe { core::mem::transmute(f) };
++            {
++                let mut st = self.lock();
++                st.job = Some(Job { f, next: &next, n });
++                st.epoch += 1;
++                st.panicked = false;
++                self.sh.epoch.store(st.epoch, Ordering::Release);
++            }
++            self.sh.wake.notify_all();
++            struct Finish<'a>(&'a Pool);
++            impl Drop for Finish<'_> {
++                fn drop(&mut self) {
++                    let mut st = self.0.lock();
++                    st.job = None;
++                    if st.active > 0 {
++                        drop(st);
++                        spin_until(|| self.0.sh.active.load(Ordering::Acquire) == 0);
++                        st = self.0.lock();
++                    }
++                    while st.active > 0 {
++                        st = self.0.sh.done.wait(st).unwrap_or_else(|e| e.into_inner());
++                    }
++                }
++            }
++            let fin = Finish(self);
++            loop {
++                let i = next.fetch_add(1, Ordering::Relaxed);
++                if i >= n {
++                    break;
++                }
++                f(i);
++            }
++            drop(fin);
++            if self.lock().panicked {
++                panic!("tinyasr: a parallel task panicked");
++            }
++        }
++
++        /// The workers, spawned from the calling thread (they inherit its CPU affinity).
++        fn start(&self) {
++            let mut w = self.workers.lock().unwrap_or_else(|e| e.into_inner());
++            while w.len() + 1 < self.threads {
++                let sh = self.sh.clone();
++                match std::thread::Builder::new().name("tinyasr".into()).spawn(move || worker(&sh)) {
++                    Ok(h) => w.push(h),
++                    Err(_) => break, // fewer threads: the work still all gets done
++                }
++            }
++        }
++    }
++
++    #[allow(unsafe_code)]
++    fn worker(sh: &Shared) {
++        let mut seen = 0;
++        loop {
++            spin_until(|| sh.epoch.load(Ordering::Acquire) != seen);
++            let job = {
++                let mut st = sh.st.lock().unwrap_or_else(|e| e.into_inner());
++                loop {
++                    if st.quit {
++                        return;
++                    }
++                    if let Some(j) = st.job.filter(|_| st.epoch != seen) {
++                        seen = st.epoch;
++                        st.active += 1;
++                        sh.active.store(st.active, Ordering::Release);
++                        break j;
++                    }
++                    st = sh.wake.wait(st).unwrap_or_else(|e| e.into_inner());
++                }
++            };
++            let r = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
++                // SAFETY: the job is valid until this worker reports back below (`Pool::run`).
++                let (f, next) = unsafe { (&*job.f, &*job.next) };
++                loop {
++                    let i = next.fetch_add(1, Ordering::Relaxed);
++                    if i >= job.n {
++                        break;
++                    }
++                    f(i);
++                }
++            }));
++            let mut st = sh.st.lock().unwrap_or_else(|e| e.into_inner());
++            st.panicked |= r.is_err();
++            st.active -= 1;
++            sh.active.store(st.active, Ordering::Release);
++            if st.active == 0 {
++                sh.done.notify_all();
++            }
++        }
++    }
++
++    impl Drop for Pool {
++        fn drop(&mut self) {
++            self.lock().quit = true;
++            self.sh.wake.notify_all();
++            for h in self.workers.get_mut().unwrap_or_else(|e| e.into_inner()).drain(..) {
++                let _ = h.join();
++            }
++        }
++    }
++
++    #[cfg(test)]
++    mod tests {
++        use super::*;
++
++        #[test]
++        fn pool_runs_every_task_once() {
++            let ex = Arc::new(Exec::Pool(Pool::new(3)));
++            enter(Some(&ex), || {
++                for n in [0usize, 1, 2, 7, 1000] {
++                    let mut v = vec![0u32; n * 3];
++                    chunks_mut(&mut v, 3, usize::MAX, |i, c| c.iter_mut().for_each(|x| *x += i as u32 + 1));
++                    assert!(v.chunks(3).enumerate().all(|(i, c)| c.iter().all(|&x| x == i as u32 + 1)));
++                    assert_eq!(map(n, usize::MAX, |i| i * i), (0..n).map(|i| i * i).collect::<Vec<_>>());
++                }
++                // nested steps run inside the task
++                let r = map(4, usize::MAX, |i| map(3, usize::MAX, |j| i * 10 + j));
++                assert_eq!(r[3], vec![30, 31, 32]);
++            });
++        }
++
++        #[test]
++        fn host_parallel_for() {
++            let calls = Arc::new(std::sync::atomic::AtomicUsize::new(0));
++            let c = calls.clone();
++            let host: ParallelFor = Box::new(move |n, f| {
++                c.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
++                std::thread::scope(|s| {
++                    for i in 0..n {
++                        s.spawn(move || f(i));
++                    }
++                });
++            });
++            let ex = Arc::new(Exec::Host(host, 4));
++            let v = enter(Some(&ex), || map(5, usize::MAX, |i| i + 1));
++            assert_eq!(v, vec![1, 2, 3, 4, 5]);
++            assert_eq!(calls.load(std::sync::atomic::Ordering::Relaxed), 1);
++        }
++
++        #[test]
++        fn task_panic_reaches_the_caller() {
++            let ex = Arc::new(Exec::Pool(Pool::new(2)));
++            let r = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| enter(Some(&ex), || map(64, usize::MAX, |i| if i == 63 { panic!("boom") } else { i }))));
++            assert!(r.is_err());
++            // and the pool still works
++            assert_eq!(enter(Some(&ex), || map(3, usize::MAX, |i| i)), vec![0, 1, 2]);
++        }
++    }
++}
++
++/// Without std: one thread.
++#[cfg(not(feature = "std"))]
++mod imp {
++    use alloc::vec::Vec;
++
++    pub fn threads() -> usize {
++        1
++    }
++
++    pub fn chunks_mut<T>(out: &mut [T], len: usize, _work: usize, f: impl Fn(usize, &mut [T])) {
++        out.chunks_mut(len.max(1)).enumerate().for_each(|(i, c)| f(i, c));
++    }
++
++    pub fn map<T>(n: usize, _work: usize, f: impl Fn(usize) -> T) -> Vec<T> {
++        (0..n).map(f).collect()
++    }
++}
++
++#[cfg(not(feature = "std"))]
++pub use imp::*;
+diff --git a/src/session.rs b/src/session.rs
+@@ -123,6 +123,11 @@ impl<'m> Session<'m> {
+ 
+     /// Feed 16 kHz audio (any length); returns what changed.
+     pub fn push(&mut self, x: &[f32]) -> Vec<Event> {
++        let m = self.m;
++        m.with_threads(|| self.push_here(x))
++    }
++
++    fn push_here(&mut self, x: &[f32]) -> Vec<Event> {
+         if self.finished {
+             return Vec::new();
+         }
+@@ -137,6 +142,11 @@ impl<'m> Session<'m> {
+ 
+     /// End of audio: everything is frozen (the last `Commit`), then nothing more happens.
+     pub fn finish(&mut self) -> Vec<Event> {
++        let m = self.m;
++        m.with_threads(|| self.finish_here())
++    }
++
++    fn finish_here(&mut self) -> Vec<Event> {
+         if self.finished {
+             return Vec::new();
+         }

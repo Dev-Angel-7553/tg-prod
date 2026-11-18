@@ -1,0 +1,69 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "dkaraush/tinyasr:054bd19e2dcf1a021d8808a75e974ad675ceba03:code:mixed",
+  "files": [
+    {
+      "additions": 67,
+      "deletions": 1,
+      "filename": "include/tinyasr.h",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 3,
+      "filename": "src/fbank.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 61,
+      "deletions": 0,
+      "filename": "src/ffi.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "filename": "src/file.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 227,
+      "deletions": 81,
+      "filename": "src/kernels.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 32,
+      "deletions": 2,
+      "filename": "src/lib.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 239,
+      "deletions": 117,
+      "filename": "src/model.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 375,
+      "deletions": 0,
+      "filename": "src/par.rs",
+      "status": "added"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "src/session.rs",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "main",
+    "date": "2026-11-18T23:02:22Z",
+    "repo": "dkaraush/tinyasr",
+    "sha": "054bd19e2dcf1a021d8808a75e974ad675ceba03",
+    "url": "https://github.com/dkaraush/tinyasr/compare/c46d0d56d8bb8ddc6ee1945b683da024cac8fdf1...054bd19e2dcf1a021d8808a75e974ad675ceba03"
+  }
+}

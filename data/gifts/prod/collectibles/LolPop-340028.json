@@ -120,7 +120,7 @@
         "text_color": 14728702
       }
     ],
-    "availability_issued": 435336,
+    "availability_issued": 435338,
     "availability_total": 468745,
     "burned": false,
     "craft_chance_permille": null,
@@ -144,8 +144,8 @@
     "theme_available": false,
     "theme_peer": null,
     "title": "Lol Pop",
-    "value_amount": 882,
+    "value_amount": 846,
     "value_currency": "USD",
-    "value_usd_amount": 882
+    "value_usd_amount": 846
   }
 }

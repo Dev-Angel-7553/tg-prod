@@ -120,7 +120,7 @@
         "text_color": 16766694
       }
     ],
-    "availability_issued": 435336,
+    "availability_issued": 435338,
     "availability_total": 468745,
     "burned": false,
     "craft_chance_permille": null,
@@ -147,15 +147,15 @@
       },
       {
         "_": "StarsTonAmount",
-        "amount": 13660000000
+        "amount": 13680000000
       }
     ],
     "slug": "LolPop-61737",
     "theme_available": false,
     "theme_peer": null,
     "title": "Lol Pop",
-    "value_amount": 882,
+    "value_amount": 662,
     "value_currency": "USD",
-    "value_usd_amount": 882
+    "value_usd_amount": 662
   }
 }

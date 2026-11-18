@@ -23,7 +23,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 975,
+      "resell_min_stars": 972,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -727,7 +727,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 22170,
+      "availability_resale": 22171,
       "availability_total": 500000,
       "background": null,
       "birthday": false,
@@ -743,7 +743,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -959,7 +959,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -1159,7 +1159,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 14036,
+      "availability_resale": 14038,
       "availability_total": 250000,
       "background": null,
       "birthday": false,
@@ -1175,7 +1175,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 865,
+      "resell_min_stars": 861,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -1319,7 +1319,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 350,
       "sticker": {
@@ -1391,7 +1391,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -1447,7 +1447,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7176,
+      "availability_resale": 7175,
       "availability_total": 500000,
       "background": null,
       "birthday": true,
@@ -1463,7 +1463,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -1684,7 +1684,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 563,
+      "resell_min_stars": 561,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -1740,7 +1740,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 6961,
+      "availability_resale": 6960,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -1756,7 +1756,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 605,
+      "resell_min_stars": 603,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -1812,7 +1812,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4792,
+      "availability_resale": 4790,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -1828,7 +1828,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 519,
+      "resell_min_stars": 517,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -1900,7 +1900,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 756,
+      "resell_min_stars": 753,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -1972,7 +1972,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -2028,7 +2028,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4986,
+      "availability_resale": 4985,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -2188,7 +2188,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -2244,7 +2244,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1088,
+      "availability_resale": 1086,
       "availability_total": 20000,
       "background": null,
       "birthday": false,
@@ -2260,7 +2260,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 42425,
+      "resell_min_stars": 42270,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -2476,7 +2476,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 640,
+      "resell_min_stars": 638,
       "sold_out": true,
       "stars": 2500,
       "sticker": {
@@ -2548,7 +2548,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -2620,7 +2620,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 11922,
+      "resell_min_stars": 11913,
       "sold_out": true,
       "stars": 30000,
       "sticker": {
@@ -2764,7 +2764,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3328,
+      "resell_min_stars": 3315,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -2836,7 +2836,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 23906,
+      "resell_min_stars": 23819,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -2908,7 +2908,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1081,
+      "resell_min_stars": 1077,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -2980,7 +2980,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1080,
+      "resell_min_stars": 1076,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -3036,7 +3036,7 @@
       "auction_slug": "KhabibsPapakha",
       "auction_start_date": "2025-11-22T17:00:00+00:00",
       "availability_remains": 0,
-      "availability_resale": 3765,
+      "availability_resale": 3763,
       "availability_total": 29000,
       "background": {
         "_": "StarGiftBackground",
@@ -3060,7 +3060,7 @@
         "channel_id": 1719954244
       },
       "require_premium": false,
-      "resell_min_stars": 2327,
+      "resell_min_stars": 2318,
       "sold_out": true,
       "stars": 2900,
       "sticker": {
@@ -3132,7 +3132,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1181,
+      "resell_min_stars": 1177,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -3188,7 +3188,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1580,
+      "availability_resale": 1581,
       "availability_total": 30000,
       "background": null,
       "birthday": false,
@@ -3204,7 +3204,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1707,
+      "resell_min_stars": 1701,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -3276,7 +3276,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1125,
+      "resell_min_stars": 1120,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -3348,7 +3348,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 4241,
+      "resell_min_stars": 4225,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -3420,7 +3420,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 6119,
+      "resell_min_stars": 6097,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -3492,7 +3492,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 4394,
+      "resell_min_stars": 4378,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -3564,7 +3564,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2564,
+      "resell_min_stars": 2555,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -3636,7 +3636,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 5258,
+      "resell_min_stars": 5239,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -3708,7 +3708,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1121,
+      "resell_min_stars": 1117,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -3780,7 +3780,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3457,
+      "resell_min_stars": 3445,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -3852,7 +3852,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 6002,
+      "resell_min_stars": 5980,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -3924,7 +3924,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3074,
+      "resell_min_stars": 3063,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -3996,7 +3996,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1397,
+      "resell_min_stars": 1392,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -4068,7 +4068,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 136853,
+      "resell_min_stars": 136355,
       "sold_out": true,
       "stars": 10000,
       "sticker": {
@@ -4140,7 +4140,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3113,
+      "resell_min_stars": 3102,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -4212,7 +4212,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1979,
+      "resell_min_stars": 1971,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -4268,7 +4268,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 2092,
+      "availability_resale": 2091,
       "availability_total": 50000,
       "background": null,
       "birthday": false,
@@ -4284,7 +4284,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1067,
+      "resell_min_stars": 1063,
       "sold_out": true,
       "stars": 400,
       "sticker": {
@@ -4356,7 +4356,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 12086,
+      "resell_min_stars": 12042,
       "sold_out": true,
       "stars": 2500,
       "sticker": {
@@ -4428,7 +4428,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3796,
+      "resell_min_stars": 3782,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -4500,7 +4500,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 10732,
+      "resell_min_stars": 10693,
       "sold_out": true,
       "stars": 10000,
       "sticker": {
@@ -4572,7 +4572,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -4628,7 +4628,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 3449,
+      "availability_resale": 3450,
       "availability_total": 150000,
       "background": null,
       "birthday": false,
@@ -4644,7 +4644,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 684,
+      "resell_min_stars": 682,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -4700,7 +4700,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 12342,
+      "availability_resale": 12341,
       "availability_total": 70000,
       "background": null,
       "birthday": false,
@@ -4716,7 +4716,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1801,
+      "resell_min_stars": 1794,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -4788,7 +4788,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 575,
+      "resell_min_stars": 573,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -4860,7 +4860,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 250,
       "sticker": {
@@ -4916,7 +4916,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 3770,
+      "availability_resale": 3769,
       "availability_total": 80000,
       "background": null,
       "birthday": false,
@@ -4932,7 +4932,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1223,
+      "resell_min_stars": 1219,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -5004,7 +5004,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 6335,
+      "resell_min_stars": 6312,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -5076,7 +5076,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2376,
+      "resell_min_stars": 2367,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -5132,7 +5132,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 5671,
+      "availability_resale": 5669,
       "availability_total": 50000,
       "background": null,
       "birthday": false,
@@ -5148,7 +5148,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 719,
+      "resell_min_stars": 717,
       "sold_out": true,
       "stars": 2500,
       "sticker": {
@@ -5220,7 +5220,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 791,
+      "resell_min_stars": 789,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -5297,7 +5297,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1511,
+      "resell_min_stars": 1505,
       "sold_out": true,
       "stars": 250,
       "sticker": {
@@ -5425,7 +5425,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 10514,
+      "availability_resale": 10513,
       "availability_total": 100000,
       "background": null,
       "birthday": false,
@@ -5441,7 +5441,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -5497,7 +5497,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 19869,
+      "availability_resale": 19870,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -5513,7 +5513,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": true,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -5585,7 +5585,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 15342,
+      "resell_min_stars": 15286,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -5657,7 +5657,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 10429,
+      "resell_min_stars": 10392,
       "sold_out": true,
       "stars": 10000,
       "sticker": {
@@ -5729,7 +5729,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 300,
       "sticker": {
@@ -5785,7 +5785,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 9573,
+      "availability_resale": 9575,
       "availability_total": 250000,
       "background": null,
       "birthday": false,
@@ -5801,7 +5801,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -5857,7 +5857,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 8734,
+      "availability_resale": 8735,
       "availability_total": 150000,
       "background": null,
       "birthday": false,
@@ -5873,7 +5873,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 568,
+      "resell_min_stars": 566,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -5945,7 +5945,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 863,
+      "resell_min_stars": 860,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -6073,7 +6073,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 30153,
+      "availability_resale": 30152,
       "availability_total": 500000,
       "background": null,
       "birthday": false,
@@ -6145,7 +6145,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 19012,
+      "availability_resale": 19014,
       "availability_total": 350000,
       "background": null,
       "birthday": false,
@@ -6161,7 +6161,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -6233,7 +6233,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2325,
+      "resell_min_stars": 2317,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -6289,7 +6289,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 10458,
+      "availability_resale": 10457,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -6377,7 +6377,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -6449,7 +6449,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 7181,
+      "resell_min_stars": 7155,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -6521,7 +6521,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 792,
+      "resell_min_stars": 789,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -6593,7 +6593,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 36209,
+      "resell_min_stars": 36077,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -6665,7 +6665,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1003,
+      "resell_min_stars": 999,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -6737,7 +6737,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 842,
+      "resell_min_stars": 839,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -6809,7 +6809,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3167,
+      "resell_min_stars": 3155,
       "sold_out": true,
       "stars": 350,
       "sticker": {
@@ -6937,7 +6937,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 10082,
+      "availability_resale": 10081,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -7025,7 +7025,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 10725,
+      "resell_min_stars": 10686,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -7097,7 +7097,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 21825,
+      "resell_min_stars": 21745,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -7169,7 +7169,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -7313,7 +7313,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3378,
+      "resell_min_stars": 3229,
       "sold_out": true,
       "stars": 2500,
       "sticker": {
@@ -7385,7 +7385,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 1404,
+      "resell_min_stars": 1399,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -7441,7 +7441,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 6521,
+      "availability_resale": 6522,
       "availability_total": 250000,
       "background": null,
       "birthday": false,
@@ -7457,7 +7457,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -7529,7 +7529,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 742,
+      "resell_min_stars": 739,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -7601,7 +7601,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 616198,
+      "resell_min_stars": 613957,
       "sold_out": true,
       "stars": 2000,
       "sticker": {
@@ -7657,7 +7657,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 4753,
+      "availability_resale": 4752,
       "availability_total": 200000,
       "background": null,
       "birthday": false,
@@ -7673,7 +7673,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -7745,7 +7745,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 5042,
+      "resell_min_stars": 5023,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -7817,7 +7817,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 3025,
+      "resell_min_stars": 3014,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -7966,7 +7966,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -8110,7 +8110,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 720,
+      "resell_min_stars": 717,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -8182,7 +8182,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 853,
+      "resell_min_stars": 851,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -8254,7 +8254,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 639,
+      "resell_min_stars": 637,
       "sold_out": true,
       "stars": 75,
       "sticker": {
@@ -8326,7 +8326,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -8454,7 +8454,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7432,
+      "availability_resale": 7433,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -8470,7 +8470,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -8542,7 +8542,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 571,
+      "resell_min_stars": 569,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -8614,7 +8614,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 2305,
+      "resell_min_stars": 2297,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -8670,7 +8670,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 32802,
+      "availability_resale": 32803,
       "availability_total": 500000,
       "background": null,
       "birthday": false,
@@ -8686,7 +8686,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 498,
+      "resell_min_stars": 490,
       "sold_out": true,
       "stars": 150,
       "sticker": {
@@ -8742,7 +8742,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 28078,
+      "availability_resale": 28077,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -8758,7 +8758,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 250,
       "sticker": {
@@ -8974,7 +8974,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 854,
+      "resell_min_stars": 851,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -9030,7 +9030,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7845,
+      "availability_resale": 7846,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -9046,7 +9046,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -9102,7 +9102,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 13269,
+      "availability_resale": 13270,
       "availability_total": 600000,
       "background": null,
       "birthday": false,
@@ -9190,7 +9190,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -9334,7 +9334,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 15,
       "sticker": {
@@ -9406,7 +9406,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -9694,7 +9694,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 7201,
+      "resell_min_stars": 7175,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -9766,7 +9766,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 719,
+      "resell_min_stars": 717,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -9822,7 +9822,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 10242,
+      "availability_resale": 10243,
       "availability_total": 300000,
       "background": null,
       "birthday": false,
@@ -9838,7 +9838,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 480,
+      "resell_min_stars": 450,
       "sold_out": true,
       "stars": 100,
       "sticker": {
@@ -9894,7 +9894,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 9953,
+      "availability_resale": 9952,
       "availability_total": 120000,
       "background": null,
       "birthday": false,
@@ -9913,7 +9913,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 1289,
+      "resell_min_stars": 1285,
       "sold_out": true,
       "stars": 1000,
       "sticker": {
@@ -9969,7 +9969,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 13828,
+      "availability_resale": 13830,
       "availability_total": 240000,
       "background": null,
       "birthday": false,
@@ -9988,7 +9988,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 500,
       "sticker": {
@@ -10044,7 +10044,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 35533,
+      "availability_resale": 35531,
       "availability_total": 600000,
       "background": null,
       "birthday": false,
@@ -10063,7 +10063,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -10138,7 +10138,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 6043,
+      "resell_min_stars": 6021,
       "sold_out": true,
       "stars": 5000,
       "sticker": {
@@ -10194,7 +10194,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 1021,
+      "availability_resale": 1022,
       "availability_total": 12000,
       "background": null,
       "birthday": false,
@@ -10213,7 +10213,7 @@
         "channel_id": 2617201812
       },
       "require_premium": false,
-      "resell_min_stars": 9996,
+      "resell_min_stars": 9960,
       "sold_out": true,
       "stars": 10000,
       "sticker": {
@@ -10357,7 +10357,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 50,
       "sticker": {
@@ -10429,7 +10429,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 25,
       "sticker": {
@@ -10557,7 +10557,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 12201,
+      "availability_resale": 12199,
       "availability_total": 400000,
       "background": null,
       "birthday": false,
@@ -10701,7 +10701,7 @@
       "auction_slug": null,
       "auction_start_date": null,
       "availability_remains": 0,
-      "availability_resale": 7908,
+      "availability_resale": 7907,
       "availability_total": 180000,
       "background": null,
       "birthday": false,
@@ -10717,7 +10717,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 504,
+      "resell_min_stars": 503,
       "sold_out": true,
       "stars": 200,
       "sticker": {
@@ -10789,7 +10789,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 111571,
+      "resell_min_stars": 111165,
       "sold_out": true,
       "stars": 20000,
       "sticker": {
@@ -10861,7 +10861,7 @@
       "per_user_total": null,
       "released_by": null,
       "require_premium": false,
-      "resell_min_stars": 179997,
+      "resell_min_stars": 179343,
       "sold_out": true,
       "stars": 20000,
       "sticker": {

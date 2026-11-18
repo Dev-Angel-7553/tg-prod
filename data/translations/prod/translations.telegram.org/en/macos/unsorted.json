@@ -23160,9 +23160,6 @@
   "VerifyAge.Alert.Passed.Header": [
     "Age check passed!"
   ],
-  "VerifyAge.Alert.Passed.Info": [
-    "You can now view sensitive content."
-  ],
   "Video.Quality.Auto": [
     "Auto"
   ],

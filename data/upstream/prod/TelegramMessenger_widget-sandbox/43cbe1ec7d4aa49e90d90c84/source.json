@@ -1,0 +1,21 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/widget-sandbox:930f50f30e16bb5badf95b537492ca60a6f6d43f:code:mixed",
+  "files": [
+    {
+      "additions": 9,
+      "deletions": 6,
+      "filename": "packages/desktop/sandbox/src/trusted_validator.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "js-sandbox",
+    "date": "2026-11-16T18:13:09Z",
+    "repo": "TelegramMessenger/widget-sandbox",
+    "sha": "930f50f30e16bb5badf95b537492ca60a6f6d43f",
+    "url": "https://github.com/TelegramMessenger/widget-sandbox/compare/c4e3021e62a5e84f4c7240cc3248732a50c270ae...930f50f30e16bb5badf95b537492ca60a6f6d43f"
+  }
+}

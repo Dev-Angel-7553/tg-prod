@@ -1,0 +1,21 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/Unigram:ed3daeb6982cb63c310e51664e2a3497c0d0d800:code:mixed",
+  "files": [
+    {
+      "additions": 1530,
+      "deletions": 0,
+      "filename": "Telegram/Td/MockClient.cs",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "develop",
+    "date": "2026-11-17T12:48:14Z",
+    "repo": "TelegramMessenger/Unigram",
+    "sha": "ed3daeb6982cb63c310e51664e2a3497c0d0d800",
+    "url": "https://github.com/TelegramMessenger/Unigram/compare/191d562f54bd24a725e65102bf3472458d8104c8...ed3daeb6982cb63c310e51664e2a3497c0d0d800"
+  }
+}

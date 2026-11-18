@@ -1,0 +1,141 @@
+diff --git a/overlay/overlay-manager.cpp b/overlay/overlay-manager.cpp
+@@ -555,14 +555,14 @@ void OverlayManager::update_member_certificate(adnl::AdnlNodeIdShort local_id, O
+ void OverlayManager::update_root_member_list(adnl::AdnlNodeIdShort local_id, OverlayIdShort overlay_id,
+                                              std::vector<adnl::AdnlNodeIdShort> nodes,
+                                              std::vector<PublicKeyHash> root_public_keys,
+-                                             OverlayMemberCertificate certificate) {
++                                             OverlayMemberCertificate certificate, OverlayPrivacyRules rules) {
+   auto it = overlays_.find(local_id);
+   if (it != overlays_.end()) {
+     auto it2 = it->second.find(overlay_id);
+     if (it2 != it->second.end()) {
+       it2->second.member_certificate = certificate;
+       td::actor::send_closure(it2->second.overlay, &Overlay::update_root_member_list, std::move(nodes),
+-                              std::move(root_public_keys), std::move(certificate));
++                              std::move(root_public_keys), std::move(certificate), std::move(rules));
+     }
+   }
+ }
+diff --git a/overlay/overlay-manager.h b/overlay/overlay-manager.h
+@@ -93,7 +93,7 @@ class OverlayManager : public Overlays {
+                                  OverlayMemberCertificate certificate) override;
+   void update_root_member_list(adnl::AdnlNodeIdShort local_id, OverlayIdShort overlay_id,
+                                std::vector<adnl::AdnlNodeIdShort> nodes, std::vector<PublicKeyHash> root_public_keys,
+-                               OverlayMemberCertificate certificate) override;
++                               OverlayMemberCertificate certificate, OverlayPrivacyRules rules) override;
+   void get_overlay_random_peers(adnl::AdnlNodeIdShort local_id, OverlayIdShort overlay, td::uint32 max_peers,
+                                 td::Promise<std::vector<adnl::AdnlNodeIdShort>> promise) override;
+ 
+diff --git a/overlay/overlay-peers.cpp b/overlay/overlay-peers.cpp
+@@ -657,7 +657,8 @@ std::vector<adnl::AdnlNodeIdShort> OverlayImpl::get_broadcast_neighbours(td::uin
+ }
+ 
+ void OverlayImpl::update_root_member_list(std::vector<adnl::AdnlNodeIdShort> ids,
+-                                          std::vector<PublicKeyHash> root_public_keys, OverlayMemberCertificate cert) {
++                                          std::vector<PublicKeyHash> root_public_keys, OverlayMemberCertificate cert,
++                                          OverlayPrivacyRules rules) {
+   protected_peers_guard_ = adnl::Adnl::ProtectedPeersGuard{adnl_, local_id_, ids};
+   auto expected_size = (td::uint32)(ids.size() + root_public_keys.size() * opts_.max_slaves_in_semiprivate_overlay_);
+   opts_.max_peers_ = std::max(opts_.max_peers_, expected_size);
+@@ -698,7 +699,7 @@ void OverlayImpl::update_root_member_list(std::vector<adnl::AdnlNodeIdShort> ids
+   peer_list_.persistent_node_count_ = ids.size();
+ 
+   update_member_certificate(std::move(cert));
+-  cleanup_authorized_key_limiters();
++  set_privacy_rules(std::move(rules));
+ }
+ 
+ void OverlayImpl::update_member_certificate(OverlayMemberCertificate cert) {
+diff --git a/overlay/overlay.h b/overlay/overlay.h
+@@ -85,7 +85,8 @@ class Overlay : public td::actor::Actor {
+   virtual void update_peer_ip_str(adnl::AdnlNodeIdShort peer_id, td::string ip_str) = 0;
+   virtual void update_member_certificate(OverlayMemberCertificate cert) = 0;
+   virtual void update_root_member_list(std::vector<adnl::AdnlNodeIdShort> ids,
+-                                       std::vector<PublicKeyHash> root_public_keys, OverlayMemberCertificate cert) = 0;
++                                       std::vector<PublicKeyHash> root_public_keys, OverlayMemberCertificate cert,
++                                       OverlayPrivacyRules rules) = 0;
+   //virtual void receive_broadcast(td::BufferSlice data) = 0;
+   //virtual void subscribe(std::unique_ptr<Overlays::Callback> callback) = 0;
+   virtual void forget_peer(adnl::AdnlNodeIdShort peer_id) = 0;
+diff --git a/overlay/overlay.hpp b/overlay/overlay.hpp
+@@ -328,7 +328,7 @@ class OverlayImpl : public Overlay {
+   void update_peer_ip_str(adnl::AdnlNodeIdShort peer_id, td::string ip_str) override;
+ 
+   void update_root_member_list(std::vector<adnl::AdnlNodeIdShort> ids, std::vector<PublicKeyHash> root_public_keys,
+-                               OverlayMemberCertificate cert) override;
++                               OverlayMemberCertificate cert, OverlayPrivacyRules rules) override;
+   void get_plumtree_stats_records(
+       td::Promise<std::vector<tl_object_ptr<ton_api::overlay_plumtreeStatsRecord>>> promise) override;
+ 
+diff --git a/overlay/overlays.h b/overlay/overlays.h
+@@ -497,7 +497,7 @@ class Overlays : public td::actor::Actor {
+   virtual void update_root_member_list(adnl::AdnlNodeIdShort local_id, OverlayIdShort overlay_id,
+                                        std::vector<adnl::AdnlNodeIdShort> nodes,
+                                        std::vector<PublicKeyHash> root_public_keys,
+-                                       OverlayMemberCertificate certificate) = 0;
++                                       OverlayMemberCertificate certificate, OverlayPrivacyRules rules) = 0;
+ 
+   virtual void get_overlay_random_peers(adnl::AdnlNodeIdShort local_id, OverlayIdShort overlay, td::uint32 max_peers,
+                                         td::Promise<std::vector<adnl::AdnlNodeIdShort>> promise) = 0;
+diff --git a/validator/full-node-protected-overlays.cpp b/validator/full-node-protected-overlays.cpp
+@@ -35,6 +35,15 @@ namespace {
+ constexpr const char *k_called_from_protected = "protected";
+ constexpr std::size_t k_plumtree_stats_records_limit = 128;
+ 
++overlay::OverlayPrivacyRules make_protected_overlay_privacy_rules(
++    const std::vector<adnl::AdnlNodeIdShort> &current_validators_adnl) {
++  std::map<PublicKeyHash, td::uint32> authorized_keys;
++  for (const auto &id : current_validators_adnl) {
++    authorized_keys[id.pubkey_hash()] = overlay::Overlays::max_fec_broadcast_size();
++  }
++  return {overlay::Overlays::max_fec_broadcast_size(), overlay::CertificateFlags::AllowFec, std::move(authorized_keys)};
++}
++
+ template <class T>
+ bool write_jsonl(std::ofstream &file, const T &value, const char *name) {
+   auto s = td::json_encode<std::string>(td::ToJson(value), false);
+@@ -393,12 +402,7 @@ void FullNodeProtectedOverlay::init() {
+     td::actor::ActorId<FullNodeProtectedOverlay> node_;
+   };
+ 
+-  std::map<PublicKeyHash, td::uint32> authorized_keys;
+-  for (auto id : current_validators_adnl_) {
+-    authorized_keys[id.pubkey_hash()] = overlay::Overlays::max_fec_broadcast_size();
+-  }
+-  overlay::OverlayPrivacyRules rules{overlay::Overlays::max_fec_broadcast_size(), overlay::CertificateFlags::AllowFec,
+-                                     std::move(authorized_keys)};
++  auto rules = make_protected_overlay_privacy_rules(current_validators_adnl_);
+   std::string scope = PSTRING() << R"({ "type": "protected", "shard_id": )" << shard_.shard
+                                 << ", \"workchain_id\": " << shard_.workchain << " }";
+   auto local_validator_it = std::find(current_validators_adnl_.begin(), current_validators_adnl_.end(), local_id_);
+@@ -448,8 +452,13 @@ void FullNodeProtectedOverlay::tear_down() {
+ 
+ void FullNodeProtectedOverlay::set_validators(std::vector<PublicKeyHash> root_public_keys,
+                                               std::vector<adnl::AdnlNodeIdShort> current_validators_adnl) {
++  if (root_public_keys_ == root_public_keys && current_validators_adnl_ == current_validators_adnl) {
++    return;
++  }
++  bool was_original_sender = is_validator_adnl(local_id_);
+   root_public_keys_ = std::move(root_public_keys);
+   current_validators_adnl_ = std::move(current_validators_adnl);
++  bool is_original_sender = is_validator_adnl(local_id_);
+   for (auto it = peers_info_.begin(); it != peers_info_.end();) {
+     if (is_validator_adnl(it->first)) {
+       ++it;
+@@ -461,8 +470,14 @@ void FullNodeProtectedOverlay::set_validators(std::vector<PublicKeyHash> root_pu
+     it = peers_info_.erase(it);
+   }
+   if (inited_) {
+-    td::actor::send_closure(overlays_, &overlay::Overlays::delete_overlay, local_id_, overlay_id_);
+-    init();
++    if (was_original_sender != is_original_sender) {
++      td::actor::send_closure(overlays_, &overlay::Overlays::delete_overlay, local_id_, overlay_id_);
++      init();
++    } else {
++      td::actor::send_closure(overlays_, &overlay::Overlays::update_root_member_list, local_id_, overlay_id_,
++                              current_validators_adnl_, root_public_keys_, member_certificate_,
++                              make_protected_overlay_privacy_rules(current_validators_adnl_));
++    }
+   }
+ }
+ 

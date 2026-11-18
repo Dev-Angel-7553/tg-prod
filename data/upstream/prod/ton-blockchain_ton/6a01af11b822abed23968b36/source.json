@@ -1,0 +1,57 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "ton-blockchain/ton:c44522240bd3b849298f0a6d0140b20f9c649c6d:code:mixed",
+  "files": [
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "overlay/overlay-manager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "overlay/overlay-manager.h",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 2,
+      "filename": "overlay/overlay-peers.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "overlay/overlay.h",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "overlay/overlay.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "overlay/overlays.h",
+      "status": "modified"
+    },
+    {
+      "additions": 23,
+      "deletions": 8,
+      "filename": "validator/full-node-protected-overlays.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "testnet",
+    "date": "2026-11-18T08:30:24Z",
+    "repo": "ton-blockchain/ton",
+    "sha": "c44522240bd3b849298f0a6d0140b20f9c649c6d",
+    "url": "https://github.com/ton-blockchain/ton/compare/9fc79d67d2ef4fcb46eb5c68592590419f17c060...c44522240bd3b849298f0a6d0140b20f9c649c6d"
+  }
+}

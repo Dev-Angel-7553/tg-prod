@@ -1,6 +1,6 @@
 {
   "analysis": "English resources and selected native strings; TLS1 presence is not a decoded TL schema.",
-  "build": "283568",
+  "build": "283569",
   "code_containers": [
     {
       "has_TLS1_blob": true,
@@ -11,8 +11,8 @@
       "path": "Contents/MacOS/Telegram"
     }
   ],
-  "download_url": "https://mac-updates.telegram.org/beta/Telegram-13.2.0.283568-arm64-2ac40569fdfb.app.tar.xz",
-  "sha256": "2ac40569fdfbb3b148628f124eb74bce182ac6c4a845e3b8a849f48c7298ad71",
-  "size_bytes": 48806952,
+  "download_url": "https://mac-updates.telegram.org/beta/Telegram-13.2.0.283569-arm64-4d2cab9c3722.app.tar.xz",
+  "sha256": "4d2cab9c3722f1f2f2c41973543b4eba4dfb03ea9d896415b203564d9a1deee0",
+  "size_bytes": 48819672,
   "version": "13.2.0"
 }

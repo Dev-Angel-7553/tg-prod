@@ -1,0 +1,26 @@
+{
+  "category": "web",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:c294b13f65a3f34f58f35ff6fed5c2df5a4493d7:web:mixed",
+  "files": [
+    {
+      "additions": 3013,
+      "deletions": 1090,
+      "filename": "data/web/corefork.telegram.org/bots/api.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1900,
+      "deletions": 392,
+      "filename": "data/web/corefork.telegram.org/bots/errors.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-17T02:11:35Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "c294b13f65a3f34f58f35ff6fed5c2df5a4493d7",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/c294b13f65a3f34f58f35ff6fed5c2df5a4493d7"
+  }
+}

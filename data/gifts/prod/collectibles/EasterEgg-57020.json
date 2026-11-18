@@ -120,7 +120,7 @@
         "text_color": 15455432
       }
     ],
-    "availability_issued": 164172,
+    "availability_issued": 164173,
     "availability_total": 173176,
     "burned": false,
     "craft_chance_permille": null,
@@ -144,8 +144,8 @@
     "theme_available": false,
     "theme_peer": null,
     "title": "Easter Egg",
-    "value_amount": 675,
+    "value_amount": 1200,
     "value_currency": "USD",
-    "value_usd_amount": 675
+    "value_usd_amount": 1200
   }
 }

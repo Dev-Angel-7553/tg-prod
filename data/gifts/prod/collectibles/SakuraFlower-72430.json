@@ -147,15 +147,15 @@
       },
       {
         "_": "StarsTonAmount",
-        "amount": 23730000000
+        "amount": 23780000000
       }
     ],
     "slug": "SakuraFlower-72430",
     "theme_available": false,
     "theme_peer": null,
     "title": "Sakura Flower",
-    "value_amount": 1500,
+    "value_amount": 1800,
     "value_currency": "USD",
-    "value_usd_amount": 1500
+    "value_usd_amount": 1800
   }
 }

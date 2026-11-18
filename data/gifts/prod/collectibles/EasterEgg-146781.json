@@ -136,7 +136,7 @@
         }
       }
     ],
-    "availability_issued": 164172,
+    "availability_issued": 164173,
     "availability_total": 173176,
     "burned": false,
     "craft_chance_permille": null,
@@ -163,15 +163,15 @@
       },
       {
         "_": "StarsTonAmount",
-        "amount": 10900000000
+        "amount": 10920000000
       }
     ],
     "slug": "EasterEgg-146781",
     "theme_available": false,
     "theme_peer": null,
     "title": "Easter Egg",
-    "value_amount": 562,
+    "value_amount": 1200,
     "value_currency": "USD",
-    "value_usd_amount": 562
+    "value_usd_amount": 1200
   }
 }

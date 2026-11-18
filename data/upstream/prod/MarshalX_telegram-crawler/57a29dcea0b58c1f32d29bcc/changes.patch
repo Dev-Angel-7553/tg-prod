@@ -1,0 +1,90 @@
+diff --git a/data/web_tr/translations.telegram.org/en/android/general.json b/data/web_tr/translations.telegram.org/en/android/general.json
+@@ -22317,7 +22317,7 @@
+     "VoipUnmute": {
+         "url": "https://translations.telegram.org/en/android/general/VoipUnmute",
+         "photo_url": "https://telegra.ph/file/p/45a72ec113b/11a9fac1ae2eee7dea46317.jpg?c=206,788,280,279,280,278",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Unmute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/android/groups_and_channels.json b/data/web_tr/translations.telegram.org/en/android/groups_and_channels.json
+@@ -15206,7 +15206,7 @@
+     "VoipUnmute": {
+         "url": "https://translations.telegram.org/en/android/groups_and_channels/VoipUnmute",
+         "photo_url": "https://telegra.ph/file/p/69f8dfc5140/131e5abf0e6625ec2207817.jpg?c=160,716,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Unmute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/general.json b/data/web_tr/translations.telegram.org/en/ios/general.json
+@@ -24790,7 +24790,7 @@
+     "VoiceChat.Mute": {
+         "url": "https://translations.telegram.org/en/ios/general/VoiceChat.Mute",
+         "photo_url": "https://telegra.ph/file/p/d9ca896f8bd/9d4ec144ae83ebe5a528f19.jpg?c=422,2139,354,354,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Mute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/groups_and_channels.json b/data/web_tr/translations.telegram.org/en/macos/groups_and_channels.json
+@@ -8822,7 +8822,7 @@
+     "VoiceChat.ClickToUnmute": {
+         "url": "https://translations.telegram.org/en/macos/groups_and_channels/VoiceChat.ClickToUnmute",
+         "photo_url": "https://telegra.ph/file/p/37bd150fd87/aa1303e2fee82040c9ce316.jpg?c=10,134,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Click to Unmute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/unigram/groups_and_channels.json b/data/web_tr/translations.telegram.org/en/unigram/groups_and_channels.json
+@@ -1509,7 +1509,7 @@
+     "VoipUnmute": {
+         "url": "https://translations.telegram.org/en/unigram/groups_and_channels/VoipUnmute",
+         "photo_url": "https://telegra.ph/file/p/be8de3952e5/8913a405b20a04f0fa73219.jpg?c=505,672,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Unmute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/unigram/unsorted.json b/data/web_tr/translations.telegram.org/en/unigram/unsorted.json
+@@ -499,7 +499,7 @@
+     "AccDescrChatInfo": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AccDescrChatInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Chat info"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/weba/general.json b/data/web_tr/translations.telegram.org/en/weba/general.json
+@@ -354,7 +354,7 @@
+     "CallMuteAudio": {
+         "url": "https://translations.telegram.org/en/weba/general/CallMuteAudio",
+         "photo_url": null,
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Mute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/weba/groups_and_channels.json b/data/web_tr/translations.telegram.org/en/weba/groups_and_channels.json
+@@ -2660,7 +2660,7 @@
+     "VoipUnmute": {
+         "url": "https://translations.telegram.org/en/weba/groups_and_channels/VoipUnmute",
+         "photo_url": "https://telegra.ph/file/p/c912560a6e1/ab8ca75bc0d78b6ebb88b17.jpg?c=160,764,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Unmute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/webk/unsorted.json b/data/web_tr/translations.telegram.org/en/webk/unsorted.json
+@@ -67,7 +67,7 @@
+     "AccDescr.ChatInfo": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/AccDescr.ChatInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Chat info"
+         }

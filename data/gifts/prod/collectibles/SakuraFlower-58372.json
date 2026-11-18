@@ -142,7 +142,7 @@
     "resell_amount": [
       {
         "_": "StarsAmount",
-        "amount": 1273,
+        "amount": 1275,
         "nanos": 0
       },
       {
@@ -154,8 +154,8 @@
     "theme_available": false,
     "theme_peer": null,
     "title": "Sakura Flower",
-    "value_amount": 778,
+    "value_amount": 1800,
     "value_currency": "USD",
-    "value_usd_amount": 778
+    "value_usd_amount": 1800
   }
 }

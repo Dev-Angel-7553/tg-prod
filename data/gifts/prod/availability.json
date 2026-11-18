@@ -1,7 +1,7 @@
 {
   "available": 11,
-  "limited": 138,
+  "limited": 140,
   "scope": "API catalog for this environment and session; not a payment or purchase check.",
-  "sold_out": 138,
-  "total_catalog_entries": 149
+  "sold_out": 140,
+  "total_catalog_entries": 151
 }

@@ -1,6 +1,6 @@
 {
-  "changelog": "- allow dictation to contact who blocked receiving voice messages\n- updated tinyasr, better en-ru-uk model, update button for models\n- minor fixes",
+  "changelog": "- tinyasr speech to text: x2 faster speed, 40% less ram usage",
   "file_url": "https://cdn4.telesco.pe/file/Telegram-Beta.apk?token=[volatile]",
   "version": "13.3.0",
-  "version_code": 73369
+  "version_code": 73419
 }

@@ -1,0 +1,171 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "ton-blockchain/ton:c290e2cfdde89a0e9056dba3ec8992b7df9ba087:code:mixed",
+  "files": [
+    {
+      "additions": 23,
+      "deletions": 32,
+      "filename": "overlay/overlay-manager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 16,
+      "filename": "overlay/overlay-manager.h",
+      "status": "modified"
+    },
+    {
+      "additions": 80,
+      "deletions": 276,
+      "filename": "overlay/overlay-peers.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 47,
+      "deletions": 121,
+      "filename": "overlay/overlay.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 10,
+      "filename": "overlay/overlay.h",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 51,
+      "filename": "overlay/overlay.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 13,
+      "filename": "overlay/overlays.h",
+      "status": "modified"
+    },
+    {
+      "additions": 12,
+      "deletions": 6,
+      "filename": "quic/quic-sender.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "quic/quic-server.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "quic/quic-server.h",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 4,
+      "filename": "validator-engine/validator-engine.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 14,
+      "filename": "validator/full-node-custom-overlays.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 4,
+      "filename": "validator/full-node-custom-overlays.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 17,
+      "filename": "validator/full-node-fast-sync-overlays.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 4,
+      "filename": "validator/full-node-fast-sync-overlays.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 19,
+      "filename": "validator/full-node-shard.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 3,
+      "filename": "validator/full-node-shard.h",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 4,
+      "filename": "validator/full-node-shard.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 14,
+      "deletions": 15,
+      "filename": "validator/full-node.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 9,
+      "filename": "validator/full-node.h",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 3,
+      "filename": "validator/full-node.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 4,
+      "filename": "validator/manager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 2,
+      "filename": "validator/manager.h",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 4,
+      "filename": "validator/manager.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "validator/validator-group.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 2,
+      "filename": "validator/validator-group.hpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "testnet",
+    "date": "2026-11-17T08:12:39Z",
+    "repo": "ton-blockchain/ton",
+    "sha": "c290e2cfdde89a0e9056dba3ec8992b7df9ba087",
+    "url": "https://github.com/ton-blockchain/ton/compare/4958c4d9dbc674a97d70cae5be443ad17335faf8...c290e2cfdde89a0e9056dba3ec8992b7df9ba087"
+  }
+}

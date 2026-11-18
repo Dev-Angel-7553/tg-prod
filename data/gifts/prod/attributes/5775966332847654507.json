@@ -439,7 +439,7 @@
       "pattern_color": 264202,
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 12
+        "permille": 11
       },
       "text_color": 11978188
     },
@@ -6008,7 +6008,7 @@
       "name": "Red Devil",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 18
+        "permille": 17
       }
     },
     {

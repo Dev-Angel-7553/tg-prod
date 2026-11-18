@@ -1,0 +1,2685 @@
+diff --git a/data/client/android-beta/AndroidManifest.xml b/data/client/android-beta/AndroidManifest.xml
+@@ -0,0 +1,527 @@
++<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="36" android:compileSdkVersionCodename="16" android:installLocation="auto" package="org.telegram.messenger.beta" platformBuildVersionCode="36" platformBuildVersionName="16">
++    <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
++    <uses-feature android:name="android.hardware.location.network" android:required="false"/>
++    <uses-feature android:name="android.hardware.location" android:required="false"/>
++    <uses-feature android:name="android.hardware.LOCATION" android:required="false"/>
++    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
++    <uses-permission android:name="org.telegram.messenger.beta.permission.MAPS_RECEIVE"/>
++    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
++    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
++    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
++    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
++    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
++    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
++    <permission android:name="org.telegram.messenger.beta.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
++    <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true"/>
++    <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
++    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
++    <uses-feature android:name="android.hardware.wifi" android:required="false"/>
++    <uses-feature android:name="android.hardware.screen.PORTRAIT" android:required="false"/>
++    <uses-feature android:name="android.hardware.microphone" android:required="false"/>
++    <uses-feature android:name="android.hardware.camera" android:required="false"/>
++    <uses-feature android:name="android.hardware.camera2" android:required="false"/>
++    <uses-feature android:name="android.hardware.sensor.proximity" android:required="false"/>
++    <uses-permission android:name="android.permission.READ_CLIPBOARD"/>
++    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
++    <uses-permission android:name="android.permission.INTERNET"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
++    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/>
++    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
++    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
++    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
++    <uses-permission android:name="android.permission.WAKE_LOCK"/>
++    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
++    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
++    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
++    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
++    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
++    <uses-permission android:name="android.permission.READ_CONTACTS"/>
++    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
++    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
++    <uses-permission android:name="android.permission.READ_PROFILE"/>
++    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
++    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
++    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
++    <uses-permission android:name="android.permission.VIBRATE"/>
++    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
++    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
++    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
++    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
++    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
++    <uses-permission android:name="android.permission.INSTALL_SHORTCUT"/>
++    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
++    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>
++    <uses-permission android:name="android.permission.CAMERA"/>
++    <uses-permission android:name="android.permission.BLUETOOTH"/>
++    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
++    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
++    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
++    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
++    <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
++    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
++    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
++    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
++    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
++    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
++    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
++    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
++    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
++    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
++    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
++    <uses-permission android:name="android.permission.READ_APP_BADGE"/>
++    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
++    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
++    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ"/>
++    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/>
++    <uses-permission android:name="com.android.vending.BILLING"/>
++    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
++    <queries>
++        <package android:name="com.google.android.apps.maps"/>
++        <intent>
++            <action android:name="android.intent.action.VIEW"/>
++            <data android:scheme="ton"/>
++        </intent>
++        <intent>
++            <action android:name="android.speech.RecognitionService"/>
++        </intent>
++        <package android:name="com.google.android.gms.policy_cast_dynamite"/>
++        <intent>
++            <action android:name="com.android.vending.billing.InAppBillingService.BIND"/>
++        </intent>
++        <intent>
++            <action android:name="com.google.android.apps.play.billingtestcompanion.BillingOverrideService.BIND"/>
++        </intent>
++        <provider android:authorities="androidx.car.app.connection" android:name="androidx.car.app.connection.provider"/>
++    </queries>
++    <permission android:name="org.telegram.messenger.beta.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" android:protectionLevel="signature"/>
++    <uses-permission android:name="org.telegram.messenger.beta.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"/>
++    <application android:allowAudioPlaybackCapture="true" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:backupAgent="org.telegram.messenger.BackupAgent" android:enableOnBackInvokedCallback="true" android:extractNativeLibs="true" android:gwpAsanMode="always" android:hardwareAccelerated="true" android:icon="@mipmap/ic_launcher" android:label="@string/AppNameBeta" android:largeHeap="true" android:manageSpaceActivity="org.telegram.ui.ExternalActionActivity" android:name="org.telegram.messenger.ApplicationLoaderImpl" android:preserveLegacyExternalStorage="true" android:requestLegacyExternalStorage="true" android:restoreAnyVersion="true" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="false" android:theme="@style/Theme.TMessages.Start" android:usesCleartextTraffic="true">
++        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyA-t0jLPjUt2FxrA8VPK2EiYHcYcboIR6k"/>
++        <service android:exported="true" android:name="org.telegram.messenger.GcmPushListenerService">
++            <intent-filter>
++                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
++            </intent-filter>
++        </service>
++        <uses-library android:name="com.google.android.maps" android:required="false"/>
++        <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true"/>
++        <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false"/>
++        <receiver android:enabled="false" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementReceiver">
++            <intent-filter>
++                <action android:name="com.google.android.gms.measurement.UPLOAD"/>
++            </intent-filter>
++        </receiver>
++        <service android:enabled="false" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService"/>
++        <service android:exported="true" android:name="org.telegram.messenger.GoogleVoiceClientService"/>
++        <activity android:exported="true" android:name="org.telegram.messenger.GoogleVoiceClientActivity">
++            <intent-filter>
++                <action android:name="com.google.android.voicesearch.SEND_MESSAGE_TO_CONTACTS"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="text/plain"/>
++            </intent-filter>
++        </activity>
++        <activity android:exported="true" android:name="com.microsoft.appcenter.distribute.DeepLinkActivity" android:theme="@android:style/Theme.NoDisplay">
++            <intent-filter>
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <category android:name="android.intent.category.BROWSABLE"/>
++                <data android:host="updates" android:path="/" android:scheme="appcenter"/>
++            </intent-filter>
++        </activity>
++        <receiver android:exported="true" android:name="com.microsoft.appcenter.distribute.DownloadManagerReceiver">
++            <intent-filter>
++                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
++                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
++            </intent-filter>
++        </receiver>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:exported="true" android:hardwareAccelerated="true" android:launchMode="singleTask" android:name="org.telegram.ui.LaunchActivity" android:supportsPictureInPicture="true" android:theme="@style/Theme.TMessages.Start" android:windowSoftInputMode="adjustResize">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="android.intent.action.SEND"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="image/*"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="android.intent.action.SEND"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="video/*"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="android.intent.action.SEND_MULTIPLE"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="image/*"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="android.intent.action.SEND"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="text/plain"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="android.intent.action.SEND"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="*/*"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="android.intent.action.SEND_MULTIPLE"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="*/*"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="vnd.android.cursor.item/vnd.org.telegram.messenger.android.profile"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <category android:name="android.intent.category.BROWSABLE"/>
++                <data android:host="telegram.me" android:scheme="http"/>
++                <data android:host="telegram.me" android:scheme="https"/>
++                <data android:host="telegram.dog" android:scheme="http"/>
++                <data android:host="telegram.dog" android:scheme="https"/>
++                <data android:host="t.me" android:scheme="http"/>
++                <data android:host="t.me" android:scheme="https"/>
++            </intent-filter>
++            <intent-filter android:icon="@mipmap/ic_launcher" android:priority="1" android:roundIcon="@mipmap/ic_launcher_round">
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <category android:name="android.intent.category.BROWSABLE"/>
++                <data android:scheme="tonsite"/>
++            </intent-filter>
++            <intent-filter android:icon="@mipmap/ic_launcher" android:priority="1" android:roundIcon="@mipmap/ic_launcher_round">
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.BROWSABLE"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:scheme="tg"/>
++            </intent-filter>
++            <intent-filter android:icon="@mipmap/ic_launcher" android:priority="1" android:roundIcon="@mipmap/ic_launcher_round">
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <category android:name="android.intent.category.BROWSABLE"/>
++                <data android:host="transfer" android:pathPrefix="/" android:scheme="ton"/>
++            </intent-filter>
++            <intent-filter android:icon="@mipmap/ic_launcher" android:priority="1" android:roundIcon="@mipmap/ic_launcher_round">
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <category android:name="android.intent.category.BROWSABLE"/>
++                <data android:scheme="tc"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="org.telegram.messenger.CREATE_STICKER_PACK"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="*/*"/>
++            </intent-filter>
++            <meta-data android:name="android.service.chooser.chooser_target_service" android:value="androidx.sharetarget.ChooserTargetServiceCompat"/>
++            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
++            <meta-data android:name="com.google.mlkit.vision.DEPENDENCIES" android:value="subject_segment"/>
++        </activity>
++        <activity-alias android:enabled="true" android:exported="true" android:name="org.telegram.messenger.DefaultIcon" android:targetActivity="org.telegram.ui.LaunchActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN"/>
++                <category android:name="android.intent.category.LAUNCHER"/>
++                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER"/>
++            </intent-filter>
++            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
++        </activity-alias>
++        <activity-alias android:enabled="false" android:exported="true" android:icon="@mipmap/icon_6_launcher" android:name="org.telegram.messenger.VintageIcon" android:roundIcon="@mipmap/icon_6_launcher_round" android:targetActivity="org.telegram.ui.LaunchActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN"/>
++                <category android:name="android.intent.category.LAUNCHER"/>
++                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER"/>
++            </intent-filter>
++            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
++        </activity-alias>
++        <activity-alias android:enabled="false" android:exported="true" android:icon="@mipmap/icon_4_launcher" android:name="org.telegram.messenger.AquaIcon" android:roundIcon="@mipmap/icon_4_launcher_round" android:targetActivity="org.telegram.ui.LaunchActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN"/>
++                <category android:name="android.intent.category.LAUNCHER"/>
++                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER"/>
++            </intent-filter>
++            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
++        </activity-alias>
++        <activity-alias android:enabled="false" android:exported="true" android:icon="@mipmap/icon_3_launcher" android:name="org.telegram.messenger.PremiumIcon" android:roundIcon="@mipmap/icon_3_launcher_round" android:targetActivity="org.telegram.ui.LaunchActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN"/>
++                <category android:name="android.intent.category.LAUNCHER"/>
++                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER"/>
++            </intent-filter>
++            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
++        </activity-alias>
++        <activity-alias android:enabled="false" android:exported="true" android:icon="@mipmap/icon_5_launcher" android:name="org.telegram.messenger.TurboIcon" android:roundIcon="@mipmap/icon_5_launcher_round" android:targetActivity="org.telegram.ui.LaunchActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN"/>
++                <category android:name="android.intent.category.LAUNCHER"/>
++                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER"/>
++            </intent-filter>
++            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
++        </activity-alias>
++        <activity-alias android:enabled="false" android:exported="true" android:icon="@mipmap/icon_2_launcher" android:name="org.telegram.messenger.NoxIcon" android:roundIcon="@mipmap/icon_2_launcher_round" android:targetActivity="org.telegram.ui.LaunchActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN"/>
++                <category android:name="android.intent.category.LAUNCHER"/>
++                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER"/>
++            </intent-filter>
++            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
++        </activity-alias>
++        <activity-alias android:exported="true" android:name="org.telegram.ui.CallsActivity" android:permission="android.permission.CALL_PHONE" android:targetActivity="org.telegram.ui.LaunchActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:mimeType="vnd.android.cursor.item/vnd.org.telegram.messenger.android.call"/>
++                <data android:mimeType="vnd.android.cursor.item/vnd.org.telegram.messenger.android.call.video"/>
++            </intent-filter>
++        </activity-alias>
++        <activity android:allowEmbedded="true" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:documentLaunchMode="always" android:hardwareAccelerated="true" android:name="org.telegram.ui.BubbleActivity" android:resizeableActivity="true" android:windowSoftInputMode="adjustResize"/>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:excludeFromRecents="true" android:exported="true" android:hardwareAccelerated="true" android:name="org.telegram.ui.ShareActivity" android:stateNotNeeded="true" android:theme="@style/Theme.TMessages.Transparent" android:windowSoftInputMode="adjustPan">
++            <intent-filter android:icon="@mipmap/ic_launcher" android:priority="1" android:roundIcon="@mipmap/ic_launcher_round">
++                <action android:name="android.intent.action.VIEW"/>
++                <category android:name="android.intent.category.BROWSABLE"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++                <data android:scheme="tgb"/>
++            </intent-filter>
++        </activity>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:exported="true" android:hardwareAccelerated="true" android:name="org.telegram.ui.ExternalActionActivity" android:windowSoftInputMode="adjustPan">
++            <intent-filter android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
++                <action android:name="org.telegram.passport.AUTHORIZE"/>
++                <category android:name="android.intent.category.DEFAULT"/>
++            </intent-filter>
++        </activity>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:exported="true" android:hardwareAccelerated="true" android:name="org.telegram.ui.ChatsWidgetConfigActivity" android:windowSoftInputMode="adjustPan">
++            <intent-filter android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
++                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
++            </intent-filter>
++        </activity>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:exported="true" android:hardwareAccelerated="true" android:name="org.telegram.ui.ContactsWidgetConfigActivity" android:windowSoftInputMode="adjustPan">
++            <intent-filter android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
++                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
++            </intent-filter>
++        </activity>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:exported="true" android:name="org.telegram.messenger.OpenChatReceiver"/>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:exported="true" android:name="org.telegram.messenger.OpenAttachedMenuBotReceiver"/>
++        <activity android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:excludeFromRecents="true" android:launchMode="singleTask" android:name="org.telegram.ui.PopupNotificationActivity" android:resizeableActivity="false" android:taskAffinity="" android:theme="@style/Theme.TMessages.PopupNotification" android:windowSoftInputMode="adjustResize|stateHidden"/>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:excludeFromRecents="true" android:name="org.telegram.ui.VoIPPermissionActivity" android:taskAffinity="org.telegram.messenger.beta.voip" android:theme="@style/Theme.TMessages.Transparent"/>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:excludeFromRecents="true" android:name="org.telegram.ui.VoIPFeedbackActivity" android:taskAffinity="org.telegram.messenger.beta.voip_feedback" android:theme="@style/Theme.TMessages.TransparentWithAlerts"/>
++        <receiver android:exported="false" android:name="org.telegram.messenger.AutoMessageHeardReceiver">
++            <intent-filter>
++                <action android:name="org.telegram.messenger.ACTION_MESSAGE_HEARD"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:exported="false" android:name="org.telegram.messenger.CopyCodeReceiver">
++            <intent-filter>
++                <action android:name="org.telegram.messenger.ACTION_COPY_CODE"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:exported="false" android:name="org.telegram.messenger.NotificationsDisabledReceiver">
++            <intent-filter>
++                <action android:name="android.app.action.NOTIFICATION_CHANNEL_BLOCK_STATE_CHANGED"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:exported="true" android:name="org.telegram.messenger.SmsReceiver">
++            <intent-filter>
++                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:exported="false" android:name="org.telegram.messenger.CallReceiver">
++            <intent-filter>
++                <action android:name="android.intent.action.PHONE_STATE"/>
++            </intent-filter>
++        </receiver>
++        <service android:exported="false" android:isolatedProcess="true" android:name="org.telegram.utils.twidget.WidgetEngineService" android:process=":widgets"/>
++        <service android:exported="true" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.AuthenticatorService">
++            <intent-filter>
++                <action android:name="android.accounts.AccountAuthenticator"/>
++            </intent-filter>
++            <meta-data android:name="android.accounts.AccountAuthenticator" android:resource="@xml/auth"/>
++        </service>
++        <service android:exported="true" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.ContactsSyncAdapterService">
++            <intent-filter>
++                <action android:name="android.content.SyncAdapter"/>
++            </intent-filter>
++            <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/sync_contacts"/>
++            <meta-data android:name="android.provider.CONTACTS_STRUCTURE" android:resource="@xml/contacts"/>
++        </service>
++        <service android:exported="false" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.KeepAliveJob" android:permission="android.permission.BIND_JOB_SERVICE"/>
++        <service android:enabled="true" android:exported="true" android:foregroundServiceType="mediaPlayback" android:name="org.telegram.messenger.BringAppForegroundService"/>
++        <service android:enabled="true" android:exported="true" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.NotificationsService"/>
++        <service android:exported="false" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.NotificationRepeat"/>
++        <service android:enabled="true" android:exported="true" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.VideoEncodingService"/>
++        <service android:enabled="true" android:exported="true" android:foregroundServiceType="dataSync" android:name="org.telegram.ui.Stories.recorder.StoryUploadingService"/>
++        <service android:enabled="true" android:exported="true" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.ImportingService"/>
++        <service android:enabled="true" android:exported="true" android:foregroundServiceType="location" android:name="org.telegram.messenger.LocationSharingService"/>
++        <service android:enabled="true" android:exported="false" android:foregroundServiceType="camera|mediaPlayback|mediaProjection|microphone" android:name="org.telegram.messenger.voip.VoIPService"/>
++        <service android:enabled="true" android:exported="true" android:foregroundServiceType="mediaPlayback" android:name="org.telegram.messenger.MusicPlayerService"/>
++        <service android:exported="true" android:foregroundServiceType="mediaPlayback" android:name="org.telegram.messenger.MusicBrowserService">
++            <intent-filter>
++                <action android:name="android.media.browse.MediaBrowserService"/>
++            </intent-filter>
++        </service>
++        <service android:exported="true" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.voip.TelegramConnectionService" android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
++            <intent-filter>
++                <action android:name="android.telecom.ConnectionService"/>
++            </intent-filter>
++        </service>
++        <receiver android:exported="false" android:name="org.telegram.messenger.MusicPlayerReceiver">
++            <intent-filter>
++                <action android:name="org.telegram.android.musicplayer.close"/>
++                <action android:name="org.telegram.android.musicplayer.pause"/>
++                <action android:name="org.telegram.android.musicplayer.next"/>
++                <action android:name="org.telegram.android.musicplayer.play"/>
++                <action android:name="org.telegram.android.musicplayer.previous"/>
++                <action android:name="android.intent.action.MEDIA_BUTTON"/>
++                <action android:name="android.media.AUDIO_BECOMING_NOISY"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:exported="false" android:name="org.telegram.messenger.voip.VoIPMediaButtonReceiver">
++            <intent-filter>
++                <action android:name="android.intent.action.MEDIA_BUTTON"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:enabled="true" android:exported="false" android:name="org.telegram.messenger.AppStartReceiver">
++            <intent-filter>
++                <action android:name="org.telegram.start"/>
++                <action android:name="android.intent.action.BOOT_COMPLETED"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:exported="true" android:name="org.telegram.messenger.RefererReceiver" android:permission="android.permission.INSTALL_PACKAGES">
++            <intent-filter>
++                <action android:name="com.android.vending.INSTALL_REFERRER"/>
++            </intent-filter>
++        </receiver>
++        <receiver android:enabled="true" android:name="org.telegram.messenger.WearReplyReceiver"/>
++        <service android:exported="true" android:name="org.telegram.messenger.WearAuthListenerService">
++            <intent-filter>
++                <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED"/>
++                <data android:host="*" android:pathPrefix="/tg-wear-auth/" android:scheme="wear"/>
++            </intent-filter>
++        </service>
++        <receiver android:enabled="true" android:name="org.telegram.messenger.StopLiveLocationReceiver"/>
++        <receiver android:enabled="true" android:name="org.telegram.messenger.PopupReplyReceiver"/>
++        <receiver android:enabled="true" android:exported="false" android:name="org.telegram.messenger.NotificationCallbackReceiver"/>
++        <receiver android:enabled="true" android:name="org.telegram.messenger.ShareBroadcastReceiver"/>
++        <receiver android:enabled="true" android:name="org.telegram.messenger.CustomTabsCopyReceiver"/>
++        <receiver android:exported="false" android:name="org.telegram.messenger.NotificationDismissReceiver"/>
++        <receiver android:exported="false" android:name="org.telegram.messenger.voip.VoIPActionsReceiver"/>
++        <receiver android:exported="false" android:name="org.telegram.messenger.ShortcutResultReceiver"/>
++        <provider android:authorities="org.telegram.messenger.beta.provider" android:exported="false" android:grantUriPermissions="true" android:name="androidx.core.content.FileProvider">
++            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
++        </provider>
++        <provider android:authorities="org.telegram.messenger.beta.notification_image_provider" android:exported="false" android:grantUriPermissions="true" android:name="org.telegram.messenger.NotificationImageProvider"/>
++        <provider android:authorities="org.telegram.messenger.beta.call_sound_provider" android:exported="true" android:name="org.telegram.messenger.voip.CallNotificationSoundProvider"/>
++        <receiver android:exported="false" android:name="org.telegram.messenger.ChatsWidgetProvider">
++            <meta-data android:name="android.appwidget.provider" android:resource="@xml/chats_widget_info"/>
++            <intent-filter>
++                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
++            </intent-filter>
++        </receiver>
++        <service android:exported="false" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.ChatsWidgetService" android:permission="android.permission.BIND_REMOTEVIEWS"/>
++        <receiver android:exported="false" android:name="org.telegram.messenger.ContactsWidgetProvider">
++            <meta-data android:name="android.appwidget.provider" android:resource="@xml/contacts_widget_info"/>
++            <intent-filter>
++                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
++            </intent-filter>
++        </receiver>
++        <service android:exported="false" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.ContactsWidgetService" android:permission="android.permission.BIND_REMOTEVIEWS"/>
++        <service android:exported="false" android:foregroundServiceType="dataSync" android:name="org.telegram.messenger.FilesMigrationService"/>
++        <uses-library android:name="com.sec.android.app.multiwindow" android:required="false"/>
++        <meta-data android:name="com.sec.android.support.multiwindow" android:value="true"/>
++        <meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_W" android:value="632dp"/>
++        <meta-data android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H" android:value="598dp"/>
++        <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W" android:value="632dp"/>
++        <meta-data android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H" android:value="598dp"/>
++        <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
++        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face,barcode"/>
++        <meta-data android:name="android.max_aspect" android:value="2.5"/>
++        <meta-data android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME" android:value="org.telegram.messenger.chromecast.ChromecastOptionsProvider"/>
++        <service android:directBootAware="true" android:exported="false" android:name="com.google.firebase.components.ComponentDiscoveryService">
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.pnv.internal.FirebasePhoneNumberVerificationRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.crashlytics.FirebaseCrashlyticsKtxRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.crashlytics.CrashlyticsRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.sessions.FirebaseSessionsRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++        </service>
++        <service android:enabled="true" android:exported="false" android:name="androidx.credentials.playservices.CredentialProviderMetadataHolder">
++            <meta-data android:name="androidx.credentials.CREDENTIAL_PROVIDER_KEY" android:value="androidx.credentials.playservices.CredentialProviderPlayServicesImpl"/>
++        </service>
++        <activity android:configChanges="keyboardHidden|orientation|screenLayout|screenSize" android:enabled="true" android:exported="false" android:fitsSystemWindows="true" android:name="androidx.credentials.playservices.controllers.identityauth.HiddenActivity" android:theme="@style/Theme.Hidden"/>
++        <activity android:configChanges="keyboardHidden|orientation|screenLayout|screenSize" android:enabled="true" android:exported="false" android:fitsSystemWindows="true" android:name="androidx.credentials.playservices.controllers.identitycredentials.IdentityCredentialApiHiddenActivity" android:theme="@style/Theme.Hidden"/>
++        <receiver android:exported="false" android:name="com.google.android.gms.cast.framework.media.MediaIntentReceiver"/>
++        <service android:exported="false" android:name="com.google.android.gms.cast.framework.ReconnectionService"/>
++        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
++        <activity android:excludeFromRecents="true" android:exported="false" android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
++        <service android:exported="true" android:name="com.google.android.gms.auth.api.signin.RevocationBoundService" android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" android:visibleToInstantApps="true"/>
++        <meta-data android:name="com.google.android.play.billingclient.version" android:value="8.0.0"/>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize" android:exported="false" android:name="com.android.billingclient.api.ProxyBillingActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
++        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize" android:exported="false" android:name="com.android.billingclient.api.ProxyBillingActivityV2" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
++        <service android:directBootAware="true" android:exported="false" android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService">
++            <meta-data android:name="com.google.firebase.components:com.google.mlkit.nl.languageid.bundled.internal.ThickLanguageIdRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.mlkit.vision.segmentation.subject.internal.SubjectSegmentationRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.mlkit.vision.label.defaults.thin.ThinLabelRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.mlkit.nl.languageid.internal.LanguageIdRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++            <meta-data android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
++        </service>
++        <receiver android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:permission="com.google.android.c2dm.permission.SEND">
++            <intent-filter>
++                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
++            </intent-filter>
++            <meta-data android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED" android:value="true"/>
++        </receiver>
++        <service android:directBootAware="true" android:exported="false" android:name="com.google.firebase.messaging.FirebaseMessagingService">
++            <intent-filter android:priority="-500">
++                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
++            </intent-filter>
++        </service>
++        <provider android:authorities="org.telegram.messenger.beta.mlkitinitprovider" android:exported="false" android:initOrder="99" android:name="com.google.mlkit.common.internal.MlKitInitProvider"/>
++        <service android:enabled="false" android:exported="false" android:name="com.google.firebase.sessions.SessionLifecycleService"/>
++        <provider android:authorities="org.telegram.messenger.beta.firebaseinitprovider" android:directBootAware="true" android:exported="false" android:initOrder="100" android:name="com.google.firebase.provider.FirebaseInitProvider"/>
++        <activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
++        <service android:enabled="false" android:exported="false" android:name="androidx.car.app.CarAppMetadataHolderService" android:process="">
++            <meta-data android:name="androidx.car.app.CarAppMetadataHolderService.CAR_HARDWARE_MANAGER" android:value="androidx.car.app.hardware.ProjectedCarHardwareManager"/>
++        </service>
++        <activity android:exported="false" android:name="androidx.car.app.CarAppPermissionActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
++        <receiver android:exported="false" android:name="androidx.car.app.notification.CarAppNotificationBroadcastReceiver"/>
++        <service android:exported="true" android:name="androidx.sharetarget.ChooserTargetServiceCompat" android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE">
++            <intent-filter>
++                <action android:name="android.service.chooser.ChooserTargetService"/>
++            </intent-filter>
++        </service>
++        <provider android:authorities="org.telegram.messenger.beta.androidx-startup" android:exported="false" android:name="androidx.startup.InitializationProvider">
++            <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup"/>
++            <meta-data android:name="androidx.lifecycle.ProcessLifecycleInitializer" android:value="androidx.startup"/>
++            <meta-data android:name="androidx.profileinstaller.ProfileInstallerInitializer" android:value="androidx.startup"/>
++        </provider>
++        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
++        <receiver android:directBootAware="false" android:enabled="true" android:exported="true" android:name="androidx.profileinstaller.ProfileInstallReceiver" android:permission="android.permission.DUMP">
++            <intent-filter>
++                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="androidx.profileinstaller.action.SKIP_FILE"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE"/>
++            </intent-filter>
++            <intent-filter>
++                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION"/>
++            </intent-filter>
++        </receiver>
++        <service android:exported="false" android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery">
++            <meta-data android:name="backend:com.google.android.datatransport.cct.CctBackendFactory" android:value="cct"/>
++        </service>
++        <service android:exported="false" android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService" android:permission="android.permission.BIND_JOB_SERVICE"/>
++        <receiver android:exported="false" android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"/>
++        <activity android:exported="false" android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity" android:stateNotNeeded="true" android:theme="@style/Theme.PlayCore.Transparent"/>
++    </application>
++</manifest>
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/PhoneFormats.dat b/data/client/android-beta/assets/PhoneFormats.dat
+@@ -0,0 +1 @@
++de584c08cb295cc1beaad44c7c07488995407e64af11a27a3d2bcfee3c57b6d0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/renderer-bundle.js b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/renderer-bundle.js
+@@ -0,0 +1 @@
++b886e4375b6dbb8c613937df16889d443c9875e530cc678b05af450d0d270127
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js
+@@ -0,0 +1 @@
++71daeba8113a4d1b41400bc5a74e476f544af818d745f694affedb54dfb9f48c
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc
+@@ -0,0 +1 @@
++6a5cdf5ff4a6e4a8b97f24f39cc92dd0ba6cc633adf04ccc15ddcdf2184da60d
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.js b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.js
+@@ -0,0 +1 @@
++fa47db43079d20e7a0a488bddbe6adce7fb86e52e7f518ffdf82c2fe5366d839
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc
+@@ -0,0 +1 @@
++a1f674baa545f2c896969348e814e39c12d438df8292fec7c5ec31850c0aa1e6
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/manifest.txt b/data/client/android-beta/assets/WidgetSandbox/manifest.txt
+@@ -0,0 +1 @@
++61e01dd2d8e6f577f2ab17e03617accdb366cd3b0c5273037b441811206971ad
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/arctic.attheme b/data/client/android-beta/assets/arctic.attheme
+@@ -0,0 +1 @@
++37d6359d3610cae442e7805892802d2f743d1237872835bdbda7a568fdb0f205
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/bluebubbles.attheme b/data/client/android-beta/assets/bluebubbles.attheme
+@@ -0,0 +1 @@
++f9cca1a737d012003464770b1b1e1953f3e820722d0f4b4c33ff35d117695fa2
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/countries.txt b/data/client/android-beta/assets/countries.txt
+@@ -0,0 +1 @@
++27fd3c3ba3f3f892bfe1e3cb0c59fbbcc5da34ee8bbe1042b509486d77308694
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/currencies.json b/data/client/android-beta/assets/currencies.json
+@@ -0,0 +1 @@
++7258a6a49c61530e51dc56888f3e9376428684934d4e02cf557fb820678adab3
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/darkblue.attheme b/data/client/android-beta/assets/darkblue.attheme
+@@ -0,0 +1 @@
++0936b4090f7aff95474657fb686d0891602055506311765c097786d55e07b111
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/day.attheme b/data/client/android-beta/assets/day.attheme
+@@ -0,0 +1 @@
++889713b6dfdc03494ed9cf27277fea904bc93193972f1b569a7907331898bcfc
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji.pack b/data/client/android-beta/assets/emoji.pack
+@@ -0,0 +1 @@
++c4200fd8b0efbf2267297c084f23f8f490d03a1c55d76c87ea2f844328769652
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_-1_0.png b/data/client/android-beta/assets/emoji/compound/0_-1_0.png
+@@ -0,0 +1 @@
++0ba43a087a17f3a7f405324c0b6b86083462d98be920b2684d48b88e2945eb97
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_-1_1.png b/data/client/android-beta/assets/emoji/compound/0_-1_1.png
+@@ -0,0 +1 @@
++676deafbd6bba6f33de0b7e1d06f79170851c4b9d81b9dc17cf80bacf1a3bef2
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_0_0.png b/data/client/android-beta/assets/emoji/compound/0_0_0.png
+@@ -0,0 +1 @@
++ac2cffd6e613e35083786bf09e150d373f6ae0128996faeee83321a8afc96ede
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_0_1.png b/data/client/android-beta/assets/emoji/compound/0_0_1.png
+@@ -0,0 +1 @@
++99ddbfca830166c9d2d15284604757a803a70c2290a1cabefcc742a5c9b8a8f0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_1_0.png b/data/client/android-beta/assets/emoji/compound/0_1_0.png
+@@ -0,0 +1 @@
++0c8856c35cac9ae225b394334db3c0bdf3af6c2d314d0b6f651d928e41e4cb40
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_1_1.png b/data/client/android-beta/assets/emoji/compound/0_1_1.png
+@@ -0,0 +1 @@
++33066655eac4b8855043f5b55f3c3513d6eb647d98f52f616e834a9e1daefb90
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_2_0.png b/data/client/android-beta/assets/emoji/compound/0_2_0.png
+@@ -0,0 +1 @@
++d16a213fb9234ece296a4fcae8b83064b85af221c0724d1db0e8fd2e3de545f3
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_2_1.png b/data/client/android-beta/assets/emoji/compound/0_2_1.png
+@@ -0,0 +1 @@
++be07c3cee40c07d5cbced1126da7eaa59c0d127cd0cb11ac29c9d10d6dc4d432
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_3_0.png b/data/client/android-beta/assets/emoji/compound/0_3_0.png
+@@ -0,0 +1 @@
++40e9118499bef72b3247dd969b4036b2a76ab4cf84836fd37def09c5ba5d404b
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_3_1.png b/data/client/android-beta/assets/emoji/compound/0_3_1.png
+@@ -0,0 +1 @@
++c7eb6b08cb964c7570312b1b2f321d1585da131317ddcd8a6467e471a882ba3b
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_4_0.png b/data/client/android-beta/assets/emoji/compound/0_4_0.png
+@@ -0,0 +1 @@
++87794e9c12a51d7579c4e3eaae1fe47f93be5547bc29eea0ef23317bf03d8f83
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/emoji/compound/0_4_1.png b/data/client/android-beta/assets/emoji/compound/0_4_1.png
+@@ -0,0 +1 @@
++344c6d1e2ab3901f0706badd09811c4a149f12475228822e29d604404db4f1b9
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/flecks.png b/data/client/android-beta/assets/flecks.png
+@@ -0,0 +1 @@
++8d3fe3e8488b6cf26f9c3a149a9ca35e646edc1c1d5fc0ceb713f67481d4f38d
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/currency_symbols.txt b/data/client/android-beta/assets/fonts/currency_symbols.txt
+@@ -0,0 +1 @@
++0051171d5f80c4bc72a2501c0b2f3c1683090c179e58843537c1f7e456c43068
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/gram.ttf b/data/client/android-beta/assets/fonts/gram.ttf
+@@ -0,0 +1 @@
++d7f4772e698115b15dbb157741892e30bf7f5ab14777324baeeca7a9071cdf60
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/mw_bold.ttf b/data/client/android-beta/assets/fonts/mw_bold.ttf
+@@ -0,0 +1 @@
++6b4918689d3f5d2b82b5727e86a56f79909359cfc948ec0bfa5628fd5c30bd05
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/mw_bolditalic.ttf b/data/client/android-beta/assets/fonts/mw_bolditalic.ttf
+@@ -0,0 +1 @@
++b4271e53ee50f4182f22f4759117ca24eb24aa1b547eec277f9246b49d615ee4
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/num.otf b/data/client/android-beta/assets/fonts/num.otf
+@@ -0,0 +1 @@
++afa8e4eb576575c47b90ffd5065ffd91d583ee5c7ae81d4f3033fceb140378bf
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/rcondensedbold.ttf b/data/client/android-beta/assets/fonts/rcondensedbold.ttf
+@@ -0,0 +1 @@
++95fba758c813b14b70649a846ec51462b817567f7761fb2f3d4208fca025d573
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/rextrabold.ttf b/data/client/android-beta/assets/fonts/rextrabold.ttf
+@@ -0,0 +1 @@
++2256f38d3a72ae0ec0306c8ed051595c9c8675de10f3727da054b68e0e499414
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/ritalic.ttf b/data/client/android-beta/assets/fonts/ritalic.ttf
+@@ -0,0 +1 @@
++5a3a0ccd2dac34116c5ed9e2e3ad3ec43ef44f3c0f2d6d55ae784bec4a5df15d
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/rmedium.ttf b/data/client/android-beta/assets/fonts/rmedium.ttf
+@@ -0,0 +1 @@
++c4a17ec40f13be4a229e34893e3e04f19dd190f48b4908e0649402cb2229e9cb
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/rmediumitalic.ttf b/data/client/android-beta/assets/fonts/rmediumitalic.ttf
+@@ -0,0 +1 @@
++e03f99f5a301d93f64c75ec7e5c16793701850f7e0a494b388ac05d168a3d241
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/rmono.ttf b/data/client/android-beta/assets/fonts/rmono.ttf
+@@ -0,0 +1 @@
++ab153dea6beb96c27886dcb0414cb7bd48718564358c78fd96cdeb49bc6511a8
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/fonts/rmono_var.ttf b/data/client/android-beta/assets/fonts/rmono_var.ttf
+@@ -0,0 +1 @@
++ffe6db2a820fad13df78365b4d471a5adb5d7530f409d462aa105a109586eb94
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/grammars.dat b/data/client/android-beta/assets/grammars.dat
+@@ -0,0 +1 @@
++45f9933f568884796c17fe57ac832ceb7d9dd072af7cb3291089a331693a9808
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_ar.bin b/data/client/android-beta/assets/localization_ar.bin
+@@ -0,0 +1 @@
++13645d07cb8ed3c85faf0cbef5533114dcbf80e21c0fa1baeef747029e209cac
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_de.bin b/data/client/android-beta/assets/localization_de.bin
+@@ -0,0 +1 @@
++1023e5510467d53cd5a625693a86cd868104e650f421602cce3b8466e6771d66
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_es.bin b/data/client/android-beta/assets/localization_es.bin
+@@ -0,0 +1 @@
++cda81bee25066f37de627ae2ebe5ba58b4676b5eef202a186264fdd849969daa
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_it.bin b/data/client/android-beta/assets/localization_it.bin
+@@ -0,0 +1 @@
++35fe45b2dd9db1d7caaf3090d86a44fd30d2723c37e367bca56fc3c4f7f9d905
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_ko.bin b/data/client/android-beta/assets/localization_ko.bin
+@@ -0,0 +1 @@
++912bef70148fba90bc18ca4186d39e2d2e609d0bd2ee471623be5aa82f30b166
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_nl.bin b/data/client/android-beta/assets/localization_nl.bin
+@@ -0,0 +1 @@
++fd94377b594e0dcc2e874a6d714a5bc110f0d914ae7ce1da93c73a2bbaad8959
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_pt_br.bin b/data/client/android-beta/assets/localization_pt_br.bin
+@@ -0,0 +1 @@
++e7dfbf36ae07e8c68b9f40704146b57a1eda1ac722084b8462a100775ac4142a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_ru.bin b/data/client/android-beta/assets/localization_ru.bin
+@@ -0,0 +1 @@
++95d8ba90da3dbfdc46deab5be41365c8d4c8fe0aa2a50f8b2bfd2c39ecaa93ea
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_uk.bin b/data/client/android-beta/assets/localization_uk.bin
+@@ -0,0 +1 @@
++b5d4c0e2a039e3fd1ddb31911d291e89b691e9e7ad74313d4ee4006d2bca47b3
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/lottie_meta.bin b/data/client/android-beta/assets/lottie_meta.bin
+@@ -0,0 +1 @@
++9323b5d79432c924624d60b402a32c41f16b09bfd4b22ccca16a820cb443b097
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/coin_border.png b/data/client/android-beta/assets/models/coin_border.png
+@@ -0,0 +1 @@
++3d639506eb4effc5fa4d6c7ed0404a3dbf0347970b1b3b89ae284c57b233ff55
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/coin_inner.binobj b/data/client/android-beta/assets/models/coin_inner.binobj
+@@ -0,0 +1 @@
++581e763bd8e9d0aff778c4037b8c100867997fffc7ee9a8f43f31717a3eca847
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/coin_logo.binobj b/data/client/android-beta/assets/models/coin_logo.binobj
+@@ -0,0 +1 @@
++9fe28e264f843e3fdb9c008480da64eaf8fbe2346d4bd11bd82d89854cce0cc6
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/coin_outer.binobj b/data/client/android-beta/assets/models/coin_outer.binobj
+@@ -0,0 +1 @@
++e2701407d85ac99e586cdf5c5c3e79dfd352825b79ab544096fda73c3f94d224
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/coin_stars.binobj b/data/client/android-beta/assets/models/coin_stars.binobj
+@@ -0,0 +1 @@
++ffc391d18657ac6a0e130d409f8bae54298f8ef3ff80cca745b1e9c781eb4305
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/deal_border.png b/data/client/android-beta/assets/models/deal_border.png
+@@ -0,0 +1 @@
++910c5304b6a4a38c3f374dc9c12a317b10ac8404e07b81532b262cbfc74d5982
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/deal_logo.binobj b/data/client/android-beta/assets/models/deal_logo.binobj
+@@ -0,0 +1 @@
++d925a1988b4a8cf22c342436df3347e4c940950eea663931d9436d14f12cff45
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/anchors.bin b/data/client/android-beta/assets/models/diamond_ios/anchors.bin
+@@ -0,0 +1 @@
++0d5766f648aaa79cc21f25ae3b22582314ef0b607bfcd878aee556b62c22fadf
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/camera.bin b/data/client/android-beta/assets/models/diamond_ios/camera.bin
+@@ -0,0 +1 @@
++8eefc0dc33a4b52dbbd1c92d7f8d314a845684b49e5fef05ad925b5a719c50d4
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/facetProjection.bin b/data/client/android-beta/assets/models/diamond_ios/facetProjection.bin
+@@ -0,0 +1 @@
++0654c1573d43f24503c05a1ab657bc82035aef07f5c4d43f0c2385de2b0e5a3b
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/frames.bin b/data/client/android-beta/assets/models/diamond_ios/frames.bin
+@@ -0,0 +1 @@
++66cc376f8e59fcc9f21629f42f7de23d7ecddc67e6d301553b09da8886476c84
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/main.bin b/data/client/android-beta/assets/models/diamond_ios/main.bin
+@@ -0,0 +1 @@
++b870d53f6a27b6e8b1532d172e331b4a0b94a2d043642bd020fa28805d9b7f19
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/planes.bin b/data/client/android-beta/assets/models/diamond_ios/planes.bin
+@@ -0,0 +1 @@
++c044bfadbb603e4903333b926b5c584f3d3d986381f90451b95e401df00b7085
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/small.bin b/data/client/android-beta/assets/models/diamond_ios/small.bin
+@@ -0,0 +1 @@
++fc0d15c14d6cc100aa8f6ffcdcf10bac2f95e560e3ca0a02569f99683f7b3c63
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/vertices.bin b/data/client/android-beta/assets/models/diamond_ios/vertices.bin
+@@ -0,0 +1 @@
++a6a664c247f2beb952a29dec1ef7a2278b1057ad91c50a32453373f02f8fb36d
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/diamond_ios/widths.bin b/data/client/android-beta/assets/models/diamond_ios/widths.bin
+@@ -0,0 +1 @@
++10f8690db5df0be462b30fcdc228f78b4bad333f1b6cb6000a950707d9cff135
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/models/star.binobj b/data/client/android-beta/assets/models/star.binobj
+@@ -0,0 +1 @@
++80c4525cddb9157882427a695c68a5f60a989d99d64673a27e9c84b21d499da0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/night.attheme b/data/client/android-beta/assets/night.attheme
+@@ -0,0 +1 @@
++b30a392c906b6888c1a3b84a3204bb41137f3d40e22befe92e793873a83bdd13
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/DefaultTeXFont.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/DefaultTeXFont.xml
+@@ -0,0 +1 @@
++1fe3b543068cb7ba9a75abd79c31bb0782219321f339596807a50e28d2cf6802
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/GlueSettings.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/GlueSettings.xml
+@@ -0,0 +1 @@
++205ed4264b76ed94d8de7e9914fef60fece51b3c69fff58eeef05a8dc97a9ff0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/TeXFormulaSettings.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/TeXFormulaSettings.xml
+@@ -0,0 +1 @@
++5cb010c26125d09cd34344bb61a47b1a21ae44ca5005a0680f56d57bbeaf5ef0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/TeXSymbols.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/TeXSymbols.xml
+@@ -0,0 +1 @@
++07ccb72b9f57f7f650ed1cafa35dae9a0eb997bd2add72396f1a5ffd277b9542
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_amsfonts.map.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_amsfonts.map.xml
+@@ -0,0 +1 @@
++fbc82f94c3371ab3ff7bf75ce91097d0f9994e30f238b77736723b73844490ad
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_amssymb.map.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_amssymb.map.xml
+@@ -0,0 +1 @@
++d01e7918b2eff842268ab1e1fe1409e9fb4a07c87ec0c2edad42756dcbf2ccbb
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_base.map.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_base.map.xml
+@@ -0,0 +1 @@
++d6886734b41f293c785220d2a44357551d2b968d7f68fb17888a41e4121dc353
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmex10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmex10.ttf
+@@ -0,0 +1 @@
++7e0dc7d0d581bdad4963559c6ae38cbd00dde790b1f2d8bb6b6a174929ec1fa1
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmex10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmex10.xml
+@@ -0,0 +1 @@
++a93353a0e4b5a55922afc38633c27e562c5e74816078f029d736b406352c78b8
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10.ttf
+@@ -0,0 +1 @@
++c04ef06ca0dc13c1a5e07e854fb6a7e7c4ec26b0ed17f07d2a02f150ee6670c5
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10.xml
+@@ -0,0 +1 @@
++98e74bff17aef8bbf154ed3511adf5eb731d1e41599d5ac8922c84e1b1843493
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10_unchanged.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10_unchanged.xml
+@@ -0,0 +1 @@
++17804d1cc52facca454ef1ab6b0bc244fdbaaaee1f86b80c1eee27c4b8229428
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10.ttf
+@@ -0,0 +1 @@
++a65286262b5f2496c6368595dd6543b6a5372fbf7b72a112f2665b0141670430
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10.xml
+@@ -0,0 +1 @@
++481550e9d3335a51414d5f9e5ff06a214250199f073e2b69eb94e1a032c2ca3c
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10_unchanged.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10_unchanged.xml
+@@ -0,0 +1 @@
++b2b97eea3865e6276560b8cfd090b6555b26d1262a9a1e3ff49a19cdbcde1457
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_moustache.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_moustache.xml
+@@ -0,0 +1 @@
++3126d50dde95e27c4e32b48a67dd26702a8b329620a70cd6cf532a608e4ab310
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufb10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufb10.ttf
+@@ -0,0 +1 @@
++003e05e504673fe0025f1797af594910453bb2b42d2db71f0f391ba5f4fac5f1
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufb10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufb10.xml
+@@ -0,0 +1 @@
++76e4590c66e99df6175708d9fdcfa9fdadcd9b172291675cee359bf003197346
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufm10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufm10.ttf
+@@ -0,0 +1 @@
++c435c63aac16e3da2bc2b319792507141bbe6d2385289eee63c8a614f85bde6a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufm10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufm10.xml
+@@ -0,0 +1 @@
++f8bc1e1691a24ae010aedf652c8185f2aef5723a8841b45e8d40527ae90b3407
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_cmr10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_cmr10.ttf
+@@ -0,0 +1 @@
++92dadcf2eede19e44771bcf4b9dd69d946d0f16247405ccfe97ffe6412a94e47
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_cmr10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_cmr10.xml
+@@ -0,0 +1 @@
++d94e6c87dfb189d805a43bb430e284941df355d1d5d703651a532c302583b716
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbi10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbi10.ttf
+@@ -0,0 +1 @@
++16ef0d86680a1c4735c6708597bb5fc0a0622344750d0575000896e206733e20
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbi10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbi10.xml
+@@ -0,0 +1 @@
++199af45463b27b411479def6c2b5b0e1a0a8a3b9381b640a74291bd43453f74f
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbx10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbx10.ttf
+@@ -0,0 +1 @@
++3610a480522aaa82ac67b777564cdf45168f910c89defe4407ec81226f2dce11
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbx10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbx10.xml
+@@ -0,0 +1 @@
++10fd282d2a9e55ea6de7685c10143797a821b41fd16020453c15b3d5284679a0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmi10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmi10.ttf
+@@ -0,0 +1 @@
++8c7041996fe2d83ebbdedacccbddec733a37f34ca38c03d200577c5a3e3b9617
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmi10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmi10.xml
+@@ -0,0 +1 @@
++ffc354d86e034f2ebc94ba743738b467227096a24c704ee9b618b7bca8431c02
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10.ttf
+@@ -0,0 +1 @@
++b70dffcc3b97866851205e908ddf81b676de3b684b3781a8217a6210cbe9a541
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10.xml
+@@ -0,0 +1 @@
++a1dbc76d868b6a645758445708a81532c7f3cfd7c35e85de0f0c0e317827b497
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10_unchanged.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10_unchanged.xml
+@@ -0,0 +1 @@
++20a5af414a6abc369ffc129fc4f716bb95b9d8ae6ed20f869ed657d82708fdc2
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsb10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsb10.ttf
+@@ -0,0 +1 @@
++f6e060a8b25bf199aca24b82ee285651e7be0fac4542a61472061633ddd975a0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsb10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsb10.xml
+@@ -0,0 +1 @@
++190eb887f8c358f310c8a0fed54450be6ea5a1847acadb67a575760c2af6b601
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsbi10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsbi10.ttf
+@@ -0,0 +1 @@
++b2b358e41bcaba0d0412c4b11f95541b73721110c2e9aa3fa4d5081c8a5cef64
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsbi10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsbi10.xml
+@@ -0,0 +1 @@
++c6806ef7a9b1b75000e0d69d46064e9fb23bb3fb260ba239eaaa0db5437f3dc1
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsi10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsi10.ttf
+@@ -0,0 +1 @@
++1ccfae53f1a3189c79957f59c1a7db7cc2727a475387389e2a5d6ac7585514a7
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsi10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsi10.xml
+@@ -0,0 +1 @@
++43d829b70076bb77c7fd6a0708dad4520ce40a15e7c4628a69d3ae143318bdc6
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmss10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmss10.ttf
+@@ -0,0 +1 @@
++d174631a8ef7a163baf4c0ef90126e021a62141fb00c6372b529eba1fc3bfab6
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmss10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmss10.xml
+@@ -0,0 +1 @@
++ed7ce47d2f73195684d0826ba48d64a47bbf37596f110bf6ca4fd5fda6d9b003
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmtt10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmtt10.ttf
+@@ -0,0 +1 @@
++85a1063af711ae8f959d35a2a6fdeb117dd92d9e3896c4fe862c3353c0a94526
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmtt10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmtt10.xml
+@@ -0,0 +1 @@
++0a6162efeea56428351a228dbbdf4e3f7a5a2845fcc2167f7e8742d4b4d57b70
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmbsy10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmbsy10.ttf
+@@ -0,0 +1 @@
++560f2761813eef92740e546fa61ab1f625ec0ec18e889f1d55af56f3196e08d6
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmbsy10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmbsy10.xml
+@@ -0,0 +1 @@
++c1526fbc130bcbcb32aff53fd4ce80ad459a1183fdb23e66fa647a98d69604f7
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmsy10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmsy10.ttf
+@@ -0,0 +1 @@
++903ad24abc1f4ea999b17577cc2d0501b15bf47409025f1a8ced8358b1512a0f
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmsy10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmsy10.xml
+@@ -0,0 +1 @@
++5342536af1d5767e44874e63e4b1ca556a501c5ec093417e8a8f58bed6a33183
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msam10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msam10.ttf
+@@ -0,0 +1 @@
++42425dd49db79d9667af33af34615acf7f04489f3eafe621e53ae14144f70422
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msam10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msam10.xml
+@@ -0,0 +1 @@
++b95ccfef660efd53e831bb33712d0b0219c28b3d39a2e22cd2b12123b8a3e9aa
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msbm10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msbm10.ttf
+@@ -0,0 +1 @@
++764036516a800f4c9c68400d364509543c694fd4d559c8fad44fa9e7fb0acc5a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msbm10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msbm10.xml
+@@ -0,0 +1 @@
++d204d0f376e246322645eae9cf660874ae17285615ac755e1a3cedb6d5a145f9
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_rsfs10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_rsfs10.ttf
+@@ -0,0 +1 @@
++2231d17748b7022b6c97fe43608380bf8336db2f345ac561ea41c3ba0c63e2d0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_rsfs10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_rsfs10.xml
+@@ -0,0 +1 @@
++42e5a103b126f0feb55550298a73d48109e42c552bf7a006dc27fe1ff4589eec
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.map.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.map.xml
+@@ -0,0 +1 @@
++94a836c6f424b4b2d63c1d9d7c0a483829a362f121c801b919a4bf0890ef51c3
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.ttf
+@@ -0,0 +1 @@
++26b88e86d115f718e1eeb1bc4b604ca59ad81d1954eebbf3201d4925fc553dec
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.xml
+@@ -0,0 +1 @@
++4f623b1f14f0e89b9def20aaa8d160123dab2e9fbec3229f5291bd9301bf3143
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmary10.ttf b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmary10.ttf
+@@ -0,0 +1 @@
++2149a623ea771da2575e141a4e64f031c8e8666239c32d7937a71821e892700f
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmary10.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmary10.xml
+@@ -0,0 +1 @@
++0fad8950cd080d276d312851045f8f43b3be49eec5ab1531c6a2d193a5e61759
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmaryrd.map.xml b/data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmaryrd.map.xml
+@@ -0,0 +1 @@
++c309e42b456e943372ceedd97dd7a5d45433cdf5bb295ffb592d3487b0e1645a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/secureid_ocr_nn.dat b/data/client/android-beta/assets/secureid_ocr_nn.dat
+@@ -0,0 +1 @@
++068ff713ea9ada7dcca202106d90022de4fbbb762a2a004c39642e802b2063fe
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/diamond/copyFragment.glsl b/data/client/android-beta/assets/shaders/diamond/copyFragment.glsl
+@@ -0,0 +1 @@
++24f59babbf279b6d900fb24b53271dbf2cfb5879773153f7e997a4f3b8ad5e32
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/diamond/diamondFragment.glsl b/data/client/android-beta/assets/shaders/diamond/diamondFragment.glsl
+@@ -0,0 +1 @@
++9e4e0433095664fbfc8524166fea33f4909b39fbb3ace6db26c27261edbcc7e8
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/diamond/diamondVertex.glsl b/data/client/android-beta/assets/shaders/diamond/diamondVertex.glsl
+@@ -0,0 +1 @@
++2d0ee6ef40e1ec05cf8e2cb188049c5ff47b59c70dc0cf1b169d3b7775edc01f
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/diamond/fullscreenVertex.glsl b/data/client/android-beta/assets/shaders/diamond/fullscreenVertex.glsl
+@@ -0,0 +1 @@
++895a1d58cdc23c4aa5ec11defd4e05297552d8ab78c9e28773cd3f8bda189c6b
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/diamond/sparkleFragment.glsl b/data/client/android-beta/assets/shaders/diamond/sparkleFragment.glsl
+@@ -0,0 +1 @@
++8b7930daa34346996f3c215894f29ba40fc68e9ef089d63ba2d8457c564ba01a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/diamond/sparkleVertex.glsl b/data/client/android-beta/assets/shaders/diamond/sparkleVertex.glsl
+@@ -0,0 +1 @@
++0f913008df9fc53238186c33c45f717025dcb46504aee0729febffecb64a8c5c
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/fragment3.glsl b/data/client/android-beta/assets/shaders/fragment3.glsl
+@@ -0,0 +1 @@
++4ef5728a57654b211ef8cab4e94529c021febaceec98f1ecbfd2c6c51eeeeed5
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/fragment4.glsl b/data/client/android-beta/assets/shaders/fragment4.glsl
+@@ -0,0 +1 @@
++5f897eda680ae4ff0e37c3f830197bd2a1234c2591c959a462344903af92b1f3
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shaders/vertex2.glsl b/data/client/android-beta/assets/shaders/vertex2.glsl
+@@ -0,0 +1 @@
++f5f970f90d67cd112ca4e1139a5a987925859ec380b0ddf83a268f27b73158ba
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/shapes.dat b/data/client/android-beta/assets/shapes.dat
+@@ -0,0 +1 @@
++ffabf2335eddc76a0ed7dc798f2e8e5fb67b988cd6bc61a751092328dac87657
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/tflite_langid.tflite.jpg b/data/client/android-beta/assets/tflite_langid.tflite.jpg
+@@ -0,0 +1 @@
++7f931f6f7c1dd0ec591ace7780df91645a450fafc83505f3ff45ce5ef7c8441b
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_0_0.webp b/data/client/android-beta/assets/wallet_card_2d/face_0_0.webp
+@@ -0,0 +1 @@
++320025db107e4705c849fda6714dc71a17933a69105dadcac28c6c60a190c84c
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_0_1.webp b/data/client/android-beta/assets/wallet_card_2d/face_0_1.webp
+@@ -0,0 +1 @@
++38a3db05b4d66531b1eba1670d256ed87de77a128201a9ae5477f7e40895954a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_0_2.webp b/data/client/android-beta/assets/wallet_card_2d/face_0_2.webp
+@@ -0,0 +1 @@
++1913cdec4c6289555d1d4c73db62e61f74c321d3c310e4e4f1020d098023ac5d
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_0_3.webp b/data/client/android-beta/assets/wallet_card_2d/face_0_3.webp
+@@ -0,0 +1 @@
++ae3c63666dc12d15b74dce162ebd2ab724b7011cded6c7e5e2f47c0cfb2f8ed5
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_0_4.webp b/data/client/android-beta/assets/wallet_card_2d/face_0_4.webp
+@@ -0,0 +1 @@
++f62c516ab063af57f436ed636530636c3dc0b36f8ff8f2957f279f2c2d756700
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_0_5.webp b/data/client/android-beta/assets/wallet_card_2d/face_0_5.webp
+@@ -0,0 +1 @@
++f7f4f426c56da56964cdeef31ae0ca22b7f8398145b56779888f701b16743717
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_0_6.webp b/data/client/android-beta/assets/wallet_card_2d/face_0_6.webp
+@@ -0,0 +1 @@
++9c608dd5c24b9a451785d6a320c28623092ebc71e90299b8d1427d6b93b57c3b
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_0_7.webp b/data/client/android-beta/assets/wallet_card_2d/face_0_7.webp
+@@ -0,0 +1 @@
++bca83cd43bee96119aba22fa35a5a4e9377228ebda205b1281182624332cb8e3
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_1_0.webp b/data/client/android-beta/assets/wallet_card_2d/face_1_0.webp
+@@ -0,0 +1 @@
++c884a5dab07289ea564069788a972fbaabcdf409d994c8bb81750768a5aa06b0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_1_1.webp b/data/client/android-beta/assets/wallet_card_2d/face_1_1.webp
+@@ -0,0 +1 @@
++be1de42bf545a68acc873001e3f7f66076ac9ea05966a82a1aeab5def09e5dde
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_1_2.webp b/data/client/android-beta/assets/wallet_card_2d/face_1_2.webp
+@@ -0,0 +1 @@
++8969a1d53608b1ebb207bcb62ea5a2774e5aa12621dcede6d82d2d2ef79a7c8d
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_1_3.webp b/data/client/android-beta/assets/wallet_card_2d/face_1_3.webp
+@@ -0,0 +1 @@
++f383025b9b125ac2544a76361686a0672ca629b3b7cbfdfacfd760b6f515a0d2
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_1_4.webp b/data/client/android-beta/assets/wallet_card_2d/face_1_4.webp
+@@ -0,0 +1 @@
++70396640153bafc0d6ef353b4bd51a30899f7809d242ac2a0a6af4758962523f
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_1_5.webp b/data/client/android-beta/assets/wallet_card_2d/face_1_5.webp
+@@ -0,0 +1 @@
++74f793e7b55fde5f250e3311db1721b8b42d07c71f4441d5f9aa466a73bf042a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_1_6.webp b/data/client/android-beta/assets/wallet_card_2d/face_1_6.webp
+@@ -0,0 +1 @@
++c42f295a115ae97a7009746dba6f32be10791aa0c1864c355b995209ef17c0c2
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/face_1_7.webp b/data/client/android-beta/assets/wallet_card_2d/face_1_7.webp
+@@ -0,0 +1 @@
++870b1e0cdc6c05e8e41db7f365ce5927b83b4917d061aa47efae33491aa5ca5a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/finish_dark.webp b/data/client/android-beta/assets/wallet_card_2d/finish_dark.webp
+@@ -0,0 +1 @@
++8a09a94a352a7e35ac214a02c23a876019c5a25b5290c4de8b10c4329c974de3
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/finish_light.webp b/data/client/android-beta/assets/wallet_card_2d/finish_light.webp
+@@ -0,0 +1 @@
++628eeef285bffed13244f5aece11d630468c1bce3e1e629bd1ecb3c02d71f830
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/grain.webp b/data/client/android-beta/assets/wallet_card_2d/grain.webp
+@@ -0,0 +1 @@
++668fb44692db11d63ab40bf4d796db3ab001db26de97b9357f7fa4f4b94d8aa9
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/groove_across.webp b/data/client/android-beta/assets/wallet_card_2d/groove_across.webp
+@@ -0,0 +1 @@
++fffc33856f6e8f82ff447d2d3ea771940c4d1e4faaaf2f947038668aeb1eadeb
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/groove_along.webp b/data/client/android-beta/assets/wallet_card_2d/groove_along.webp
+@@ -0,0 +1 @@
++57605b4f40cee82ac1aa25e8980c96be149aff3050b88a8d2e654fc0c2e8423c
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_0.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_0.webp
+@@ -0,0 +1 @@
++a3fa99f1d4208f651ead37fcd458fa4f36cf13044c245bddbfea193d201bfe79
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_1.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_1.webp
+@@ -0,0 +1 @@
++ebdd63f942d170d2d0c1c4d1fa1872f9f369fe1b54f4dc3a70d8610d1c35a355
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_2.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_2.webp
+@@ -0,0 +1 @@
++7b368f12e855b6a47f297f50e4d9eeccbc121dd1bc897e94f4cf9cc2dfe29c3a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_3.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_3.webp
+@@ -0,0 +1 @@
++91bd547f5f6597f3516d79b41f4da16c5ad9a3d7ca6b4e69a2f8e8212c08a877
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_4.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_4.webp
+@@ -0,0 +1 @@
++4b1b3df16fcf84648a2b93870fc55e06010ec884e6752871ff6432592ef9dbf2
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_5.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_5.webp
+@@ -0,0 +1 @@
++445b1b0e5c12b6e35e84b576cb8dc15df8498e26d45406a1360e95f2536d6c7a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_6.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_6.webp
+@@ -0,0 +1 @@
++d7d471a24c8230730c2840c30d54d58935d17e702490c167990e16b63f46bf0e
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_7.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_dark_7.webp
+@@ -0,0 +1 @@
++bff4772e526a567d7a68ae1e446aaefc82130fa2f48c25218bbc8aaf25c0abad
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_light_0.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_light_0.webp
+@@ -0,0 +1 @@
++5d3bd9f974b612dd809a7885db87b823914bee935c2bc6bc558b76d3136d1f2b
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_light_1.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_light_1.webp
+@@ -0,0 +1 @@
++eb1ca19c3d130fba5582a72eab83122ddab428dbbc9b1812a992160a6a125e48
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_light_2.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_light_2.webp
+@@ -0,0 +1 @@
++d03a112d37fc6fe3e90d9f1a2d1dde89ce32ec9eff43ae45055ed929560bcf2a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_light_3.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_light_3.webp
+@@ -0,0 +1 @@
++43953230b99fd0e4385bd9c55bbfb41e29f1e458fd11c7445b670af28b8ef8c4
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_light_4.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_light_4.webp
+@@ -0,0 +1 @@
++71bd4c58451bf17514263cde2044c66f6c66c9d564720f61bf6d634274a50fbb
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_light_5.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_light_5.webp
+@@ -0,0 +1 @@
++853e889a6a699f98efd0a9d37215acf39621466fc27fc7f78ecae7e1ff27bb50
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_light_6.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_light_6.webp
+@@ -0,0 +1 @@
++612b3bd4e535a212c1565866a49a71f41e1a5ae55986ad02925736640f5db132
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_light_7.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_light_7.webp
+@@ -0,0 +1 @@
++9c62014217aff83421e2121f6d26e22f31a6651c4542e1bd1a1ecb6b6b374334
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_info_mask.webp b/data/client/android-beta/assets/wallet_card_2d/icon_info_mask.webp
+@@ -0,0 +1 @@
++fdb88145fe2632dde324545009224055eeb83bf3f4874d70e0582e5cc865d389
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_0.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_0.webp
+@@ -0,0 +1 @@
++a234571a3a386cd93a231a8e08e3fa136f5ee2c4fdc6dfba1ae7c63d48cbcad0
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_1.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_1.webp
+@@ -0,0 +1 @@
++5a4531dcc124ce67bef9e8275f38d7259aefa4c42dd897853f5d7ef1fe70da58
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_2.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_2.webp
+@@ -0,0 +1 @@
++73790b3819bad12bfb1043f65f3ff032e57d71bdbec6e429ec64b8ec75ff6e9f
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_3.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_3.webp
+@@ -0,0 +1 @@
++f5199069a0d737924ea1c438669f0d7b05015311fa34c028616502ddb8547a21
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_4.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_4.webp
+@@ -0,0 +1 @@
++a7f44382a8aa7f24d5a22720bb975a12839ed59898d8255068041972b9f63a67
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_5.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_5.webp
+@@ -0,0 +1 @@
++c090b4b95bcbccf3c870002a8012a76cee1fe8f1e1863612b76a3821bdb9b37c
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_6.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_6.webp
+@@ -0,0 +1 @@
++26d1db17685e393acbb443105847525a77ca6299a2703077ca29a3de1325fbb8
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_7.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_7.webp
+@@ -0,0 +1 @@
++0b0188d4954eb8580c31691e3a9a467ad08521cc9c41042184909e28ddf43fb5
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_0.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_0.webp
+@@ -0,0 +1 @@
++d0600f1d2fbd57a48b5d6ec9ac1a091138c2f241502dcf8e980af9e2dd032a51
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_1.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_1.webp
+@@ -0,0 +1 @@
++4c2ce916bde1664f278fdd9dfb263dbf610d0a4ca246c4c379eaf6525cb746d9
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_2.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_2.webp
+@@ -0,0 +1 @@
++5e058117c0794a1d0cbb524a789e9f7c7d178c114c6445084c1b3c7210fe2542
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_3.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_3.webp
+@@ -0,0 +1 @@
++49e7da0665a7982c2384954f84735da768a27c87cd8e66de060b4ef1b4a4cfde
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_4.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_4.webp
+@@ -0,0 +1 @@
++703204a591356d1345498abdb956056d43b5b360feece5c8750e1a0c2c2cebc2
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_5.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_5.webp
+@@ -0,0 +1 @@
++097ab6c07f963fa93bbf70d3cf8370786d79cc51a28d4f62f0964132f402db16
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_6.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_6.webp
+@@ -0,0 +1 @@
++08a55d7b1d69ca063ec7973b92b2b8e38f4144df17bb29a8fb6f5a75d5f050dc
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_7.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_light_7.webp
+@@ -0,0 +1 @@
++69759d7f231d586394573ea7be027d284cfc7916901c31df520ccdc0f885a540
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/icon_qr_mask.webp b/data/client/android-beta/assets/wallet_card_2d/icon_qr_mask.webp
+@@ -0,0 +1 @@
++3191cc4f588eecb0b73172ec4cd47e4051e8017216f7dd57706c5d4b17620749
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/qr_brush_dark.webp b/data/client/android-beta/assets/wallet_card_2d/qr_brush_dark.webp
+@@ -0,0 +1 @@
++f509a185c845791dac75ab7199ae7fdf46b7b098fe3a43c4ac0dde57e30ccd76
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/wallet_card_2d/qr_brush_light.webp b/data/client/android-beta/assets/wallet_card_2d/qr_brush_light.webp
+@@ -0,0 +1 @@
++c3d3b114d285c6a564993d5a513d457c17116895325b2f1f77f6953bae5d5f6e
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/youtube_embed.html b/data/client/android-beta/assets/youtube_embed.html
+@@ -0,0 +1 @@
++64759a92e22868f3a7bc37381908520aff9bae31ef2c5e3cf998ac2f9c0d6c05
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Info.plist
+@@ -0,0 +1,61 @@
++{
++    "ATSApplicationFontsPath": "fonts",
++    "CFBundleDevelopmentRegion": "en",
++    "CFBundleExecutable": "Telegram",
++    "CFBundleIconFile": "AppIcon",
++    "CFBundleIconName": "AppIcon",
++    "CFBundleIdentifier": "ru.keepcoder.Telegram",
++    "CFBundleInfoDictionaryVersion": "6.0",
++    "CFBundleName": "Telegram",
++    "CFBundlePackageType": "APPL",
++    "CFBundleSupportedPlatforms": [
++        "MacOSX"
++    ],
++    "CFBundleURLTypes": [
++        {
++            "CFBundleURLName": "ru.keepcoder.Telegram",
++            "CFBundleURLSchemes": [
++                "tg",
++                "telegram"
++            ]
++        },
++        {
++            "CFBundleURLName": "ru.keepcoder.Telegram.ton",
++            "CFBundleURLSchemes": [
++                "ton"
++            ]
++        },
++        {
++            "CFBundleURLName": "ru.keepcoder.Telegram.tonconnect",
++            "CFBundleURLSchemes": [
++                "tc"
++            ]
++        }
++    ],
++    "ITSAppUsesNonExemptEncryption": false,
++    "LSApplicationCategoryType": "public.app-category.social-networking",
++    "LSEnvironment": {
++        "MallocSpaceEfficient": "1"
++    },
++    "LSFileQuarantineEnabled": true,
++    "LSMinimumSystemVersion": "10.13",
++    "NSAppTransportSecurity": {
++        "NSAllowsArbitraryLoads": true
++    },
++    "NSAudioCaptureUsageDescription": "Telegram records the sound of your calls on this Mac when you turn on call summaries for the AI Assistant.",
++    "NSCameraUsageDescription": "We need access to your camera so that you can record video messages.",
++    "NSDownloadsFolderUsageDescription": "We need access to your Downloads folder so that you can save files from chats.",
++    "NSHumanReadableCopyright": "Copyright © 2024 Telegram. All rights reserved.",
++    "NSLocationAlwaysUsageDescription": "We need access to your location so that you can send your current locations and setup Auto-Night theme",
++    "NSLocationUsageDescription": "We need access to your location so that you can send your current locations.",
++    "NSLocationWhenInUseUsageDescription": "We need access to your location so that you can send your current locations.",
++    "NSMainNibFile": "MainMenu",
++    "NSMicrophoneUsageDescription": "We need access to your microphone so that you can record voice messages and make calls.",
++    "NSPrincipalClass": "NSApplication",
++    "NSSpeechRecognitionUsageDescription": "Speech recognition is used to turn what you dictate into message text. Recognition happens on your Mac whenever possible.",
++    "NSSupportsAutomaticGraphicsSwitching": true,
++    "SOURCE": "BETA",
++    "SUFeedURL": "https://mac-updates.telegram.org/beta/versions.xml",
++    "SUPublicDSAKeyFile": "dsa_pub.pem",
++    "SUPublicEDKey": "1kFPVqhl5OcffO9FgaRP375S+5Lqr6T0mIcXla57QGA="
++}
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/AIAssistantUI_AIAssistantUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/AIAssistantUI_AIAssistantUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++afdcbe45891085824f4f54a21327d93f03582e34577a12b6e01b8ed2b161f30e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/AIAssistantUI_AIAssistantUI.bundle/Contents/Resources/DictatorLogo.png b/data/client/macos-beta/Telegram.app/Contents/Resources/AIAssistantUI_AIAssistantUI.bundle/Contents/Resources/DictatorLogo.png
+@@ -0,0 +1 @@
++257e65da1c3626d7a114d08ffd3a369dd341ff03be1dee51d4e75806e3aaad5c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/AlertsUI_AlertsUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/AlertsUI_AlertsUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++b7a963a91f63e511674161d8a1f545da7a6190923ddac90e3114a29065029de4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/AlertsUI_AlertsUI.bundle/Contents/Resources/LockdownWarning.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/AlertsUI_AlertsUI.bundle/Contents/Resources/LockdownWarning.tgs
+@@ -0,0 +1 @@
++c248f9d499ac5208253ab1abfbc88583d80fbed0415ae835505690e38111953d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/Base.lproj/MainMenu.nib b/data/client/macos-beta/Telegram.app/Contents/Resources/Base.lproj/MainMenu.nib
+@@ -0,0 +1 @@
++81b04fc30301618b3db55ae72ad32ff30b5c4fb54c6d26660527046a761ccf7e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/CallVideoLayer_CallVideoLayer.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/CallVideoLayer_CallVideoLayer.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++783b01094036a02bdef62d796e64cdf59f15e03527b96afadb57f623d9632ab6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/CallVideoLayer_CallVideoLayer.bundle/Contents/Resources/default.metallib b/data/client/macos-beta/Telegram.app/Contents/Resources/CallVideoLayer_CallVideoLayer.bundle/Contents/Resources/default.metallib
+@@ -0,0 +1 @@
++3c4f93e0d6c0f6f312bba28f96e25d71542343c0bb126a83b40374ea20a60226
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/CubeUI_CubeUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/CubeUI_CubeUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++ddd58bcde2920fe8b827ac90f37e2b7136ce4f235d1183ca7404031e4c4e6c66
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/CubeUI_CubeUI.bundle/Contents/Resources/Assets.car b/data/client/macos-beta/Telegram.app/Contents/Resources/CubeUI_CubeUI.bundle/Contents/Resources/Assets.car
+@@ -0,0 +1 @@
++f2a8d9af2d8d2b086d06cef8ea2f9977ed223ce843788cdd70a6b29dc35e4681
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/DataUsageUI_DataUsageUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/DataUsageUI_DataUsageUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++a6bac4bdfa17adab2899a42a1f3754086c720d2ebd4c81ec089155edebe03ccf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/DataUsageUI_DataUsageUI.bundle/Contents/Resources/Assets.car b/data/client/macos-beta/Telegram.app/Contents/Resources/DataUsageUI_DataUsageUI.bundle/Contents/Resources/Assets.car
+@@ -0,0 +1 @@
++ac788c0822c8ad0c294ee073cad571a262f34696b6fcd0d19638761c18015122
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/DustLayer_DustLayer.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/DustLayer_DustLayer.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++3be89377228e766de91b488ffd55a0f48c94f70a89b69e61834c8df210987005
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/DustLayer_DustLayer.bundle/Contents/Resources/default.metallib b/data/client/macos-beta/Telegram.app/Contents/Resources/DustLayer_DustLayer.bundle/Contents/Resources/default.metallib
+@@ -0,0 +1 @@
++9568bec57957bf83dc9cb4e0d6b7fa3182c973e482761be59f78de0da3ee9853
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/ImageCanvasUI_ImageCanvasUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/ImageCanvasUI_ImageCanvasUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++5a58392984b72e260b992d92622617368e6988d9faf4c95edb482c738cd98d49
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/ImageCanvasUI_ImageCanvasUI.bundle/Contents/Resources/Assets.car b/data/client/macos-beta/Telegram.app/Contents/Resources/ImageCanvasUI_ImageCanvasUI.bundle/Contents/Resources/Assets.car
+@@ -0,0 +1 @@
++6c67cf76d687951a49126f2c3e3f14d7c0077d70feabef7866ec4a2ee6a3c713
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/LocalAgent_LocalAgent.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/LocalAgent_LocalAgent.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++e60740c49f4d7e5651c36ac4938c9b423918e5aacb04d71910db9088f2b9e746
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/LocalAgent_LocalAgent.bundle/Contents/Resources/harness-marker.txt b/data/client/macos-beta/Telegram.app/Contents/Resources/LocalAgent_LocalAgent.bundle/Contents/Resources/harness-marker.txt
+@@ -0,0 +1 @@
++f124e6dbfc45752ffaf0416c5dfb16c6cf73321addaf5c841f534ce4d0bd7217
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/LocalAnimations_LocalAnimations.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/LocalAnimations_LocalAnimations.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++5afd1eb4c67b9d5ce19dc6de18fe8125097ddf922d40587e46b7fed883298c21
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/LocalAnimations_LocalAnimations.bundle/Contents/Resources/remote_animations.json b/data/client/macos-beta/Telegram.app/Contents/Resources/LocalAnimations_LocalAnimations.bundle/Contents/Resources/remote_animations.json
+@@ -0,0 +1 @@
++6bf554ad4064e2b0400d0201233b2839337fe74ef6323f91d08489a472212304
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/extract.actionsdata b/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/extract.actionsdata
+@@ -0,0 +1,717 @@
++{
++    "actions": {
++        "AskTelegramAgentIntent": {
++            "assistantDefinedSchemaTraits": [],
++            "assistantDefinedSchemas": [],
++            "authenticationPolicy": 0,
++            "availabilityAnnotations": {
++                "LNPlatformNameMACOS": {
++                    "introducedVersion": "13.0"
++                },
++                "LNPlatformNameWildcard": {
++                    "introducedVersion": "*"
++                }
++            },
++            "descriptionMetadata": {
++                "descriptionText": {
++                    "alternatives": [],
++                    "key": "Ask the local agent that runs in an isolated VM on this Mac."
++                },
++                "searchKeywords": []
++            },
++            "effectiveBundleIdentifiers": [],
++            "fullyQualifiedTypeName": "Telegram.AskTelegramAgentIntent",
++            "identifier": "AskTelegramAgentIntent",
++            "isAuthPolExplicit": false,
++            "isDiscoverable": true,
++            "mangledTypeName": "8Telegram03AskA11AgentIntentV",
++            "mangledTypeNameByBundleIdentifier": {},
++            "mangledTypeNameByBundleIdentifierV2": {},
++            "mangledTypeNameV2": "8Telegram03AskA11AgentIntentV",
++            "openAppWhenRun": false,
++            "outputFlags": 4,
++            "outputType": {
++                "primitive": {
++                    "wrapper": {
++                        "typeIdentifier": 0
++                    }
++                }
++            },
++            "parameters": [
++                {
++                    "capabilities": 0,
++                    "dynamicOptionsSupport": 0,
++                    "inputConnectionBehavior": 0,
++                    "isInput": false,
++                    "isOptional": false,
++                    "name": "question",
++                    "resolvableInputTypes": [
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "array": {
++                                    "wrapper": {
++                                        "capabilities": 3,
++                                        "memberValueType": {
++                                            "primitive": {
++                                                "wrapper": {
++                                                    "typeIdentifier": 2
++                                                }
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 0
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 2
++                                    }
++                                }
++                            }
++                        }
++                    ],
++                    "title": {
++                        "alternatives": [],
++                        "key": "Question"
++                    },
++                    "typeSpecificMetadata": [],
++                    "valueType": {
++                        "primitive": {
++                            "wrapper": {
++                                "typeIdentifier": 0
++                            }
++                        }
++                    }
++                }
++            ],
++            "presentationStyle": 0,
++            "requiredCapabilities": [],
++            "supportedModes": 1,
++            "systemProtocolMetadata": [],
++            "systemProtocolMetadataV2": [],
++            "systemProtocols": [],
++            "title": {
++                "alternatives": [],
++                "key": "Ask Telegram Agent"
++            },
++            "typeSpecificMetadata": [],
++            "visibilityMetadata": {
++                "assistantOnly": false,
++                "isDiscoverable": true
++            }
++        },
++        "DraftTelegramMessageIntent": {
++            "assistantDefinedSchemaTraits": [],
++            "assistantDefinedSchemas": [],
++            "authenticationPolicy": 0,
++            "availabilityAnnotations": {
++                "LNPlatformNameMACOS": {
++                    "introducedVersion": "13.0"
++                },
++                "LNPlatformNameWildcard": {
++                    "introducedVersion": "*"
++                }
++            },
++            "descriptionMetadata": {
++                "descriptionText": {
++                    "alternatives": [],
++                    "key": "Open a chat with a draft in its input field. Nothing is sent until you press Send."
++                },
++                "searchKeywords": []
++            },
++            "effectiveBundleIdentifiers": [],
++            "fullyQualifiedTypeName": "Telegram.DraftTelegramMessageIntent",
++            "identifier": "DraftTelegramMessageIntent",
++            "isAuthPolExplicit": false,
++            "isDiscoverable": true,
++            "mangledTypeName": "8Telegram05DraftA13MessageIntentV",
++            "mangledTypeNameByBundleIdentifier": {},
++            "mangledTypeNameByBundleIdentifierV2": {},
++            "mangledTypeNameV2": "8Telegram05DraftA13MessageIntentV",
++            "openAppWhenRun": true,
++            "outputFlags": 0,
++            "parameters": [
++                {
++                    "capabilities": 0,
++                    "dynamicOptionsSupport": 0,
++                    "inputConnectionBehavior": 0,
++                    "isInput": false,
++                    "isOptional": false,
++                    "name": "chat",
++                    "resolvableInputTypes": [
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "array": {
++                                    "wrapper": {
++                                        "capabilities": 3,
++                                        "memberValueType": {
++                                            "primitive": {
++                                                "wrapper": {
++                                                    "typeIdentifier": 2
++                                                }
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 0
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 2
++                                    }
++                                }
++                            }
++                        }
++                    ],
++                    "title": {
++                        "alternatives": [],
++                        "key": "Chat"
++                    },
++                    "typeSpecificMetadata": [],
++                    "valueType": {
++                        "primitive": {
++                            "wrapper": {
++                                "typeIdentifier": 0
++                            }
++                        }
++                    }
++                },
++                {
++                    "capabilities": 0,
++                    "dynamicOptionsSupport": 0,
++                    "inputConnectionBehavior": 0,
++                    "isInput": false,
++                    "isOptional": false,
++                    "name": "text",
++                    "resolvableInputTypes": [
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "array": {
++                                    "wrapper": {
++                                        "capabilities": 3,
++                                        "memberValueType": {
++                                            "primitive": {
++                                                "wrapper": {
++                                                    "typeIdentifier": 2
++                                                }
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 0
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 2
++                                    }
++                                }
++                            }
++                        }
++                    ],
++                    "title": {
++                        "alternatives": [],
++                        "key": "Text"
++                    },
++                    "typeSpecificMetadata": [],
++                    "valueType": {
++                        "primitive": {
++                            "wrapper": {
++                                "typeIdentifier": 0
++                            }
++                        }
++                    }
++                }
++            ],
++            "presentationStyle": 0,
++            "requiredCapabilities": [],
++            "supportedModes": 2,
++            "systemProtocolMetadata": [],
++            "systemProtocolMetadataV2": [],
++            "systemProtocols": [],
++            "title": {
++                "alternatives": [],
++                "key": "Draft Telegram Message"
++            },
++            "typeSpecificMetadata": [],
++            "visibilityMetadata": {
++                "assistantOnly": false,
++                "isDiscoverable": true
++            }
++        },
++        "OpenTelegramChatIntent": {
++            "assistantDefinedSchemaTraits": [],
++            "assistantDefinedSchemas": [],
++            "authenticationPolicy": 0,
++            "availabilityAnnotations": {
++                "LNPlatformNameMACOS": {
++                    "introducedVersion": "13.0"
++                },
++                "LNPlatformNameWildcard": {
++                    "introducedVersion": "*"
++                }
++            },
++            "descriptionMetadata": {
++                "descriptionText": {
++                    "alternatives": [],
++                    "key": "Open a chat by @username or chat id."
++                },
++                "searchKeywords": []
++            },
++            "effectiveBundleIdentifiers": [],
++            "fullyQualifiedTypeName": "Telegram.OpenTelegramChatIntent",
++            "identifier": "OpenTelegramChatIntent",
++            "isAuthPolExplicit": false,
++            "isDiscoverable": true,
++            "mangledTypeName": "8Telegram04OpenA10ChatIntentV",
++            "mangledTypeNameByBundleIdentifier": {},
++            "mangledTypeNameByBundleIdentifierV2": {},
++            "mangledTypeNameV2": "8Telegram04OpenA10ChatIntentV",
++            "openAppWhenRun": true,
++            "outputFlags": 0,
++            "parameters": [
++                {
++                    "capabilities": 0,
++                    "dynamicOptionsSupport": 0,
++                    "inputConnectionBehavior": 0,
++                    "isInput": false,
++                    "isOptional": false,
++                    "name": "chat",
++                    "resolvableInputTypes": [
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "array": {
++                                    "wrapper": {
++                                        "capabilities": 3,
++                                        "memberValueType": {
++                                            "primitive": {
++                                                "wrapper": {
++                                                    "typeIdentifier": 2
++                                                }
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 0
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 2
++                                    }
++                                }
++                            }
++                        }
++                    ],
++                    "title": {
++                        "alternatives": [],
++                        "key": "Chat"
++                    },
++                    "typeSpecificMetadata": [],
++                    "valueType": {
++                        "primitive": {
++                            "wrapper": {
++                                "typeIdentifier": 0
++                            }
++                        }
++                    }
++                }
++            ],
++            "presentationStyle": 0,
++            "requiredCapabilities": [],
++            "supportedModes": 2,
++            "systemProtocolMetadata": [],
++            "systemProtocolMetadataV2": [],
++            "systemProtocols": [],
++            "title": {
++                "alternatives": [],
++                "key": "Open Telegram Chat"
++            },
++            "typeSpecificMetadata": [],
++            "visibilityMetadata": {
++                "assistantOnly": false,
++                "isDiscoverable": true
++            }
++        },
++        "SendTelegramMessageIntent": {
++            "assistantDefinedSchemaTraits": [],
++            "assistantDefinedSchemas": [],
++            "authenticationPolicy": 0,
++            "availabilityAnnotations": {
++                "LNPlatformNameMACOS": {
++                    "introducedVersion": "13.0"
++                },
++                "LNPlatformNameWildcard": {
++                    "introducedVersion": "*"
++                }
++            },
++            "descriptionMetadata": {
++                "descriptionText": {
++                    "alternatives": [],
++                    "key": "Send a message to a chat by @username or chat id. Telegram asks you to confirm before it goes out."
++                },
++                "searchKeywords": []
++            },
++            "effectiveBundleIdentifiers": [],
++            "fullyQualifiedTypeName": "Telegram.SendTelegramMessageIntent",
++            "identifier": "SendTelegramMessageIntent",
++            "isAuthPolExplicit": false,
++            "isDiscoverable": true,
++            "mangledTypeName": "8Telegram04SendA13MessageIntentV",
++            "mangledTypeNameByBundleIdentifier": {},
++            "mangledTypeNameByBundleIdentifierV2": {},
++            "mangledTypeNameV2": "8Telegram04SendA13MessageIntentV",
++            "openAppWhenRun": true,
++            "outputFlags": 0,
++            "parameters": [
++                {
++                    "capabilities": 0,
++                    "dynamicOptionsSupport": 0,
++                    "inputConnectionBehavior": 0,
++                    "isInput": false,
++                    "isOptional": false,
++                    "name": "chat",
++                    "resolvableInputTypes": [
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "array": {
++                                    "wrapper": {
++                                        "capabilities": 3,
++                                        "memberValueType": {
++                                            "primitive": {
++                                                "wrapper": {
++                                                    "typeIdentifier": 2
++                                                }
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 0
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 2
++                                    }
++                                }
++                            }
++                        }
++                    ],
++                    "title": {
++                        "alternatives": [],
++                        "key": "Chat"
++                    },
++                    "typeSpecificMetadata": [],
++                    "valueType": {
++                        "primitive": {
++                            "wrapper": {
++                                "typeIdentifier": 0
++                            }
++                        }
++                    }
++                },
++                {
++                    "capabilities": 0,
++                    "dynamicOptionsSupport": 0,
++                    "inputConnectionBehavior": 0,
++                    "isInput": false,
++                    "isOptional": false,
++                    "name": "text",
++                    "resolvableInputTypes": [
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "array": {
++                                    "wrapper": {
++                                        "capabilities": 3,
++                                        "memberValueType": {
++                                            "primitive": {
++                                                "wrapper": {
++                                                    "typeIdentifier": 2
++                                                }
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 0
++                                    }
++                                }
++                            }
++                        },
++                        {
++                            "kindValue": 0,
++                            "valueType": {
++                                "primitive": {
++                                    "wrapper": {
++                                        "typeIdentifier": 2
++                                    }
++                                }
++                            }
++                        }
++                    ],
++                    "title": {
++                        "alternatives": [],
++                        "key": "Text"
++                    },
++                    "typeSpecificMetadata": [],
++                    "valueType": {
++                        "primitive": {
++                            "wrapper": {
++                                "typeIdentifier": 0
++                            }
++                        }
++                    }
++                }
++            ],
++            "presentationStyle": 0,
++            "requiredCapabilities": [],
++            "supportedModes": 2,
++            "systemProtocolMetadata": [],
++            "systemProtocolMetadataV2": [],
++            "systemProtocols": [],
++            "title": {
++                "alternatives": [],
++                "key": "Send Telegram Message"
++            },
++            "typeSpecificMetadata": [],
++            "visibilityMetadata": {
++                "assistantOnly": false,
++                "isDiscoverable": true
++            }
++        },
++        "TelegramUnreadChatsIntent": {
++            "assistantDefinedSchemaTraits": [],
++            "assistantDefinedSchemas": [],
++            "authenticationPolicy": 0,
++            "availabilityAnnotations": {
++                "LNPlatformNameMACOS": {
++                    "introducedVersion": "13.0"
++                },
++                "LNPlatformNameWildcard": {
++                    "introducedVersion": "*"
++                }
++            },
++            "descriptionMetadata": {
++                "descriptionText": {
++                    "alternatives": [],
++                    "key": "Chats with unread messages and the latest message of each, as text."
++                },
++                "searchKeywords": []
++            },
++            "effectiveBundleIdentifiers": [],
++            "fullyQualifiedTypeName": "Telegram.TelegramUnreadChatsIntent",
++            "identifier": "TelegramUnreadChatsIntent",
++            "isAuthPolExplicit": false,
++            "isDiscoverable": true,
++            "mangledTypeName": "8Telegram0A17UnreadChatsIntentV",
++            "mangledTypeNameByBundleIdentifier": {},
++            "mangledTypeNameByBundleIdentifierV2": {},
++            "mangledTypeNameV2": "8Telegram0A17UnreadChatsIntentV",
++            "openAppWhenRun": false,
++            "outputFlags": 4,
++            "outputType": {
++                "primitive": {
++                    "wrapper": {
++                        "typeIdentifier": 0
++                    }
++                }
++            },
++            "parameters": [],
++            "presentationStyle": 0,
++            "requiredCapabilities": [],
++            "supportedModes": 1,
++            "systemProtocolMetadata": [],
++            "systemProtocolMetadataV2": [],
++            "systemProtocols": [],
++            "title": {
++                "alternatives": [],
++                "key": "Telegram Unread Chats"
++            },
++            "typeSpecificMetadata": [],
++            "visibilityMetadata": {
++                "assistantOnly": false,
++                "isDiscoverable": true
++            }
++        },
++        "TelegramUnreadCountIntent": {
++            "assistantDefinedSchemaTraits": [],
++            "assistantDefinedSchemas": [],
++            "authenticationPolicy": 0,
++            "availabilityAnnotations": {
++                "LNPlatformNameMACOS": {
++                    "introducedVersion": "13.0"
++                },
++                "LNPlatformNameWildcard": {
++                    "introducedVersion": "*"
++                }
++            },
++            "descriptionMetadata": {
++                "descriptionText": {
++                    "alternatives": [],
++                    "key": "The number of unread Telegram messages."
++                },
++                "searchKeywords": []
++            },
++            "effectiveBundleIdentifiers": [],
++            "fullyQualifiedTypeName": "Telegram.TelegramUnreadCountIntent",
++            "identifier": "TelegramUnreadCountIntent",
++            "isAuthPolExplicit": false,
++            "isDiscoverable": true,
++            "mangledTypeName": "8Telegram0A17UnreadCountIntentV",
++            "mangledTypeNameByBundleIdentifier": {},
++            "mangledTypeNameByBundleIdentifierV2": {},
++            "mangledTypeNameV2": "8Telegram0A17UnreadCountIntentV",
++            "openAppWhenRun": false,
++            "outputFlags": 4,
++            "outputType": {
++                "primitive": {
++                    "wrapper": {
++                        "typeIdentifier": 2
++                    }
++                }
++            },
++            "parameters": [],
++            "presentationStyle": 0,
++            "requiredCapabilities": [],
++            "supportedModes": 1,
++            "systemProtocolMetadata": [],
++            "systemProtocolMetadataV2": [],
++            "systemProtocols": [],
++            "title": {
++                "alternatives": [],
++                "key": "Telegram Unread Count"
++            },
++            "typeSpecificMetadata": [],
++            "visibilityMetadata": {
++                "assistantOnly": false,
++                "isDiscoverable": true
++            }
++        }
++    },
++    "assistantEntities": [],
++    "assistantIntentNegativePhrases": [],
++    "assistantIntents": [],
++    "autoShortcutProviderMangledName": "8Telegram0A14AgentShortcutsV",
++    "autoShortcuts": [
++        {
++            "actionIdentifier": "AskTelegramAgentIntent",
++            "availabilityAnnotations": {
++                "LNPlatformNameMACOS": {
++                    "introducedVersion": "13.0"
++                },
++                "LNPlatformNameWildcard": {
++                    "introducedVersion": "*"
++                }
++            },
++            "phraseTemplates": [
++                {
++                    "alternatives": [],
++                    "key": "Ask ${applicationName} agent"
++                }
++            ],
++            "systemImageName": ""
++        },
++        {
++            "actionIdentifier": "TelegramUnreadCountIntent",
++            "availabilityAnnotations": {
++                "LNPlatformNameMACOS": {
++                    "introducedVersion": "13.0"
++                },
++                "LNPlatformNameWildcard": {
++                    "introducedVersion": "*"
++                }
++            },
++            "phraseTemplates": [
++                {
++                    "alternatives": [],
++                    "key": "How many unread messages in ${applicationName}"
++                }
++            ],
++            "systemImageName": ""
++        }
++    ],
++    "entities": {},
++    "enums": [],
++    "generator": {
++        "name": "xcode-tools",
++        "version": "17C52"
++    },
++    "negativePhrases": [],
++    "queries": {},
++    "shortcutTileColor": 14,
++    "version": 1
++}
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json b/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json
+@@ -0,0 +1 @@
++e8b25b20ee7c0de2a8e48be31827d0cef21e4a7ab9f3823f558cba1adec99293
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/MetalEngine_MetalEngine.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/MetalEngine_MetalEngine.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++bb4ea6c0e1cd6545e9980513e5f8539f383ea27c4992c17c926059ae9ec0e6f5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/MetalEngine_MetalEngine.bundle/Contents/Resources/default.metallib b/data/client/macos-beta/Telegram.app/Contents/Resources/MetalEngine_MetalEngine.bundle/Contents/Resources/default.metallib
+@@ -0,0 +1 @@
++8cb50cb6277c97787acaf8138d246b4da11216c285bbf7577a09ee8534e50d69
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++e3af135df7eb473297f79eaaf4ff70c41d805558475ed2fbae17a4c60b0995a6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Resources/default.metallib b/data/client/macos-beta/Telegram.app/Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Resources/default.metallib
+@@ -0,0 +1 @@
++9b2c8345b2e9bc380c9a9910703aa0c8553b53d48d6df5e864b9ae676ac863b9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/PrivateCallScreen_PrivateCallScreen.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/PrivateCallScreen_PrivateCallScreen.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++507df4a69dc0dbfce39b5f41dd28fe39aaef302c9a596de625e3919aea8403d2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/PrivateCallScreen_PrivateCallScreen.bundle/Contents/Resources/Assets.car b/data/client/macos-beta/Telegram.app/Contents/Resources/PrivateCallScreen_PrivateCallScreen.bundle/Contents/Resources/Assets.car
+@@ -0,0 +1 @@
++fc9a0ed797d79b911c07d26f6430ac720c76ffa9c7d0fd833c99152b9f2adec5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/QrStudioUI_QrStudioUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/QrStudioUI_QrStudioUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++684182657ece5371de8d3eb567095a96c9ce97e60db15c8319ff9c15cc97ff3d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/QrStudioUI_QrStudioUI.bundle/Contents/Resources/QrStudioNoGifts.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/QrStudioUI_QrStudioUI.bundle/Contents/Resources/QrStudioNoGifts.tgs
+@@ -0,0 +1 @@
++a5733441dc6994068f13546510cf15ed142098d614d7ff90a616ba742f175553
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/SceneEffects_SceneEffects.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/SceneEffects_SceneEffects.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++d2c6674d51ca1589300df36121e2ad1423138fbec5d3ae60f6cccffc1b7855e4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/SceneEffects_SceneEffects.bundle/Contents/Resources/default.metallib b/data/client/macos-beta/Telegram.app/Contents/Resources/SceneEffects_SceneEffects.bundle/Contents/Resources/default.metallib
+@@ -0,0 +1 @@
++6084ef7fd1d50384402787b15cfee2af6fcdc966e3e8765b495b3bc00af48cd5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++823ae0610adb5c1bf7f8770b62ced1e94b17b7c1cb896ac786f0d683710f081a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storymute.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storymute.tgs
+@@ -0,0 +1 @@
++412cb1d51a51c9bbe7926c6ce296d16b481c2f3fe7d7f9892c53267fdc51c258
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storyplayback.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storyplayback.tgs
+@@ -0,0 +1 @@
++9d746f3d45c1114908332932443e84ebf7e0de4205ad1a269b803a088a4474a9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storysave.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storysave.tgs
+@@ -0,0 +1 @@
++5ab1b9bd96bfb142a3c28d2201feee9673050d8199363003e7a81a4a7344e5a6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++b3d1a1938f5bfea994923cbc266e60d2ef0bf55ddbc2739c9f3497e88ffb1f33
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.otf b/data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.otf
+@@ -0,0 +1 @@
++c95abcba3e4f7ce4861d3cc9666e34c71a9fca9a3efaa9490472b2873de805bc
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.plist
+@@ -0,0 +1 @@
++201e6a483783415f335328f2d02b356fe55cd478eb0cd052898236589c8cb946
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Info.plist b/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Info.plist
+@@ -0,0 +1 @@
++07e82714ae479cad72351f9d22262fd536b765f63c068f6eaae56813cbcbe02a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/ChatListNoResults.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/ChatListNoResults.tgs
+@@ -0,0 +1 @@
++609b5503a8b5b99242234639a43509d02b02c7630cb05b516a7d535f3d03a7a1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/GramDiamondLight.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/GramDiamondLight.tgs
+@@ -0,0 +1 @@
++61d1e051208cd43ffc97ad46b4141e7d0b2268615f4d3625460fbbaf8918316c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletAddressInfo.pdf b/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletAddressInfo.pdf
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletCommentLock.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletCommentLock.tgs
+@@ -0,0 +1 @@
++b22fce339a97b3e75c24e7f7628075cd8be6eecd4cc564c1253d0c1d8bfa7330
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletTransactionKey.pdf b/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletTransactionKey.pdf
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletTransactionKeyLarge.pdf b/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletTransactionKeyLarge.pdf
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/default.metallib b/data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/default.metallib
+@@ -0,0 +1 @@
++db4566c37c8c37f7752908db8795073ab0df616e3fc27349d7046c824483b5b4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/de.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/de.lproj/Localizable.strings
+@@ -0,0 +1 @@
++9261ecceda608ef174256e5fdc774c1e6e3dcf533409c1bc393d490d01c713f1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/es.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/es.lproj/Localizable.strings
+@@ -0,0 +1 @@
++9261ecceda608ef174256e5fdc774c1e6e3dcf533409c1bc393d490d01c713f1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/it.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/it.lproj/Localizable.strings
+@@ -0,0 +1 @@
++9261ecceda608ef174256e5fdc774c1e6e3dcf533409c1bc393d490d01c713f1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/nl.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/nl.lproj/Localizable.strings
+@@ -0,0 +1 @@
++9261ecceda608ef174256e5fdc774c1e6e3dcf533409c1bc393d490d01c713f1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/pt-BR.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/pt-BR.lproj/Localizable.strings
+@@ -0,0 +1 @@
++9261ecceda608ef174256e5fdc774c1e6e3dcf533409c1bc393d490d01c713f1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/ru.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/ru.lproj/Localizable.strings
+@@ -0,0 +1 @@
++9261ecceda608ef174256e5fdc774c1e6e3dcf533409c1bc393d490d01c713f1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/uk.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/uk.lproj/Localizable.strings
+@@ -0,0 +1 @@
++9261ecceda608ef174256e5fdc774c1e6e3dcf533409c1bc393d490d01c713f1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/files.txt b/data/client/macos-beta/files.txt
+@@ -0,0 +1,384 @@
++Contents/CodeResources
++Contents/Frameworks/SharedCore.framework/Resources
++Contents/Frameworks/SharedCore.framework/SharedCore
++Contents/Frameworks/SharedCore.framework/Versions/A/Resources/Info.plist
++Contents/Frameworks/SharedCore.framework/Versions/A/SharedCore
++Contents/Frameworks/SharedCore.framework/Versions/A/_CodeSignature/CodeResources
++Contents/Frameworks/SharedCore.framework/Versions/Current
++Contents/Frameworks/Sparkle.framework/Autoupdate
++Contents/Frameworks/Sparkle.framework/Resources
++Contents/Frameworks/Sparkle.framework/Sparkle
++Contents/Frameworks/Sparkle.framework/Updater.app
++Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate
++Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist
++Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle
++Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist
++Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater
++Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo
++Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources
++Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources
++Contents/Frameworks/Sparkle.framework/Versions/Current
++Contents/Frameworks/libswiftAVFoundation.dylib
++Contents/Frameworks/libswiftAccelerate.dylib
++Contents/Frameworks/libswiftAppKit.dylib
++Contents/Frameworks/libswiftCore.dylib
++Contents/Frameworks/libswiftCoreAudio.dylib
++Contents/Frameworks/libswiftCoreData.dylib
++Contents/Frameworks/libswiftCoreFoundation.dylib
++Contents/Frameworks/libswiftCoreGraphics.dylib
++Contents/Frameworks/libswiftCoreImage.dylib
++Contents/Frameworks/libswiftCoreLocation.dylib
++Contents/Frameworks/libswiftCoreMedia.dylib
++Contents/Frameworks/libswiftDarwin.dylib
++Contents/Frameworks/libswiftDispatch.dylib
++Contents/Frameworks/libswiftFoundation.dylib
++Contents/Frameworks/libswiftGLKit.dylib
++Contents/Frameworks/libswiftIOKit.dylib
++Contents/Frameworks/libswiftMapKit.dylib
++Contents/Frameworks/libswiftMetal.dylib
++Contents/Frameworks/libswiftMetalKit.dylib
++Contents/Frameworks/libswiftModelIO.dylib
++Contents/Frameworks/libswiftNaturalLanguage.dylib
++Contents/Frameworks/libswiftNetwork.dylib
++Contents/Frameworks/libswiftObjectiveC.dylib
++Contents/Frameworks/libswiftQuartzCore.dylib
++Contents/Frameworks/libswiftSceneKit.dylib
++Contents/Frameworks/libswiftXPC.dylib
++Contents/Frameworks/libswift_Concurrency.dylib
++Contents/Frameworks/libswiftos.dylib
++Contents/Frameworks/libswiftsimd.dylib
++Contents/Helpers/TelegramUpdateDelta
++Contents/Info.plist
++Contents/MacOS/Telegram
++Contents/PkgInfo
++Contents/PlugIns/TelegramShare.appex/Contents/Info.plist
++Contents/PlugIns/TelegramShare.appex/Contents/MacOS/TelegramShare
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/Assets.car
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/Base.lproj/ShareViewController.nib
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/de.lproj/Localizable.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/de.lproj/ShareViewController.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/duck_passcode.tgs
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/duck_upload_complete.tgs
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/duck_uploads.tgs
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/es.lproj/Localizable.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/es.lproj/ShareViewController.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/fonts/SFCompactRounded-Semibold.otf
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/icon.icns
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/it.lproj/Localizable.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/it.lproj/ShareViewController.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/nl.lproj/Localizable.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/nl.lproj/ShareViewController.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/pt-BR.lproj/Localizable.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/pt-BR.lproj/ShareViewController.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/ru.lproj/Localizable.strings
++Contents/PlugIns/TelegramShare.appex/Contents/Resources/uk.lproj/Localizable.strings
++Contents/PlugIns/TelegramShare.appex/Contents/XPCServices/ImageDecodeService.xpc/Contents/Info.plist
++Contents/PlugIns/TelegramShare.appex/Contents/XPCServices/ImageDecodeService.xpc/Contents/MacOS/ImageDecodeService
++Contents/PlugIns/TelegramShare.appex/Contents/XPCServices/ImageDecodeService.xpc/Contents/_CodeSignature/CodeResources
++Contents/PlugIns/TelegramShare.appex/Contents/XPCServices/LottieRenderService.xpc/Contents/Info.plist
++Contents/PlugIns/TelegramShare.appex/Contents/XPCServices/LottieRenderService.xpc/Contents/MacOS/LottieRenderService
++Contents/PlugIns/TelegramShare.appex/Contents/XPCServices/LottieRenderService.xpc/Contents/_CodeSignature/CodeResources
++Contents/PlugIns/TelegramShare.appex/Contents/_CodeSignature/CodeResources
++Contents/Resources/100.m4a
++Contents/Resources/101.m4a
++Contents/Resources/102.m4a
++Contents/Resources/103.m4a
++Contents/Resources/104.m4a
++Contents/Resources/105.m4a
++Contents/Resources/106.m4a
++Contents/Resources/107.m4a
++Contents/Resources/108.m4a
++Contents/Resources/109.m4a
++Contents/Resources/110.m4a
++Contents/Resources/111.m4a
++Contents/Resources/2.m4a
++Contents/Resources/3.m4a
++Contents/Resources/4.m4a
++Contents/Resources/5.m4a
++Contents/Resources/6.m4a
++Contents/Resources/7.m4a
++Contents/Resources/8.m4a
++Contents/Resources/9.m4a
++Contents/Resources/AIAssistantUI_AIAssistantUI.bundle/Contents/Info.plist
++Contents/Resources/AIAssistantUI_AIAssistantUI.bundle/Contents/Resources/DictatorLogo.png
++Contents/Resources/AlertsUI_AlertsUI.bundle/Contents/Info.plist
++Contents/Resources/AlertsUI_AlertsUI.bundle/Contents/Resources/LockdownWarning.tgs
++Contents/Resources/AppIcon.icns
++Contents/Resources/Assets.car
++Contents/Resources/Base.lproj/MainMenu.nib
++Contents/Resources/CallVideoLayer_CallVideoLayer.bundle/Contents/Info.plist
++Contents/Resources/CallVideoLayer_CallVideoLayer.bundle/Contents/Resources/default.metallib
++Contents/Resources/CubeUI_CubeUI.bundle/Contents/Info.plist
++Contents/Resources/CubeUI_CubeUI.bundle/Contents/Resources/Assets.car
++Contents/Resources/DataUsageUI_DataUsageUI.bundle/Contents/Info.plist
++Contents/Resources/DataUsageUI_DataUsageUI.bundle/Contents/Resources/Assets.car
++Contents/Resources/DustLayer_DustLayer.bundle/Contents/Info.plist
++Contents/Resources/DustLayer_DustLayer.bundle/Contents/Resources/default.metallib
++Contents/Resources/GoogleService-Info.plist
++Contents/Resources/ImageCanvasUI_ImageCanvasUI.bundle/Contents/Info.plist
++Contents/Resources/ImageCanvasUI_ImageCanvasUI.bundle/Contents/Resources/Assets.car
++Contents/Resources/LocalAgent_LocalAgent.bundle/Contents/Info.plist
++Contents/Resources/LocalAgent_LocalAgent.bundle/Contents/Resources/harness-marker.txt
++Contents/Resources/LocalAnimations_LocalAnimations.bundle/Contents/Info.plist
++Contents/Resources/LocalAnimations_LocalAnimations.bundle/Contents/Resources/remote_animations.json
++Contents/Resources/Lock.json
++Contents/Resources/LockWait.json
++Contents/Resources/Metadata.appintents/extract.actionsdata
++Contents/Resources/Metadata.appintents/version.json
++Contents/Resources/MetalEngine_MetalEngine.bundle/Contents/Info.plist
++Contents/Resources/MetalEngine_MetalEngine.bundle/Contents/Resources/default.metallib
++Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Info.plist
++Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Resources/default.metallib
++Contents/Resources/PhoneCountries.txt
++Contents/Resources/PrivateCallScreen_PrivateCallScreen.bundle/Contents/Info.plist
++Contents/Resources/PrivateCallScreen_PrivateCallScreen.bundle/Contents/Resources/Assets.car
++Contents/Resources/QrStudioUI_QrStudioUI.bundle/Contents/Info.plist
++Contents/Resources/QrStudioUI_QrStudioUI.bundle/Contents/Resources/QrStudioNoGifts.tgs
++Contents/Resources/SceneEffects_SceneEffects.bundle/Contents/Info.plist
++Contents/Resources/SceneEffects_SceneEffects.bundle/Contents/Resources/default.metallib
++Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Info.plist
++Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storymute.tgs
++Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storyplayback.tgs
++Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storysave.tgs
++Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Info.plist
++Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.otf
++Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.plist
++Contents/Resources/VideoMessage.fsh
++Contents/Resources/VideoMessage.vsh
++Contents/Resources/WalletUI_WalletUI.bundle/Contents/Info.plist
++Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/ChatListNoResults.tgs
++Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/GramDiamondLight.tgs
++Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletAddressInfo.pdf
++Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletCommentLock.tgs
++Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletTransactionKey.pdf
++Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletTransactionKeyLarge.pdf
++Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/default.metallib
++Contents/Resources/anim_archive.json
++Contents/Resources/anim_delete.json
++Contents/Resources/anim_hide.json
++Contents/Resources/anim_mute.json
++Contents/Resources/anim_pause.json
++Contents/Resources/anim_pin.json
++Contents/Resources/anim_play.json
++Contents/Resources/anim_read.json
++Contents/Resources/anim_unarchive.json
++Contents/Resources/anim_unmute.json
++Contents/Resources/anim_unpin.json
++Contents/Resources/anim_unread.json
++Contents/Resources/archiveAvatar.json
++Contents/Resources/back.png
++Contents/Resources/badgestar.png
++Contents/Resources/banned.tgs
++Contents/Resources/bot_close_menu.tgs
++Contents/Resources/bot_menu_close.tgs
++Contents/Resources/bot_menu_web_app.tgs
++Contents/Resources/bottom.png
++Contents/Resources/browser_back_to_close.tgs
++Contents/Resources/browser_close_to_back.tgs
++Contents/Resources/browser_more.tgs
++Contents/Resources/builtin-wallpaper-svg
++Contents/Resources/business.png
++Contents/Resources/call down.mp3
++Contents/Resources/call up.mp3
++Contents/Resources/cameraoff.tgs
++Contents/Resources/cameraon.tgs
++Contents/Resources/chars.png
++Contents/Resources/chatlist_game.tgs
++Contents/Resources/chatlist_music.tgs
++Contents/Resources/chatlist_poll.tgs
++Contents/Resources/chatlist_voice.tgs
++Contents/Resources/chiken_born.tgs
++Contents/Resources/code_note.tgs
++Contents/Resources/coin.png
++Contents/Resources/coin_anim.png
++Contents/Resources/coin_edge.png
++Contents/Resources/confetti.mp3
++Contents/Resources/countries
++Contents/Resources/currencies.json
++Contents/Resources/custom_reaction.tgs
++Contents/Resources/darkerTexture.jpg
++Contents/Resources/dart_idle.tgs
++Contents/Resources/de.lproj/Localizable.strings
++Contents/Resources/default.metallib
++Contents/Resources/diagonal_shine.png
++Contents/Resources/dice_idle.tgs
++Contents/Resources/dice_roll.tgs
++Contents/Resources/dsa_pub.pem
++Contents/Resources/dsa_pub_prod.pem
++Contents/Resources/duck_empty.tgs
++Contents/Resources/duck_passcode.tgs
++Contents/Resources/duck_upload_complete.tgs
++Contents/Resources/duck_uploads.tgs
++Contents/Resources/duck_webapp_error.tgs
++Contents/Resources/durgerking.placeholder
++Contents/Resources/email_recovery.tgs
++Contents/Resources/emoji_category_arrow_to_search.tgs
++Contents/Resources/emoji_category_search_to_arrow.tgs
++Contents/Resources/en.lproj/Localizable.strings
++Contents/Resources/es.lproj/Localizable.strings
++Contents/Resources/expired_story.tgs
++Contents/Resources/flecks.jpg
++Contents/Resources/folder.tgs
++Contents/Resources/folder_empty.tgs
++Contents/Resources/fragment.tgs
++Contents/Resources/front.png
++Contents/Resources/group_call_maxmin.tgs
++Contents/Resources/group_call_minmax.tgs
++Contents/Resources/it.lproj/Localizable.strings
++Contents/Resources/keychain.tgs
++Contents/Resources/left.png
++Contents/Resources/lighterTexture.jpg
++Contents/Resources/lightstreak.png
++Contents/Resources/login_airplane.tgs
++Contents/Resources/login_word.tgs
++Contents/Resources/menu_lighting.tgs
++Contents/Resources/menu_success.tgs
++Contents/Resources/mime-types.txt
++Contents/Resources/new_folder.tgs
++Contents/Resources/news_drop.tgs
++Contents/Resources/nl.lproj/Localizable.strings
++Contents/Resources/opening.m4a
++Contents/Resources/particle.png
++Contents/Resources/particles.png
++Contents/Resources/pirate_flag.tgs
++Contents/Resources/playlist_pause_play.tgs
++Contents/Resources/playlist_play_pause.tgs
++Contents/Resources/profile_level10_inner.svg
++Contents/Resources/profile_level10_outer.svg
++Contents/Resources/profile_level1_inner.svg
++Contents/Resources/profile_level1_outer.svg
++Contents/Resources/profile_level20_inner.svg
++Contents/Resources/profile_level20_outer.svg
++Contents/Resources/profile_level2_inner.svg
++Contents/Resources/profile_level2_outer.svg
++Contents/Resources/profile_level30_inner.svg
++Contents/Resources/profile_level30_outer.svg
++Contents/Resources/profile_level3_inner.svg
++Contents/Resources/profile_level3_outer.svg
++Contents/Resources/profile_level40_inner.svg
++Contents/Resources/profile_level40_outer.svg
++Contents/Resources/profile_level4_inner.svg
++Contents/Resources/profile_level4_outer.svg
++Contents/Resources/profile_level50_inner.svg
++Contents/Resources/profile_level50_outer.svg
++Contents/Resources/profile_level5_inner.svg
++Contents/Resources/profile_level5_outer.svg
++Contents/Resources/profile_level60_inner.svg
++Contents/Resources/profile_level60_outer.svg
++Contents/Resources/profile_level6_inner.svg
++Contents/Resources/profile_level6_outer.svg
++Contents/Resources/profile_level70_inner.svg
++Contents/Resources/profile_level70_outer.svg
++Contents/Resources/profile_level7_inner.svg
++Contents/Resources/profile_level7_outer.svg
++Contents/Resources/profile_level80_inner.svg
++Contents/Resources/profile_level80_outer.svg
++Contents/Resources/profile_level8_inner.svg
++Contents/Resources/profile_level8_outer.svg
++Contents/Resources/profile_level90_inner.svg
++Contents/Resources/profile_level90_outer.svg
++Contents/Resources/profile_level9_inner.svg
++Contents/Resources/profile_level9_outer.svg
++Contents/Resources/pt-BR.lproj/Localizable.strings
++Contents/Resources/qrcode_matrix.tgs
++Contents/Resources/random.jpg
++Contents/Resources/reconnecting.mp3
++Contents/Resources/right.png
++Contents/Resources/ru.lproj/Localizable.strings
++Contents/Resources/screenoff.tgs
++Contents/Resources/screenon.tgs
++Contents/Resources/sent.mp3
++Contents/Resources/shine.png
++Contents/Resources/single_voice_fire.tgs
++Contents/Resources/star_currency_mono.tgs
++Contents/Resources/star_currency_new.tgs
++Contents/Resources/star_currency_part_new.tgs
++Contents/Resources/success_saved.tgs
++Contents/Resources/tab_calls.tgs
++Contents/Resources/tab_chats.tgs
++Contents/Resources/tab_contacts.tgs
++Contents/Resources/tab_news.tgs
++Contents/Resources/tab_settings.tgs
++Contents/Resources/text_to_voice.tgs
++Contents/Resources/texture.jpg
++Contents/Resources/ton_logo.tgs
++Contents/Resources/top.png
++Contents/Resources/transcription_locked.tgs
++Contents/Resources/uk.lproj/Localizable.strings
++Contents/Resources/voice_chat_cancel_reminder.tgs
++Contents/Resources/voice_chat_cancel_reminder_to_mute.tgs
++Contents/Resources/voice_chat_cancel_reminder_to_raise_hand.tgs
++Contents/Resources/voice_chat_hand_off.tgs
++Contents/Resources/voice_chat_hand_on_muted.tgs
++Contents/Resources/voice_chat_hand_on_unmuted.tgs
++Contents/Resources/voice_chat_mute.tgs
++Contents/Resources/voice_chat_raise_hand_1.tgs
++Contents/Resources/voice_chat_raise_hand_2.tgs
++Contents/Resources/voice_chat_raise_hand_3.tgs
++Contents/Resources/voice_chat_raise_hand_4.tgs
++Contents/Resources/voice_chat_raise_hand_5.tgs
++Contents/Resources/voice_chat_raise_hand_6.tgs
++Contents/Resources/voice_chat_raise_hand_7.tgs
++Contents/Resources/voice_chat_set_reminder.tgs
++Contents/Resources/voice_chat_set_reminder_to_mute.tgs
++Contents/Resources/voice_chat_set_reminder_to_raise_hand.tgs
++Contents/Resources/voice_chat_start_chat_to_mute.tgs
++Contents/Resources/voice_chat_unmute.tgs
++Contents/Resources/voice_dots.tgs
++Contents/Resources/voice_to_text.tgs
++Contents/Resources/voip_busy.caf
++Contents/Resources/voip_connecting.mp3
++Contents/Resources/voip_end.caf
++Contents/Resources/voip_fail.caf
++Contents/Resources/voip_group_recording_started.mp3
++Contents/Resources/voip_group_unmuted.mp3
++Contents/Resources/voip_ringback.caf
++Contents/Resources/wallet_diamond.tgs
++Contents/XPCServices/CallsMediaHelper.xpc/Contents/Info.plist
++Contents/XPCServices/CallsMediaHelper.xpc/Contents/MacOS/CallsMediaHelper
++Contents/XPCServices/CallsMediaHelper.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/CodeHighlightService.xpc/Contents/Info.plist
++Contents/XPCServices/CodeHighlightService.xpc/Contents/MacOS/CodeHighlightService
++Contents/XPCServices/CodeHighlightService.xpc/Contents/Resources/grammars.dat
++Contents/XPCServices/CodeHighlightService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/DocumentFastService.xpc/Contents/Info.plist
++Contents/XPCServices/DocumentFastService.xpc/Contents/MacOS/DocumentFastService
++Contents/XPCServices/DocumentFastService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Info.plist
++Contents/XPCServices/DocumentFastService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.otf
++Contents/XPCServices/DocumentFastService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.plist
++Contents/XPCServices/DocumentFastService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/DocumentRecognitionService.xpc/Contents/Info.plist
++Contents/XPCServices/DocumentRecognitionService.xpc/Contents/MacOS/DocumentRecognitionService
++Contents/XPCServices/DocumentRecognitionService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Info.plist
++Contents/XPCServices/DocumentRecognitionService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.otf
++Contents/XPCServices/DocumentRecognitionService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.plist
++Contents/XPCServices/DocumentRecognitionService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/DocumentService.xpc/Contents/Info.plist
++Contents/XPCServices/DocumentService.xpc/Contents/MacOS/DocumentService
++Contents/XPCServices/DocumentService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Info.plist
++Contents/XPCServices/DocumentService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.otf
++Contents/XPCServices/DocumentService.xpc/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.plist
++Contents/XPCServices/DocumentService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/ImageDecodeService.xpc/Contents/Info.plist
++Contents/XPCServices/ImageDecodeService.xpc/Contents/MacOS/ImageDecodeService
++Contents/XPCServices/ImageDecodeService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/LottieRenderService.xpc/Contents/Info.plist
++Contents/XPCServices/LottieRenderService.xpc/Contents/MacOS/LottieRenderService
++Contents/XPCServices/LottieRenderService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/MediaDecodeService.xpc/Contents/Info.plist
++Contents/XPCServices/MediaDecodeService.xpc/Contents/MacOS/MediaDecodeService
++Contents/XPCServices/MediaDecodeService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/MediaDecodeStandbyService.xpc/Contents/Info.plist
++Contents/XPCServices/MediaDecodeStandbyService.xpc/Contents/MacOS/MediaDecodeStandbyService
++Contents/XPCServices/MediaDecodeStandbyService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/ModelPreviewService.xpc/Contents/Info.plist
++Contents/XPCServices/ModelPreviewService.xpc/Contents/MacOS/ModelPreviewService
++Contents/XPCServices/ModelPreviewService.xpc/Contents/_CodeSignature/CodeResources
++Contents/XPCServices/WidgetService.xpc/Contents/Info.plist
++Contents/XPCServices/WidgetService.xpc/Contents/MacOS/WidgetService
++Contents/XPCServices/WidgetService.xpc/Contents/Resources/WidgetSandbox_WidgetSandboxResources.bundle/Contents/Info.plist
++Contents/XPCServices/WidgetService.xpc/Contents/Resources/WidgetSandbox_WidgetSandboxResources.bundle/Contents/Resources/WidgetJS/renderer-bundle.js
++Contents/XPCServices/WidgetService.xpc/Contents/Resources/WidgetSandbox_WidgetSandboxResources.bundle/Contents/Resources/WidgetJS/sandbox-bundle.js
++Contents/XPCServices/WidgetService.xpc/Contents/Resources/WidgetSandbox_WidgetSandboxResources.bundle/Contents/Resources/WidgetJS/validator-bundle.js
++Contents/XPCServices/WidgetService.xpc/Contents/_CodeSignature/CodeResources
++Contents/_CodeSignature/CodeResources

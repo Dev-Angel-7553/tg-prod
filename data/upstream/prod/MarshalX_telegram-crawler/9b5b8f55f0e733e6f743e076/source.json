@@ -1,0 +1,1520 @@
+{
+  "category": "clients",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:bba78813a217edad95177d4cdb83ddb452d28ab3:clients:beta",
+  "files": [
+    {
+      "additions": 527,
+      "deletions": 0,
+      "filename": "data/client/android-beta/AndroidManifest.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/PhoneFormats.dat",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/renderer-bundle.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/manifest.txt",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/arctic.attheme",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/bluebubbles.attheme",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/countries.txt",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/currencies.json",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/darkblue.attheme",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/day.attheme",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji.pack",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_-1_0.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_-1_1.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_0_0.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_0_1.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_1_0.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_1_1.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_2_0.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_2_1.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_3_0.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_3_1.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_4_0.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/emoji/compound/0_4_1.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/flecks.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/currency_symbols.txt",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/gram.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/mw_bold.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/mw_bolditalic.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/num.otf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/rcondensedbold.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/rextrabold.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/ritalic.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/rmedium.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/rmediumitalic.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/rmono.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/fonts/rmono_var.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/grammars.dat",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_ar.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_de.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_es.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_it.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_ko.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_nl.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_pt_br.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_ru.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/localization_uk.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/lottie_meta.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/coin_border.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/coin_inner.binobj",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/coin_logo.binobj",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/coin_outer.binobj",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/coin_stars.binobj",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/deal_border.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/deal_logo.binobj",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/anchors.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/camera.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/facetProjection.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/frames.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/main.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/planes.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/small.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/vertices.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/diamond_ios/widths.bin",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/models/star.binobj",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/night.attheme",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/DefaultTeXFont.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/GlueSettings.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/TeXFormulaSettings.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/TeXSymbols.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_amsfonts.map.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_amssymb.map.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_base.map.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmex10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmex10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmi10_unchanged.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_cmmib10_unchanged.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/base/jlm_moustache.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufb10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufb10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufm10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/euler/jlm_eufm10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_cmr10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_cmr10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbi10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbi10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbx10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmbx10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmi10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmi10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmr10_unchanged.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsb10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsb10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsbi10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsbi10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsi10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmsi10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmss10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmss10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmtt10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/latin/jlm_jlmtt10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmbsy10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmbsy10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmsy10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_cmsy10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msam10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msam10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msbm10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_msbm10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_rsfs10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_rsfs10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.map.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_special.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmary10.ttf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmary10.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/org/scilab/forge/jlatexmath/fonts/maths/jlm_stmaryrd.map.xml",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/secureid_ocr_nn.dat",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/diamond/copyFragment.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/diamond/diamondFragment.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/diamond/diamondVertex.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/diamond/fullscreenVertex.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/diamond/sparkleFragment.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/diamond/sparkleVertex.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/fragment3.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/fragment4.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shaders/vertex2.glsl",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/shapes.dat",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/tflite_langid.tflite.jpg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_0_0.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_0_1.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_0_2.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_0_3.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_0_4.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_0_5.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_0_6.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_0_7.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_1_0.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_1_1.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_1_2.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_1_3.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_1_4.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_1_5.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_1_6.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/face_1_7.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/finish_dark.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/finish_light.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/grain.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/groove_across.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/groove_along.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_dark_0.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_dark_1.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_dark_2.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_dark_3.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_dark_4.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_dark_5.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_dark_6.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_dark_7.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_light_0.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_light_1.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_light_2.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_light_3.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_light_4.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_light_5.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_light_6.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_light_7.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_info_mask.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_0.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_1.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_2.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_3.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_4.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_5.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_6.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_dark_7.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_light_0.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_light_1.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_light_2.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_light_3.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_light_4.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_light_5.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_light_6.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_light_7.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/icon_qr_mask.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/qr_brush_dark.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/wallet_card_2d/qr_brush_light.webp",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/android-beta/assets/youtube_embed.html",
+      "status": "added"
+    },
+    {
+      "additions": 61,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/AIAssistantUI_AIAssistantUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/AIAssistantUI_AIAssistantUI.bundle/Contents/Resources/DictatorLogo.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/AlertsUI_AlertsUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/AlertsUI_AlertsUI.bundle/Contents/Resources/LockdownWarning.tgs",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/Base.lproj/MainMenu.nib",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/CallVideoLayer_CallVideoLayer.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/CallVideoLayer_CallVideoLayer.bundle/Contents/Resources/default.metallib",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/CubeUI_CubeUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/CubeUI_CubeUI.bundle/Contents/Resources/Assets.car",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/DataUsageUI_DataUsageUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/DataUsageUI_DataUsageUI.bundle/Contents/Resources/Assets.car",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/DustLayer_DustLayer.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/DustLayer_DustLayer.bundle/Contents/Resources/default.metallib",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/ImageCanvasUI_ImageCanvasUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/ImageCanvasUI_ImageCanvasUI.bundle/Contents/Resources/Assets.car",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/LocalAgent_LocalAgent.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/LocalAgent_LocalAgent.bundle/Contents/Resources/harness-marker.txt",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/LocalAnimations_LocalAnimations.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/LocalAnimations_LocalAnimations.bundle/Contents/Resources/remote_animations.json",
+      "status": "added"
+    },
+    {
+      "additions": 717,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/extract.actionsdata",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/MetalEngine_MetalEngine.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/MetalEngine_MetalEngine.bundle/Contents/Resources/default.metallib",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Resources/default.metallib",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/PrivateCallScreen_PrivateCallScreen.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/PrivateCallScreen_PrivateCallScreen.bundle/Contents/Resources/Assets.car",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/QrStudioUI_QrStudioUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/QrStudioUI_QrStudioUI.bundle/Contents/Resources/QrStudioNoGifts.tgs",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/SceneEffects_SceneEffects.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/SceneEffects_SceneEffects.bundle/Contents/Resources/default.metallib",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storymute.tgs",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storyplayback.tgs",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/StoriesUI_StoriesUI.bundle/Contents/Resources/anim_storysave.tgs",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.otf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/SwiftMath_SwiftMath.bundle/Contents/Resources/latinmodern-math.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Info.plist",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/ChatListNoResults.tgs",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/GramDiamondLight.tgs",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletAddressInfo.pdf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletCommentLock.tgs",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletTransactionKey.pdf",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/WalletTransactionKeyLarge.pdf",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/WalletUI_WalletUI.bundle/Contents/Resources/default.metallib",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/de.lproj/Localizable.strings",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/es.lproj/Localizable.strings",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/it.lproj/Localizable.strings",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/nl.lproj/Localizable.strings",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/pt-BR.lproj/Localizable.strings",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/ru.lproj/Localizable.strings",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/uk.lproj/Localizable.strings",
+      "status": "added"
+    },
+    {
+      "additions": 384,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/files.txt",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-18T10:32:34Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "bba78813a217edad95177d4cdb83ddb452d28ab3",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/bba78813a217edad95177d4cdb83ddb452d28ab3"
+  }
+}

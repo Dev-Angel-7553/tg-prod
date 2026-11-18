@@ -452,7 +452,7 @@
       "pattern_color": 468509,
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 13
+        "permille": 14
       },
       "text_color": 11919572
     },
@@ -764,7 +764,7 @@
       "pattern_color": 11341312,
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 13
+        "permille": 14
       },
       "text_color": 16770263
     },
@@ -1194,7 +1194,7 @@
       "name": "Agent D",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 13
+        "permille": 14
       }
     },
     {
@@ -4350,7 +4350,7 @@
       "name": "Leader",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 12
+        "permille": 11
       }
     },
     {
@@ -5231,7 +5231,7 @@
       "name": "Prophet",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 12
+        "permille": 11
       }
     },
     {
@@ -6110,7 +6110,7 @@
       "name": "Shinobi",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 16
+        "permille": 15
       }
     },
     {
@@ -7815,7 +7815,7 @@
       "name": "Alkonost",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 4
+        "permille": 5
       }
     },
     {
@@ -12492,7 +12492,7 @@
       "name": "Horseshoe",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 4
+        "permille": 5
       }
     },
     {
@@ -13201,7 +13201,7 @@
       "name": "Knight",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 4
+        "permille": 5
       }
     },
     {
@@ -16404,7 +16404,7 @@
       "name": "Rhino Warrior",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 7
+        "permille": 6
       }
     },
     {
@@ -18536,7 +18536,7 @@
       "name": "Tree of Life",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 4
+        "permille": 5
       }
     },
     {
@@ -18633,7 +18633,7 @@
       "name": "Trickster Fox",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 4
+        "permille": 5
       }
     },
     {
@@ -19648,7 +19648,7 @@
       "name": "White Deer",
       "rarity": {
         "_": "StarGiftAttributeRarity",
-        "permille": 4
+        "permille": 5
       }
     },
     {

@@ -1,0 +1,1583 @@
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/0.m4a b/data/client/macos-beta/Telegram.app/Contents/Resources/0.m4a
+@@ -1 +0,0 @@
+-4c645193f139106533d713a2e669391cd42dda4994f5564152e782f0b665fa8a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/1.m4a b/data/client/macos-beta/Telegram.app/Contents/Resources/1.m4a
+@@ -1 +0,0 @@
+-4c645193f139106533d713a2e669391cd42dda4994f5564152e782f0b665fa8a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/LockPause.json b/data/client/macos-beta/Telegram.app/Contents/Resources/LockPause.json
+@@ -1 +0,0 @@
+-d4154e23f818e1289f3fdafe78835aaecbeb2e3d2a50b076d4eca85eb54d713d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/Pop.wav b/data/client/macos-beta/Telegram.app/Contents/Resources/Pop.wav
+@@ -1 +0,0 @@
+-464fc6809e183795ce39c15720f0195839c65c806de57d3819fbd971cfa195b9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/Purr.wav b/data/client/macos-beta/Telegram.app/Contents/Resources/Purr.wav
+@@ -1 +0,0 @@
+-d2d3b06467d9a130c6297bea5074d39d9e480a36fddfb2d42391ecbcb25938c8
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/SFCompactRounded-Semibold.otf b/data/client/macos-beta/Telegram.app/Contents/Resources/SFCompactRounded-Semibold.otf
+@@ -1 +0,0 @@
+-0292bc7f87a0b5c3c92d355736f4f69b774ff48369cefe4aa05a40884a0fe040
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/activity.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/activity.tgs
+@@ -1 +0,0 @@
+-3ea7d595779201b99041e900cda630ebb4f88fb5182e560c305d29761f50a392
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/affiliate_link.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/affiliate_link.tgs
+@@ -1 +0,0 @@
+-2dc82b4501f5a768dda463bfb8fc6e467eec8a278af820acb575204f5339822a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/anim_group.json b/data/client/macos-beta/Telegram.app/Contents/Resources/anim_group.json
+@@ -1 +0,0 @@
+-2be7accbf44fbb2c1475d88f2c5497c3168e690d3d14f87798551c351ef725d1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/anim_ungroup.json b/data/client/macos-beta/Telegram.app/Contents/Resources/anim_ungroup.json
+@@ -1 +0,0 @@
+-23e05d9bf79811676e6e6c85f4e9fbb378fa27896ee706ea76d49da40d8fff29
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/animals.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/animals.tgs
+@@ -1 +0,0 @@
+-f42611735d05907a10a8ed30ac4360a790c9f81f4bff435fe339589e4fa75a04
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/badge.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/badge.scn
+@@ -1 +0,0 @@
+-86c0402872fcc741b494d1ebf308281e569168d68ee5a49ad2aaf63ad372cadb
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/begin_record.caf b/data/client/macos-beta/Telegram.app/Contents/Resources/begin_record.caf
+@@ -1 +0,0 @@
+-e65d5e96444bb5f268512a1f04a4b822bcb11efd6032df47d3746c4d26751617
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/birthday_cake.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/birthday_cake.tgs
+@@ -1 +0,0 @@
+-11e5a99c2471f47a13fc5b0c13c0d67d5fc3ac366beb8d35124c881af6a513d5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/bot_close_menu.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/bot_close_menu.tgs
+@@ -1 +1 @@
+-301420b1b6f0c9cdb8b6153a2a9aa3fb6bd65d39a2562b2a30f6d72349bc9c2d
+\ No newline at end of file
++8c7465605d7f3a7d3e81defb96dfc8a73cf95196e113d27e07437770d7469378
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/bot_menu_close.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/bot_menu_close.tgs
+@@ -1 +1 @@
+-83e09c1d4496c3429ebc3871997b96b62c53ddbbf45f8ae19e096d42416f1577
+\ No newline at end of file
++6a2c7e81bb8b161b35e68e54202bc57b309a4cb7f2592b1e007c5dc2b30ea6bc
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/brilliant_loading.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/brilliant_loading.tgs
+@@ -1 +0,0 @@
+-ec5e730803b9d3dd2277df82b536021164a045200ebb9a603130bebfa5423f6c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/brilliant_static.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/brilliant_static.tgs
+@@ -1 +0,0 @@
+-937d4301e72319b1d60a9dc84bbbde64e7ff6b3b707a49e7dd393f26207c2262
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/broken_gift.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/broken_gift.tgs
+@@ -1 +0,0 @@
+-4e93b209c94ba677227e9923bcb35edf2dca1a118bddbcbd2aa71ac74f7f254f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/bulb.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/bulb.tgs
+@@ -1 +0,0 @@
+-b0fe51ff7b7bda8c121a8d74a2eb0daa9b94a33df814517adb201159bb29c1f0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/business.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/business.scn
+@@ -1 +0,0 @@
+-7f08d56064981ac73a1bc460cb42bd3f79282bb477817962f5152b19ed5c81bd
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/business_away_message.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/business_away_message.tgs
+@@ -1 +0,0 @@
+-734452d1c33cdb8e3dd918d3d677c6b56aed04ab954e43690ef906e867eb73ea
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/business_chatbot.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/business_chatbot.tgs
+@@ -1 +0,0 @@
+-a9aaab6c911ba51cf1f73781dcb060c2f7d2e8e36256fde650dcc43273f418bf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/business_greeting_message.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/business_greeting_message.tgs
+@@ -1 +0,0 @@
+-4f6b8b281cacc15d412a47b7291f670073602cf769b71308b13ef109470e455c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/business_hours.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/business_hours.tgs
+@@ -1 +0,0 @@
+-152778aaa43bc44e9b9d167f163cc4412ace273c1fbe1f857f12c401b697556b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/business_links.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/business_links.tgs
+@@ -1 +0,0 @@
+-e41fb3dcc22e63d929c04a62fdf0540cf87e192f21a4db2ee2f03f1e0a18c387
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/business_location.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/business_location.tgs
+@@ -1 +0,0 @@
+-e666d82d2140b42af7719c9cbf14a7bf7a2a4e685b3f02429f76a8cfc002958a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/business_quick_reply.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/business_quick_reply.tgs
+@@ -1 +0,0 @@
+-200176f939c3d075e9696d567fa579180cd4eabb5aa96c0ef3351dba3e6a47e1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/cameraoff.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/cameraoff.tgs
+@@ -1 +1 @@
+-3f7982f5339da022f09cd8529ecf3e2f310024540ae7a0f2e1cf63312b1c1403
+\ No newline at end of file
++44e996ab9c5244a70aa2ad9a604c269ae49ffe3a9321aa4e949db06c43a832ff
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/cameraon.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/cameraon.tgs
+@@ -1 +1 @@
+-c81745c5b9830144971144d0583b9ac6285ab1e2e00d4689405a70fc9b63dcb6
+\ No newline at end of file
++2be560f53e5aa3dfbfe7ae746008c6613b9613658e69043fd83745d0028f469c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/change_sim.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/change_sim.tgs
+@@ -1 +0,0 @@
+-63d0248c7623ae564a86f4961bd7df839849fe3c41dae1d910c006e5500bcf48
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/code_note.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/code_note.tgs
+@@ -1 +1 @@
+-ea421db0062509063f9c54764bdc64c76b8a301cb9f4326c4fc4ac5081074fa2
+\ No newline at end of file
++adb6b7e2348fd157bcd5b4bd5f538e337311bb66bae48ac929e77a981928c1e5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/coin.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/coin.scn
+@@ -1 +0,0 @@
+-9f320223de2824a7f4c1aa0df368d73b7f95c78d56e6f3fe9f6804e1d25718c6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/countdown5s.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/countdown5s.tgs
+@@ -1 +0,0 @@
+-10b09fccce67b602d1084747cc328363b1220ef9294a8701ae6be15d1eec8e0a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/destructor.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/destructor.tgs
+@@ -1 +0,0 @@
+-e2a0a1de6e4d7d456ba44fef6d9ac3651bae2addc099370cc99f0ba1768bd0e4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_android.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_android.tgs
+@@ -1 +0,0 @@
+-11885f1c5ee18f0d87cb563e17ea2d5757367e81938f8c45d9909cef0eb63ac6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_chrome.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_chrome.tgs
+@@ -1 +0,0 @@
+-6e5044270e83b90881dcae0fb003a9c52ec5bcd939c6dfbe5426a0f6b237577d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_edge.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_edge.tgs
+@@ -1 +0,0 @@
+-38c89f9d5c3704fada09af78f4cf203768d7ce5ea0ed8731aea45834de3897a5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_firefox.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_firefox.tgs
+@@ -1 +0,0 @@
+-23ac68f9af19deea7f48a1465d1a68ce1f12b229f0840a115478f4117ecd4ea7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_ipad.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_ipad.tgs
+@@ -1 +0,0 @@
+-2346043ccae6526da88fc304d03d448a2721ed13d8fdf414102f83b89c8ae842
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_iphone.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_iphone.tgs
+@@ -1 +0,0 @@
+-ea23f9206320b457aaf443db835ff646d3530b5bbdccbb53bc61b271895884f9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_linux.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_linux.tgs
+@@ -1 +0,0 @@
+-51532f6b02fd156b031228d989619168e58fd43e52de8631ba7ac6a18c7a4a98
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_mac.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_mac.tgs
+@@ -1 +0,0 @@
+-37a05a01017ad099d62b4fd0dd10de666b4a4165ab70f8da9a602df379f2818d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_safari.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_safari.tgs
+@@ -1 +0,0 @@
+-b6c7f2c30e2236b09b06ce5470bb1d2b852aad3c8242ca03e41d73566f3824e2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_ubuntu.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_ubuntu.tgs
+@@ -1 +0,0 @@
+-84d302554384f566b96dd848eb35b31c7b29b82c60723fec26cedb98f8c48787
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/device_windows.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/device_windows.tgs
+@@ -1 +0,0 @@
+-d41c70521c9f79825b6c1f4a86fc714a81257bdd5c632d8cda5971446477862c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/diamond.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/diamond.scn
+@@ -1 +0,0 @@
+-80ad1a69fb26fe39ce2adfe6d17c64cc64c391f12dbf75fa9b13e9539bb24966
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/diamond.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/diamond.tgs
+@@ -1 +0,0 @@
+-b0c1b8de4d84a3840a27e182daa6b7e1045f34c29b62e5000e0f99092b06d533
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/direct_messages.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/direct_messages.tgs
+@@ -1 +0,0 @@
+-447bea535eccbe20eef058a161800990ff1eb2977d2669021c27b4ea9e7eb390
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/discussion.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/discussion.tgs
+@@ -1 +0,0 @@
+-25454eb8fbd0d9ce42bd491cad8728bd8d937fe4990b7660f698ff0c39b2d666
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji.txt b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji.txt
+@@ -1 +0,0 @@
+-d046f9b938d32a742e083eb301f506e3cd43ef8ffbae32aced51fd823aafbff3
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji1014.txt b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji1014.txt
+@@ -1 +0,0 @@
+-6693317c410f95ba37138544c2d7f1f10da79c1c909dc86ec1be4c93069d3c08
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji1016.txt b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji1016.txt
+@@ -1 +0,0 @@
+-f181adc77c28ea29bd9c0dd0c2c80d66d628429cc9d0264bb19555774eeb79fa
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji14.txt b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji14.txt
+@@ -1 +0,0 @@
+-f756d0adf933258b6f44a9dc08d858be8a9acd8f0735376c2922f5c786be0c80
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji144.txt b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji144.txt
+@@ -1 +0,0 @@
+-9699f1b074ad94ff4ae7148968dd721eebc3d42f0b97f9cd1150ce2ad3d31b20
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji264.txt b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji264.txt
+@@ -1 +0,0 @@
+-c219c9b7c25808c9f7022c9513e4f9f00eb515910a849729730b2ec3d3fb8c96
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_activities.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_activities.tgs
+@@ -1 +0,0 @@
+-ddd0214f4a4a5414b009e4273a7d2c1f498a7cf4d6a5329add32a3b5d052af74
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_angry.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_angry.tgs
+@@ -1 +0,0 @@
+-07d9f88bc2b9589b4501d70a48c9785623e2936184bece29233dd5d5c02a0609
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_away.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_away.tgs
+@@ -1 +0,0 @@
+-41f06e6396f33063eaa4fa7328a7e3a93bb9f44d7237b5ef06561cdd31e37435
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_bath.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_bath.tgs
+@@ -1 +0,0 @@
+-19e6a68f58ae94240aa1a82c1a32dac298576277684d1ca25304fe7defa6a745
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_busy.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_busy.tgs
+@@ -1 +0,0 @@
+-3f341988acc379d3bdbb26b7189fb1af11b3ac52d664c3eb7958a78f08c7be1f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_dislike.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_dislike.tgs
+@@ -1 +0,0 @@
+-31c1d598a91c77b763b111ebc76073ace205cbffde98538e29812fa62928f699
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_food.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_food.tgs
+@@ -1 +0,0 @@
+-4897ff77343cc09c46846cb0add63d79064496d7551c6d5d28a15a8318d6ad42
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_happy.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_happy.tgs
+@@ -1 +0,0 @@
+-04846690925e6005b3a967a3cec56321a67921ccb7d5eaab4df08c54087238a9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_heart.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_heart.tgs
+@@ -1 +0,0 @@
+-553b2b00795e78067b76b50391688c6e240884da4d8bef4cf0e921599ededc93
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_hi.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_hi.tgs
+@@ -1 +0,0 @@
+-e3b2c820202c5765a71270a959e4c3091efeb0610f72ba5a2b400e5db4acc716
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_home.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_home.tgs
+@@ -1 +0,0 @@
+-49ff1822a3facf28b1ed9777b2b88c0eb77f298ec81e1729063d93be29140739
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_like.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_like.tgs
+@@ -1 +0,0 @@
+-594ed13ca790655fd99c0eba5eb7d3c8953639bf40a42d6fd89282bab2163313
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_neutral.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_neutral.tgs
+@@ -1 +0,0 @@
+-f7fa846fc1c0f256323f2ac668778bb3fa1ea8bbf4601a1798826b92d4132e2a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_omg.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_omg.tgs
+@@ -1 +0,0 @@
+-4ce2deb255b1796b87cbafe2cf803fd7eaa9d7967d4eff1c1274afd8fe483001
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_party.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_party.tgs
+@@ -1 +0,0 @@
+-9ead3fa4ecb166dcd385bf942b5f8c5dd4786eba8cfae1c0bfc4fbcaf6f99de5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_recent.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_recent.tgs
+@@ -1 +0,0 @@
+-cd0269b48328b1d89b80570707d5f83d7ac8d2271ee4500a9ba7a46db40911ba
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_sad.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_sad.tgs
+@@ -1 +0,0 @@
+-24cebd2797e06dc74b21b2b3369695c0791941a4f22bd7102924f14f2f74a0ea
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_sleep.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_sleep.tgs
+@@ -1 +0,0 @@
+-1c0b6d6275822caac0a5d59a91c95d3581e9cfe14d62e6c5ac544501847a60a0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_study.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_study.tgs
+@@ -1 +0,0 @@
+-2ddf321940a841da795529c58c221f51a63d80d01d833acf006a91a94faf3393
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_tongue.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_tongue.tgs
+@@ -1 +0,0 @@
+-ccb3a577011310846d4cb52476b076ae2bb5b94cbffbe31dd80ab871cb384deb
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_vacation.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_vacation.tgs
+@@ -1 +0,0 @@
+-83c65e2d3b32729ab8981005dc8625964e70db4d5bb9f58c42e34b6b35f3ade9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_what.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_what.tgs
+@@ -1 +0,0 @@
+-d80102ef0bce4930b4af84a6c65202b224c82e6940f014cd21fed701e00ae9ca
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_work.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_work.tgs
+@@ -1 +0,0 @@
+-016f373028e2fb9d72839e35dd03a848f3657303873e05fae46ac10e2be85bf2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/en.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/en.lproj/Localizable.strings
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/flags.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/flags.tgs
+@@ -1 +0,0 @@
+-91f27918377930469342e038f275148df4d9edacd1905a068fd7ef09cf23290f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/fly_dollar.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/fly_dollar.tgs
+@@ -1 +0,0 @@
+-d72919923e92bbba8beaad05ef3a0d95e6166b8ab86d1d6e7dda903b3a75e6f9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/food.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/food.tgs
+@@ -1 +0,0 @@
+-f64c076b09d2081eeb157d08cee1bb59b7203f2f2f9fea1852c35d1484697f76
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/forum_topic.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/forum_topic.tgs
+@@ -1 +0,0 @@
+-2837888077aa87bb314fe4b8d1b300b680f8a5f1eb5089348b244fbd49b21085
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/fragment_username.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/fragment_username.tgs
+@@ -1 +0,0 @@
+-9da9c8916112b339a9517ef8c5f1752e2e3463f164825381e5f74653e142a6e2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/freeze_duck.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/freeze_duck.tgs
+@@ -1 +0,0 @@
+-c248f9d499ac5208253ab1abfbc88583d80fbed0415ae835505690e38111953d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/gift.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/gift.scn
+@@ -1 +0,0 @@
+-98666db426aa8c55b784fcf987af9a18dd6ae960356e476268dd779a0b1354fe
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/gift.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/gift.tgs
+@@ -1 +0,0 @@
+-e93eb3baa150c258f2d99e8635674c9789c895600f9c85760637238721487818
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/gigagroup.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/gigagroup.tgs
+@@ -1 +0,0 @@
+-14cc9bed43b9e1a98d6d690fdd1c137c3897a8f964d9134958fb28527f4adb4d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/global_autoremove.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/global_autoremove.tgs
+@@ -1 +0,0 @@
+-3fa40c9e7daf9f509b9264436cd3890ee2bad0f2046037eca94cb1e2e4ef4b1c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/grammars.dat b/data/client/macos-beta/Telegram.app/Contents/Resources/grammars.dat
+@@ -1 +0,0 @@
+-1a785ffbfcaf8a0ba37815ea1353530e7b72659b05d85ff56b2d8f69d767bbaf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/graph_loading.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/graph_loading.tgs
+@@ -1 +0,0 @@
+-b6c6a9f0a0a5eedd4aa4450a77efedbc632f6c49ed26bcdb7a4a619f91dc07ee
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_chatlist_typing.json b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_chatlist_typing.json
+@@ -1 +0,0 @@
+-5a73337ac38c93898b556e221750187218613157c75162357f6a2c55df2e47f4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_maxmin.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_maxmin.tgs
+@@ -1 +1 @@
+-91aac618376d5795df3176b4f7bf535ad3f0bdc1549c0ba78c9b2c932873cf1e
+\ No newline at end of file
++c270efb250d10e4b48f7aa65024fc62679cdd4d45bff866af26c37de397c2443
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_member_mute.json b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_member_mute.json
+@@ -1 +0,0 @@
+-21c5df54112b2c4fdccbc5ea30efe1cb0eb60f374b72a2d274a3cd7228c17e88
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_member_unmute.json b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_member_unmute.json
+@@ -1 +0,0 @@
+-dfe76dd8105ad3f7d0b1bdbce2c545d2537c5ddc4064e8f1bc71f9514c6878a4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_minmax.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_minmax.tgs
+@@ -1 +1 @@
+-e4305a94df67b7cc91eff1247099c1a0cdf0a591777cf49142714de10eb6b614
+\ No newline at end of file
++63be2a6b8019ea52d0254839cb7ca3b41fdedd996809e101dabfae65775d5f1e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_share.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_share.tgs
+@@ -1 +0,0 @@
+-ccdfad40bec2ace15286b82bf58e801d68602f94f3345984165486e6b023fa8d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_speaker_mute.json b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_speaker_mute.json
+@@ -1 +0,0 @@
+-c84875b0645b6d3ef9a10842af52cd8ce85e52f2e1910560177e2790bd59a911
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_speaker_unmute.json b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_speaker_unmute.json
+@@ -1 +0,0 @@
+-082a1449a20cfc338b264d5d23aa5dd5d48579cfb06bc3ccc521ab5bca82c09f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_stream_empty b/data/client/macos-beta/Telegram.app/Contents/Resources/group_call_stream_empty
+@@ -1 +0,0 @@
+-5efe91f467bd34ea75153f33f3bdc9061c99d1168181a80db054f2d8d6f534cf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/hand_animation.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/hand_animation.tgs
+@@ -1 +0,0 @@
+-c198b3e4051897ede48080b2d4f57d5e905f74819345014483893eca81542679
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/improving_video.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/improving_video.tgs
+@@ -1 +0,0 @@
+-953fb0562c33981557a14138d7281e80c75f4fd455e06f1e370b7d3946a2b567
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/invitations.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/invitations.tgs
+@@ -1 +0,0 @@
+-b090c539198e9aa94541e3549fed84ce10536686549feb5b9cdc2c9199090e57
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/keyboard_typing.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/keyboard_typing.tgs
+@@ -1 +0,0 @@
+-532e96391263c9ae9829312a6588f0cc4f685fd915bd69a8e71a9d4b664e3fb8
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/lightspeed.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/lightspeed.scn
+@@ -1 +0,0 @@
+-96e885b7942d1826e80e90f7393483ace1d3f85da46519da2ba47560b047d092
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/maccheck.json b/data/client/macos-beta/Telegram.app/Contents/Resources/maccheck.json
+@@ -1 +0,0 @@
+-77bfa7fc98a4e5713bdf4f86d25eb3055d9429b2e389339ce43a87fade814885
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add.tgs
+@@ -1 +0,0 @@
+-1cdcc95230c1ed9309bd0338a280c302c1a01e4d6d1181297baee3ba4a734c96
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_gif.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_gif.tgs
+@@ -1 +0,0 @@
+-d9844f5b283e873ff5e5be6574cf723e0eed0ccbfc1bd84b168d227b065c4eee
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_member.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_member.tgs
+@@ -1 +0,0 @@
+-3af8b911e3fce8dd3110817b6be99e395e1d880ab57efa7aed58b470efde584e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_to_favorites.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_to_favorites.tgs
+@@ -1 +0,0 @@
+-20e6e69156df9f601377d43d6bc0e997e8e3ccf60144a853112f5187859b9801
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_to_folder.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_to_folder.tgs
+@@ -1 +0,0 @@
+-82d193790042fc0b61802adee2019fd01ebcb2112b557dd0606625d01f4f18d4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_adult.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_adult.tgs
+@@ -1 +0,0 @@
+-cec636749ded198faf2dd297babd147578fd4a46a7a4ac50650c74a7497c88f0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_adult_slash.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_adult_slash.tgs
+@@ -1 +0,0 @@
+-7f2933cde0a54d28b995c65155af0a2bfbbea039b2e1472f3610d96ca0fd1af5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_apps.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_apps.tgs
+@@ -1 +0,0 @@
+-3c83db0ebb764ffcc45d942f4f45ba2b937fbc2f9b93e055cfc83a019c993fd3
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_archive.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_archive.tgs
+@@ -1 +0,0 @@
+-6efb471c105c6972bc8b68d0fe54bf748c502ef327c2e46d3127ea4af6d1b74d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_article.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_article.tgs
+@@ -1 +0,0 @@
+-9856cc0b50d6a11e2a7542642e2484bb09a39c923ec8db2fb45a3aab0a0d9bfb
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_atsign.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_atsign.tgs
+@@ -1 +0,0 @@
+-6919bfe49fbdee407e026000306005d47c46b81dbed6e5e425675588a334dc0e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1d.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1d.tgs
+@@ -1 +0,0 @@
+-204ef9875603ac897a1eb3a02ddaf97dc91cbb06166a721bd29e5557b4637fca
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1h.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1h.tgs
+@@ -1 +0,0 @@
+-0cf2716bbd6aeb27d4a94235dbd065edefc28d842d15fb570fa6d84189addfd0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1m.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1m.tgs
+@@ -1 +0,0 @@
+-f05538679a2ddf9c331f3ba3029947445fc7cc49f98f16609ffd5bcf79892584
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1w.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1w.tgs
+@@ -1 +0,0 @@
+-73fc943b0ba6245e900ff02f608aedd9a2173f4487aa4475d2f4a3e94952c296
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_customize.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_customize.tgs
+@@ -1 +0,0 @@
+-41672b0a4e3884a2a6087629ecd754d647a70de39b1a5104ee1d8125f3c7fe1f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_never.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_never.tgs
+@@ -1 +0,0 @@
+-68e1aef504618ccf66548b3c250e852aaaf0b279d236d58efcbf9d082d39f7b1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_ban.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_ban.tgs
+@@ -1 +0,0 @@
+-901e445a7b49ce7dabdfc594cead3f30bd609c25b6a183b3baff59cb5560184e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_bio.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_bio.tgs
+@@ -1 +0,0 @@
+-c315b919d2a9ee022cef42a69856a3cb38e1d114619213cb7a39343f4f4d657b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_bookmark.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_bookmark.tgs
+@@ -1 +0,0 @@
+-d66021795b213711f40ee33d390abfd317c9b8894f55185f2fca65b2c42b1f4d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_boost.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_boost.tgs
+@@ -1 +0,0 @@
+-d513a88abcec08fc6a23e1f8bdd14b3a454dbb84108fea1e0f92064c38af420b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_boost_plus.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_boost_plus.tgs
+@@ -1 +0,0 @@
+-434d8efe2a7832b036fc1917f01dcbbd48a1c575a6b57674b90300b0b6203ab7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_calendar.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_calendar.tgs
+@@ -1 +0,0 @@
+-b439c259fbf5171f89f3762ff2e61cd54ea00b5e38749cf6515fa532cabd175d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_calendar_up.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_calendar_up.tgs
+@@ -1 +0,0 @@
+-456c503b2db690b0fd12edae92a9d5f16f9d9900d87bee934164f94f14c83830
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_call.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_call.tgs
+@@ -1 +0,0 @@
+-e98eb64e372f31f5a719851716e11190a72c7300fa4efd1c7e9e2b6bed6d509b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_camera.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_camera.tgs
+@@ -1 +0,0 @@
+-3c95e214bc5f9456a1dba12503088d80ae1e3f0d2edc8bf569950c4c091f6aed
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_cash_up.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_cash_up.tgs
+@@ -1 +0,0 @@
+-829ebd0f9c7f672ac5baf308582debdf44aece02f6f242531f22e4a203c417d0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_change_colors.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_change_colors.tgs
+@@ -1 +0,0 @@
+-23c6aec93f545728dde754ce8eee79061fdf3dd57a2490df8d397ed47d16be93
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_channel.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_channel.tgs
+@@ -1 +0,0 @@
+-b8b5c97d7e6b4aad56dd45a87e2d3cc4166c7e667bb9817986323e5400add848
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_check.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_check.tgs
+@@ -1 +0,0 @@
+-67efbd487dfb216494281de64529719e85f8824308f6dbfe4bdd503360cd3760
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_check_selected.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_check_selected.tgs
+@@ -1 +0,0 @@
+-302dc901942d1a207d029199def8ac1fda181f427454a1d91626a33e7b0dbb99
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_clear_history.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_clear_history.tgs
+@@ -1 +0,0 @@
+-985b106d0e3d8ef0e4d3d5ad297b63053d6cdecc1c153a2b80862d32e393318c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_clear_messages.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_clear_messages.tgs
+@@ -1 +0,0 @@
+-316da5abba00e444235533150188ac9211ab177546234b89be8c5facc2c19c8b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_close_multiple.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_close_multiple.tgs
+@@ -1 +0,0 @@
+-132b6f3482690bfd05ce111a104e77a2f1ae6004cba32eadfec693d3b5024945
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_cloud.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_cloud.tgs
+@@ -1 +0,0 @@
+-be902f544ea7256ddad5add1dea069e1464d36ffc1ee0186f18f801f604dbf41
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_cocoon.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_cocoon.tgs
+@@ -1 +0,0 @@
+-cf151e7c6092420fe750e9ecee25039765f9f12beae6c49e26608a8187b7da4b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_collapse.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_collapse.tgs
+@@ -1 +0,0 @@
+-23876b53cc4018bdb3f9553b686cf5ad0d445867273292cdcbb2bb568409d6b9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy.tgs
+@@ -1 +0,0 @@
+-96c9f26b3f9b57f5e96dc266ae85b0365de7207efe7dcaead5cb166c03c33317
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy_link.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy_link.tgs
+@@ -1 +0,0 @@
+-b00b6fd4c42b03edcd196e0530739bc313d93b7e0c174b4f0b59c1f6951b6d8a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy_media.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy_media.tgs
+@@ -1 +0,0 @@
+-5d0df0ade333f8e454df442f83825bdcad3be8b678b21bfc93918c2448857ff0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_copyright.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_copyright.tgs
+@@ -1 +0,0 @@
+-02904421876e3cd890881c6e2db9b62a2571b087a8c61b13ac6d29fff13803bf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_craft.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_craft.tgs
+@@ -1 +0,0 @@
+-e34dad808479751077debfe40e1f19989d6a8c8ccbb5139efbd6bc9b93cb8213
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_create_group.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_create_group.tgs
+@@ -1 +0,0 @@
+-af42589ae6e13ae113a8c627d33ef2601faec22d3a872f9cea856e7c2160e0f4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_delete.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_delete.tgs
+@@ -1 +0,0 @@
+-90526992d8fd867c529dd266bc7d15ca0e59dc91b4e293bc3c4bbc526d852159
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_disable_sharing.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_disable_sharing.tgs
+@@ -1 +0,0 @@
+-156c9cccda143a7cd7eb7847075454698050342398a72e4a3860d82ec25cd118
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_download_circle.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_download_circle.tgs
+@@ -1 +0,0 @@
+-126fe60d11fd70f2ea8d8872c4893163cd811fa786300174165c851b5268c8d4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_download_circle_lock.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_download_circle_lock.tgs
+@@ -1 +0,0 @@
+-62b185a72f0059ceb4b0dda8cf02b5faf843894afb704d0c9169076138578f1e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_drugs.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_drugs.tgs
+@@ -1 +0,0 @@
+-1122a7f1c3bf70584f1b2ba4fd3664dee6710030b58464c1aa05241afb11b217
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_edit.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_edit.tgs
+@@ -1 +0,0 @@
+-07c7861befcd29cca0ba6d6769e4feea0423fde0caf7c0f9a117ed36937b9ba0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_edited.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_edited.tgs
+@@ -1 +0,0 @@
+-73a116d2d2a5e95e0367f4cbd91ead29e6ce21fd3993efb892ae86423d8230da
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_enable_sharing.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_enable_sharing.tgs
+@@ -1 +0,0 @@
+-3ce67f8468e5e64cec52f47eddf12a8967eec9dab7af893139a8c42f6303f0f5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_expand.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_expand.tgs
+@@ -1 +0,0 @@
+-dd8dd1e8cc0e9e9f2a5f27e88270804b74ead3f1699e9e15a08c55ce0c52e160
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye.tgs
+@@ -1 +0,0 @@
+-9b0fdf3723dc9ce328e600e188a965325f448a4cb6e646c50eda2b7113ecef1e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye_locked.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye_locked.tgs
+@@ -1 +0,0 @@
+-f28a10a9e0581fd28b58f7fcb91a249ec758d320234a9dcb78d906b673e14a91
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye_slash.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye_slash.tgs
+@@ -1 +0,0 @@
+-09c276ac6e2dac9d01330e0ce34b90d79a273a943b19fb4931c025829c1d71cc
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_file.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_file.tgs
+@@ -1 +0,0 @@
+-6b202d083919bbf14c650fbcd68f3e0093eecf7dd23224a81a12980a1ebb80a0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder.tgs
+@@ -1 +0,0 @@
+-9d116bf01e3ecbb2407d35b577046da00b02820f59bf2923b56a36abbddadb1e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_add.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_add.tgs
+@@ -1 +0,0 @@
+-cc34d17018a10f07f5293e62a25b1ec064d273d43150c4f275e72aaf00d053da
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_all_chats.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_all_chats.tgs
+@@ -1 +0,0 @@
+-da58215685dc1a9758c792650bfc83c925291e45af55aaad2cf2ea6acbb76b8e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_animal.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_animal.tgs
+@@ -1 +0,0 @@
+-b10fe6010bae1ebe357b2317619db588f18838ff86961bdd9a6c9de8abe1b31d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_book.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_book.tgs
+@@ -1 +0,0 @@
+-84071383af8fbca6751f0fd8985521275c6c007f8866c2926c7df2e564df2620
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_bot.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_bot.tgs
+@@ -1 +0,0 @@
+-088bfd40b28b8517c78a5f646783cfa3d7be89ca125feef3782558d46faa901b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_coin.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_coin.tgs
+@@ -1 +0,0 @@
+-849e8e0f0ea68ffd2f9f944fdb49a54e31df77fe67990ec87c8e15115b952b3c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_flash.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_flash.tgs
+@@ -1 +0,0 @@
+-3cb0bf7acd23a9923f41318deee4d32850995f5ae87024c8f646e2ad17bfdbe3
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_folder.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_folder.tgs
+@@ -1 +0,0 @@
+-9d116bf01e3ecbb2407d35b577046da00b02820f59bf2923b56a36abbddadb1e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_game.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_game.tgs
+@@ -1 +0,0 @@
+-613fbd0bd9985a2004681521ad13512926b9b62280599b9a6554dee8ec3e2896
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_group.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_group.tgs
+@@ -1 +0,0 @@
+-03511c549ff1985f5c98d34aa2c1de52ed826e310f3065aed4d10ca2d7540863
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_home.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_home.tgs
+@@ -1 +0,0 @@
+-cba9d6cd7fa1983e841dabf4620ff05f16ba8b0475159f8303893cb066ea395a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_lamp.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_lamp.tgs
+@@ -1 +0,0 @@
+-8d9fb8d97e771c016d455de46928dd4a377ca7f75ad9e641d89a519e7d58ea7c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_like.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_like.tgs
+@@ -1 +0,0 @@
+-ac3150016dcce7492cb5ca546b7575fd4d52559b196e8e720fe65d81524b94c1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_lock.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_lock.tgs
+@@ -1 +0,0 @@
+-3496e288cd3445a520eb2236bd573457b87a41a9e74603bf37b159a37fb53df0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_love.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_love.tgs
+@@ -1 +0,0 @@
+-644d743a4895a659af1c1938f3c4aa576c50ab4a1bfc1c4866218edbf59b5609
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_math.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_math.tgs
+@@ -1 +0,0 @@
+-2a09f8a2a835510973a69e1f14b02e80d5ffada9c7938cb44a3295eb6e16f338
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_music.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_music.tgs
+@@ -1 +0,0 @@
+-cdb6fecdd045e975766394bd93c01da14baaf447b275600027ac8de1505088ba
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_paint.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_paint.tgs
+@@ -1 +0,0 @@
+-b6c54c74f2347af75770cd09914a405cbc04e09d5d73f63060c719f18092ef83
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_personal.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_personal.tgs
+@@ -1 +0,0 @@
+-0f26d16fa746f82dc243478df9d0ec8d5496deb93832c8091f03a5184ffe11a2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_plane.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_plane.tgs
+@@ -1 +0,0 @@
+-18d2ac5762b811c90f6b30e91d35512135a55849b6e7319af14830a2cbf4a8c1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_read.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_read.tgs
+@@ -1 +0,0 @@
+-ea86168e09b97c12baa280b61a4ce61d860c396038580eff4ae96388dfa37f92
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_sport.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_sport.tgs
+@@ -1 +0,0 @@
+-1f16ea0d80603c3ec7e42f587f3aadd612fc83946cd765d540884c23063db24a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_star.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_star.tgs
+@@ -1 +0,0 @@
+-20e6e69156df9f601377d43d6bc0e997e8e3ccf60144a853112f5187859b9801
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_student.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_student.tgs
+@@ -1 +0,0 @@
+-87d907a7942b2cc2969662b367dabc894ec8bf3665ada846ef7f8e090cf7e0bc
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_telegram.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_telegram.tgs
+@@ -1 +0,0 @@
+-1a31bbe1400ef615eca6fe3ce9bdb1439a7d364694ab6141403b60c8a0fd045d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_unread.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_unread.tgs
+@@ -1 +0,0 @@
+-f5746de3a6928079182b15d54c11613aeb279d143f7399493eda5112e6f23206
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_virus.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_virus.tgs
+@@ -1 +0,0 @@
+-28f212ffe816bae08cbbc9094933bb2e6d6720600ae0780489f314400f156e3c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_work.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_work.tgs
+@@ -1 +0,0 @@
+-dccbba69a70cb2fd3f5372c748552843781b0d87993c5512c770d6f43685aa32
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_forever.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_forever.tgs
+@@ -1 +0,0 @@
+-aaddb2966043feb7c08f18f2e5d4e76fce6dc1ea8dcd2ccadba925dc229ca1bf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_forward.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_forward.tgs
+@@ -1 +0,0 @@
+-1e95cd6a9581b0da484fad843bc96d963d586b2e603a3009581658b7c4a84f10
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_fragment_list.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_fragment_list.tgs
+@@ -1 +0,0 @@
+-9df4e6a3c21341921f81669e26f063a6dd09417e71a41fbdd9ae7a1fa54530d9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_gear.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_gear.tgs
+@@ -1 +0,0 @@
+-7a414a1d6deed3cde820f1a60a7117e6a095ec7395edb717b5126ce20e891f9a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_gift.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_gift.tgs
+@@ -1 +0,0 @@
+-9dd3411639dfbe58c8135feb70d96512e4bd319a237574710f476b64b023bc79
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_globe.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_globe.tgs
+@@ -1 +0,0 @@
+-c30bf69b4c4c812aa25d272296576fdb0c7fb6c3ee9223ef4c0dcd21ec62f242
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_gram.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_gram.tgs
+@@ -1 +0,0 @@
+-6b1f34376c377f7046a9f13625d9d0252fcffa9b2728bf7caf0f97afbdfb22bd
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_hashtag_up.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_hashtag_up.tgs
+@@ -1 +0,0 @@
+-d0a7acf5c378ca7795bf896e36b7f4f69dbb0455ef1cd1c286bbb903a953eed2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_hd.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_hd.tgs
+@@ -1 +0,0 @@
+-8ec89e6e21e668b22a50f93cee0e0355273e8adf094f885d741efe55520aacf4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_hd_lock.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_hd_lock.tgs
+@@ -1 +0,0 @@
+-fe4e195c3d5ac8f1138af5b90ed640a98a007e5bf4530c0ea7258e9900c33b9b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_hide.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_hide.tgs
+@@ -1 +0,0 @@
+-f8b83f5cdbc4946b9b8ad73f875f13628f8fcc7545001501f75495001e28df3d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_leave.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_leave.tgs
+@@ -1 +0,0 @@
+-737a05784cb9f82d3dfc56e65d6270184264a7a9e1c35d9ad5331b4e2dc3cfa0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_list.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_list.tgs
+@@ -1 +0,0 @@
+-c2d95f0229c62506c22137fd53ff52fa89f0b91343916278ae30aee9fdf4b3b7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_location.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_location.tgs
+@@ -1 +0,0 @@
+-cd15d6a0b7862d0d8aa74b5c7af8e13f389d19892e05e67521642a2a57129ed3
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_lock.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_lock.tgs
+@@ -1 +0,0 @@
+-3496e288cd3445a520eb2236bd573457b87a41a9e74603bf37b159a37fb53df0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_message.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_message.tgs
+@@ -1 +0,0 @@
+-c30c7e25f6d28872381a69a1ecf47dc3e8cba03999420ebb4ef382303305d7fd
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_monogram.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_monogram.tgs
+@@ -1 +0,0 @@
+-d5ac6a71aa470be76cc681ea9f27dada867a624bdc920a3b6ea8c31829d5ed52
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_moon.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_moon.tgs
+@@ -1 +0,0 @@
+-0fffdfd13c517fc6f6baafc66a90e23717dcf7d29dd8aefc372f07fd99ca1068
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_more.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_more.tgs
+@@ -1 +0,0 @@
+-ac5f35b2123c054940daeb8e736600b2ad35654bade99f98e553f175b488afff
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_move_to_contacts.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_move_to_contacts.tgs
+@@ -1 +0,0 @@
+-a256c456916475e59cdf2785e4da3badbfaf6ad333d22d174427c134afb91036
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_music.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_music.tgs
+@@ -1 +0,0 @@
+-6a3a8ad5ff71521369d97212a64124059ff6538a8a222d72c884a6acf02cacb4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_music_add.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_music_add.tgs
+@@ -1 +0,0 @@
+-71c1ef94c551a2af3d9f013976d6a4f183c90165c081c9d7a932988565d083fd
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute.tgs
+@@ -1 +0,0 @@
+-088a6885b5f6bab82b3d4c266533d0196f7eef96588209fbe0f350ac662126c1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute_for_1_hour.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute_for_1_hour.tgs
+@@ -1 +0,0 @@
+-959a9c71ed998b6c6502016a79e397a0d50dfe0d7ad428a5368f7e6e01598d66
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute_for_2_days.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute_for_2_days.tgs
+@@ -1 +0,0 @@
+-22c3b3457a719cb7bdeda675ef4a2734bacd0e218c798d76bdd19e98cce02df4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_note_download.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_note_download.tgs
+@@ -1 +0,0 @@
+-d73242284c532498c409d68ec5cc8424df0a8664aab4e4d9ab15dcfd150446cf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_note_slash.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_note_slash.tgs
+@@ -1 +0,0 @@
+-4c7f975f3c1d980c4b1e3d92a2ee970bca9f2aa9ace8b1b0edf2edb0a53a8351
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_online.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_online.tgs
+@@ -1 +0,0 @@
+-add0f5bcf8298a993fe6c8db7c2d6e90e0b7000e33cc14b8288d03d86f96c47d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_open_profile.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_open_profile.tgs
+@@ -1 +0,0 @@
+-385c4c5269bf29987229ed92ca161be0e48e87346af52e0f5c6314845921d602
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_open_with.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_open_with.tgs
+@@ -1 +0,0 @@
+-f3709e3f4b337710976c4758e108a318ef8bc8037337b0b3a370ac9851da3007
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_paid.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_paid.tgs
+@@ -1 +0,0 @@
+-af59311d8636ff1e7a61befafce6b17b9bbe299e6f49df752d9257bb17aba3c4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_pause.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_pause.tgs
+@@ -1 +0,0 @@
+-b5105ba6213ebd2d45f55943720245d132150d9a54d01a249d41fc09f93e43af
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_pin.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_pin.tgs
+@@ -1 +0,0 @@
+-e7c8ca5f04aed65eef01a8b08a0b0e8292fe8169b99a9499433cdcafb5896c9b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_play.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_play.tgs
+@@ -1 +0,0 @@
+-4d84ad03c59723495fa4b418ca5c8970f1907ccdbf2e0f33fd353c0b4a262b97
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_plus.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_plus.tgs
+@@ -1 +0,0 @@
+-16e766d25c88958ac73b29fd9ea7d49134ec5cc96be43565201f2f456f4d1385
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_poll.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_poll.tgs
+@@ -1 +0,0 @@
+-d998c95501076d94b9735e6bfee229fb760a7de6e59c28b225b10433ca4b27f7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_pornography.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_pornography.tgs
+@@ -1 +0,0 @@
+-2f5b5eec968dbeab85bbeb5bb8b04a25df5e15ccd1ae18b5470391d48680e240
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_promote.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_promote.tgs
+@@ -1 +0,0 @@
+-0955d05a61fb90f50573f9c7634b60f5cb1a45870ffff06702c7343ec9846376
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_quote.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_quote.tgs
+@@ -1 +0,0 @@
+-6fc2dfdfdddeb5bccdeafc0fe5172be826cf6fde347a35378dcc1f4d067ca4cd
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_reactions.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_reactions.tgs
+@@ -1 +0,0 @@
+-b42ba59cd2cdb656cbf576355bc32906e70e86e6699c7094618c636551643755
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_read.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_read.tgs
+@@ -1 +0,0 @@
+-4d9c650a57af1c23d259f2e83b413de02cd16794c4d0abca801b36b3298f5d7b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_reload.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_reload.tgs
+@@ -1 +0,0 @@
+-15dd36241aff73e27013c05a54d401648c8e9d5ed095193fecc1dce0924ffea6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_remove_from_favorites.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_remove_from_favorites.tgs
+@@ -1 +0,0 @@
+-e53157cddde1ddcab313ecc37faa457a7cc49ec3064b36dce4d497a1484fdeb7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_remove_gif.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_remove_gif.tgs
+@@ -1 +0,0 @@
+-4073699c1a0505056cb23644d97bbb18e45977b8767c9a4f11e75a05178a87a7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_replace.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_replace.tgs
+@@ -1 +0,0 @@
+-7ee9b160c65c8f5d169529dd617cdbb0027821e6b353299f0c8b9544596c2926
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_reply.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_reply.tgs
+@@ -1 +0,0 @@
+-f7377fac0d288dcee7602454ea188dee23fcfcfff6d9ef7563051052517620a3
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_report.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_report.tgs
+@@ -1 +0,0 @@
+-5718b4456965b1bf1332aeb824b743ec3f1fb6926a1c5525dc02e5016c83b084
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_report_false_positive.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_report_false_positive.tgs
+@@ -1 +0,0 @@
+-a8794e3455202c350175036e1a2d09fe4db1b67d8c4d5666b1328a53b39e26ab
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_reset.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_reset.tgs
+@@ -1 +0,0 @@
+-dca95449f1d18392e55ebebe899bd2fc53172a969e9f7f0593ead82a0aead3f5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_restrict.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_restrict.tgs
+@@ -1 +0,0 @@
+-f14ef76525889a4b1cd168068afcb37d26d305fb74daa6c3683f47194e0eff7e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_retract_vote.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_retract_vote.tgs
+@@ -1 +0,0 @@
+-0ac8b6f4526ddec6be46f605ede79d73c7cda9f2a6e1baccdb8e1de1d985bf6d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_save_as.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_save_as.tgs
+@@ -1 +0,0 @@
+-cc27a6d80ade049c1aabc8733dbbb67b1ba4ead3018e38a0cf877ac5a0809d9b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_save_to_profile.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_save_to_profile.tgs
+@@ -1 +0,0 @@
+-3b88cedfde974b957bf6241fef847c8a9802dd310c6233a69fe3bc20eb7dcfd1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_schedule_message.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_schedule_message.tgs
+@@ -1 +0,0 @@
+-f93f9bb49649c5971442bdfc235ffb47ac62bef588ebb69cbd65eddfaa55b01d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sd.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sd.tgs
+@@ -1 +0,0 @@
+-22bfe1554eda6d8695f93d321748a5ac24d488f644e2182f014f0ca7feb611f5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_search.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_search.tgs
+@@ -1 +0,0 @@
+-5a812edb1f8596df40fd51c9497ac1c3dedef9725479889b32b442f67667e270
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_secret_chat.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_secret_chat.tgs
+@@ -1 +0,0 @@
+-b8828fe3e7c4f9a7778b943e877d30bfb75686e8fcd578a5ddf9d377089950e5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_seen.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_seen.tgs
+@@ -1 +0,0 @@
+-acf4e98894733ceed1153a05477ecceae4fd97c664c9c5d9b9f894821096651c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_select_messages.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_select_messages.tgs
+@@ -1 +0,0 @@
+-335a01ecb19ae4240bb8c985a9ccfe0c26f34d9e937008d809623ad16ec186ac
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_select_multiple.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_select_multiple.tgs
+@@ -1 +0,0 @@
+-0a11924d4692272c0fb6cdafe5c6e5270183b090df72464ce4e382e517a392cc
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_send_now.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_send_now.tgs
+@@ -1 +0,0 @@
+-7bfba9298ee90520921ce6f1c19eadf34a0ddf1503b0a926a1ca40dac7add46f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_send_spoiler.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_send_spoiler.tgs
+@@ -1 +0,0 @@
+-ed6a6518c9cbdf6a49b91029e13d6b8d161c3472fdccfb81497157097b5aca13
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_share.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_share.tgs
+@@ -1 +0,0 @@
+-b13a04e5cc6d4235f4267470fceb4200b4db53c4de974d77bb188f272bb044c7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_shared_media.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_shared_media.tgs
+@@ -1 +0,0 @@
+-e90a61832f0c951ccbea5dbf3de912c57a6fcda3a21782be58444abd38e8ec33
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sharescreen.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sharescreen.tgs
+@@ -1 +0,0 @@
+-6d7af35a05abb9456a7c244e7747cf7b76ff05c1badbd124b17084c337fe52b2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sharescreen_slash.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sharescreen_slash.tgs
+@@ -1 +0,0 @@
+-3555d6bb415d98409a198883928cbfa08c7dc4c435360700864991ffb2c9830e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_show.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_show.tgs
+@@ -1 +0,0 @@
+-53bcba974c6cc378bede6b2bd0190eace7b3bfedf9c60b427c685f26d1317b61
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_in_finder.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_in_finder.tgs
+@@ -1 +0,0 @@
+-d2fb1b83dd0c8807d5b69bf71a7ec1a3afebffe6c0ca5e9d32b1f197a7086f80
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_info.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_info.tgs
+@@ -1 +0,0 @@
+-eb0ba4524805ed1728307a462cf41a48c50d8a8a93edae06ab7395f58a6b0648
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_message.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_message.tgs
+@@ -1 +0,0 @@
+-be26377c749133ab2d5eccd1ab96eee982c9ce8c3559c1a1aee4620a8eefc980
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_smile.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_smile.tgs
+@@ -1 +0,0 @@
+-a2c0caa3a9f96bbc65c51a8d3ae4fb2a3306ff63d32fb219d2ac3103f759eb2f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sort_down.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sort_down.tgs
+@@ -1 +0,0 @@
+-f94e25fbfba453e3d81cfa538887189ea1f3ffa1bfa20fbe028eefce81b3dcfc
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sort_up.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sort_up.tgs
+@@ -1 +0,0 @@
+-4408ee2cccd8c4f520998768129e454cef869392c9d70c7f0e8eef1766ea4a9a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_speaker.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_speaker.tgs
+@@ -1 +0,0 @@
+-a55a10ddbdbcc3f501b0a40f7df44d88c28b66f17ba3486a2b7a41cd4848924a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_speaker_muted.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_speaker_muted.tgs
+@@ -1 +0,0 @@
+-ababd88b5b5f7cf67fd4ca58b8c26b31f7f9503b3bd6508aed010a48dfdabdf1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_speed.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_speed.tgs
+@@ -1 +0,0 @@
+-63d544cc026580704e21de5251197b5b515745e6f995590c7b0e155f60d03a44
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_statistics.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_statistics.tgs
+@@ -1 +0,0 @@
+-f37df868e5151fbe45bd9ab35a908ada4f62dc8ca5b1a85fd9bbd365e9978a6c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_stop_poll.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_stop_poll.tgs
+@@ -1 +0,0 @@
+-1fcfe63b986d7df95086b6eca1180950166fc174ea2cbbeaa0a443c53a7072d0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_stories.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_stories.tgs
+@@ -1 +0,0 @@
+-7b30e336c0336f0228c6512d68cd0637b14a3d04fe61d26cedb1359e486300d5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_success.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_success.tgs
+@@ -1 +1 @@
+-51161f678414a58bdb40dec77cb1b2a22cd5f715b3afc480d19e3a4d36d02add
+\ No newline at end of file
++1c8a438f27c74424310cefca98e8e3762376c73f5ece953633c84b4971c6315a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sun.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_sun.tgs
+@@ -1 +0,0 @@
+-5a07d6fcd404308bf85efc8185e816511bf3cc8da801a6358f86b5edb031cd2b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_filter.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_filter.tgs
+@@ -1 +0,0 @@
+-a5ad6af5a1d2a7f1f967c8a3b54c8cc3c237520d8b3d265499a9cd7d4e605417
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_remove.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_remove.tgs
+@@ -1 +0,0 @@
+-6e0be8e584fd00bde54f27474054a7dbe01e1e4c66886888e15798a1a3cfd563
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_rename.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_rename.tgs
+@@ -1 +0,0 @@
+-82d1b1381a300d012ce9611df6d4a456d7b468134dfb815f0621c80c8ab2dac2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_topics.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_topics.tgs
+@@ -1 +0,0 @@
+-764353b53c5971d02c06727c80bf6b20edf40791c479eea3933694d033bd8fbf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_transfer.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_transfer.tgs
+@@ -1 +0,0 @@
+-e05ada91d4948c66a26779b60bdfbf29cd19bce62e66e2b800ff2e7551ffd88b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_translate.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_translate.tgs
+@@ -1 +0,0 @@
+-ebe68bbdf0c2eff7bbdac51bb267e2e7faa71394cfa309432578c6336fd43345
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_tune_fork.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_tune_fork.tgs
+@@ -1 +0,0 @@
+-96832f4eab08151bd3b2101e81676def74ab99e3561062ba6b05ee7df31ed2e7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unarchive.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unarchive.tgs
+@@ -1 +0,0 @@
+-d6973c3726300f8eb219a006f6371da91f74321a077f936716187cf6dfe5a294
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unblock.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unblock.tgs
+@@ -1 +0,0 @@
+-7e9fdc96c7050cf2b911108a02ccfefde36113f7a241f2dc62be65325e7a739d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_uncheck.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_uncheck.tgs
+@@ -1 +0,0 @@
+-f5de91d18ef3c347efc69d73bdd9f70bd0946e8976f1c6a74910f4b0c8499c51
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unlock.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unlock.tgs
+@@ -1 +0,0 @@
+-2481fbf5a803e6c4359e76cdd379316e567352a3f88ab9663ce10c5b3e9b0e02
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unmuted.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unmuted.tgs
+@@ -1 +0,0 @@
+-ea3805e1146ea284bf4d050e747ab4f9b4bd24f53883531edc4f0bccd62aa9cb
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unpin.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unpin.tgs
+@@ -1 +0,0 @@
+-5aec0b7c2b06396d09130c85c7d1d85d92397b6f4eab89d3932357760cd7cc83
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unread.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_unread.tgs
+@@ -1 +0,0 @@
+-f5746de3a6928079182b15d54c11613aeb279d143f7399493eda5112e6f23206
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_verification.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_verification.tgs
+@@ -1 +0,0 @@
+-10dae728a45a689e72f326ed7c71d80f24f88e2c53d2533ae0dfb661870d067a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_video.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_video.tgs
+@@ -1 +0,0 @@
+-dccdb612e33383b810b2b06f3927741d6d8966964e02742e4efb85d0854ad933
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_video_call.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_video_call.tgs
+@@ -1 +0,0 @@
+-5ed31590f9fca64d646013e75a4213c947d98d2545665f723830853ef8ff3d9b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_video_chat.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_video_chat.tgs
+@@ -1 +0,0 @@
+-a69904c00e700a3477497c041ccb46ddd18baa13b5e2396ad96306a40ae37736
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_view_replies.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_view_replies.tgs
+@@ -1 +0,0 @@
+-80250dc5a35933d17ffffd6aeb1e031e955872b04a9c7c5a1c3bb70b1da458c5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_view_sticker_set.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_view_sticker_set.tgs
+@@ -1 +0,0 @@
+-335c28eb02b8ece76d9fbbea416bf67a5eb63497f6e71359622348bebdb807e8
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_violence.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_violence.tgs
+@@ -1 +0,0 @@
+-ecc0b27367497cd70ff94381fb075d24115989712daf7bba10540139fd664d8d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_voice.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_voice.tgs
+@@ -1 +0,0 @@
+-1be4f45c09a35bd7610ab85f039b34fb0cce65ec3d09080680b801338b29cba7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_wear.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_wear.tgs
+@@ -1 +0,0 @@
+-dfcf6dd01c86a1e65ea36b4b199e1864f37a322cf613114cdf4dbb81a3999a91
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_wearoff.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_wearoff.tgs
+@@ -1 +0,0 @@
+-c3daed4fee0bcf6a86dd28721191013a7f0dca58e81a8679db3b4308e3edbf10
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/menu_webapp_placeholder.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/menu_webapp_placeholder.tgs
+@@ -1 +0,0 @@
+-62452dfdefa4603e4c7db20e942f6385e5982c257fd078af758e1f3d1f4df4b4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/mic_to_video.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/mic_to_video.tgs
+@@ -1 +0,0 @@
+-df008674f9a496b822ab7b3bdbca7b665c375c698f72b292cf63279e64e107f1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/monkey_see.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/monkey_see.tgs
+@@ -1 +0,0 @@
+-4ecff40e82eab0c62d09a5ed25b72df94d316a2a280d5a7abe5d7ec81b5ee789
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/monkey_unsee.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/monkey_unsee.tgs
+@@ -1 +0,0 @@
+-0af3ae0086bad42bf4548007949a18a2c5f649a257b9023a337de7f309df7e5a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/objects.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/objects.tgs
+@@ -1 +0,0 @@
+-891c7b0501227a9d62fed5646bda00c5c6485b60678361597465406cf5c77783
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/ocr_nn.bin b/data/client/macos-beta/Telegram.app/Contents/Resources/ocr_nn.bin
+@@ -1 +0,0 @@
+-068ff713ea9ada7dcca202106d90022de4fbbb762a2a004c39642e802b2063fe
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/opening.mp3 b/data/client/macos-beta/Telegram.app/Contents/Resources/opening.mp3
+@@ -1 +0,0 @@
+-1d452485ff541e08f0fc7a631e8e3db8c7ae936b34810bfde90addd454894e5b
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/places.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/places.tgs
+@@ -1 +0,0 @@
+-d63e3ee0e960c7cc2d75e4e524cea3f94285d2b7960f5873bf6da319a0be8128
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/playlist_pause_play.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/playlist_pause_play.tgs
+@@ -1 +1 @@
+-63939d8f72d72b473b78af9a3b821c487f50b8faf1984ecc08475a043f975b37
+\ No newline at end of file
++f7387aa73c470266059d6af9a821124ba54fe9ceb0560e52568e794d6d4b1a94
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/playlist_play_pause.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/playlist_play_pause.tgs
+@@ -1 +1 @@
+-49a042fbfbd6656ce482641eb0f4279d817236e0fdce6f989098b7d36929f601
+\ No newline at end of file
++a1e0f84181061b99524b8644ee14da8b1f1f40fd4b64ad35252492352a205a3d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/police.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/police.tgs
+@@ -1 +0,0 @@
+-4050217f17ef53bbff25473bd5d5ee60823ec149d84f1b0a85e3abb1b09667f4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_addone.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_addone.tgs
+@@ -1 +0,0 @@
+-7db4cf49851e3fd88ee1336212bd0e3a993c9f8dbad55aa1dd5c87f9a57ba1a8
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_double.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_double.tgs
+@@ -1 +0,0 @@
+-99ee7fbb16b78f4f761117160e6527dbb212d365f969688cf3ad3e9d960b12ba
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_12.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_12.tgs
+@@ -1 +0,0 @@
+-991ff9c7fff34d448c622304cc7a860d2353146f604f863a6214a2c29cf170f7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_3.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_3.tgs
+@@ -1 +0,0 @@
+-e3d73fa65a89af1ee67db35bb806b648e546319acca5dc2fcfa2e38041ec5864
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_6.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_6.tgs
+@@ -1 +0,0 @@
+-2f484446a57e58ca101b0803f85da2d0b76f3762d815713b8a620f7f216771f6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_6.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_6.tgs
+@@ -1 +0,0 @@
+-2661fa988d43c375cdf78cee360b0dd0e79d1b6dc437bc7e887df5e5de253f8d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_1.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_1.tgs
+@@ -1 +0,0 @@
+-57f0c1e2b2a40cd297f9ee295c65a55bdab16a17c6b46e0f06edf46ae3070cb0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_2.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_2.tgs
+@@ -1 +0,0 @@
+-2f8fffb6f6a255fbeb87f8293f0f777304d55b7c709ecaa085665b7428e8fb43
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_3.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_3.tgs
+@@ -1 +0,0 @@
+-396a65f46286329826b306087fddcf2a7924a26d94646a70511e9efca7315619
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_4.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_4.tgs
+@@ -1 +0,0 @@
+-a67d48c93ada258893e7d938c4d050492b962693f1acd97e7ad2daac897fcb65
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_5.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_5.tgs
+@@ -1 +0,0 @@
+-854a060934cc5b4bb24b42ff33fe612e6204a02c3f5ae765ba8fe1284cd224bf
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/premium_unlock.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/premium_unlock.tgs
+@@ -1 +0,0 @@
+-bc6b3ba32af449c7654e8c246f916b1201a88e3ead1aad6cb462abd173e6b23a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/quiz-correct.mp3 b/data/client/macos-beta/Telegram.app/Contents/Resources/quiz-correct.mp3
+@@ -1 +0,0 @@
+-fe5f061166d19b872aca2c343450598d3160c871bdf4efd6e9e527907c9040b4
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/quiz-incorrect.mp3 b/data/client/macos-beta/Telegram.app/Contents/Resources/quiz-incorrect.mp3
+@@ -1 +0,0 @@
+-553b86538f204ff79fdd5948cc61b98a3d9f80546536732bba3330c78db6ff74
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/request_join_link.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/request_join_link.tgs
+@@ -1 +0,0 @@
+-d9750a9db3473d586d1158039832422c78dc56c14daae392ab4312ea653cd6a5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/sad_man.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/sad_man.tgs
+@@ -1 +0,0 @@
+-d03e826559e33c026f9863291723ad4145ee31d0a6810e84cb5224b6da435677
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/screenoff.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/screenoff.tgs
+@@ -1 +1 @@
+-d9b194db8e8fb1532556f49a4f996ed4531c5a01e563c14a1e79917acff5da42
+\ No newline at end of file
++ef98da7822a87eb8ee6260544463c16264d34733bd29532411fb3d347eb4d032
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/screenon.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/screenon.tgs
+@@ -1 +1 @@
+-d89525d4046493825939e9f6aebe88e27766c36fee2fa03c6379e14b4f28dfe3
+\ No newline at end of file
++a71c68032e95dbac3323a644a68bf7a9ec7c448e55e82cb67c5c3d4430e187e9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/share_folder.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/share_folder.tgs
+@@ -1 +0,0 @@
+-ca493b6d965457f9bb9bb0ac99e1cbf5369227f852acc431874b8f9f460ad930
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/show_status_profile.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/show_status_profile.tgs
+@@ -1 +0,0 @@
+-1f1f7794f55fe9213ba1f664615780cb218118f4260e0b888ee6b1278f593808
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/show_status_read.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/show_status_read.tgs
+@@ -1 +0,0 @@
+-a77d2269f427514d65a34ba31636f91afe4e5ecf2ed4aa8f6ceeceeb5776ec2d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/smart_guy.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/smart_guy.tgs
+@@ -1 +0,0 @@
+-8cd5d87e4130d63dd75bb6bdbc09414b743453203b479ad594f7fde77e098e57
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/smiles.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/smiles.tgs
+@@ -1 +0,0 @@
+-5303983d8fb868f9409e4ecc14bf3795e167dc5610e4acf4edd5599cf7d94435
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/sound_a.caf b/data/client/macos-beta/Telegram.app/Contents/Resources/sound_a.caf
+@@ -1 +0,0 @@
+-86093551f5a7f68c7dcac947bd8dc54c6a79dd9a5d83f7e40116d640eb28c7d6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/star.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/star.scn
+@@ -1 +0,0 @@
+-fc67261584cf16c674b33dd677519ed282b8e03ed868e38ea955dc2cd94da240
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/star2.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/star2.scn
+@@ -1 +0,0 @@
+-8e8979042e8af8fcc191eaba625cef730145b559c256bfc7a06f686a09f1b37c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/stories_archive.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/stories_archive.tgs
+@@ -1 +0,0 @@
+-91f471667984f94c7a961b0edaf76744b6b92fe846f9ca4948deb222c603f9a2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/success_saved.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/success_saved.tgs
+@@ -1 +1 @@
+-d356340b914d7ee3177363d19d3e6c272ef79c7a7a4ab548e06d0e5265b96d15
+\ No newline at end of file
++cf4ffca35431ec2a1d49cce7da1a21ecff8131f1292264e664962e72e942dad7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/swap_money.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/swap_money.tgs
+@@ -1 +0,0 @@
+-35c992f8b1330afe6ad40a74ff92ea9944fbb2ca2d63832ae374262ddb91654e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/swirl.scn b/data/client/macos-beta/Telegram.app/Contents/Resources/swirl.scn
+@@ -1 +0,0 @@
+-e8d7ca1471291e4ce3dccc866fba1be1a675296057817ccf5695b9899ffc82ba
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/symbols.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/symbols.tgs
+@@ -1 +0,0 @@
+-2979a20bc6388e05efce2042f91e532594c05663b843f32009dc27b3907f53b2
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/text_to_voice.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/text_to_voice.tgs
+@@ -1 +1 @@
+-f67a91b988547050ffeef8d4922d236b5347d04d7bd2145fe4ed04b31d99ba51
+\ No newline at end of file
++472509fb2a1e27dbd99e7c286eeedbb943d59044751a831d55b4c4c22fb9a16e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/think_spectacular.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/think_spectacular.tgs
+@@ -1 +0,0 @@
+-56371ccf6640333f387b883af9ab0d86603f3b2076c5c963755c91cb5e345963
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/thumbsup.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/thumbsup.tgs
+@@ -1 +0,0 @@
+-a61b672298c2f1c833f865e6da29279a8b3dffab856b6e8cafaab1efce79511e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_blue.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_blue.tgs
+@@ -1 +0,0 @@
+-ffe2ec8ffbb1eba11ead64e6249dd9c316e8320135b4251428553266c140344a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_green.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_green.tgs
+@@ -1 +0,0 @@
+-c9980e6c10665fe7bc5c3d57426932beadf0683db563a0b4d7230125cb2ab142
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_red.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_red.tgs
+@@ -1 +0,0 @@
+-68d244acb433f574035ac24d5b89217e0310a8fe555bbe551f7410fe3059b936
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/topics.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/topics.tgs
+@@ -1 +0,0 @@
+-447bea535eccbe20eef058a161800990ff1eb2977d2669021c27b4ea9e7eb390
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/url-schemes.txt b/data/client/macos-beta/Telegram.app/Contents/Resources/url-schemes.txt
+@@ -1 +0,0 @@
+-0f494e08e24c1b9ff480207366a0f448dfd7abe9efd74e5b6ed889f3137a4c87
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/video_to_mic.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/video_to_mic.tgs
+@@ -1 +0,0 @@
+-f54b68e9b43e0aa14379611afe5b984a2ef9d00543d7790aa24adfe36fc660a1
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder.tgs
+@@ -1 +1 @@
+-834efa0607b6cf64b7a44b3dd5eed59a3652d0b7f100bec94a0a36a02932ca64
+\ No newline at end of file
++c72615199c2bd78232f4586cf2c48367798f8030d495a499de9f2244d81d770a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder_to_mute.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder_to_mute.tgs
+@@ -1 +1 @@
+-c5605c8c7f9cda39fdb88e03cc9bdb4977e8629fbbc14478b8c55c0e6926c400
+\ No newline at end of file
++a27259ae20e317004d32bc373f32687cbbd4fc8c6d448dbaf0097a1d958aa624
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder_to_raise_hand.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder_to_raise_hand.tgs
+@@ -1 +1 @@
+-f6ee28484a1d804586086b55b6f61277324c7c0339685f57c783c1131bc1cc17
+\ No newline at end of file
++a6c5927064e8cbd7c7ac4cab2f7dbae6dcf28d02d8a70bf851e73c84c1796eeb
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_off.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_off.tgs
+@@ -1 +1 @@
+-13dfc8de91f1794bc35a70733b5ec43f097a60e4bb71afb9406327002b1da46f
+\ No newline at end of file
++502b0f68acc3396f6be2b2fc06de10810eb1e99a26d8ee28f19f50c8897433a9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_on_muted.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_on_muted.tgs
+@@ -1 +1 @@
+-44ad5b55b3b3c9aba483bcacec24135d97bf6d4f3ad4d8b6ae07c38e2f63a5b7
+\ No newline at end of file
++dc330b121896781c3beb4f5ef3788c9d16ac6a705611c28dec10be1ceb770a69
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_on_unmuted.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_on_unmuted.tgs
+@@ -1 +1 @@
+-c8403efd597bd451528556d6fc00b0633ff3f6e412a86e9e37b69e2e688e5bbd
+\ No newline at end of file
++246d3032e749e58bd21b50fb37d192c0710d055084335f9fe305558c473e529f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_mute.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_mute.tgs
+@@ -1 +1 @@
+-73e9844276457a686960bbb4f6cc274f890626b5c9276f3338ed5e05be3a2fc9
+\ No newline at end of file
++b4da1f27ce2d219686b7d114427a84af5095c4a23c576c5502107812cdf7bd36
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_1.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_1.tgs
+@@ -1 +1 @@
+-8079f61bb14adfbef0979f9577a72789c388fc6d9e119f20509e700c6fabadeb
+\ No newline at end of file
++ad3e69af633ad8f627d1c4e4eef0ebe6aa8e9ba535098ec90ddaf97cc3f2e0a0
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_2.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_2.tgs
+@@ -1 +1 @@
+-d6058a9eed0a2bc8c8b78de35b6e21b8ae7506aad769b180f5fce1541868f95f
+\ No newline at end of file
++c34f408d869b37568929678e2461b75f39b480bed2d2002bb3bd66c4fd0fd31e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_3.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_3.tgs
+@@ -1 +1 @@
+-5e78f432ce89a4912eec0ccc0a9be0017f25d82108ac78f23a6435d4a1ddcb43
+\ No newline at end of file
++50ba56d710b02a0e739c104a308050369c712cad10a5e6b6999e72908364be9f
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_4.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_4.tgs
+@@ -1 +1 @@
+-4b8f3da05a508538988247237707c4d5e91a62ad6751263330eff95594818771
+\ No newline at end of file
++d99a78313667ec6de51ae2c1d58b29ee63caaff6b2b36b684a64547c8e90499e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_5.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_5.tgs
+@@ -1 +1 @@
+-ca5373291be7c369c681ea71f482756fe31c9a2e43f4d54d719ebe0e4dc1dc37
+\ No newline at end of file
++4a49b5059d499a66999575dad1cc9c127a2f179664aaae23b5a49c855ae5783a
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_6.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_6.tgs
+@@ -1 +1 @@
+-81553c3a2d52b4fcfb9c45d2086411d0e1fc1c4a6bfff22882ab6b5b9ae5fc2e
+\ No newline at end of file
++99f89443df87806f994290b68036bc9dbbb7fa38e5d0efc8aa012e4807621084
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_7.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_7.tgs
+@@ -1 +1 @@
+-bb25333a982f1af4f1effa6e75abbdccade7ec8cb507ccf3ce4086ac7bc3a183
+\ No newline at end of file
++f606b0be209036320caf2fc75cbf726a52cb81955e3f11fdca691081c00e8304
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder.tgs
+@@ -1 +1 @@
+-6fa1917997525433bc2ba2a3ac50c3b914f2db8590527e484fb2d79bbfcf9cd4
+\ No newline at end of file
++98a81b1a526753c86fd2017da37e98a9022fb25bed4eec44108c56e0dda609c7
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder_to_mute.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder_to_mute.tgs
+@@ -1 +1 @@
+-e88bc1b2aac98afce97d981d9f0a9fdf74b3184ebe149b3b80ec48f340f690cc
+\ No newline at end of file
++e1c909e6988b334d7968680417ee40ab44ba2a96599ef511da6579c2b8fc7d6c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder_to_raise_hand.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder_to_raise_hand.tgs
+@@ -1 +1 @@
+-5a19904ccb09315fbb597e5ba5544aa4d5be2d20a385cce4a6952c9112c23fd3
+\ No newline at end of file
++8e41b97ad3a085f8be36905dcce6806b9f4fb4f34aab451edc34be6f855971b5
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_start_chat_to_mute.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_start_chat_to_mute.tgs
+@@ -1 +1 @@
+-7495466e89b94ed762de85db3cb5bf669612ea65ebbedb46e508c967b62a1297
+\ No newline at end of file
++f06e311abd3b84a923d9bb9114c79333e93e4babedccb56823f363f4b71e4d9e
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_unmute.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_unmute.tgs
+@@ -1 +1 @@
+-d182b9d3f75a12bd2f74b1aa57870a3881ea6d7cfbd127e8bcfa16838c7ad2b3
+\ No newline at end of file
++1f50d08796208f08193010a3796efe4fd60cdaaadb3a219ce30fb36fd026d5a9
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voice_to_text.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/voice_to_text.tgs
+@@ -1 +1 @@
+-29496af1dc91110f99fd8359f3fb116c8dbfc88356536bd5c6fb2f22097bb1ff
+\ No newline at end of file
++f68c7de93321b4a44d63e3f4a4157a6fc9f037744c084768a7ab968aebe88f62
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voip_busy.caf b/data/client/macos-beta/Telegram.app/Contents/Resources/voip_busy.caf
+@@ -1 +1 @@
+-09c1b40e6985cc651d31e7ff39053f20bdf0220fe0f74e1b76a968f4339e9753
+\ No newline at end of file
++e8271ebe211056805b8baf4d4551f3326b91ae72c275c319d270b7388b415a0c
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voip_end.caf b/data/client/macos-beta/Telegram.app/Contents/Resources/voip_end.caf
+@@ -1 +1 @@
+-69b239e1887d55d8086f55e6441732cc964e057097436f54f06eeed99041c365
+\ No newline at end of file
++6b621fe1e9105551700e8417576652ccb7b09bde8fe4e67f1a9e4e82dfef145d
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voip_fail.caf b/data/client/macos-beta/Telegram.app/Contents/Resources/voip_fail.caf
+@@ -1 +1 @@
+-cf62afdb33f8f692bb9a6e29ba507ffeab1b7f1dd256b318330047c0ef405dde
+\ No newline at end of file
++c168cfe5e9bb21196cfa57fc131c2002313bd4c16a1e6be10241ae75f737c1c6
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/voip_ringback.caf b/data/client/macos-beta/Telegram.app/Contents/Resources/voip_ringback.caf
+@@ -1 +1 @@
+-767de8c851246215a1567a92fd1aa732345f1aa531463819ec60f0e4a2c1460b
+\ No newline at end of file
++6da89a579e10e5d7f4308dbc6c7bc3a858f3ec4487bd61e576164264b3596679
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/wallet_success_created.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/wallet_success_created.tgs
+@@ -1 +0,0 @@
+-9d1d43153b56ed663e77c7333ecf685af534b5d43571e688feceb0832cb54f61
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/wallet_word_check.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/wallet_word_check.tgs
+@@ -1 +0,0 @@
+-e5221761662836287fb690a743c93e8eb14cfd10ccecc7b1b37cbaf97d4e1818
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/wallet_word_list.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/wallet_word_list.tgs
+@@ -1 +0,0 @@
+-6803e30b8185ad5791d4651f092e7eff06b319189a4bd5a84bd7036e10cd73a3
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/write_words.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/write_words.tgs
+@@ -1 +0,0 @@
+-6803e30b8185ad5791d4651f092e7eff06b319189a4bd5a84bd7036e10cd73a3
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/zoom.tgs b/data/client/macos-beta/Telegram.app/Contents/Resources/zoom.tgs
+@@ -1 +0,0 @@
+-063c1140a0733ab5743116e87712460e5295d66981ae92c52c1d148dce176782
+\ No newline at end of file

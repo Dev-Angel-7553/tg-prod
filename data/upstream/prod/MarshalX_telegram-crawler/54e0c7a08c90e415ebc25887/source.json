@@ -1,0 +1,2276 @@
+{
+  "category": "clients",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:9c39aa49221df7809817f7cc0d7b98ecf03411a3:clients:beta",
+  "files": [
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/0.m4a",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/1.m4a",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/LockPause.json",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/Pop.wav",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/Purr.wav",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/SFCompactRounded-Semibold.otf",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/activity.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/affiliate_link.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/anim_group.json",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/anim_ungroup.json",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/animals.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/badge.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/begin_record.caf",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/birthday_cake.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/bot_close_menu.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/bot_menu_close.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/brilliant_loading.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/brilliant_static.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/broken_gift.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/bulb.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/business.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/business_away_message.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/business_chatbot.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/business_greeting_message.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/business_hours.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/business_links.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/business_location.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/business_quick_reply.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/cameraoff.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/cameraon.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/change_sim.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/code_note.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/coin.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/countdown5s.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/destructor.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_android.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_chrome.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_edge.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_firefox.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_ipad.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_iphone.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_linux.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_mac.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_safari.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_ubuntu.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/device_windows.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/diamond.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/diamond.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/direct_messages.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/discussion.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji.txt",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji1014.txt",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji1016.txt",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji14.txt",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji144.txt",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji264.txt",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_activities.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_angry.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_away.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_bath.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_busy.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_dislike.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_food.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_happy.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_heart.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_hi.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_home.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_like.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_neutral.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_omg.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_party.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_recent.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_sad.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_sleep.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_study.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_tongue.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_vacation.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_what.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/emoji_category_work.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 12982,
+      "deletions": 22119,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/en.lproj/Localizable.strings",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/flags.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/fly_dollar.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/food.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/forum_topic.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/fragment_username.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/freeze_duck.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/gift.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/gift.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/gigagroup.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/global_autoremove.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/grammars.dat",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/graph_loading.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_chatlist_typing.json",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_maxmin.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_member_mute.json",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_member_unmute.json",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_minmax.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_share.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_speaker_mute.json",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_speaker_unmute.json",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/group_call_stream_empty",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/hand_animation.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/improving_video.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/invitations.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/keyboard_typing.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/lightspeed.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/maccheck.json",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_add.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_gif.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_member.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_to_favorites.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_add_to_folder.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_adult.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_adult_slash.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_apps.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_archive.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_article.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_atsign.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1d.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1h.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1m.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_1w.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_customize.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_autodelete_never.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_ban.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_bio.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_bookmark.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_boost.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_boost_plus.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_calendar.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_calendar_up.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_call.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_camera.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_cash_up.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_change_colors.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_channel.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_check.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_check_selected.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_clear_history.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_clear_messages.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_close_multiple.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_cloud.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_cocoon.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_collapse.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy_link.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_copy_media.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_copyright.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_craft.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_create_group.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_delete.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_disable_sharing.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_download_circle.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_download_circle_lock.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_drugs.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_edit.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_edited.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_enable_sharing.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_expand.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye_locked.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_eye_slash.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_file.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_add.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_all_chats.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_animal.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_book.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_bot.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_coin.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_flash.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_folder.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_game.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_group.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_home.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_lamp.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_like.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_lock.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_love.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_math.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_music.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_paint.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_personal.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_plane.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_read.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_sport.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_star.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_student.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_telegram.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_unread.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_virus.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_folder_work.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_forever.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_forward.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_fragment_list.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_gear.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_gift.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_globe.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_gram.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_hashtag_up.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_hd.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_hd_lock.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_hide.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_leave.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_list.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_location.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_lock.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_message.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_monogram.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_moon.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_more.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_move_to_contacts.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_music.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_music_add.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute_for_1_hour.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_mute_for_2_days.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_note_download.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_note_slash.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_online.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_open_profile.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_open_with.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_paid.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_pause.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_pin.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_play.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_plus.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_poll.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_pornography.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_promote.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_quote.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_reactions.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_read.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_reload.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_remove_from_favorites.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_remove_gif.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_replace.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_reply.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_report.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_report_false_positive.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_reset.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_restrict.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_retract_vote.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_save_as.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_save_to_profile.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_schedule_message.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_sd.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_search.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_secret_chat.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_seen.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_select_messages.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_select_multiple.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_send_now.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_send_spoiler.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_share.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_shared_media.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_sharescreen.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_sharescreen_slash.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_show.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_in_finder.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_info.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_show_message.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_smile.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_sort_down.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_sort_up.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_speaker.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_speaker_muted.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_speed.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_statistics.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_stop_poll.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_stories.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_success.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_sun.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_filter.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_remove.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_tag_rename.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_topics.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_transfer.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_translate.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_tune_fork.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_unarchive.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_unblock.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_uncheck.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_unlock.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_unmuted.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_unpin.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_unread.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_verification.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_video.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_video_call.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_video_chat.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_view_replies.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_view_sticker_set.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_violence.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_voice.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_wear.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_wearoff.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/menu_webapp_placeholder.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/mic_to_video.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/monkey_see.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/monkey_unsee.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/objects.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/ocr_nn.bin",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/opening.mp3",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/places.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/playlist_pause_play.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/playlist_play_pause.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/police.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_addone.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_double.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_12.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_3.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_gift_6.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_6.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_1.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_2.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_3.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_4.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_reaction_effect_5.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/premium_unlock.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/quiz-correct.mp3",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/quiz-incorrect.mp3",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/request_join_link.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/sad_man.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/screenoff.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/screenon.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/share_folder.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/show_status_profile.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/show_status_read.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/smart_guy.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/smiles.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/sound_a.caf",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/star.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/star2.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/stories_archive.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/success_saved.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/swap_money.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/swirl.scn",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/symbols.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/text_to_voice.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/think_spectacular.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/thumbsup.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_blue.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_green.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/ton_gift_red.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/topics.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/url-schemes.txt",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/video_to_mic.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder_to_mute.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_cancel_reminder_to_raise_hand.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_off.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_on_muted.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_hand_on_unmuted.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_mute.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_1.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_2.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_3.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_4.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_5.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_6.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_raise_hand_7.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder_to_mute.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_set_reminder_to_raise_hand.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_start_chat_to_mute.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_chat_unmute.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voice_to_text.tgs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voip_busy.caf",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voip_end.caf",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voip_fail.caf",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/voip_ringback.caf",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/wallet_success_created.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/wallet_word_check.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/wallet_word_list.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/write_words.tgs",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/zoom.tgs",
+      "status": "removed"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-18T08:58:14Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "9c39aa49221df7809817f7cc0d7b98ecf03411a3",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/9c39aa49221df7809817f7cc0d7b98ecf03411a3"
+  }
+}

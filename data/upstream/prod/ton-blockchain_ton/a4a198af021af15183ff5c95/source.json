@@ -1,0 +1,111 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "ton-blockchain/ton:9fc79d67d2ef4fcb46eb5c68592590419f17c060:code:mixed",
+  "files": [
+    {
+      "additions": 6,
+      "deletions": 2,
+      "filename": "overlay/overlay.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 99,
+      "deletions": 1,
+      "filename": "quic/metrics.h",
+      "status": "modified"
+    },
+    {
+      "additions": 13,
+      "deletions": 16,
+      "filename": "quic/quic-example-client.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 13,
+      "deletions": 35,
+      "filename": "quic/quic-example-server.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 1010,
+      "deletions": 0,
+      "filename": "quic/quic-flood-guard.cpp",
+      "status": "added"
+    },
+    {
+      "additions": 457,
+      "deletions": 0,
+      "filename": "quic/quic-flood-guard.h",
+      "status": "added"
+    },
+    {
+      "additions": 122,
+      "deletions": 0,
+      "filename": "quic/quic-ingress-shaper.h",
+      "status": "added"
+    },
+    {
+      "additions": 99,
+      "deletions": 0,
+      "filename": "quic/quic-memory-pool.h",
+      "status": "added"
+    },
+    {
+      "additions": 123,
+      "deletions": 11,
+      "filename": "quic/quic-pimpl.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 50,
+      "deletions": 1,
+      "filename": "quic/quic-pimpl.h",
+      "status": "modified"
+    },
+    {
+      "additions": 221,
+      "deletions": 359,
+      "filename": "quic/quic-sender.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 30,
+      "deletions": 5,
+      "filename": "quic/quic-sender.h",
+      "status": "modified"
+    },
+    {
+      "additions": 341,
+      "deletions": 105,
+      "filename": "quic/quic-server.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 70,
+      "deletions": 51,
+      "filename": "quic/quic-server.h",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 4,
+      "filename": "validator-engine/validator-engine.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 8,
+      "deletions": 1,
+      "filename": "validator-engine/validator-engine.hpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "testnet",
+    "date": "2026-11-17T18:37:29Z",
+    "repo": "ton-blockchain/ton",
+    "sha": "9fc79d67d2ef4fcb46eb5c68592590419f17c060",
+    "url": "https://github.com/ton-blockchain/ton/compare/ed2726a7a51324e04bd18a4734374c05558d56e5...9fc79d67d2ef4fcb46eb5c68592590419f17c060"
+  }
+}

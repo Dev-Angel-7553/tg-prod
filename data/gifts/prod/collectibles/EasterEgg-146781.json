@@ -155,13 +155,23 @@
     "released_by": null,
     "require_premium": false,
     "resale_ton_only": false,
-    "resell_amount": [],
+    "resell_amount": [
+      {
+        "_": "StarsAmount",
+        "amount": 740,
+        "nanos": 0
+      },
+      {
+        "_": "StarsTonAmount",
+        "amount": 10960000000
+      }
+    ],
     "slug": "EasterEgg-146781",
     "theme_available": false,
     "theme_peer": null,
     "title": "Easter Egg",
-    "value_amount": 1100,
+    "value_amount": 1200,
     "value_currency": "USD",
-    "value_usd_amount": 1100
+    "value_usd_amount": 1200
   }
 }

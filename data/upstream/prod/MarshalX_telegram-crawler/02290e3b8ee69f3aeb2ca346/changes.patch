@@ -1,0 +1,322 @@
+diff --git a/data/web_tr/translations.telegram.org/en/ios/general.json b/data/web_tr/translations.telegram.org/en/ios/general.json
+@@ -16750,15 +16750,15 @@
+     "News.Swipe.Interesting": {
+         "url": "https://translations.telegram.org/en/ios/general/News.Swipe.Interesting",
+         "photo_url": "https://telegra.ph/file/p/340a14ac1db/b66151753b08c019997d917.jpg?c=151,467,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Interesting"
+         }
+     },
+     "News.Swipe.NotInterested": {
+         "url": "https://translations.telegram.org/en/ios/general/News.Swipe.NotInterested",
+         "photo_url": "https://telegra.ph/file/p/340a14ac1db/b66151753b08c019997d917.jpg?c=167,518,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Not Interested"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -4357,7 +4357,7 @@
+     "Gift.OnchainOffer.Withdraw.Title": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.OnchainOffer.Withdraw.Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Withdraw Offer?"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos.html b/data/web_tr/translations.telegram.org/en/macos.html
+@@ -257,12 +257,12 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/stories/" class="tr-section">
+     <div class="tr-section-cover cover11"></div>
+-    <div class="tr-section-caption">Stories (226)</div>
++    <div class="tr-section-caption">Stories (231)</div>
+   </a></div>
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/wallet/" class="tr-section">
+     <div class="tr-section-cover cover12"></div>
+-    <div class="tr-section-caption">Wallet (1)</div>
++    <div class="tr-section-caption">Wallet (2)</div>
+   </a></div>
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/stars_and_gifts/" class="tr-section">
+@@ -307,7 +307,7 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/unsorted/" class="tr-section">
+     <div class="tr-section-cover cover0"></div>
+-    <div class="tr-section-caption">Unsorted (8847)</div>
++    <div class="tr-section-caption">Unsorted (8841)</div>
+   </a></div>
+ </div>
+ </section></section>
+diff --git a/data/web_tr/translations.telegram.org/en/macos/stars_and_gifts.json b/data/web_tr/translations.telegram.org/en/macos/stars_and_gifts.json
+@@ -42,7 +42,7 @@
+     "StarGift.OnchainOffer.GramsToOffer": {
+         "url": "https://translations.telegram.org/en/macos/stars_and_gifts/StarGift.OnchainOffer.GramsToOffer",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Grams to offer"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/stories.json b/data/web_tr/translations.telegram.org/en/macos/stories.json
+@@ -929,15 +929,15 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Record Video Note"
++            "singular": "Record Video Message"
+         }
+     },
+     "Story.CreationView.RemoveVideoNote": {
+         "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.RemoveVideoNote",
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Remove Video Note"
++            "singular": "Remove Video Message"
+         }
+     },
+     "Story.CreationView.SoundtrackVolume": {
+@@ -1495,6 +1495,46 @@
+             "singular": "Video Sent."
+         }
+     },
++    "StoryCreationAdjustmentsView.Purple": {
++        "url": "https://translations.telegram.org/en/macos/stories/StoryCreationAdjustmentsView.Purple",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Purple"
++        }
++    },
++    "StoryCreationAdjustmentsView.TintIntensity": {
++        "url": "https://translations.telegram.org/en/macos/stories/StoryCreationAdjustmentsView.TintIntensity",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Tint intensity"
++        }
++    },
++    "StoryCreationCamera.LockRecording": {
++        "url": "https://translations.telegram.org/en/macos/stories/StoryCreationCamera.LockRecording",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Lock Recording"
++        }
++    },
++    "StoryCreationCamera.RecordVideo": {
++        "url": "https://translations.telegram.org/en/macos/stories/StoryCreationCamera.RecordVideo",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Record Video"
++        }
++    },
++    "StoryCreationCamera.RecordingDuration": {
++        "url": "https://translations.telegram.org/en/macos/stories/StoryCreationCamera.RecordingDuration",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Recording duration"
++        }
++    },
+     "StoryFeed.TooltipArchive": {
+         "url": "https://translations.telegram.org/en/macos/stories/StoryFeed.TooltipArchive",
+         "photo_url": null,
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -16969,7 +16969,7 @@
+     "Chat.InputStateContainers.RemovedFromNewsConfirmation": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Chat.InputStateContainers.RemovedFromNewsConfirmation",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "<mark class=\"token\">%1$@</mark> removed from News."
+         }
+@@ -36764,7 +36764,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "download a file from “<mark class=\"token\">%1$@</mark>”"
++            "singular": "download a file from \"<mark class=\"token\">%1$@</mark>\""
+         }
+     },
+     "LocalAgent.EngineActions.HasNoTopicsItIsnTAForum": {
+@@ -41628,7 +41628,7 @@
+     "News.PostRowItem.Interesting": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/News.PostRowItem.Interesting",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Interesting"
+         }
+@@ -41645,7 +41645,7 @@
+     "News.PostRowItem.NotInterested": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/News.PostRowItem.NotInterested",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Not Interested"
+         }
+@@ -56598,7 +56598,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Stop Video Note"
++            "singular": "Stop Video Message"
+         }
+     },
+     "Story.CreationView.StoryCaption": {
+@@ -57212,14 +57212,6 @@
+             "singular": "Orange"
+         }
+     },
+-    "StoryCreationAdjustmentsView.Purple": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationAdjustmentsView.Purple",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Purple"
+-        }
+-    },
+     "StoryCreationAdjustmentsView.Red": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationAdjustmentsView.Red",
+         "photo_url": null,
+@@ -57236,14 +57228,6 @@
+             "singular": "Tint"
+         }
+     },
+-    "StoryCreationAdjustmentsView.TintIntensity": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationAdjustmentsView.TintIntensity",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Tint intensity"
+-        }
+-    },
+     "StoryCreationAdjustmentsView.Yellow": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationAdjustmentsView.Yellow",
+         "photo_url": null,
+@@ -57276,30 +57260,6 @@
+             "singular": "Drag up to zoom"
+         }
+     },
+-    "StoryCreationCamera.LockRecording": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationCamera.LockRecording",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Lock Recording"
+-        }
+-    },
+-    "StoryCreationCamera.RecordVideo": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationCamera.RecordVideo",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Record Video"
+-        }
+-    },
+-    "StoryCreationCamera.RecordingDuration": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationCamera.RecordingDuration",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Recording duration"
+-        }
+-    },
+     "StoryCreationCamera.ReleaseToLock": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationCamera.ReleaseToLock",
+         "photo_url": null,
+@@ -57603,7 +57563,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Remove this video note?"
++            "singular": "Remove this video message?"
+         }
+     },
+     "StoryCreationController.ReplaceAudio": {
+@@ -57676,31 +57636,31 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Allow camera access to record a video note."
++            "singular": "Allow camera access to record a video message."
+         }
+     },
+     "StoryCreationController.VideoNoteCameraUnavailable": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationController.VideoNoteCameraUnavailable",
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "No camera available to record a video note."
++            "singular": "No camera available to record a video message."
+         }
+     },
+     "StoryCreationController.VideoNoteRecordingFailed": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationController.VideoNoteRecordingFailed",
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Telegram couldn’t record this video note."
++            "singular": "Telegram couldn’t record this video message."
+         }
+     },
+     "StoryCreationController.VideoNoteTimeline": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationController.VideoNoteTimeline",
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Video note timeline"
++            "singular": "Video message timeline"
+         }
+     },
+     "StoryCreationController.VideoRecordingFailed": {
+@@ -70025,7 +69985,7 @@
+     "WalletUI.Integration.WithdrawOffer": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/WalletUI.Integration.WithdrawOffer",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Withdraw Offer?"
+         }
+@@ -70070,14 +70030,6 @@
+             "singular": "You receive"
+         }
+     },
+-    "WalletUI.Integration.YourOffer": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/WalletUI.Integration.YourOffer",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Your offer"
+-        }
+-    },
+     "WebApp.Access.Allow": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/WebApp.Access.Allow",
+         "photo_url": null,
+diff --git a/data/web_tr/translations.telegram.org/en/macos/wallet.json b/data/web_tr/translations.telegram.org/en/macos/wallet.json
+@@ -6,5 +6,13 @@
+         "values": {
+             "singular": "Move to My Wallet"
+         }
++    },
++    "WalletUI.Integration.YourOffer": {
++        "url": "https://translations.telegram.org/en/macos/wallet/WalletUI.Integration.YourOffer",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Your offer"
++        }
+     }
+ }
+\ No newline at end of file

@@ -1,0 +1,80 @@
+{
+  "category": "clients",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:0e4be61573c86ffccf1988b9d443d4e3f71760d6:clients:beta",
+  "files": [
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "data/client/android-beta/AndroidManifest.xml",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/renderer-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/manifest.txt",
+      "status": "modified"
+    },
+    {
+      "additions": 261,
+      "deletions": 5,
+      "filename": "data/client/android-beta/assets/localization_en.txt",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "data/client/android-beta/res/values/public.xml",
+      "status": "modified"
+    },
+    {
+      "additions": 268,
+      "deletions": 11,
+      "filename": "data/client/android-beta/res/values/strings.xml",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "filename": "data/client/macos-beta/Telegram.app/Contents/Resources/en.lproj/Localizable.strings",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-18T18:00:17Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "0e4be61573c86ffccf1988b9d443d4e3f71760d6",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/0e4be61573c86ffccf1988b9d443d4e3f71760d6"
+  }
+}

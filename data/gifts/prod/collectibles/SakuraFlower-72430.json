@@ -131,8 +131,8 @@
     "num": 72430,
     "offer_min_stars": null,
     "owner_visibility": {
-      "blockchain_address": true,
-      "display_name": false,
+      "blockchain_address": false,
+      "display_name": true,
       "peer": false
     },
     "peer_color": null,

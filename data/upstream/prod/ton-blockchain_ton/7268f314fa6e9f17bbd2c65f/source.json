@@ -1,0 +1,111 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "ton-blockchain/ton:19057b3f6357641858bac5c9d760095d7813450d:code:mixed",
+  "files": [
+    {
+      "additions": 13,
+      "deletions": 7,
+      "filename": "crypto/block/mc-config.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 168,
+      "deletions": 0,
+      "filename": "lite-client/lite-client.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "filename": "lite-client/lite-client.h",
+      "status": "modified"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "tl/generate/scheme/ton_api.tl",
+      "status": "modified"
+    },
+    {
+      "additions": 46,
+      "deletions": 0,
+      "filename": "validator-engine-console/validator-engine-console-query.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 42,
+      "deletions": 0,
+      "filename": "validator-engine-console/validator-engine-console-query.h",
+      "status": "modified"
+    },
+    {
+      "additions": 96,
+      "deletions": 35,
+      "filename": "validator-engine/validator-engine.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 0,
+      "filename": "validator-engine/validator-engine.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 49,
+      "deletions": 1,
+      "filename": "validator/full-node-fast-sync-overlays.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "validator/full-node-fast-sync-overlays.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 3,
+      "filename": "validator/manager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 5,
+      "filename": "validator/manager.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 20,
+      "deletions": 0,
+      "filename": "validator/validator-options.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 857,
+      "deletions": 213,
+      "filename": "validator/validator-registry-watcher.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 57,
+      "deletions": 30,
+      "filename": "validator/validator-registry-watcher.hpp",
+      "status": "modified"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "validator/validator.h",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "testnet",
+    "date": "2026-11-17T11:24:34Z",
+    "repo": "ton-blockchain/ton",
+    "sha": "19057b3f6357641858bac5c9d760095d7813450d",
+    "url": "https://github.com/ton-blockchain/ton/compare/c290e2cfdde89a0e9056dba3ec8992b7df9ba087...19057b3f6357641858bac5c9d760095d7813450d"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "category": "web",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:eec5949b90f89b97707efb3e8562feced56235fc:web:mixed",
+  "files": [
+    {
+      "additions": 8,
+      "deletions": 4,
+      "filename": "data/web/raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/td_api.tl",
+      "status": "modified"
+    },
+    {
+      "additions": 94,
+      "deletions": 0,
+      "filename": "data/web/webappinternal.telegram.org/js/botfather.js",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-16T18:47:26Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "eec5949b90f89b97707efb3e8562feced56235fc",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/eec5949b90f89b97707efb3e8562feced56235fc"
+  }
+}

@@ -158,7 +158,7 @@
     "resell_amount": [
       {
         "_": "StarsAmount",
-        "amount": 739,
+        "amount": 740,
         "nanos": 0
       },
       {
@@ -170,8 +170,8 @@
     "theme_available": false,
     "theme_peer": null,
     "title": "Easter Egg",
-    "value_amount": 1200,
+    "value_amount": 562,
     "value_currency": "USD",
-    "value_usd_amount": 1200
+    "value_usd_amount": 562
   }
 }

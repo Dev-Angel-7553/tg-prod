@@ -1,0 +1,20 @@
+{
+  "category": "server",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:e76b9ef396812595e022b8f76b88b297c306101c:server:prod",
+  "files": [
+    {
+      "additions": 12,
+      "deletions": 12,
+      "filename": "messages.getTranscriptionModels.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-17T17:42:39Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "e76b9ef396812595e022b8f76b88b297c306101c",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/e76b9ef396812595e022b8f76b88b297c306101c"
+  }
+}

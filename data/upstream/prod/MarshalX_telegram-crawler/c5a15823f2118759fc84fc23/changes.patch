@@ -1,0 +1,129 @@
+diff --git a/data/web_tr/translations.telegram.org/en/android/unsorted.json b/data/web_tr/translations.telegram.org/en/android/unsorted.json
+@@ -11130,15 +11130,15 @@
+     "GiftOnchainOfferIn": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferIn",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You were offered **<mark class=\"token\">%1$s</mark>** (<mark class=\"token\">%2$s</mark>) for **<mark class=\"token\">%3$s</mark>**."
+         }
+     },
+     "GiftOnchainOfferInNoUsd": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferInNoUsd",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You were offered **<mark class=\"token\">%1$s</mark>** for **<mark class=\"token\">%2$s</mark>**."
+         }
+@@ -11210,15 +11210,15 @@
+     "GiftOnchainOfferNoteYouSold": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferNoteYouSold",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You sold **<mark class=\"token\">%1$s</mark>** for **<mark class=\"token\">%2$s</mark>**"
+         }
+     },
+     "GiftOnchainOfferOut": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferOut",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You offered **<mark class=\"token\">%1$s</mark>** for **<mark class=\"token\">%2$s</mark>**."
+         }
+@@ -11234,7 +11234,7 @@
+     "GiftOnchainOfferOwnerReceivesNoFee": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferOwnerReceivesNoFee",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The owner will receive **<mark class=\"token\">%1$s</mark> Gram**."
+         }
+@@ -11322,7 +11322,7 @@
+     "GiftOnchainOfferSellText": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferSellText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Sell **<mark class=\"token\">%1$s</mark>**<br/>for **<mark class=\"token\">%2$s</mark>**?"
+         }
+@@ -11690,7 +11690,7 @@
+     "GiftOnchainSellPriceButton": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainSellPriceButton",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "List for <mark class=\"token\">%s</mark> Gram"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/general.json b/data/web_tr/translations.telegram.org/en/ios/general.json
+@@ -12457,7 +12457,7 @@
+     "Gift.Sell.Confirm.ListForTon": {
+         "url": "https://translations.telegram.org/en/ios/general/Gift.Sell.Confirm.ListForTon",
+         "photo_url": "https://telegra.ph/file/p/fb5bad70294/292fbc1fe1fb79eb1d6c917.jpg?c=146,679,308,308,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "List for <mark class=\"token\">%@</mark> Grams"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -4382,7 +4382,7 @@
+     "Gift.OnchainOffer.OwnerWillReceive": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.OnchainOffer.OwnerWillReceive",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The owner will receive **<mark class=\"token\">%@</mark>**."
+         }
+@@ -4438,7 +4438,7 @@
+     "Gift.OnchainOffer.Sale.Text": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.OnchainOffer.Sale.Text",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Sell **<mark class=\"token\">%1$@</mark>** for **<mark class=\"token\">%2$@</mark>**?"
+         }
+@@ -6434,23 +6434,23 @@
+     "Notification.StarGiftOnchainOffer.Offer": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Notification.StarGiftOnchainOffer.Offer",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You were offered **<mark class=\"token\">%1$@</mark>** (<mark class=\"token\">%2$@</mark>) for **<mark class=\"token\">%3$@</mark>**."
+         }
+     },
+     "Notification.StarGiftOnchainOffer.OfferNoValue": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Notification.StarGiftOnchainOffer.OfferNoValue",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You were offered **<mark class=\"token\">%1$@</mark>** for **<mark class=\"token\">%2$@</mark>**."
+         }
+     },
+     "Notification.StarGiftOnchainOffer.OfferYou": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Notification.StarGiftOnchainOffer.OfferYou",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You offered **<mark class=\"token\">%1$@</mark>** for **<mark class=\"token\">%2$@</mark>**."
+         }
+@@ -6506,7 +6506,7 @@
+     "Notification.StarGiftOnchainOffer.Outcome.Sold": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Notification.StarGiftOnchainOffer.Outcome.Sold",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You sold **<mark class=\"token\">%1$@</mark>** for **<mark class=\"token\">%2$@</mark>**"
+         }

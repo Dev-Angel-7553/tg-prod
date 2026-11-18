@@ -131,25 +131,15 @@
     "num": 72430,
     "offer_min_stars": null,
     "owner_visibility": {
-      "blockchain_address": false,
-      "display_name": true,
+      "blockchain_address": true,
+      "display_name": false,
       "peer": false
     },
     "peer_color": null,
     "released_by": null,
     "require_premium": false,
     "resale_ton_only": false,
-    "resell_amount": [
-      {
-        "_": "StarsAmount",
-        "amount": 1610,
-        "nanos": 0
-      },
-      {
-        "_": "StarsTonAmount",
-        "amount": 22570000000
-      }
-    ],
+    "resell_amount": [],
     "slug": "SakuraFlower-72430",
     "theme_available": false,
     "theme_peer": null,

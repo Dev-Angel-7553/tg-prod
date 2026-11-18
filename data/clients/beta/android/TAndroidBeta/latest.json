@@ -2,17 +2,17 @@
   "attachment": {
     "filename": "Telegram-Beta.apk",
     "mime_type": "application/octet-stream",
-    "size_bytes": 81528636
+    "size_bytes": 91210405
   },
   "download_url": "https://telegram.org/dl/android/apk-public-beta",
   "platform": "android",
-  "post_id": 351,
-  "published_at": "2026-11-15T17:37:01+00:00",
+  "post_id": 352,
+  "published_at": "2026-11-18T17:12:08+00:00",
   "release_hint": {
-    "build": 7322,
+    "build": 7336,
     "version": "13.3.0"
   },
-  "source_url": "https://t.me/TAndroidBeta/351",
-  "text": "13.3.0 (7322)\n- fix detecting language for transcribing voice message when selected different language in settings\n- fixed downloading models with test backend account",
+  "source_url": "https://t.me/TAndroidBeta/352",
+  "text": "13.3.0 (7336)\n- allow dictation to contact who blocked receiving voice messages\n- updated tinyasr, better en-ru-uk model, update button for models\n- minor fixes",
   "track": "beta"
 }

@@ -1,0 +1,20 @@
+{
+  "category": "schema",
+  "environment": "beta",
+  "event_id": "glebxdlolreal/macos-tl-schema:51c48b4758c29b60708d6f52454965ba6de3defa:schema:beta",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "main_api.tl",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-16T20:16:14Z",
+    "repo": "glebxdlolreal/macos-tl-schema",
+    "sha": "51c48b4758c29b60708d6f52454965ba6de3defa",
+    "url": "https://github.com/glebxdlolreal/macos-tl-schema/commit/51c48b4758c29b60708d6f52454965ba6de3defa"
+  }
+}

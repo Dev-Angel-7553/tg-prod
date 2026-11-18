@@ -1,0 +1,191 @@
+diff --git a/data/web_tr/translations.telegram.org/en/macos.html b/data/web_tr/translations.telegram.org/en/macos.html
+@@ -257,7 +257,7 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/stories/" class="tr-section">
+     <div class="tr-section-cover cover11"></div>
+-    <div class="tr-section-caption">Stories (231)</div>
++    <div class="tr-section-caption">Stories (237)</div>
+   </a></div>
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/wallet/" class="tr-section">
+@@ -302,12 +302,12 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/general/" class="tr-section">
+     <div class="tr-section-cover cover1"></div>
+-    <div class="tr-section-caption">General (990)</div>
++    <div class="tr-section-caption">General (991)</div>
+   </a></div>
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/unsorted/" class="tr-section">
+     <div class="tr-section-cover cover0"></div>
+-    <div class="tr-section-caption">Unsorted (8841)</div>
++    <div class="tr-section-caption">Unsorted (8834)</div>
+   </a></div>
+ </div>
+ </section></section>
+diff --git a/data/web_tr/translations.telegram.org/en/macos/general.json b/data/web_tr/translations.telegram.org/en/macos/general.json
+@@ -7325,6 +7325,14 @@
+             "singular": "Recent Calls"
+         }
+     },
++    "Telegram.UpgradeDatabase.Text": {
++        "url": "https://translations.telegram.org/en/macos/general/Telegram.UpgradeDatabase.Text",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Telegram needs to optimize its database after this update. This may take a few minutes, sorry for the inconvenience."
++        }
++    },
+     "Text.Context.Copy.Code": {
+         "url": "https://translations.telegram.org/en/macos/general/Text.Context.Copy.Code",
+         "photo_url": "https://telegra.ph/file/p/85ec905869a/e4c36d688f32316291f111d.jpg?c=50,80,280,280,280,280",
+diff --git a/data/web_tr/translations.telegram.org/en/macos/stories.json b/data/web_tr/translations.telegram.org/en/macos/stories.json
+@@ -956,6 +956,38 @@
+             "singular": "Stickers"
+         }
+     },
++    "Story.CreationView.StoryCaption": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.StoryCaption",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Story caption"
++        }
++    },
++    "Story.CreationView.StoryDuration": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.StoryDuration",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Story duration"
++        }
++    },
++    "Story.CreationView.StoryPreview": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.StoryPreview",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Story preview"
++        }
++    },
++    "Story.CreationView.SwitchCamera": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.SwitchCamera",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Switch Camera"
++        }
++    },
+     "Story.CreationView.Text": {
+         "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Text",
+         "photo_url": null,
+@@ -1495,6 +1527,22 @@
+             "singular": "Video Sent."
+         }
+     },
++    "StoryArchive.Actions.SeeStoryAlbums": {
++        "url": "https://translations.telegram.org/en/macos/stories/StoryArchive.Actions.SeeStoryAlbums",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "see your story albums"
++        }
++    },
++    "StoryArchive.Actions.Show": {
++        "url": "https://translations.telegram.org/en/macos/stories/StoryArchive.Actions.Show",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Show"
++        }
++    },
+     "StoryCreationAdjustmentsView.Purple": {
+         "url": "https://translations.telegram.org/en/macos/stories/StoryCreationAdjustmentsView.Purple",
+         "photo_url": null,
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -53788,7 +53788,7 @@
+     "StarGift.Nft.Controller.ChangePrice": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StarGift.Nft.Controller.ChangePrice",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Change Price"
+         }
+@@ -56601,38 +56601,6 @@
+             "singular": "Stop Video Message"
+         }
+     },
+-    "Story.CreationView.StoryCaption": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.StoryCaption",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Story caption"
+-        }
+-    },
+-    "Story.CreationView.StoryDuration": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.StoryDuration",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Story duration"
+-        }
+-    },
+-    "Story.CreationView.StoryPreview": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.StoryPreview",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Story preview"
+-        }
+-    },
+-    "Story.CreationView.SwitchCamera": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.SwitchCamera",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Switch Camera"
+-        }
+-    },
+     "Story.Input.EmojiLimitReached": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Story.Input.EmojiLimitReached",
+         "photo_url": null,
+@@ -56979,22 +56947,6 @@
+             "singular": "see your <mark class=\"token\">%1$@</mark>"
+         }
+     },
+-    "StoryArchive.Actions.SeeStoryAlbums": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/StoryArchive.Actions.SeeStoryAlbums",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "see your story albums"
+-        }
+-    },
+-    "StoryArchive.Actions.Show": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/StoryArchive.Actions.Show",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Show"
+-        }
+-    },
+     "StoryArchive.Actions.ShowOnProfile": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryArchive.Actions.ShowOnProfile",
+         "photo_url": null,
+@@ -58711,14 +58663,6 @@
+             "singular": "Forward Messages"
+         }
+     },
+-    "Telegram.UpgradeDatabase.Text": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Telegram.UpgradeDatabase.Text",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Telegram needs to optimize its database after this update. This may take a few minutes, sorry for the inconvenience."
+-        }
+-    },
+     "Telegram.UpgradeDatabase.Title": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Telegram.UpgradeDatabase.Title",
+         "photo_url": null,

@@ -1,0 +1,146 @@
+{
+  "category": "translations",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:6c0bd16ab2248eba39a1ca107a666c1e9462c408:translations:mixed",
+  "files": [
+    {
+      "additions": 452,
+      "deletions": 0,
+      "filename": "data/web_tr/translation_keys.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org.html",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/auth.html",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en.html",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 4,
+      "filename": "data/web_tr/translations.telegram.org/en/android.html",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/android/groups_and_channels.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/android/private_chats.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2144,
+      "deletions": 95,
+      "filename": "data/web_tr/translations.telegram.org/en/android/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x.html",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/emoji.html",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 4,
+      "filename": "data/web_tr/translations.telegram.org/en/ios.html",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/bots_and_payments.json",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 9,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 395,
+      "deletions": 42,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/macos.html",
+      "status": "modified"
+    },
+    {
+      "additions": 16,
+      "deletions": 16,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop.html",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 4,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram.html",
+      "status": "modified"
+    },
+    {
+      "additions": 1222,
+      "deletions": 0,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/weba.html",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/webk.html",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-18T18:02:11Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "6c0bd16ab2248eba39a1ca107a666c1e9462c408",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/6c0bd16ab2248eba39a1ca107a666c1e9462c408"
+  }
+}

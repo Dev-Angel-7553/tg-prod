@@ -1,0 +1,26 @@
+{
+  "category": "clients",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:6907fac74a9c4b23c5ed6bbbcb2c037e3029a67d:clients:mixed",
+  "files": [
+    {
+      "additions": 11603,
+      "deletions": 0,
+      "filename": "data/client/android-stable-dl/assets/localization_en.txt",
+      "status": "added"
+    },
+    {
+      "additions": 12060,
+      "deletions": 0,
+      "filename": "data/client/android-stable-dl/res/values/strings.xml",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-18T10:14:16Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "6907fac74a9c4b23c5ed6bbbcb2c037e3029a67d",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/6907fac74a9c4b23c5ed6bbbcb2c037e3029a67d"
+  }
+}

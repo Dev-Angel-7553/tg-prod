@@ -1,0 +1,1287 @@
+diff --git a/data/web_tr/translation_keys.json b/data/web_tr/translation_keys.json
+@@ -39101,6 +39101,7 @@
+         "ContactInfo.URLLabelHomepage",
+         "Contacts.Actions.Add",
+         "Contacts.Actions.AddConfirmation",
++        "Contacts.Actions.AddContact",
+         "Contacts.Actions.Block",
+         "Contacts.Actions.BlockConfirmation",
+         "Contacts.Actions.BlockTitle",
+@@ -40996,6 +40997,7 @@
+         "Lists.Actions.ViewSavedTags",
+         "ListsAndLimits.Actions.Clear",
+         "ListsAndLimits.Actions.ClearRecentSearchesConfirmation",
++        "ListsAndLimits.Actions.ClearRecentSearchesFailed",
+         "ListsAndLimits.Actions.ClearRecentSearchesTitle",
+         "ListsAndLimits.Actions.LimitsLoadFailed",
+         "ListsAndLimits.Actions.NotificationExceptionsLoadFailed",
+@@ -41773,6 +41775,7 @@
+         "Monoforum.SentBy",
+         "MyBotsActions.BotUnavailable",
+         "MyBotsActions.Change",
++        "MyBotsActions.ChangeBotConfirmation",
+         "MyBotsActions.ChangeFailed",
+         "MyBotsActions.ChangeYourBotQuestion",
+         "MyBotsActions.LoadFailed",
+@@ -43176,6 +43179,7 @@
+         "PrivacySettingsController.Bio.CustomHelp",
+         "PrivacySettingsController.Bio.NeverShareWith.Title",
+         "PrivacySettingsController.Bio.WhoCanSee",
++        "PrivacySettingsController.Birthday.AddHeader",
+         "PrivacySettingsController.Birthday.AlwaysShareWith.Title",
+         "PrivacySettingsController.Birthday.CustomHelp",
+         "PrivacySettingsController.Birthday.NeverShareWith.Title",
+@@ -45333,6 +45337,7 @@
+         "Story.CreationView.SoundtrackVolume",
+         "Story.CreationView.Stickers",
+         "Story.CreationView.StopVideoNote",
++        "Story.CreationView.StoryCaption",
+         "Story.CreationView.StoryDuration",
+         "Story.CreationView.StoryPreview",
+         "Story.CreationView.SwitchCamera",
+@@ -45379,6 +45384,15 @@
+         "Story.MyInput.Views_countable",
+         "Story.NoReplyInput.NoReply",
+         "Story.PrivacyModalController.ActiveLimitReached",
++        "Story.PrivacyModalController.CaptionLimit",
++        "Story.PrivacyModalController.KeepOnProfile",
++        "Story.PrivacyModalController.MediaPreparationFailed",
++        "Story.PrivacyModalController.MonthlyLimitReached",
++        "Story.PrivacyModalController.PostStory",
++        "Story.PrivacyModalController.PreparingStory",
++        "Story.PrivacyModalController.RemainingStories",
++        "Story.PrivacyModalController.ShareStory",
++        "Story.PrivacyModalController.UploadingStory",
+         "Story.PrivacyModalController.WeeklyLimitReached",
+         "Story.Report.SuccessText",
+         "Story.RepostToMy",
+@@ -45425,6 +45439,7 @@
+         "StoryArchive.Actions.ChangeAlbumsTitle",
+         "StoryArchive.Actions.CreateAlbum",
+         "StoryArchive.Actions.Delete",
++        "StoryArchive.Actions.DeleteAlbum",
+         "StoryArchive.Actions.DeleteAlbumTitle",
+         "StoryArchive.Actions.EditAlbum",
+         "StoryArchive.Actions.From",
+@@ -47449,6 +47464,7 @@
+         "WalletUI.Integration.ContractPaymentIncludesFees",
+         "WalletUI.Integration.DeclineRequested",
+         "WalletUI.Integration.DeclinedOfferRefund",
++        "WalletUI.Integration.EarlyWithdrawalCost",
+         "WalletUI.Integration.EarningsInWallet",
+         "WalletUI.Integration.EstimatedNetworkFee",
+         "WalletUI.Integration.GaslessAlternative",
+diff --git a/data/web_tr/translations.telegram.org/en/ios/stories.json b/data/web_tr/translations.telegram.org/en/ios/stories.json
+@@ -2588,15 +2588,15 @@
+     "Story.Editor.Blur.Linear": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Blur.Linear",
+         "photo_url": "https://telegra.ph/file/p/103a503082c/3a20a10bc584c38f6aa0517.jpg?c=247,836,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Linear"
+         }
+     },
+     "Story.Editor.Blur.Off": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Blur.Off",
+         "photo_url": "https://telegra.ph/file/p/103a503082c/3a20a10bc584c38f6aa0517.jpg?c=78,836,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Off"
+         }
+@@ -2612,7 +2612,7 @@
+     "Story.Editor.Blur.Radial": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Blur.Radial",
+         "photo_url": "https://telegra.ph/file/p/103a503082c/3a20a10bc584c38f6aa0517.jpg?c=160,836,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Radial"
+         }
+@@ -2636,31 +2636,31 @@
+     "Story.Editor.Curves.All": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Curves.All",
+         "photo_url": "https://telegra.ph/file/p/174eae20d56/44f5657d447b9e0437ea117.jpg?c=55,792,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "All"
+         }
+     },
+     "Story.Editor.Curves.Blue": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Curves.Blue",
+         "photo_url": "https://telegra.ph/file/p/174eae20d56/44f5657d447b9e0437ea117.jpg?c=268,793,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Blue"
+         }
+     },
+     "Story.Editor.Curves.Green": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Curves.Green",
+         "photo_url": "https://telegra.ph/file/p/174eae20d56/44f5657d447b9e0437ea117.jpg?c=197,793,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Green"
+         }
+     },
+     "Story.Editor.Curves.Red": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Curves.Red",
+         "photo_url": "https://telegra.ph/file/p/174eae20d56/44f5657d447b9e0437ea117.jpg?c=124,792,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Red"
+         }
+@@ -2805,79 +2805,79 @@
+     "Story.Editor.Tool.Brightness": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Brightness",
+         "photo_url": "https://telegra.ph/file/p/b102f973c05/9baa40065708b875720b417.jpg?c=14,771,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Brightness"
+         }
+     },
+     "Story.Editor.Tool.Contrast": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Contrast",
+         "photo_url": "https://telegra.ph/file/p/b102f973c05/9baa40065708b875720b417.jpg?c=14,833,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Contrast"
+         }
+     },
+     "Story.Editor.Tool.Enhance": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Enhance",
+         "photo_url": "https://telegra.ph/file/p/b102f973c05/9baa40065708b875720b417.jpg?c=14,703,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Enhance"
+         }
+     },
+     "Story.Editor.Tool.Fade": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Fade",
+         "photo_url": "https://telegra.ph/file/p/828c59cf691/42e59e7f94ec7c1b5cdff17.jpg?c=12,771,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Fade"
+         }
+     },
+     "Story.Editor.Tool.Grain": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Grain",
+         "photo_url": "https://telegra.ph/file/p/29e0f6929b3/d90f487ca215e0dc0f06e17.jpg?c=12,793,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Grain"
+         }
+     },
+     "Story.Editor.Tool.Highlights": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Highlights",
+         "photo_url": "https://telegra.ph/file/p/828c59cf691/42e59e7f94ec7c1b5cdff17.jpg?c=14,838,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Highlights"
+         }
+     },
+     "Story.Editor.Tool.Saturation": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Saturation",
+         "photo_url": "https://telegra.ph/file/p/b102f973c05/9baa40065708b875720b417.jpg?c=14,899,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Saturation"
+         }
+     },
+     "Story.Editor.Tool.Shadows": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Shadows",
+         "photo_url": "https://telegra.ph/file/p/828c59cf691/42e59e7f94ec7c1b5cdff17.jpg?c=14,901,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Shadows"
+         }
+     },
+     "Story.Editor.Tool.Vignette": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Vignette",
+         "photo_url": "https://telegra.ph/file/p/29e0f6929b3/d90f487ca215e0dc0f06e17.jpg?c=13,861,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Vignette"
+         }
+     },
+     "Story.Editor.Tool.Warmth": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Editor.Tool.Warmth",
+         "photo_url": "https://telegra.ph/file/p/828c59cf691/42e59e7f94ec7c1b5cdff17.jpg?c=13,706,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Warmth"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos.html b/data/web_tr/translations.telegram.org/en/macos.html
+@@ -257,7 +257,7 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/stories/" class="tr-section">
+     <div class="tr-section-cover cover11"></div>
+-    <div class="tr-section-caption">Stories (168)</div>
++    <div class="tr-section-caption">Stories (226)</div>
+   </a></div>
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/wallet/" class="tr-section">
+@@ -307,7 +307,7 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/macos/unsorted/" class="tr-section">
+     <div class="tr-section-cover cover0"></div>
+-    <div class="tr-section-caption">Unsorted (8905)</div>
++    <div class="tr-section-caption">Unsorted (8847)</div>
+   </a></div>
+ </div>
+ </section></section>
+diff --git a/data/web_tr/translations.telegram.org/en/macos/stories.json b/data/web_tr/translations.telegram.org/en/macos/stories.json
+@@ -586,6 +586,360 @@
+             "singular": "Your Story"
+         }
+     },
++    "Story.CreationCoverController.SaveCover": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationCoverController.SaveCover",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Save Cover"
++        }
++    },
++    "Story.CreationCoverController.StoryCover": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationCoverController.StoryCover",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Story Cover"
++        }
++    },
++    "Story.CreationRendering.All": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.All",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "All"
++        }
++    },
++    "Story.CreationRendering.Blue": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Blue",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Blue"
++        }
++    },
++    "Story.CreationRendering.Brightness": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Brightness",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Brightness"
++        }
++    },
++    "Story.CreationRendering.Contrast": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Contrast",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Contrast"
++        }
++    },
++    "Story.CreationRendering.Enhance": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Enhance",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Enhance"
++        }
++    },
++    "Story.CreationRendering.Fade": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Fade",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Fade"
++        }
++    },
++    "Story.CreationRendering.Grain": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Grain",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Grain"
++        }
++    },
++    "Story.CreationRendering.Green": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Green",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Green"
++        }
++    },
++    "Story.CreationRendering.Highlights": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Highlights",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Highlights"
++        }
++    },
++    "Story.CreationRendering.Linear": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Linear",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Linear"
++        }
++    },
++    "Story.CreationRendering.Off": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Off",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Off"
++        }
++    },
++    "Story.CreationRendering.Radial": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Radial",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Radial"
++        }
++    },
++    "Story.CreationRendering.Red": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Red",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Red"
++        }
++    },
++    "Story.CreationRendering.Saturation": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Saturation",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Saturation"
++        }
++    },
++    "Story.CreationRendering.Shadows": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Shadows",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Shadows"
++        }
++    },
++    "Story.CreationRendering.Vignette": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Vignette",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Vignette"
++        }
++    },
++    "Story.CreationRendering.Warmth": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationRendering.Warmth",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Warmth"
++        }
++    },
++    "Story.CreationView.Adjustments": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Adjustments",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Adjustments"
++        }
++    },
++    "Story.CreationView.Audio": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Audio",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Audio"
++        }
++    },
++    "Story.CreationView.CaptureMode": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.CaptureMode",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Capture mode"
++        }
++    },
++    "Story.CreationView.ChooseMedia": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.ChooseMedia",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Choose Media"
++        }
++    },
++    "Story.CreationView.ClipVolume": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.ClipVolume",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Clip volume"
++        }
++    },
++    "Story.CreationView.Collage": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Collage",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Collage"
++        }
++    },
++    "Story.CreationView.CollageProgress": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.CollageProgress",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Collage · <mark class=\"token\">%1$d</mark> / <mark class=\"token\">%2$d</mark>",
++            "plural": "Collage · <mark class=\"token\">%1$d</mark> / <mark class=\"token\">%2$d</mark>"
++        }
++    },
++    "Story.CreationView.Crop": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Crop",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Crop"
++        }
++    },
++    "Story.CreationView.Drafts": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Drafts",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Drafts"
++        }
++    },
++    "Story.CreationView.DragTilesToReorder": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.DragTilesToReorder",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Drag tiles to reorder"
++        }
++    },
++    "Story.CreationView.Draw": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Draw",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Draw"
++        }
++    },
++    "Story.CreationView.DropMediaToImport": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.DropMediaToImport",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Drop media to import"
++        }
++    },
++    "Story.CreationView.DualCamera": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.DualCamera",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Dual Camera"
++        }
++    },
++    "Story.CreationView.EditCollage": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.EditCollage",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Edit Collage"
++        }
++    },
++    "Story.CreationView.EnableCamera": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.EnableCamera",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Enable Camera"
++        }
++    },
++    "Story.CreationView.EnhanceValue": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.EnhanceValue",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Enhance  <mark class=\"token\">%1$d</mark>",
++            "plural": "Enhance  <mark class=\"token\">%1$d</mark>"
++        }
++    },
++    "Story.CreationView.Link": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Link",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Link"
++        }
++    },
++    "Story.CreationView.Mute": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Mute",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Mute"
++        }
++    },
++    "Story.CreationView.Pause": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Pause",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Pause"
++        }
++    },
++    "Story.CreationView.PauseClip": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.PauseClip",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Pause Clip"
++        }
++    },
++    "Story.CreationView.Play": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Play",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Play"
++        }
++    },
++    "Story.CreationView.PlayClip": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.PlayClip",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Play Clip"
++        }
++    },
++    "Story.CreationView.PositionAndZoom": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.PositionAndZoom",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Drag to position · Scroll or pinch to zoom"
++        }
++    },
++    "Story.CreationView.RecordVideoNote": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.RecordVideoNote",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Record Video Note"
++        }
++    },
++    "Story.CreationView.RemoveVideoNote": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.RemoveVideoNote",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Remove Video Note"
++        }
++    },
+     "Story.CreationView.SoundtrackVolume": {
+         "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.SoundtrackVolume",
+         "photo_url": null,
+@@ -602,6 +956,22 @@
+             "singular": "Stickers"
+         }
+     },
++    "Story.CreationView.Text": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Text",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Text"
++        }
++    },
++    "Story.CreationView.Unmute": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.Unmute",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Unmute"
++        }
++    },
+     "Story.Error.NotExist": {
+         "url": "https://translations.telegram.org/en/macos/stories/Story.Error.NotExist",
+         "photo_url": null,
+@@ -642,6 +1012,30 @@
+             "singular": "Reply Privately..."
+         }
+     },
++    "Story.LocationChoices.City": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.LocationChoices.City",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "City"
++        }
++    },
++    "Story.LocationChoices.Location": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.LocationChoices.Location",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Location"
++        }
++    },
++    "Story.LocationChoices.Street": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.LocationChoices.Street",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Street"
++        }
++    },
+     "Story.Media.Unsupported": {
+         "url": "https://translations.telegram.org/en/macos/stories/Story.Media.Unsupported",
+         "photo_url": null,
+@@ -723,6 +1117,88 @@
+             "singular": "You can't reply to this story"
+         }
+     },
++    "Story.PrivacyModalController.ActiveLimitReached": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.ActiveLimitReached",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "You’ve reached your active story limit."
++        }
++    },
++    "Story.PrivacyModalController.CaptionLimit": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.CaptionLimit",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Story captions can be up to <mark class=\"token\">%1$d</mark> character.",
++            "plural": "Story captions can be up to <mark class=\"token\">%1$d</mark> characters."
++        }
++    },
++    "Story.PrivacyModalController.KeepOnProfile": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.KeepOnProfile",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Keep this story on your profile even after it expires in <mark class=\"token\">%1$@</mark>. Privacy settings will apply."
++        }
++    },
++    "Story.PrivacyModalController.MediaPreparationFailed": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.MediaPreparationFailed",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "This media could not be prepared for posting."
++        }
++    },
++    "Story.PrivacyModalController.MonthlyLimitReached": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.MonthlyLimitReached",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "You’ve reached your monthly story limit."
++        }
++    },
++    "Story.PrivacyModalController.PostStory": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.PostStory",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Post Story"
++        }
++    },
++    "Story.PrivacyModalController.PreparingStory": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.PreparingStory",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Preparing Story…"
++        }
++    },
++    "Story.PrivacyModalController.RemainingStories": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.RemainingStories",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "You can post up to <mark class=\"token\">%1$d</mark> more story right now.",
++            "plural": "You can post up to <mark class=\"token\">%1$d</mark> more stories right now."
++        }
++    },
++    "Story.PrivacyModalController.ShareStory": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.ShareStory",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Share Story"
++        }
++    },
++    "Story.PrivacyModalController.UploadingStory": {
++        "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.UploadingStory",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Uploading story…"
++        }
++    },
+     "Story.PrivacyModalController.WeeklyLimitReached": {
+         "url": "https://translations.telegram.org/en/macos/stories/Story.PrivacyModalController.WeeklyLimitReached",
+         "photo_url": null,
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -25860,6 +25860,14 @@
+             "singular": "The agent wants to save <mark class=\"token\">%1$@</mark> to your contacts as “<mark class=\"token\">%2$@</mark> <mark class=\"token\">%3$@</mark>”."
+         }
+     },
++    "Contacts.Actions.AddContact": {
++        "url": "https://translations.telegram.org/en/macos/unsorted/Contacts.Actions.AddContact",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Add contact?"
++        }
++    },
+     "Contacts.Actions.Block": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Contacts.Actions.Block",
+         "photo_url": null,
+@@ -36062,6 +36070,14 @@
+             "singular": "The agent wants to clear the chats listed under Recent in Telegram's search."
+         }
+     },
++    "ListsAndLimits.Actions.ClearRecentSearchesFailed": {
++        "url": "https://translations.telegram.org/en/macos/unsorted/ListsAndLimits.Actions.ClearRecentSearchesFailed",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Recent searches weren't cleared."
++        }
++    },
+     "ListsAndLimits.Actions.ClearRecentSearchesTitle": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/ListsAndLimits.Actions.ClearRecentSearchesTitle",
+         "photo_url": null,
+@@ -40571,6 +40587,14 @@
+             "singular": "Change"
+         }
+     },
++    "MyBotsActions.ChangeBotConfirmation": {
++        "url": "https://translations.telegram.org/en/macos/unsorted/MyBotsActions.ChangeBotConfirmation",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "The agent wants to <mark class=\"token\">%1$@</mark> for <mark class=\"token\">%2$@</mark>."
++        }
++    },
+     "MyBotsActions.ChangeFailed": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/MyBotsActions.ChangeFailed",
+         "photo_url": null,
+@@ -45998,6 +46022,14 @@
+             "singular": "Never Share With"
+         }
+     },
++    "PrivacySettingsController.Birthday.AddHeader": {
++        "url": "https://translations.telegram.org/en/macos/unsorted/PrivacySettingsController.Birthday.AddHeader",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "You haven't added your birthday yet.<br/>[Add my birthday &gt;]()"
++        }
++    },
+     "PrivacySettingsController.Birthday.AlwaysShareWith.Title": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/PrivacySettingsController.Birthday.AlwaysShareWith.Title",
+         "photo_url": null,
+@@ -56553,360 +56585,6 @@
+             "singular": "Statistics"
+         }
+     },
+-    "Story.CreationCoverController.SaveCover": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationCoverController.SaveCover",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Save Cover"
+-        }
+-    },
+-    "Story.CreationCoverController.StoryCover": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationCoverController.StoryCover",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Story Cover"
+-        }
+-    },
+-    "Story.CreationRendering.All": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.All",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "All"
+-        }
+-    },
+-    "Story.CreationRendering.Blue": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Blue",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Blue"
+-        }
+-    },
+-    "Story.CreationRendering.Brightness": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Brightness",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Brightness"
+-        }
+-    },
+-    "Story.CreationRendering.Contrast": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Contrast",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Contrast"
+-        }
+-    },
+-    "Story.CreationRendering.Enhance": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Enhance",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Enhance"
+-        }
+-    },
+-    "Story.CreationRendering.Fade": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Fade",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Fade"
+-        }
+-    },
+-    "Story.CreationRendering.Grain": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Grain",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Grain"
+-        }
+-    },
+-    "Story.CreationRendering.Green": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Green",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Green"
+-        }
+-    },
+-    "Story.CreationRendering.Highlights": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Highlights",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Highlights"
+-        }
+-    },
+-    "Story.CreationRendering.Linear": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Linear",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Linear"
+-        }
+-    },
+-    "Story.CreationRendering.Off": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Off",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Off"
+-        }
+-    },
+-    "Story.CreationRendering.Radial": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Radial",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Radial"
+-        }
+-    },
+-    "Story.CreationRendering.Red": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Red",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Red"
+-        }
+-    },
+-    "Story.CreationRendering.Saturation": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Saturation",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Saturation"
+-        }
+-    },
+-    "Story.CreationRendering.Shadows": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Shadows",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Shadows"
+-        }
+-    },
+-    "Story.CreationRendering.Vignette": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Vignette",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Vignette"
+-        }
+-    },
+-    "Story.CreationRendering.Warmth": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationRendering.Warmth",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Warmth"
+-        }
+-    },
+-    "Story.CreationView.Adjustments": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Adjustments",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Adjustments"
+-        }
+-    },
+-    "Story.CreationView.Audio": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Audio",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Audio"
+-        }
+-    },
+-    "Story.CreationView.CaptureMode": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.CaptureMode",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Capture mode"
+-        }
+-    },
+-    "Story.CreationView.ChooseMedia": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.ChooseMedia",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Choose Media"
+-        }
+-    },
+-    "Story.CreationView.ClipVolume": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.ClipVolume",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Clip volume"
+-        }
+-    },
+-    "Story.CreationView.Collage": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Collage",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Collage"
+-        }
+-    },
+-    "Story.CreationView.CollageProgress": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.CollageProgress",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Collage · <mark class=\"token\">%1$d</mark> / <mark class=\"token\">%2$d</mark>",
+-            "plural": "Collage · <mark class=\"token\">%1$d</mark> / <mark class=\"token\">%2$d</mark>"
+-        }
+-    },
+-    "Story.CreationView.Crop": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Crop",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Crop"
+-        }
+-    },
+-    "Story.CreationView.Drafts": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Drafts",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Drafts"
+-        }
+-    },
+-    "Story.CreationView.DragTilesToReorder": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.DragTilesToReorder",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Drag tiles to reorder"
+-        }
+-    },
+-    "Story.CreationView.Draw": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Draw",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Draw"
+-        }
+-    },
+-    "Story.CreationView.DropMediaToImport": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.DropMediaToImport",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Drop media to import"
+-        }
+-    },
+-    "Story.CreationView.DualCamera": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.DualCamera",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Dual Camera"
+-        }
+-    },
+-    "Story.CreationView.EditCollage": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.EditCollage",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Edit Collage"
+-        }
+-    },
+-    "Story.CreationView.EnableCamera": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.EnableCamera",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Enable Camera"
+-        }
+-    },
+-    "Story.CreationView.EnhanceValue": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.EnhanceValue",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Enhance  <mark class=\"token\">%1$d</mark>",
+-            "plural": "Enhance  <mark class=\"token\">%1$d</mark>"
+-        }
+-    },
+-    "Story.CreationView.Link": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Link",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Link"
+-        }
+-    },
+-    "Story.CreationView.Mute": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Mute",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Mute"
+-        }
+-    },
+-    "Story.CreationView.Pause": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Pause",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Pause"
+-        }
+-    },
+-    "Story.CreationView.PauseClip": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.PauseClip",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Pause Clip"
+-        }
+-    },
+-    "Story.CreationView.Play": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Play",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Play"
+-        }
+-    },
+-    "Story.CreationView.PlayClip": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.PlayClip",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Play Clip"
+-        }
+-    },
+-    "Story.CreationView.PositionAndZoom": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.PositionAndZoom",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Drag to position · Scroll or pinch to zoom"
+-        }
+-    },
+-    "Story.CreationView.RecordVideoNote": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.RecordVideoNote",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Record Video Note"
+-        }
+-    },
+-    "Story.CreationView.RemoveVideoNote": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.RemoveVideoNote",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Remove Video Note"
+-        }
+-    },
+     "Story.CreationView.SaveMedia": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.SaveMedia",
+         "photo_url": null,
+@@ -56923,6 +56601,14 @@
+             "singular": "Stop Video Note"
+         }
+     },
++    "Story.CreationView.StoryCaption": {
++        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.StoryCaption",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Story caption"
++        }
++    },
+     "Story.CreationView.StoryDuration": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.StoryDuration",
+         "photo_url": null,
+@@ -56947,22 +56633,6 @@
+             "singular": "Switch Camera"
+         }
+     },
+-    "Story.CreationView.Text": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Text",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Text"
+-        }
+-    },
+-    "Story.CreationView.Unmute": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.CreationView.Unmute",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Unmute"
+-        }
+-    },
+     "Story.Input.EmojiLimitReached": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Story.Input.EmojiLimitReached",
+         "photo_url": null,
+@@ -57123,30 +56793,6 @@
+             "singular": "Location"
+         }
+     },
+-    "Story.LocationChoices.City": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.LocationChoices.City",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "City"
+-        }
+-    },
+-    "Story.LocationChoices.Location": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.LocationChoices.Location",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Location"
+-        }
+-    },
+-    "Story.LocationChoices.Street": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.LocationChoices.Street",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "Street"
+-        }
+-    },
+     "Story.MyInput.Likes": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Story.MyInput.Likes",
+         "photo_url": null,
+@@ -57164,14 +56810,6 @@
+             "singular": "<mark class=\"token\">%d</mark>"
+         }
+     },
+-    "Story.PrivacyModalController.ActiveLimitReached": {
+-        "url": "https://translations.telegram.org/en/macos/unsorted/Story.PrivacyModalController.ActiveLimitReached",
+-        "photo_url": null,
+-        "has_binding": false,
+-        "values": {
+-            "singular": "You’ve reached your active story limit."
+-        }
+-    },
+     "Story.RepostToMy": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Story.RepostToMy",
+         "photo_url": null,
+@@ -57245,6 +56883,14 @@
+             "singular": "Delete"
+         }
+     },
++    "StoryArchive.Actions.DeleteAlbum": {
++        "url": "https://translations.telegram.org/en/macos/unsorted/StoryArchive.Actions.DeleteAlbum",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "The agent wants to delete the story album “<mark class=\"token\">%1$@</mark>”. Its stories stay on your profile."
++        }
++    },
+     "StoryArchive.Actions.DeleteAlbumTitle": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryArchive.Actions.DeleteAlbumTitle",
+         "photo_url": null,
+@@ -69911,6 +69557,14 @@
+             "singular": "If the seller declines your offer or it expires, **<mark class=\"token\">%1$@</mark>** will be automatically returned to you.<br/>"
+         }
+     },
++    "WalletUI.Integration.EarlyWithdrawalCost": {
++        "url": "https://translations.telegram.org/en/macos/unsorted/WalletUI.Integration.EarlyWithdrawalCost",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Withdrawing early costs **<mark class=\"token\">%1$@</mark>**.<br/><br/><mark class=\"token\">%2$@</mark>"
++        }
++    },
+     "WalletUI.Integration.EarningsInWallet": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/WalletUI.Integration.EarningsInWallet",
+         "photo_url": null,

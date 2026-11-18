@@ -1,0 +1,350 @@
+{
+  "category": "web",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:73b8d2ba1af4a05f1a867eeb848ff0d37d4e2a85:web:beta",
+  "files": [
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283537-arm64-8bdba74b0d01.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283537-arm64-bcj-e24cfe219beb.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283537-arm64-from-283533-a5a5805881df.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283537-arm64-from-283534-0f3403a5da87.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283537-arm64-from-283536-458263b88514.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283537-x86_64-1e5f3196d8f7.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283537.app.zip.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283542-arm64-1b0541004696.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283542-arm64-bcj-399843048d7c.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283542-arm64-from-283534-6d5be7a7ba69.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283542-arm64-from-283536-cb77fc78d75d.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283542-arm64-from-283537-ee628ae8fa3f.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283542-x86_64-c89c5a5a8134.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283542.app.zip.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283543-arm64-17d3bf0a1a50.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283543-arm64-bcj-c01f374d4631.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283543-arm64-from-283536-d4147cdd3f5c.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283543-arm64-from-283537-00550ff8da83.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283543-arm64-from-283542-93e31e57ad4c.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283543-x86_64-55aa0a999f63.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283543.app.zip.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283545-arm64-880e225d9729.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283545-arm64-bcj-a8423b4e9070.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283545-arm64-from-283537-dcd2fcb103b8.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283545-arm64-from-283542-617f60154238.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283545-arm64-from-283543-2154f05773f8.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283545-x86_64-164d71834bac.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283545.app.zip.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283570-arm64-68df8ebc2b5b.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283570-arm64-bcj-e841b766f161.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283570-arm64-from-283567-adf7c76927f8.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283570-arm64-from-283568-6ce145b8cabb.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283570-arm64-from-283569-35d88bf86c86.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283570-x86_64-e3815742a6e1.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283570.app.zip.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-68bbde30b6fd.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-bcj-355da7183f6a.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-from-283568-45198ae959a6.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-from-283569-2d607866ee44.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-from-283570-1775d5094a40.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-x86_64-438f7b500f34.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571.app.zip.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283573-arm64-3cfedbf90c60.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283573-arm64-bcj-a5b2514e9a28.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283573-arm64-from-283569-29e471cb04f6.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283573-arm64-from-283570-02c3995dda04.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283573-arm64-from-283571-6e089502499a.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283573-x86_64-bb640b260437.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283573.app.zip.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-3cae1487ac9d.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-bcj-f625018beb31.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283570-8b2eb75622e7.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283571-3cf5199e541d.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283573-afbe51a2207d.delta.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-x86_64-347d7e5630b0.app.tar.xz.sha256",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574.app.zip.sha256",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-18T18:00:57Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "73b8d2ba1af4a05f1a867eeb848ff0d37d4e2a85",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/73b8d2ba1af4a05f1a867eeb848ff0d37d4e2a85"
+  }
+}

@@ -1,0 +1,60 @@
+diff --git a/packages/desktop/sandbox/src/remote_engine.cpp b/packages/desktop/sandbox/src/remote_engine.cpp
+@@ -5,11 +5,19 @@
+ #include "twidget/intl.h"
+ #include "twidget/json.h"
+ 
++#include <exception>
+ #include <limits>
+ #include <utility>
+ 
+ namespace twidget {
+ 
++namespace {
++
++/// The death of a runtime whose engine cannot be built (its `widget.sandbox` cannot start), before the refusal itself (which names the thread and the OS error).
++constexpr const char* kEngineUnstarted = "the widget engine could not start";
++
++} // namespace
++
+ // MARK: the engine's side
+ 
+ SandboxRemoteServer::SandboxRemoteServer(std::shared_ptr<SandboxRemoteSink> sink, std::shared_ptr<SandboxResources> resources)
+@@ -32,7 +40,19 @@ void SandboxRemoteServer::start(const std::string& html, const SandboxConfig& co
+         if (closed_ || started_) return;
+         started_ = true;
+     }
+-    auto engine = std::make_unique<SandboxEngine>(html, config, resources_, std::make_shared<detail::RemoteIntl>(sink_));
++    std::unique_ptr<SandboxEngine> engine;
++    try {
++        engine = std::make_unique<SandboxEngine>(html, config, resources_, std::make_shared<detail::RemoteIntl>(sink_));
++    } catch (const std::exception& e) {
++        // Closed as `close` closes it (nothing is outstanding before an engine), then the death outside the lock.
++        {
++            std::lock_guard<std::mutex> l(mutex_);
++            closed_ = true;
++            waiting_.clear();
++        }
++        sink_->remoteDied(std::string(kEngineUnstarted) + ": " + e.what());
++        return;
++    }
+     engine->setDelegate(this);
+     SandboxEngine& built = *engine;
+     std::vector<std::function<void(SandboxEngine&)>> waiting;
+diff --git a/packages/desktop/sandbox/src/widget_host_local.cpp b/packages/desktop/sandbox/src/widget_host_local.cpp
+@@ -126,14 +126,14 @@ WidgetHost::WidgetHost(std::string html, WidgetTheme theme, double width, Widget
+ 
+ WidgetHost::WidgetHost(ServedTag, std::string html, WidgetTheme theme, SandboxConfig config, std::shared_ptr<SandboxResources> resources, RendererFactory renderers,
+                        std::shared_ptr<IntlProvider> intl, SandboxEngineDelegate& engineDelegate, GlueReports reports)
+-    : hostThread_("twidget-host"),
++    : reports_(std::move(reports)),
++      hostThread_("twidget-host"),
+       html_(std::move(html)),
+       theme_(theme.colorScheme == "dark" ? "dark" : "light"),
+       widgetTheme_(normalized(std::move(theme))),
+       config_(themed(std::move(config), widgetTheme_)),
+       resources_(std::move(resources)),
+       glue_(&kGlue),
+-      reports_(std::move(reports)),
+       validator_(new TrustedValidator(theme_, resources_, [this](const std::string& k, const std::string& d) { validatorDiag(k, d); }), freeValidator),
+       renderer_(renderers(resources_, theme_, config_.innerWidth)),
+       engine_(std::make_unique<SandboxEngine>(html_, config_, resources_, std::move(intl))),

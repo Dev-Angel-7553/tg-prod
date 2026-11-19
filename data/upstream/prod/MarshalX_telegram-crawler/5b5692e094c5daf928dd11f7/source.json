@@ -1,0 +1,482 @@
+{
+  "category": "translations",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:c9ce8839d4f4aa580a901089c167f8342897abbf:translations:mixed",
+  "files": [
+    {
+      "additions": 63,
+      "deletions": 63,
+      "filename": "data/web_tr/translations.telegram.org/en/android/bots_and_payments.json",
+      "status": "modified"
+    },
+    {
+      "additions": 31,
+      "deletions": 31,
+      "filename": "data/web_tr/translations.telegram.org/en/android/camera_and_media.json",
+      "status": "modified"
+    },
+    {
+      "additions": 35,
+      "deletions": 35,
+      "filename": "data/web_tr/translations.telegram.org/en/android/chat_list.json",
+      "status": "modified"
+    },
+    {
+      "additions": 331,
+      "deletions": 331,
+      "filename": "data/web_tr/translations.telegram.org/en/android/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 323,
+      "deletions": 323,
+      "filename": "data/web_tr/translations.telegram.org/en/android/groups_and_channels.json",
+      "status": "modified"
+    },
+    {
+      "additions": 24,
+      "deletions": 24,
+      "filename": "data/web_tr/translations.telegram.org/en/android/login.json",
+      "status": "modified"
+    },
+    {
+      "additions": 78,
+      "deletions": 78,
+      "filename": "data/web_tr/translations.telegram.org/en/android/passport.json",
+      "status": "modified"
+    },
+    {
+      "additions": 87,
+      "deletions": 87,
+      "filename": "data/web_tr/translations.telegram.org/en/android/private_chats.json",
+      "status": "modified"
+    },
+    {
+      "additions": 33,
+      "deletions": 33,
+      "filename": "data/web_tr/translations.telegram.org/en/android/profile.json",
+      "status": "modified"
+    },
+    {
+      "additions": 343,
+      "deletions": 343,
+      "filename": "data/web_tr/translations.telegram.org/en/android/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 23,
+      "deletions": 23,
+      "filename": "data/web_tr/translations.telegram.org/en/android/stories.json",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 7,
+      "filename": "data/web_tr/translations.telegram.org/en/android/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 9,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/bots_and_payments.json",
+      "status": "modified"
+    },
+    {
+      "additions": 43,
+      "deletions": 43,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/camera_and_media.json",
+      "status": "modified"
+    },
+    {
+      "additions": 57,
+      "deletions": 57,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/chat_list.json",
+      "status": "modified"
+    },
+    {
+      "additions": 88,
+      "deletions": 88,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 194,
+      "deletions": 194,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/groups_and_channels.json",
+      "status": "modified"
+    },
+    {
+      "additions": 8,
+      "deletions": 8,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/login.json",
+      "status": "modified"
+    },
+    {
+      "additions": 21,
+      "deletions": 21,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/private_chats.json",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 11,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/profile.json",
+      "status": "modified"
+    },
+    {
+      "additions": 345,
+      "deletions": 345,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 12,
+      "deletions": 12,
+      "filename": "data/web_tr/translations.telegram.org/en/android_x/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 221,
+      "deletions": 221,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/bots_and_payments.json",
+      "status": "modified"
+    },
+    {
+      "additions": 60,
+      "deletions": 60,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/calls.json",
+      "status": "modified"
+    },
+    {
+      "additions": 75,
+      "deletions": 75,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/camera_and_media.json",
+      "status": "modified"
+    },
+    {
+      "additions": 366,
+      "deletions": 366,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/chat_list.json",
+      "status": "modified"
+    },
+    {
+      "additions": 925,
+      "deletions": 925,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1705,
+      "deletions": 1705,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/groups_and_channels.json",
+      "status": "modified"
+    },
+    {
+      "additions": 109,
+      "deletions": 109,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/login.json",
+      "status": "modified"
+    },
+    {
+      "additions": 36,
+      "deletions": 36,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/passport.json",
+      "status": "modified"
+    },
+    {
+      "additions": 444,
+      "deletions": 444,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/premium_and_business.json",
+      "status": "modified"
+    },
+    {
+      "additions": 890,
+      "deletions": 890,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/private_chats.json",
+      "status": "modified"
+    },
+    {
+      "additions": 323,
+      "deletions": 323,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/profile.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1304,
+      "deletions": 1304,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 604,
+      "deletions": 604,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/stars_and_gifts.json",
+      "status": "modified"
+    },
+    {
+      "additions": 355,
+      "deletions": 355,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/stories.json",
+      "status": "modified"
+    },
+    {
+      "additions": 40,
+      "deletions": 40,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 159,
+      "deletions": 159,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/wallet.json",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 11,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/bots_and_payments.json",
+      "status": "modified"
+    },
+    {
+      "additions": 13,
+      "deletions": 13,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/camera_and_media.json",
+      "status": "modified"
+    },
+    {
+      "additions": 29,
+      "deletions": 29,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/chat_list.json",
+      "status": "modified"
+    },
+    {
+      "additions": 86,
+      "deletions": 86,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 154,
+      "deletions": 154,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/groups_and_channels.json",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 5,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/login.json",
+      "status": "modified"
+    },
+    {
+      "additions": 22,
+      "deletions": 22,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/passport.json",
+      "status": "modified"
+    },
+    {
+      "additions": 12,
+      "deletions": 12,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/private_chats.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/profile.json",
+      "status": "modified"
+    },
+    {
+      "additions": 188,
+      "deletions": 188,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 7,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/stories.json",
+      "status": "modified"
+    },
+    {
+      "additions": 31,
+      "deletions": 31,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/bots_and_payments.json",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 6,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/camera_and_media.json",
+      "status": "modified"
+    },
+    {
+      "additions": 16,
+      "deletions": 16,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/chat_list.json",
+      "status": "modified"
+    },
+    {
+      "additions": 268,
+      "deletions": 268,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 166,
+      "deletions": 166,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/groups_and_channels.json",
+      "status": "modified"
+    },
+    {
+      "additions": 10,
+      "deletions": 10,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/login.json",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/passport.json",
+      "status": "modified"
+    },
+    {
+      "additions": 37,
+      "deletions": 37,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/private_chats.json",
+      "status": "modified"
+    },
+    {
+      "additions": 24,
+      "deletions": 24,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/profile.json",
+      "status": "modified"
+    },
+    {
+      "additions": 286,
+      "deletions": 286,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 11,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/stories.json",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 9,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 4,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram/chat_list.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 30,
+      "deletions": 30,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram/groups_and_channels.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram/login.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram/private_chats.json",
+      "status": "modified"
+    },
+    {
+      "additions": 73,
+      "deletions": 73,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/weba/bots_and_payments.json",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 5,
+      "filename": "data/web_tr/translations.telegram.org/en/weba/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/weba/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 3,
+      "filename": "data/web_tr/translations.telegram.org/en/webk/camera_and_media.json",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 11,
+      "filename": "data/web_tr/translations.telegram.org/en/webk/chat_list.json",
+      "status": "modified"
+    },
+    {
+      "additions": 16,
+      "deletions": 16,
+      "filename": "data/web_tr/translations.telegram.org/en/webk/general.json",
+      "status": "modified"
+    },
+    {
+      "additions": 17,
+      "deletions": 17,
+      "filename": "data/web_tr/translations.telegram.org/en/webk/groups_and_channels.json",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 6,
+      "filename": "data/web_tr/translations.telegram.org/en/webk/login.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/webk/profile.json",
+      "status": "modified"
+    },
+    {
+      "additions": 52,
+      "deletions": 52,
+      "filename": "data/web_tr/translations.telegram.org/en/webk/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 3,
+      "filename": "data/web_tr/translations.telegram.org/en/webk/unsorted.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-19T21:56:31Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "c9ce8839d4f4aa580a901089c167f8342897abbf",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/c9ce8839d4f4aa580a901089c167f8342897abbf"
+  }
+}

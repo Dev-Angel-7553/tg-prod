@@ -1,0 +1,731 @@
+diff --git a/include/tinyasr.h b/include/tinyasr.h
+@@ -17,7 +17,8 @@ typedef struct tinyasr_models tinyasr_models;
+ typedef struct tinyasr_session tinyasr_session;
+ typedef struct tinyasr_file tinyasr_file;
+ 
+-/* Version of the library (its API and the model files it reads): 2. */
++/* Version of the library (its API and the model files it reads): 3. Reads TZF3 model files, which name their
++ * languages, and the TZF1 / TZF2 files of version 2. */
+ uint32_t tinyasr_version(void);
+ 
+ /* Model files from memory (copied): the recognizer (.tzf, int4, uncompressed; with its end-of-turn head, else a
+@@ -26,6 +27,10 @@ tinyasr_models *tinyasr_load(const uint8_t *asr, size_t asr_len, const uint8_t *
+                              size_t err_len);
+ void tinyasr_free(tinyasr_models *m);
+ uint32_t tinyasr_chunk_ms(const tinyasr_models *m); /* 0 for NULL */
++/* The model's languages: codes its file names ("en", "uz_cyrillic", ...), in its order; the library knows none of its
++ * own. Strings valid while the models are loaded; 0 / NULL for NULL or i out of range. */
++uint32_t tinyasr_lang_count(const tinyasr_models *m);
++const char *tinyasr_lang(const tinyasr_models *m, uint32_t i);
+ 
+ /* Threads. By default every call runs on the thread that makes it. The bigger steps of a pass (matrix products,
+  * attention heads, row blocks of a layer) can be split over more threads instead, with the same results to the bit for
+@@ -92,9 +97,9 @@ typedef void (*tinyasr_parallel_for)(void *user, size_t n, tinyasr_task task, vo
+ void tinyasr_set_threads(tinyasr_models *m, uint32_t threads);
+ void tinyasr_set_parallel_for(tinyasr_models *m, tinyasr_parallel_for parallel_for, void *user, uint32_t threads);
+ 
+-/* Live audio. langs: the languages to recognize in, comma-separated ("en", "en,ru"; NULL or "": all), e.g. from a
+- * language ID the host runs. One fixes the language; with several every full-context pass runs in each of them and
+- * the surest wins (that many times the cost). Starts from start_lang (may be NULL).
++/* Live audio. langs: the codes of the languages to recognize in, comma-separated ("en", "en,ru"; NULL or "": all of
++ * the model's; codes the model lacks are ignored), e.g. from a language ID the host runs. One fixes the language; with several every full-context pass runs in each of them and
++ * the surest wins (that many times the cost). Starts from start_lang (may be NULL: the first).
+  * clock: monotonic seconds, or NULL. beam: beam width of the full-context passes (0: the default, 4; 1: greedy,
+  * fastest; streaming text is always greedy). push / finish return a JSON array of events:
+  *   {"type":"commit","words":[{"text":"Hello,","start":0.52,"end":0.9}, ...]}   final words, appended
+@@ -107,7 +112,7 @@ tinyasr_session *tinyasr_session_new(const tinyasr_models *m, const char *langs,
+                                      double (*clock)(void), uint32_t beam);
+ const char *tinyasr_session_push(tinyasr_session *s, const float *pcm, size_t n);
+ const char *tinyasr_session_finish(tinyasr_session *s);
+-const char *tinyasr_session_lang(const tinyasr_session *s);
++const char *tinyasr_session_lang(const tinyasr_session *s); /* the current language's code (valid while the models are loaded) */
+ void tinyasr_session_free(tinyasr_session *s);
+ 
+ /* A recorded file (copied; langs and beam as for sessions): only the full-context pass, piece by piece. next returns the next piece's final
+diff --git a/src/ffi.rs b/src/ffi.rs
+@@ -8,14 +8,16 @@ use alloc::string::String;
+ use alloc::vec::Vec;
+ use core::ffi::{c_char, CStr};
+ 
+-use crate::{Event, Files, Lang, Models, Options, Session, Transcription, Word};
++use crate::{Event, Files, Models, Options, Session, Transcription, Word};
+ 
+ pub struct CSession {
++    m: &'static Models,
+     s: Session<'static>,
+     out: Vec<u8>,
+ }
+ 
+ pub struct CFile {
++    m: &'static Models,
+     f: Transcription<'static>,
+     out: Vec<u8>,
+ }
+@@ -31,22 +33,24 @@ unsafe fn samples<'a>(p: *const f32, n: usize) -> &'a [f32] {
+     if p.is_null() || n == 0 { &[] } else { unsafe { core::slice::from_raw_parts(p, n) } }
+ }
+ 
++/// A string (null or not UTF-8: empty).
+ /// # Safety: p is null or a NUL-terminated string.
+-unsafe fn lang(p: *const c_char) -> Option<Lang> {
++unsafe fn text<'a>(p: *const c_char) -> &'a str {
+     if p.is_null() {
+-        return None;
++        return "";
+     }
+-    unsafe { CStr::from_ptr(p) }.to_str().ok().and_then(Lang::from_code)
++    unsafe { CStr::from_ptr(p) }.to_str().unwrap_or("")
+ }
+ 
+-/// A comma-separated list ("en,ru"); null or empty: all.
++/// A comma-separated list of language codes ("en,ru"); null or empty: all.
+ /// # Safety: p is null or a NUL-terminated string.
+-unsafe fn langs(p: *const c_char) -> Vec<Lang> {
+-    if p.is_null() {
+-        return Vec::new();
+-    }
+-    let s = unsafe { CStr::from_ptr(p) }.to_str().unwrap_or("");
+-    s.split(',').filter_map(|c| Lang::from_code(c.trim())).collect()
++unsafe fn langs<'a>(p: *const c_char) -> Vec<&'a str> {
++    unsafe { text(p) }.split(',').map(str::trim).filter(|c| !c.is_empty()).collect()
++}
++
++/// The model's NUL-terminated copy of a language code (lives as long as the models).
++fn lang_str(m: &Models, code: &str) -> *const c_char {
++    m.asr.langs.iter().find(|l| l.code == code).map_or(core::ptr::null(), |l| l.code0.as_ptr() as *const c_char)
+ }
+ 
+ fn put(out: &mut Vec<u8>, s: &str) -> *const c_char {
+@@ -106,7 +110,11 @@ pub fn events_json(ev: &[Event]) -> String {
+                 words(tail, &mut o);
+                 o.push('}');
+             }
+-            Event::Language(l) => o.push_str(&format!("{{\"type\":\"language\",\"lang\":\"{}\"}}", l.code())),
++            Event::Language(l) => {
++                o.push_str("{\"type\":\"language\",\"lang\":");
++                esc(l, &mut o);
++                o.push('}');
++            }
+             Event::Eou { at, p } => o.push_str(&format!("{{\"type\":\"eou\",\"at\":{at:.2},\"p\":{p:.3}}}")),
+         }
+     }
+@@ -234,6 +242,20 @@ pub unsafe extern "C" fn tinyasr_chunk_ms(m: *const Models) -> u32 {
+     unsafe { m.as_ref() }.map_or(0, |m| m.chunk_ms())
+ }
+ 
++/// How many languages the model has.
++#[unsafe(no_mangle)]
++pub unsafe extern "C" fn tinyasr_lang_count(m: *const Models) -> u32 {
++    // SAFETY: m is null or came from tinyasr_load.
++    unsafe { m.as_ref() }.map_or(0, |m| m.asr.langs.len() as u32)
++}
++
++/// The code of the model's i-th language ("en", "uz_cyrillic", ...; valid while the models are loaded), or null.
++#[unsafe(no_mangle)]
++pub unsafe extern "C" fn tinyasr_lang(m: *const Models, i: u32) -> *const c_char {
++    // SAFETY: m is null or came from tinyasr_load.
++    unsafe { m.as_ref() }.and_then(|m| m.asr.langs.get(i as usize)).map_or(core::ptr::null(), |l| l.code0.as_ptr() as *const c_char)
++}
++
+ /// A live session. `langs`: the languages to recognize in, comma-separated ("en,ru"; null or "": all). One fixes the
+ /// language; with several the recognizer picks among them, starting from `start_lang` (may be null). `clock`: a monotonic clock in seconds, or null (re-decode time is then estimated).
+ /// `beam`: beam width of the full-context passes (0: the default, 4; 1: greedy).
+@@ -254,14 +276,12 @@ pub unsafe extern "C" fn tinyasr_session_new(
+         opt.beam = beam as usize;
+     }
+     // SAFETY: null or NUL-terminated strings.
+-    if let Some(l) = unsafe { lang(start_lang) } {
+-        opt.start_lang = l;
+-    }
++    opt.start_lang = unsafe { text(start_lang) }.into();
+     if let Some(c) = clock {
+         opt.clock = Some(Box::new(move || c()));
+     }
+     let s = Session::new(m, &unsafe { langs(lang_list) }, opt);
+-    Box::into_raw(Box::new(CSession { s, out: Vec::new() }))
++    Box::into_raw(Box::new(CSession { m, s, out: Vec::new() }))
+ }
+ 
+ /// Feed n samples (16 kHz); returns the events (JSON array).
+@@ -286,11 +306,11 @@ pub unsafe extern "C" fn tinyasr_session_finish(s: *mut CSession) -> *const c_ch
+     put(&mut s.out, &e)
+ }
+ 
+-/// The session's language code (static string).
++/// The session's language code (valid while the models are loaded).
+ #[unsafe(no_mangle)]
+ pub unsafe extern "C" fn tinyasr_session_lang(s: *const CSession) -> *const c_char {
+     // SAFETY: s is null or came from tinyasr_session_new.
+-    unsafe { s.as_ref() }.map_or(core::ptr::null(), |s| lang_str(s.s.lang()))
++    unsafe { s.as_ref() }.map_or(core::ptr::null(), |s| lang_str(s.m, s.s.lang()))
+ }
+ 
+ #[unsafe(no_mangle)]
+@@ -301,10 +321,6 @@ pub unsafe extern "C" fn tinyasr_session_free(s: *mut CSession) {
+     }
+ }
+ 
+-fn lang_str(l: Lang) -> *const c_char {
+-    [c"en", c"ru", c"uk", c"es", c"it", c"pt", c"uz", c"fa", c"km"][l as usize].as_ptr()
+-}
+-
+ /// A recorded file (n samples, 16 kHz, copied): VAD runs here. `langs` and `beam` as for sessions.
+ #[unsafe(no_mangle)]
+ pub unsafe extern "C" fn tinyasr_file_new(m: *const Models, pcm: *const f32, n: usize, lang_list: *const c_char, beam: u32) -> *mut CFile {
+@@ -316,13 +332,13 @@ pub unsafe extern "C" fn tinyasr_file_new(m: *const Models, pcm: *const f32, n:
+     let x = unsafe { samples(pcm, n) };
+     let beam = if beam > 0 { beam as usize } else { crate::DEFAULT_BEAM };
+     let f = Transcription::new(m, x, &unsafe { langs(lang_list) }, beam);
+-    Box::into_raw(Box::new(CFile { f, out: Vec::new() }))
++    Box::into_raw(Box::new(CFile { m, f, out: Vec::new() }))
+ }
+ 
+ #[unsafe(no_mangle)]
+ pub unsafe extern "C" fn tinyasr_file_lang(f: *const CFile) -> *const c_char {
+     // SAFETY: f is null or came from tinyasr_file_new.
+-    unsafe { f.as_ref() }.map_or(core::ptr::null(), |f| lang_str(f.f.lang()))
++    unsafe { f.as_ref() }.map_or(core::ptr::null(), |f| lang_str(f.m, f.f.lang()))
+ }
+ 
+ /// The next piece's final words (JSON array of {"text", "start", "end"}), or null when the file is done.
+diff --git a/src/file.rs b/src/file.rs
+@@ -14,7 +14,7 @@ use crate::model::Token;
+ use crate::session::{CAP, FR, SR, compress, longest_pause};
+ use crate::text::{W, balance_quotes, cap, end_mark, is_end, show_quotes, spans, trim_trail, units, words};
+ use crate::vad::{CHUNK, VadState};
+-use crate::{Lang, Models, Word, allowed};
++use crate::{Models, Word, allowed};
+ 
+ /// Frames of silence that end a sentence.
+ const LONG: usize = 75;
+@@ -24,8 +24,8 @@ pub struct Transcription<'m> {
+     m: &'m Models,
+     audio: Vec<f32>, // whole frames
+     vf: Vec<bool>,
+-    lang: Lang,
+-    langs: Vec<Lang>, // the recognizer picks among them for each piece
++    lang: usize,
++    langs: Vec<usize>, // places among the model's languages; the recognizer picks among them for each piece
+     beam: usize,
+     open0: usize, // frame where the next piece starts
+     ctx: usize,   // frames of left context for it
+@@ -36,7 +36,7 @@ pub struct Transcription<'m> {
+ impl<'m> Transcription<'m> {
+     /// `audio`: 16 kHz. `langs`: as for [`crate::Session::new`] (with several, the recognizer picks for each piece).
+     /// `beam`: beam width of the decoding ([`crate::DEFAULT_BEAM`]; 1: greedy, fastest).
+-    pub fn new(m: &'m Models, audio: &[f32], langs: &[Lang], beam: usize) -> Transcription<'m> {
++    pub fn new(m: &'m Models, audio: &[f32], langs: &[&str], beam: usize) -> Transcription<'m> {
+         let mut a = audio.to_vec();
+         a.resize(a.len().div_ceil(FR as usize) * FR as usize, 0.0);
+         // speech flags per 40 ms frame, from p > 0.5 until p < 0.35 (as live)
+@@ -55,9 +55,9 @@ impl<'m> Transcription<'m> {
+         Transcription { m, audio: a, vf, lang: langs[0], langs, beam: beam.max(1), open0: 0, ctx: 0, ended: true, last_end: 0.0 }
+     }
+ 
+-    /// The language (`Model`: of the last piece).
+-    pub fn lang(&self) -> Lang {
+-        self.lang
++    /// The language's code (with several: of the last piece).
++    pub fn lang(&self) -> &str {
++        self.m.code(self.lang)
+     }
+ 
+     /// Audio length (s).
+@@ -73,12 +73,12 @@ impl<'m> Transcription<'m> {
+     /// The words out, timed by [`spans`] from the last word given out.
+     fn out(&mut self, ws: &[W]) -> Vec<Word> {
+         let vf = &self.vf;
+-        let ws = if self.lang == Lang::Km { units(ws.to_vec()) } else { ws.to_vec() }; // Khmer: timed syllables
++        let ws = if self.m.asr.langs[self.lang].syllables { units(ws.to_vec()) } else { ws.to_vec() }; // Khmer: timed syllables
+         let sp = spans(&ws, self.last_end, |f| usize::try_from(f).ok().and_then(|i| vf.get(i).copied()));
+         if let Some(&(_, e)) = sp.last() {
+             self.last_end = e as f64;
+         }
+-        ws.into_iter().zip(sp).map(|(w, (start, end))| Word { text: show_quotes(w.w, self.lang), start, end, join: w.join }).collect()
++        ws.into_iter().zip(sp).map(|(w, (start, end))| Word { text: show_quotes(w.w, &self.m.asr.langs[self.lang]), start, end, join: w.join }).collect()
+     }
+ }
+ 
+@@ -129,7 +129,7 @@ impl Transcription<'_> {
+                 if end {
+                     if let Some(last) = ws.last_mut() {
+                         if !is_end(&last.w) {
+-                            last.w = format!("{}{}", trim_trail(&last.w), end_mark(self.lang));
++                            last.w = format!("{}{}", trim_trail(&last.w), end_mark(&self.m.asr.langs[self.lang]));
+                         }
+                     }
+                 }
+diff --git a/src/lib.rs b/src/lib.rs
+@@ -10,16 +10,17 @@
+ //!   words come out piece by piece as they are decoded (an iterator).
+ //!
+ //! Every model is a file the caller hands over as bytes ([`Files`]): the recognizer (.tzf, int4, with its end-of-turn
+-//! head; uncompressed - the host unzips a .tzf.gz) and Silero VAD straight from its ONNX file. Which languages to recognize
+-//! in is the host's choice (it may run a language ID such as tinylid first). The host calls in from whatever thread it
++//! head; uncompressed - the host unzips a .tzf.gz) and Silero VAD straight from its ONNX file. Languages are codes the
++//! model file names (`"en"`, `"uz_cyrillic"`, ...; [`Models::langs`]), with their writing rules: the library knows none
++//! of its own. Which ones to recognize in is the host's choice (it may run a language ID such as tinylid first). The host calls in from whatever thread it
+ //! likes; the work runs on that thread, or on as many as the host allows ([`Models::set_threads`], or its own
+ //! parallel-for: [`Models::set_parallel_for`]), with the same results.
+ //!
+ //! ```no_run
+ //! # let read = |p: &str| std::fs::read(p).unwrap();
+ //! let (asr, vad) = (read("model.tzf"), read("silero_vad.onnx"));
+ //! let models = tinyasr::Models::load(tinyasr::Files { asr: &asr, vad: &vad }).unwrap();
+-//! let mut s = tinyasr::Session::new(&models, &[tinyasr::Lang::En], Default::default());
++//! let mut s = tinyasr::Session::new(&models, &["en"], Default::default());
+ //! let mic: Vec<f32> = vec![0.0; 16000];
+ //! for e in s.push(&mic).into_iter().chain(s.finish()) {
+ //!     if let tinyasr::Event::Commit(words) = e { println!("{words:?}") }
+@@ -62,45 +63,19 @@ pub const SAMPLE_RATE: u32 = 16_000;
+ /// Beam width of the full-context pass unless the host sets one ([`Options::beam`], [`Transcription::new`]); 1 is greedy.
+ pub const DEFAULT_BEAM: usize = 4;
+ 
+-/// Version of the library (its API and the model files it reads); C: `tinyasr_version()`.
++/// Version of the library (its API and the model files it reads: TZF3, which names its languages, and the older
++/// TZF1/TZF2); C: `tinyasr_version()`.
+ pub fn version() -> u32 {
+-    2
++    3
+ }
+ 
+-/// Recognition languages (the order of the model's language embeddings).
+-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+-pub enum Lang {
+-    En = 0,
+-    Ru = 1,
+-    Uk = 2,
+-    Es = 3,
+-    It = 4,
+-    Pt = 5,
+-    Uz = 6,
+-    Fa = 7,
+-    Km = 8,
+-}
+-
+-impl Lang {
+-    pub const ALL: [Lang; 9] = [Lang::En, Lang::Ru, Lang::Uk, Lang::Es, Lang::It, Lang::Pt, Lang::Uz, Lang::Fa, Lang::Km];
+-
+-    pub fn code(self) -> &'static str {
+-        ["en", "ru", "uk", "es", "it", "pt", "uz", "fa", "km"][self as usize]
+-    }
+-
+-    pub fn from_code(c: &str) -> Option<Lang> {
+-        Lang::ALL.into_iter().find(|l| l.code() == c)
+-    }
+-
+-}
+-
+-/// The languages a recognition may use, as the host allows them: one fixes it; with several the recognizer picks
+-/// (every full-context pass runs in each of them and keeps the transcript it is most sure of: that many times the
+-/// cost of those passes). Only the model's own count; none of them (or empty): all of the model's.
+-fn allowed(m: &Models, langs: &[Lang]) -> Vec<Lang> {
+-    let own = m.langs();
+-    let l: Vec<Lang> = own.iter().copied().filter(|l| langs.contains(l)).collect();
+-    if l.is_empty() { own.to_vec() } else { l }
++/// The languages a recognition may use, as the host allows them (codes; places among the model's): one fixes it;
++/// with several the recognizer picks (every full-context pass runs in each of them and keeps the transcript it is most
++/// sure of: that many times the cost of those passes). Only the model's own count; none of them (or empty): all of
++/// the model's.
++fn allowed(m: &Models, langs: &[&str]) -> Vec<usize> {
++    let l: Vec<usize> = (0..m.asr.langs.len()).filter(|&k| langs.contains(&m.asr.langs[k].code.as_str())).collect();
++    if l.is_empty() { (0..m.asr.langs.len()).collect() } else { l }
+ }
+ 
+ /// A recognized word: its text (with punctuation) and times (s from the start of the audio). `join`: written without a
+@@ -121,8 +96,8 @@ pub enum Event {
+     /// The words not final yet, replacing the previous `Partial`: `open` from the full-context re-decode, `tail` from
+     /// the streaming pass after it (newest, least sure).
+     Partial { open: Vec<Word>, tail: Vec<Word> },
+-    /// With several languages: the recognizer switched to this one (words from now on are in it).
+-    Language(Lang),
++    /// With several languages: the recognizer switched to this one (its code; words from now on are in it).
++    Language(String),
+     /// Diagnostics: the end-of-turn head at a pause (time s, P(the speaker has finished)).
+     Eou { at: f32, p: f32 },
+ }
+@@ -178,9 +153,14 @@ impl Models {
+         body()
+     }
+ 
+-    /// The languages of the recognizer: en, ru, uk; en, es, it, pt; en, ru, uz; en, fa; or en, km.
+-    pub fn langs(&self) -> &[Lang] {
+-        &self.asr.langs
++    /// The languages of the recognizer: the codes its file names, in its order.
++    pub fn langs(&self) -> Vec<&str> {
++        self.asr.langs.iter().map(|l| l.code.as_str()).collect()
++    }
++
++    /// The code of the model's `k`-th language.
++    fn code(&self, k: usize) -> &str {
++        &self.asr.langs[k].code
+     }
+ 
+     /// Streaming chunk of the recognizer (ms).
+@@ -190,13 +170,13 @@ impl Models {
+ 
+     /// The full-context pass in the one of `langs` the model is most sure of (mean token log-probability): (tokens,
+     /// that language; None if it wrote nothing).
+-    fn full(&self, x: &[f32], langs: &[Lang], beam: usize) -> (Vec<crate::model::Token>, Option<Lang>) {
++    fn full(&self, x: &[f32], langs: &[usize], beam: usize) -> (Vec<crate::model::Token>, Option<usize>) {
+         if let [l] = langs {
+-            return (self.asr.full(x, self.asr.lang_index(*l), beam), Some(*l));
++            return (self.asr.full(x, *l, beam), Some(*l));
+         }
+-        let mut best: Option<(f32, Vec<crate::model::Token>, Lang)> = None;
++        let mut best: Option<(f32, Vec<crate::model::Token>, usize)> = None;
+         for &l in langs {
+-            let t = self.asr.full(x, self.asr.lang_index(l), beam);
++            let t = self.asr.full(x, l, beam);
+             let sc = if t.is_empty() { -1e9 } else { t.iter().map(|k| k.logp).sum::<f32>() / t.len() as f32 };
+             if best.as_ref().is_none_or(|b| sc > b.0) {
+                 best = Some((sc, t, l));
+@@ -209,15 +189,16 @@ impl Models {
+ 
+     /// P(the speaker has finished) at the end of `turn` (the audio since the last sentence end, with the pause); None
+     /// without the head or for a turn too short to decode.
+-    fn eou(&self, turn: &[f32], lang: Lang) -> Option<f32> {
+-        self.asr.full_head(turn, self.asr.lang_index(lang)).1
++    fn eou(&self, turn: &[f32], lang: usize) -> Option<f32> {
++        self.asr.full_head(turn, lang).1
+     }
+ }
+ 
+ /// Session settings.
+ pub struct Options {
+-    /// With several languages: the one to assume until the first pick (e.g. the last session's, or the UI's).
+-    pub start_lang: Lang,
++    /// With several languages: the one to assume until the first pick (its code, e.g. the last session's, or the
++    /// UI's); empty or not allowed: the first allowed.
++    pub start_lang: String,
+     /// A monotonic clock (s). Re-decodes are spaced by how long they took, to keep them under ~1/3 of real time on a
+     /// slow device; without a clock their time is estimated as `decode_rtf` x the audio.
+     pub clock: Option<Box<dyn Fn() -> f64>>,
+@@ -229,6 +210,6 @@ pub struct Options {
+ 
+ impl Default for Options {
+     fn default() -> Options {
+-        Options { start_lang: Lang::En, clock: None, decode_rtf: 0.1, beam: DEFAULT_BEAM }
++        Options { start_lang: String::new(), clock: None, decode_rtf: 0.1, beam: DEFAULT_BEAM }
+     }
+ }
+diff --git a/src/model.rs b/src/model.rs
+@@ -22,6 +22,7 @@ use alloc::format;
+ 
+ pub struct Tensors<'a> {
+     cfg: BTreeMap<String, i32>,
++    text: BTreeMap<String, String>, // TZF3: text settings (language codes and rules)
+     t: BTreeMap<String, (Vec<usize>, Data<'a>)>,
+     pub pieces: Vec<String>,
+ }
+@@ -156,21 +157,30 @@ impl<'a> Rd<'a> {
+ }
+ 
+ impl<'a> Tensors<'a> {
+-    /// The `.tzf` file written by `export_tzf.py` (TZF1: f32) or `export_tzf2.py` (TZF2: integer weights). Every size
+-    /// is checked against the file, so a corrupted file is an error here, never a crash.
++    /// The `.tzf` file written by `export_tzf.py` (TZF1: f32) or `export_tzf2.py` (TZF2: integer weights; TZF3: as
++    /// TZF2 plus text settings after the integer ones). Every size is checked against the file, so a corrupted file is
++    /// an error here, never a crash.
+     pub fn parse(b: &'a [u8]) -> R<Tensors<'a>> {
+         let mut r = Rd { b, p: 0 };
+-        let v2 = match r.take(4)? {
+-            b"TZF1" => false,
+-            b"TZF2" => true,
+-            _ => return Err("not a tinyasr model file (TZF1/TZF2)"),
++        let (v2, v3) = match r.take(4)? {
++            b"TZF1" => (false, false),
++            b"TZF2" => (true, false),
++            b"TZF3" => (true, true),
++            _ => return Err("not a tinyasr model file (TZF1/TZF2/TZF3)"),
+         };
+         let mut cfg = BTreeMap::new();
+         for _ in 0..r.u32()? {
+             let k = r.str()?;
+             let v = r.take(4)?;
+             cfg.insert(k, i32::from_le_bytes([v[0], v[1], v[2], v[3]]));
+         }
++        let mut text = BTreeMap::new();
++        if v3 {
++            for _ in 0..r.u32()? {
++                let k = r.str()?;
++                text.insert(k, r.str()?);
++            }
++        }
+         let mut t = BTreeMap::new();
+         for _ in 0..r.u32()? {
+             let k = r.str()?;
+@@ -208,7 +218,7 @@ impl<'a> Tensors<'a> {
+             t.insert(k, (dims, Data::Int(Ints { bits, group, row, scale, raw })));
+         }
+         let pieces = (0..r.u32()?).map(|_| r.str()).collect::<R<Vec<_>>>()?;
+-        Ok(Tensors { cfg, t, pieces })
++        Ok(Tensors { cfg, text, t, pieces })
+     }
+ 
+     /// A setting, which must lie in lo..=hi.
+@@ -1106,13 +1116,81 @@ pub struct Model {
+     pub chunk: usize,
+     pub pieces: Vec<String>,
+     /// The languages, in the model's order (its lang_embed rows and output blocks).
+-    pub langs: Vec<crate::Lang>,
++    pub langs: Vec<LangInfo>,
++}
++
++/// A language of the model: its code and how its text is written, all from the model file (TZF3: "lang.K" = code,
++/// "lang.K.full_stop", "lang.K.quotes", "lang.K.own", "lang.K.syllables"; older files: [`legacy_langs`]).
++pub struct LangInfo {
++    pub code: String,
++    /// `code` NUL-terminated (the C API hands it out).
++    pub code0: String,
++    /// The full stop a sentence gets when the model wrote none.
++    pub full_stop: char,
++    /// What the model's « » are shown as (None: as written).
++    pub quotes: Option<(char, char)>,
++    /// Letters of the shared token block only this language may write (another language's tokens with them are left out).
++    pub own: String,
++    /// Words with Khmer letters come out as timed syllables (Khmer writes no spaces inside a phrase).
++    pub syllables: bool,
++}
++
++impl LangInfo {
++    fn new(code: &str) -> LangInfo {
++        LangInfo { code: code.into(), code0: format!("{code}\0"), full_stop: '.', quotes: None, own: String::new(), syllables: false }
++    }
++}
++
++/// The languages of a TZF1/TZF2 file (library version 2): "lang.K" = index into the codes of that version (files from
++/// en-ru-uz on), older files by their count; the writing rules of those models.
++fn legacy_langs(w: &Tensors, n: usize) -> R<Vec<LangInfo>> {
++    const V2: [&str; 9] = ["en", "ru", "uk", "es", "it", "pt", "uz", "fa", "km"];
++    let codes: Vec<&str> = if w.cfg.contains_key("lang.0") {
++        (0..n).map(|k| w.c(&format!("lang.{k}"), 0, V2.len() - 1).map(|i| V2[i])).collect::<R<_>>()?
++    } else {
++        match n {
++            3 => vec!["en", "ru", "uk"],
++            4 => vec!["en", "es", "it", "pt"],
++            _ => return Err("model file: unknown language set"),
++        }
++    };
++    Ok(codes
++        .into_iter()
++        .map(|c| {
++            let mut l = LangInfo::new(c);
++            match c {
++                "uk" => l.own = "ґҐ".into(),
++                "km" => (l.full_stop, l.quotes, l.syllables) = ('។', Some(('“', '”')), true),
++                _ => {}
++            }
++            l
++        })
++        .collect())
++}
++
++/// The languages of a TZF3 file: every rule from its text settings.
++fn file_langs(w: &Tensors, n: usize) -> R<Vec<LangInfo>> {
++    let one = |k: usize, key: &str| w.text.get(&format!("lang.{k}.{key}")).and_then(|s| s.chars().next());
++    (0..n)
++        .map(|k| {
++            let code = w.text.get(&format!("lang.{k}")).filter(|c| !c.is_empty()).ok_or(SETTING)?;
++            let mut l = LangInfo::new(code);
++            l.full_stop = one(k, "full_stop").unwrap_or('.');
++            l.quotes = w.text.get(&format!("lang.{k}.quotes")).and_then(|q| {
++                let mut c = q.chars();
++                Some((c.next()?, c.next()?))
++            });
++            l.own = w.text.get(&format!("lang.{k}.own")).cloned().unwrap_or_default();
++            l.syllables = w.cfg.get(&format!("lang.{k}.syllables")).is_some_and(|&v| v != 0);
++            Ok(l)
++        })
++        .collect()
+ }
+ 
+ impl Model {
+-    /// `l`'s place among the model's languages (its first, English, for one it doesn't have).
+-    pub fn lang_index(&self, l: crate::Lang) -> usize {
+-        self.langs.iter().position(|&m| m == l).unwrap_or(0)
++    /// The place of the language with this code among the model's (None: the model has no such language).
++    pub fn lang_index(&self, code: &str) -> Option<usize> {
++        self.langs.iter().position(|l| l.code == code)
+     }
+ }
+ 
+@@ -1256,23 +1334,9 @@ impl Model {
+             out: Linear { w: out_w, b: Some(w.vec("encoder_embed.out.bias", d0)?) },
+             norm: BiasNorm::load(&mut w, "encoder_embed.out_norm", d0)?,
+         };
+-        use crate::Lang;
+-        // the language set: "lang.K" = Lang index of the K-th language (files from en-ru-uz on); older files by its size
+-        let n = w.c("n_langs", 1, Lang::ALL.len())?;
+-        let langs = if w.cfg.contains_key("lang.0") {
+-            let mut v = alloc::vec::Vec::new();
+-            for k in 0..n {
+-                let i = w.c(&alloc::format!("lang.{k}"), 0, Lang::ALL.len() - 1)?;
+-                v.push(Lang::ALL[i]);
+-            }
+-            v
+-        } else {
+-            match n {
+-                3 => alloc::vec![Lang::En, Lang::Ru, Lang::Uk],
+-                4 => alloc::vec![Lang::En, Lang::Es, Lang::It, Lang::Pt],
+-                _ => return Err("model file: unknown language set"),
+-            }
+-        };
++        // the languages: the file's own codes and rules (TZF3), or those of the version 2 codes
++        let n = w.c("n_langs", 1, 256)?;
++        let langs = if w.text.is_empty() { legacy_langs(&w, n)? } else { file_langs(&w, n)? };
+         let le = w.get("lang_embed.weight")?.1;
+         if le.len() < n * d0 {
+             return Err(SHAPE);
+@@ -1312,9 +1376,12 @@ impl Model {
+         let (shared, size) = (shared as u32, size as u32);
+         let out = (0..n as u32)
+             .map(|k| {
+-                // shared block + English; ґ pieces in the shared block (reserved ids, tok_dir/extra.json) only for Ukrainian
+-                let uk_only = |i: u32| i < shared && w.pieces.get(i as usize).is_some_and(|p| p.contains('ґ') || p.contains('Ґ'));
+-                let mut ids: Vec<u32> = (0..shared + size).filter(|&i| langs[k as usize] == Lang::Uk || !uk_only(i)).collect();
++                // shared block + English; a shared piece with a letter some language owns (ґ: Ukrainian; reserved ids,
++                // tok_dir/extra.json) only for the languages that own it
++                let own = &langs[k as usize].own;
++                let other = |c: char| !own.contains(c) && langs.iter().any(|l| l.own.contains(c));
++                let mut ids: Vec<u32> =
++                    (0..shared + size).filter(|&i| i >= shared || !w.pieces.get(i as usize).is_some_and(|p| p.chars().any(other))).collect();
+                 if k != 0 {
+                     ids.extend(shared + k * size..shared + (k + 1) * size);
+                 }
+diff --git a/src/session.rs b/src/session.rs
+@@ -19,7 +19,7 @@ use crate::model::Token;
+ use crate::compat::F64Ext;
+ use crate::text::{W, balance_quotes, cap, end_mark, is_end, norm, show_quotes, spans, trim_trail, units, words};
+ use crate::vad::{CHUNK, VadState};
+-use crate::{Event, Lang, Models, Options, Word, allowed};
++use crate::{Event, Models, Options, Word, allowed};
+ 
+ pub(crate) const SR: i64 = 16000;
+ /// 40 ms frames: the unit of all cuts and of the VAD flags.
+@@ -40,8 +40,8 @@ pub struct Session<'m> {
+     opt: Options,
+     #[cfg(all(feature = "std", not(target_arch = "wasm32")))]
+     t_start: std::time::Instant,
+-    langs: Vec<Lang>,
+-    lang: Lang,
++    langs: Vec<usize>, // places among the model's languages
++    lang: usize,
+     stream: crate::model::Stream<'m>,
+     h0: i64,
+     stoks: Vec<Token>,
+@@ -73,19 +73,19 @@ pub struct Session<'m> {
+ }
+ 
+ impl<'m> Session<'m> {
+-    /// `langs`: the languages to recognize in (empty: all). One fixes the language; with several the recognizer picks
+-    /// among them at every re-decode (that many full-context passes each time).
+-    pub fn new(m: &'m Models, langs: &[Lang], opt: Options) -> Session<'m> {
++    /// `langs`: the codes of the languages to recognize in (empty: all of the model's). One fixes the language; with
++    /// several the recognizer picks among them at every re-decode (that many full-context passes each time).
++    pub fn new(m: &'m Models, langs: &[&str], opt: Options) -> Session<'m> {
+         let langs = allowed(m, langs);
+-        let lang = if langs.contains(&opt.start_lang) { opt.start_lang } else { langs[0] };
++        let lang = m.asr.lang_index(&opt.start_lang).filter(|l| langs.contains(l)).unwrap_or(langs[0]);
+         Session {
+             m,
+             #[cfg(all(feature = "std", not(target_arch = "wasm32")))]
+             t_start: std::time::Instant::now(),
+             opt,
+             langs,
+             lang,
+-            stream: m.asr.stream(m.asr.lang_index(lang)),
++            stream: m.asr.stream(lang),
+             h0: 0,
+             stoks: Vec::new(),
+             pending: Vec::new(),
+@@ -116,9 +116,9 @@ impl<'m> Session<'m> {
+         }
+     }
+ 
+-    /// The current language (after `finish`: the one the session ended with).
+-    pub fn lang(&self) -> Lang {
+-        self.lang
++    /// The current language's code (after `finish`: the one the session ended with).
++    pub fn lang(&self) -> &str {
++        self.m.code(self.lang)
+     }
+ 
+     /// Feed 16 kHz audio (any length); returns what changed.
+@@ -179,11 +179,11 @@ impl<'m> Session<'m> {
+         let f0 = self.aud0 / FR;
+         // the given texts (capitals) on the words; Khmer words cut into timed syllables
+         let mut ws: Vec<W> = ws.iter().zip(texts).map(|(w, text)| W { w: text, ..w.clone() }).collect();
+-        if self.lang == Lang::Km {
++        if self.m.asr.langs[self.lang].syllables {
+             ws = units(ws);
+         }
+         let sp = spans(&ws, from, |f| usize::try_from(f - f0).ok().and_then(|i| self.vf.get(i).copied()));
+-        ws.into_iter().zip(sp).map(|(w, (start, end))| Word { text: show_quotes(w.w, self.lang), start, end, join: w.join }).collect()
++        ws.into_iter().zip(sp).map(|(w, (start, end))| Word { text: show_quotes(w.w, &self.m.asr.langs[self.lang]), start, end, join: w.join }).collect()
+     }
+ 
+     fn stream_words(&self) -> Vec<W> {
+@@ -225,7 +225,7 @@ impl<'m> Session<'m> {
+ 
+     /// A stream in the current language over the audio from `from` on (language switch).
+     fn new_stream(&mut self, from: i64) {
+-        self.stream = self.m.asr.stream(self.m.asr.lang_index(self.lang));
++        self.stream = self.m.asr.stream(self.lang);
+         self.h0 = from;
+         self.stoks.clear();
+         if self.pos > from {
+@@ -273,7 +273,7 @@ impl<'m> Session<'m> {
+             key.push_str(&w.text);
+             key.push(' ');
+         }
+-        key.push_str(self.lang.code());
++        key.push_str(self.m.code(self.lang));
+         if key != self.last_shown {
+             self.last_shown = key;
+             self.ev.push(Event::Partial { open, tail });
+@@ -302,7 +302,7 @@ impl<'m> Session<'m> {
+             // the model picked another language: the stream follows
+             self.lang = l;
+             self.new_stream(self.open0);
+-            self.ev.push(Event::Language(l));
++            self.ev.push(Event::Language(self.m.code(l).into()));
+         }
+         let secs = match (t0, self.now()) {
+             (Some(a), Some(b)) => b - a,
+@@ -392,7 +392,7 @@ impl<'m> Session<'m> {
+         self.turn0 = self.pos;
+         let Some(last) = self.open.last_mut() else { return };
+         if !is_end(&last.w) {
+-            last.w = format!("{}{}", trim_trail(&last.w), end_mark(self.lang));
++            last.w = format!("{}{}", trim_trail(&last.w), end_mark(&self.m.asr.langs[self.lang]));
+         }
+         self.freeze(self.open.len(), self.pos - FR, 0);
+     }
+diff --git a/src/text.rs b/src/text.rs
+@@ -169,15 +169,18 @@ pub fn is_end(w: &str) -> bool {
+     w.ends_with(['.', '?', '!', '…', '។', '؟'])
+ }
+ 
+-/// The full stop a sentence gets when the model wrote none: Khmer ។, else "."
+-pub fn end_mark(lang: crate::Lang) -> char {
+-    if lang == crate::Lang::Km { '។' } else { '.' }
++/// The full stop a sentence gets when the model wrote none (the language's, from the model file).
++pub fn end_mark(lang: &crate::model::LangInfo) -> char {
++    lang.full_stop
+ }
+ 
+-/// The quote marks as the language writes them: the model writes « » (two shared tokens); Khmer readers expect “ ”
+-/// (native speakers, reports/khmer_label_decisions.md).
+-pub fn show_quotes(w: String, lang: crate::Lang) -> String {
+-    if lang == crate::Lang::Km && w.contains(['«', '»']) { w.replace('«', "“").replace('»', "”") } else { w }
++/// The quote marks as the language writes them: the model writes « » (two shared tokens), shown as the model file
++/// says for the language (Khmer: “ ”).
++pub fn show_quotes(w: String, lang: &crate::model::LangInfo) -> String {
++    match lang.quotes {
++        Some((a, b)) if w.contains(['«', '»']) => w.replace('«', a.encode_utf8(&mut [0; 4])).replace('»', b.encode_utf8(&mut [0; 4])),
++        _ => w,
++    }
+ }
+ 
+ /// Without trailing , ; : — – - (Persian ، ؛)

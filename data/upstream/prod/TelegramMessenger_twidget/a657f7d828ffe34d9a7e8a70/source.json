@@ -1,0 +1,21 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/twidget:7c0659d030a3a8862bdbd4fa89a44bc391911ee1:code:mixed",
+  "files": [
+    {
+      "additions": 6,
+      "deletions": 21,
+      "filename": "litehtml/src/render_flex.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "js-sandbox",
+    "date": "2026-11-19T13:34:16Z",
+    "repo": "TelegramMessenger/twidget",
+    "sha": "7c0659d030a3a8862bdbd4fa89a44bc391911ee1",
+    "url": "https://github.com/TelegramMessenger/twidget/compare/09080a5af11aed547ef1cb3e8a7630e73681fc38...7c0659d030a3a8862bdbd4fa89a44bc391911ee1"
+  }
+}

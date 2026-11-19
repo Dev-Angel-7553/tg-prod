@@ -1,0 +1,56 @@
+{
+  "category": "web",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:7e17ec155fa2e32595a87838aa91445543af8004:web:beta",
+  "files": [
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283549-arm64-58b9d6b09317.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283549-arm64-bcj-99f1675f0f0f.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283549-arm64-from-283546-4bd4c6ede873.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283549-arm64-from-283547-dbe300448b1a.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283549-arm64-from-283548-5aa0ce8cdcf6.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283549-x86_64-cf1892fe9514.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283549.app.zip.sha256",
+      "status": "removed"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-19T00:52:58Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "7e17ec155fa2e32595a87838aa91445543af8004",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/7e17ec155fa2e32595a87838aa91445543af8004"
+  }
+}

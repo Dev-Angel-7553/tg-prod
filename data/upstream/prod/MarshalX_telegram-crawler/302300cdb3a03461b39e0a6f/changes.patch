@@ -1,0 +1,140 @@
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-bcj-3e12830efc55.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-bcj-3e12830efc55.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-3e12830efc55d01590216c15ed9d8f9b6ecf75a7222da7c0ced73107003dc042
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-fb6ee4bbcf4f.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-fb6ee4bbcf4f.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-fb6ee4bbcf4fd65c38ed8b6cefb5659a9f9f871caef7fbc66288d8289a0ccb40
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-from-283543-e744e6ffa9df.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-from-283543-e744e6ffa9df.delta.sha256
+@@ -1 +0,0 @@
+-e744e6ffa9dfa0ce726448e4f99e9d5facef7502f34df366c9c2ca6895ca6c9d
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-from-283545-be2ef0e2bebc.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-from-283545-be2ef0e2bebc.delta.sha256
+@@ -1 +0,0 @@
+-be2ef0e2bebc2bd769b02a8fe0519509d42608d29b5e52ca423d950fc05de82a
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-from-283546-3e83092b0063.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-arm64-from-283546-3e83092b0063.delta.sha256
+@@ -1 +0,0 @@
+-3e83092b006307c7a0753803b8200105901bab76d2267b01328b270451addfce
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-x86_64-5010a8ec493c.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547-x86_64-5010a8ec493c.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-5010a8ec493cbb45ac15304cbd673bd90d304a7b5973d666a2a7b7fb05476d98
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547.app.zip.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283547.app.zip.sha256
+@@ -1 +0,0 @@
+-a277a2c6e006d430172b4fe6ef65916f945942e12d17c03067db32c298b559e3
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-bcj-c73831164cfa.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-bcj-c73831164cfa.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-c73831164cfa2aac5a09356705a7ab0eff51bcccf11194a7dd853c59fe636821
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-eb1ec46de5b8.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-eb1ec46de5b8.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-eb1ec46de5b842e768d2ba895ca7b335ad02ab42e34e7643c9f07cfa379c6c29
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-from-283545-6fd74f703929.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-from-283545-6fd74f703929.delta.sha256
+@@ -1 +0,0 @@
+-6fd74f7039291b83f74cf3fa4800a583f4c31e8198f1c1cd17a7863d00620ffc
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-from-283546-7986bb6aa9b1.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-from-283546-7986bb6aa9b1.delta.sha256
+@@ -1 +0,0 @@
+-7986bb6aa9b11a61c8a5d11040aa7831ca958c06e49b7c691d2e2a376ef1707f
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-from-283547-d0cbd9b0442a.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-arm64-from-283547-d0cbd9b0442a.delta.sha256
+@@ -1 +0,0 @@
+-d0cbd9b0442a1cda9fea08c563fec7f9dfaa9e874edebfa693b461c35dfd7696
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-x86_64-04fbfc74ded3.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548-x86_64-04fbfc74ded3.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-04fbfc74ded3b0b698cb1f2646cb653b5dd0eda5e5b34ff1c33eeb3c1622f459
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548.app.zip.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283548.app.zip.sha256
+@@ -1 +0,0 @@
+-10f78c499228cec46d312a8f3e2d13a9157bed5f3ea65a2840154b8b922eaa7c
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-a89546d78ac0.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-a89546d78ac0.app.tar.xz.sha256
+@@ -0,0 +1 @@
++a89546d78ac04bc658ad3510dc371c8825121b4340fbb55dd5601facc5b22fdf
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-bcj-f0ea0117b74d.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-bcj-f0ea0117b74d.app.tar.xz.sha256
+@@ -0,0 +1 @@
++f0ea0117b74dd1074acd78f715b16f5b47a4aed0d18cab2669f6fea3ec81edaf
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-from-283571-4dde45662c55.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-from-283571-4dde45662c55.delta.sha256
+@@ -0,0 +1 @@
++4dde45662c55b10eb5daf68d4e91fda255546b7d6d55ffdfbed89693a80fe842
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-from-283573-a106153e798a.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-from-283573-a106153e798a.delta.sha256
+@@ -0,0 +1 @@
++a106153e798af27cf6d58da61f2690c9260b2cc7d127d3d6ba9a5b3cc7f04383
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-from-283574-ca44126bcbd6.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-arm64-from-283574-ca44126bcbd6.delta.sha256
+@@ -0,0 +1 @@
++ca44126bcbd6e4224c8a93a09f27134fd17602ad0e6b38a0b5dcabc2fa2e6a4b
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-x86_64-ada7f6f8d077.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575-x86_64-ada7f6f8d077.app.tar.xz.sha256
+@@ -0,0 +1 @@
++ada7f6f8d077bc50e3872720bc8970437711798df237b60167cc7c2614eef15c
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575.app.zip.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283575.app.zip.sha256
+@@ -0,0 +1 @@
++130774bf5f6c2dc7fa3c4370ceea36497d769c383a51ed6f283a0b716fdf67e0
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-bcj-b54161728cb6.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-bcj-b54161728cb6.app.tar.xz.sha256
+@@ -0,0 +1 @@
++b54161728cb6d65529eb6aa6a3beb3eebf1d649d9b5b62c7330335a4fdc9bf66
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-ecb65bf553f1.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-ecb65bf553f1.app.tar.xz.sha256
+@@ -0,0 +1 @@
++ecb65bf553f1d990920857efe8987506612f969eb4c5e319504e6ee523a1bed6
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-from-283573-fb5edcab2b5d.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-from-283573-fb5edcab2b5d.delta.sha256
+@@ -0,0 +1 @@
++fb5edcab2b5dab4efada91d3b78277948cf2b650d898718febbbb2f3e4ab4f39
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-from-283574-5debde26d862.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-from-283574-5debde26d862.delta.sha256
+@@ -0,0 +1 @@
++5debde26d8626c2642fef790d0cc84b5b569885f40522880bc03310fcbfca3df
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-from-283575-85bc77c3f1b2.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-arm64-from-283575-85bc77c3f1b2.delta.sha256
+@@ -0,0 +1 @@
++85bc77c3f1b281e5094c95d69587df623a0dc085d19008816ae5db1208c47b35
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-x86_64-44398a2f6364.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576-x86_64-44398a2f6364.app.tar.xz.sha256
+@@ -0,0 +1 @@
++44398a2f63645c0148b5df0126d02e77c35aeb0f8ec871e3c6c3513f142852ec
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576.app.zip.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283576.app.zip.sha256
+@@ -0,0 +1 @@
++b21e57be39fe42c39bbbff3e944705b5271a0b2e31aeba8ed4a8eace6a468e39
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-bcj-c299f5ebc69f.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-bcj-c299f5ebc69f.app.tar.xz.sha256
+@@ -0,0 +1 @@
++c299f5ebc69f6961c97c4c683757c9645e2da7ce89f4a57161c81158fab460f3
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-e218b327edf3.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-e218b327edf3.app.tar.xz.sha256
+@@ -0,0 +1 @@
++e218b327edf3595ccedc0b994937f5a3597eb211ada7b46272faa5a29361cd42
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-from-283574-3b30df5ed778.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-from-283574-3b30df5ed778.delta.sha256
+@@ -0,0 +1 @@
++3b30df5ed7789cb427f69b4c82df2f58ad55b43f23a1d34490c27f0cde32d95e
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-from-283575-2216d824bb03.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-from-283575-2216d824bb03.delta.sha256
+@@ -0,0 +1 @@
++2216d824bb03930bfa0fa2fc9355e905791c8ef81caf6b983cc00aedcdd95107
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-from-283576-ba7ecda79349.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-arm64-from-283576-ba7ecda79349.delta.sha256
+@@ -0,0 +1 @@
++ba7ecda7934979bcde5f853e7d3d9d7157b2a19ab810aae10daedd71001cd2c6
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-x86_64-339b41623e40.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577-x86_64-339b41623e40.app.tar.xz.sha256
+@@ -0,0 +1 @@
++339b41623e40e6df690adaf727f9c8e4f7cd2230984e957c8ac3fac750c4ab43
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577.app.zip.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283577.app.zip.sha256
+@@ -0,0 +1 @@
++32d799496a44cf9388d851018211488211367781c9641a8dcba4fdffe13067de
+\ No newline at end of file

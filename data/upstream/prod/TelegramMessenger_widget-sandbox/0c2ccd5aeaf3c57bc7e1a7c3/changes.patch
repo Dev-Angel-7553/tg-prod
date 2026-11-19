@@ -1,0 +1,993 @@
+diff --git a/packages/desktop/sandbox/include/twidget/sandbox_engine.h b/packages/desktop/sandbox/include/twidget/sandbox_engine.h
+@@ -18,6 +18,7 @@
+ #include "twidget/resources.h"
+ #include "twidget/sdk_policy.h"
+ 
++#include <chrono>
+ #include <cstdint>
+ #include <functional>
+ #include <map>
+@@ -154,6 +155,8 @@ struct SandboxStats {
+ struct QueryAnswer {
+     std::string json;
+     std::optional<std::vector<uint8_t>> binary;
++    /// The part of the answer's time a served host's glue spent inside its renderer's platform requests (remote_hosted.h), from before the query could reach the glue to its answer or its timeout: the embedder's wait, neither the widget's CPU time nor its layout queries' (`CpuBudget::queryLimitHit`, the main-thread window). 0 elsewhere.
++    double platformSeconds = 0;
+ };
+ 
+ class SandboxEngine;
+@@ -175,17 +178,53 @@ class WidgetRequestResponder {
+     std::function<void(const std::optional<WidgetRequestOutcome>&)> settle_;
+ };
+ 
+-/// How a hosted client's delegate completes its renderer's platform request (`onHostedRequest`): call it with the host's answer, or `unanswered()` when the host has no platform for it; once, from any thread, within `SandboxEngine::kPlatformAnswerSeconds` of the request's arrival. Later calls, and calls after the route ended or the client was destroyed, are ignored; every copy shares the once and holds only the request.
++namespace detail {
++/// A hosted client's platform request while its caller waits (sandbox_engine_client.cpp).
++struct PlatformCall;
++/// The hosted client's side of SandboxHostedWait (sandbox_engine_client.cpp).
++struct HostedWaits;
++} // namespace detail
++
++/// How long a hosted client's embedder holds its renderer's platform requests before its platform serves them (`SandboxEngine::hostedClient`, WidgetHost's hosted constructor), shared by that one client (a kept route keeps it) and the embedder's trusted meter of the widget's platform work; process-local, no wire message. Without one each request is due `SandboxEngine::kPlatformAnswerSeconds` after its arrival. With one a request is due that long after its arrival unless the meter actually holds the widget while the request waits for its admission (and so while the embedder's queue ahead of it waits too): held means a published release still ahead and no input exemption in force, at the request's arrival, when the meter publishes a later release, or from the end of an exemption in force that a release outlasts, which no renewal reached before it ended; then the request is due that long after that release, a later release moving it again. An exemption renewed before it ends keeps the arrival's deadline however long the renewals go on; the waiter wakes at that end to read the record again, and each renewal moves that wake. Its admission makes it due at most that long from then, never later than it was, and nothing moves it after that. Nothing else moves a deadline (a repeated or earlier value, the number of another request), none is suspended, and a request never answered still ends at its deadline without another call. From any thread; its lock is held for no call out.
++class SandboxHostedWait {
++public:
++    using Clock = std::chrono::steady_clock;
++    SandboxHostedWait() = default;
++    SandboxHostedWait(const SandboxHostedWait&) = delete;
++    SandboxHostedWait& operator=(const SandboxHostedWait&) = delete;
++
++    /// The meter holds the widget's platform work until `release` (published at each charge that moved it, with nothing queued too): a waiting request not exempt now is due 3 s after it; one no later than the last changes nothing, nor one whose deadline the clock cannot hold.
++    void hold(Clock::time_point release);
++    /// Input exempts the widget's platform work from holds until `until`: a renewal before the last one ended keeps a waiting request's deadline, one that comes after it ended counts the hold that resumed meanwhile; one no later than the last changes nothing.
++    void exempt(Clock::time_point until);
++    /// The request numbered `request` (`HostedRequestResponder::request`, `WidgetHost::platformDelivery`) was admitted to the embedder's platform, its answer on its way: due at most `SandboxEngine::kPlatformAnswerSeconds` from now and never later than it was (a hold it met up to now counted), and nothing moves it again; nothing for any other number, a request already settled or one admitted before.
++    void admitted(uint64_t request);
++    /// When the request numbered `request` is due, while it is the one waiting; nullopt otherwise (tests).
++    std::optional<Clock::time_point> due(uint64_t request) const;
++
++private:
++    friend struct detail::HostedWaits;
++    mutable std::mutex mutex_;
++    std::optional<Clock::time_point> release_;
++    std::optional<Clock::time_point> exemptUntil_;
++    /// The request waiting now: the client's newest, until its caller stopped waiting.
++    std::shared_ptr<detail::PlatformCall> waiting_;
++};
++
++/// How a hosted client's delegate completes its renderer's platform request (`onHostedRequest`): call it with the host's answer, or `unanswered()` when the host has no platform for it; once, from any thread, before the request is due (`SandboxEngine::kPlatformAnswerSeconds` after its arrival, or as the client's SandboxHostedWait moved it). Later calls, and calls after the route ended or the client was destroyed, are ignored; every copy shares the once and holds only the request.
+ class HostedRequestResponder {
+ public:
+     void operator()(std::string answer) const { settle_(std::move(answer)); }
+     /// No platform here for the request: the widget dies (diagnostic `platform-timeout`).
+     void unanswered() const { settle_(std::nullopt); }
++    /// The request's number, unique in the process (`SandboxHostedWait::admitted`).
++    uint64_t request() const { return request_; }
+ 
+ private:
+     friend class SandboxEngine;
+-    explicit HostedRequestResponder(std::function<void(std::optional<std::string>)> settle) : settle_(std::move(settle)) {}
++    HostedRequestResponder(std::function<void(std::optional<std::string>)> settle, uint64_t request) : settle_(std::move(settle)), request_(request) {}
+     std::function<void(std::optional<std::string>)> settle_;
++    uint64_t request_ = 0;
+ };
+ 
+ /// All delegate calls happen on the engine's thread, never on the caller's.
+@@ -239,7 +278,7 @@ class SandboxEngineDelegate {
+ 
+     /// The first of a hosted widget's reports (remote_hosted.h: its engine, validator and renderer in the engine process), which only a hosted client's delegate hears, on its dispatch thread, in transport order with the calls above, each sized and admitted against the client's bounds first (an engine-only client refuses them, `protocol-violation`): a message of the engine process's renderer for the host's platform (`SandboxHostedPlatform::send`), opaque, at most `kRemotePlatformLimit` bytes.
+     virtual void onHostedMessage(SandboxEngine&, const std::string& /*message*/) {}
+-    /// The renderer's one waiting request (`SandboxHostedPlatform::request`), opaque, at most `kRemotePlatformLimit` bytes, delivered in order with the calls above: return at once and complete `respond` (its answer goes back to the renderer). The client waits for it on the request's own caller thread (the transport's), never on the dispatch thread; `respond.unanswered()` (the default: no platform), or no answer within `SandboxEngine::kPlatformAnswerSeconds`, kills the widget with the diagnostic `platform-timeout` first, unless its route ended meanwhile.
++    /// The renderer's one waiting request (`SandboxHostedPlatform::request`), opaque, at most `kRemotePlatformLimit` bytes, delivered in order with the calls above: return at once and complete `respond` (its answer goes back to the renderer). The client waits for it on the request's own caller thread (the transport's), never on the dispatch thread; `respond.unanswered()` (the default: no platform), or no answer before it is due (`SandboxEngine::kPlatformAnswerSeconds` after its arrival, or as the client's SandboxHostedWait moved it), kills the widget with the diagnostic `platform-timeout` first, unless its route ended meanwhile.
+     virtual void onHostedRequest(SandboxEngine&, const std::string& /*message*/, HostedRequestResponder respond) { respond.unanswered(); }
+     /// A batch the engine process's validator passed to its renderer, at most `kRemoteOpsLimit` bytes: only to a host that asked for them at its start (`SandboxHostedStart::validatedOps`); one it did not ask for is a `protocol-violation`.
+     virtual void onHostedOps(SandboxEngine&, const std::string& /*json*/) {}
+@@ -277,9 +316,9 @@ class SandboxEngine {
+     static void setRemoteChannelFactory(SandboxRemoteChannelFactory factory);
+     /// Whether a host set a non-empty factory (`setRemoteChannelFactory`), from any thread.
+     static bool remoteChannelFactorySet();
+-    /// A hosted client (remote_hosted.h): the widget's engine, validator and renderer run behind `hosted`, attached now, while this engine keeps the client's checks, bounds and decisions, its privileged calls decided on the presses the host says it delivered (`pressDelivered`); its dispatch thread is named `widget.client`, a null channel gives an engine that died ("the widget engine process ended"), only `startHosted` starts it, the engine-only inputs (`start`, `event`, `activationEvent`, `frame`, `viewport`, `resize`, `theme`, `pressBegan`, `pressEnded`, `chargeValidator`) do nothing on it, and the engine's side's render calls (ops, queries, listen, preventDefault, anim, frame requests) are protocol violations.
++    /// A hosted client (remote_hosted.h): the widget's engine, validator and renderer run behind `hosted`, attached now, while this engine keeps the client's checks, bounds and decisions, its privileged calls decided on the presses the host says it delivered (`pressDelivered`); its dispatch thread is named `widget.client`, a null channel gives an engine that died ("the widget engine process ended"), only `startHosted` starts it, the engine-only inputs (`start`, `event`, `activationEvent`, `frame`, `viewport`, `resize`, `theme`, `pressBegan`, `pressEnded`, `chargeValidator`) do nothing on it, and the engine's side's render calls (ops, queries, listen, preventDefault, anim, frame requests) are protocol violations. With `wait` its platform requests are due as that record says (SandboxHostedWait), without it `kPlatformAnswerSeconds` after their arrival.
+     static std::unique_ptr<SandboxEngine> hostedClient(std::string html, SandboxConfig config, std::shared_ptr<SandboxHostedChannel> hosted,
+-                                                       std::shared_ptr<IntlProvider> intl = nullptr);
++                                                       std::shared_ptr<IntlProvider> intl = nullptr, std::shared_ptr<SandboxHostedWait> wait = nullptr);
+     /// A client-mode engine of either kind, a hosted one included.
+     bool isRemote() const { return client_ != nullptr; }
+     /// A hosted client (`hostedClient`), also one built without a channel.
+@@ -336,11 +375,13 @@ class SandboxEngine {
+     void platform(std::string message);
+     /// Hosted only, from any thread but one the dispatch thread waits for: hands the route over to `kept`, which must outlive the engine, in one step on the dispatch thread. False, with nothing changed, when the widget was never started, its renderer never announced itself (`onHostedRendererReady`), the route ended (the transport, a flood, an unanswered platform request, a reported death without `keepAtDeath`, `terminate` / `stop`) or it was kept already. Else a live widget dies "terminated" through the delegate so far and the engine's side hears `stop("terminated")`, then `kept` is the delegate, every grant goes, the channel hears `kept()`, and from then on only the renderer's platform traffic is carried (`platform`, `onHostedMessage`, `onHostedRequest`; every other call of the engine's side has no effect) until the route ends: the engine's side's own death reports change nothing, and an end the host did not ask for reaches `kept` as `onHostedEnded`; the destructor ends it without that call.
+     bool keepHosted(SandboxEngineDelegate& kept);
+-    /// How long a hosted widget's platform request waits for its delegate's `respond`, from its arrival: then the widget dies (`onHostedRequest`).
++    /// How long a hosted widget's platform request waits for its delegate's `respond`, from its arrival, or from a hold's release or its admission that its client's SandboxHostedWait reported: then the widget dies (`onHostedRequest`).
+     static constexpr double kPlatformAnswerSeconds = 3;
+     /// The embedder delivered a primary press to the widget's renderer, trusted input only, the only source of a hosted widget's grants: stamped on the caller's thread; on the dispatch thread, unless the widget died or is a preview, the haptic gate's touch begins (as `pressBegan` in process) and, while the widget is visible, the press allows one privileged call for `kRemoteGrantWindowMs` (the newest `kRemoteMaxGrants` kept, as a client-mode engine keeps delivered taps); nothing goes to the engine's side.
+     void pressDelivered();
+-    /// That press ended (lifted or cancelled): the haptic gate's touch window follows it (as `pressEnded` in process), unless the widget died or is a preview; nothing goes to the engine's side.
++    /// A message of the host's platform that delivers a primary press to the engine process's renderer, and that press, in one step on the dispatch thread, stamped on the caller's thread as `pressDelivered` stamps it: the message is carried as `platform` carries one, and only when the channel's writer admitted it (`SandboxHostedChannel::platform` returned true) on an open route that was never kept does the press count as `pressDelivered` takes one. So no grant or haptic touch exists for a press the renderer was not sent (a closed or ending route, a writer that refused it), and none before its message was admitted, whatever retires the route or which privileged call comes in meanwhile; the route's close revokes every grant.
++    void platformPress(std::string message);
++    /// That press ended (lifted or cancelled): the haptic gate's touch window follows it (as `pressEnded` in process), unless the widget died or is a preview, and only after a press that counted (`pressDelivered`, or `platformPress` with its message admitted): the release of a refused press opens no window; nothing goes to the engine's side.
+     void releaseDelivered();
+ 
+     /// Evaluates trusted diagnostic code in the widget context (tests only): the string value or the error text; a client asks its channel after its earlier inputs, from no thread its engine's side may wait for.
+@@ -389,7 +430,8 @@ class SandboxEngine {
+     SandboxEngine(std::string threadName, std::string html, SandboxConfig config, std::shared_ptr<SandboxResources> resources, std::shared_ptr<IntlProvider> intl);
+     /// `hostedClient`'s: a tag rather than an overload, as a channel derived from `SandboxHostedChannel` converts to both channel pointers and the public client constructor's call would be ambiguous.
+     struct HostedTag {};
+-    SandboxEngine(HostedTag, std::string html, SandboxConfig config, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl);
++    SandboxEngine(HostedTag, std::string html, SandboxConfig config, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl,
++                  std::shared_ptr<SandboxHostedWait> wait);
+ 
+     /// The in-process halves of the entry points both modes share (sandbox_engine.cpp), each run from its entry point (sandbox_engine_shared.cpp) through `inProcess_` once the hosted and client checks passed.
+     void inProcessStart();
+@@ -549,8 +591,8 @@ class SandboxEngine {
+     /// `stop` (`atOnce`: inline on the dispatch thread) and `terminate`: the widget dies with `reason` and the engine's side is told.
+     void clientKill(const std::string& reason, bool atOnce);
+     void clientActivationEvent(const std::string& json, int gesture);
+-    /// Both client constructors: the sink (`hosted`: a hosted client's), attached to `remote`, or a death at the first task without one.
+-    void attachClient(std::shared_ptr<SandboxRemoteChannel> remote, bool hosted);
++    /// Both client constructors: the sink (`hosted`: a hosted client's, its platform requests due as `wait` says when given), attached to `remote`, or a death at the first task without one.
++    void attachClient(std::shared_ptr<SandboxRemoteChannel> remote, bool hosted, std::shared_ptr<SandboxHostedWait> wait = nullptr);
+     /// On the dispatch thread: a tap or press the host delivered on the visible widget becomes a grant unless it is spent or one already; the newest `kRemoteMaxGrants` are kept.
+     void grant(int gesture, double atMs);
+     void clientSetVisible(bool visible);
+@@ -567,8 +609,10 @@ class SandboxEngine {
+     void platformKill(const std::string& reason);
+     /// The waiting platform request answers none, and every later one at once (the route's close and the destructor).
+     void clientSettleWaiting();
+-    /// The responder of a hosted widget's platform request: `settle` with the answer, or nullopt for `unanswered()`.
+-    static HostedRequestResponder hostedResponder(std::function<void(std::optional<std::string>)> settle) { return HostedRequestResponder(std::move(settle)); }
++    /// The responder of a hosted widget's platform request numbered `request`: `settle` with the answer, or nullopt for `unanswered()`.
++    static HostedRequestResponder hostedResponder(std::function<void(std::optional<std::string>)> settle, uint64_t request) {
++        return HostedRequestResponder(std::move(settle), request);
++    }
+     /// On the dispatch thread: a diagnostic about a message the host refused, unless the widget died or `counter` reached `sdk::MAX_REJECTION_REPORTS`.
+     void clientReport(int& counter, const char* kind, const std::string& detail);
+     void deliverPendingDeath();
+@@ -595,6 +639,8 @@ class SandboxEngine {
+     /// Dispatch thread: the last press `pressDelivered` numbered, and whether the hosted start asked for the validated batches.
+     int hostedGesture_ = 0;
+     bool hostedOps_ = false;
++    /// Dispatch thread: a press counted (`pressDelivered`, or `platformPress` whose message the writer took) and its release has not come; the route's close and the keep clear it.
++    bool pressAdmitted_ = false;
+     /// Dispatch thread: a death the engine's side reports leaves the route open (`startHosted`'s `keepAtDeath`).
+     bool keepAtDeath_ = false;
+     /// Dispatch thread: the route to the engine's side carries traffic, from the attach until `closeRoute`.
+diff --git a/packages/desktop/sandbox/include/twidget/widget_host.h b/packages/desktop/sandbox/include/twidget/widget_host.h
+@@ -144,14 +144,20 @@ class SandboxHostedChannel;
+ class SandboxHostedRuntime;
+ class WidgetHost;
+ 
+-/// What a host keeps of a hosted widget past its WidgetHost (`WidgetHost::keepRenderer`): the engine process's renderer of that widget, without its engine or validator, reachable through its platform traffic alone, both ways under the live widget's bounds (`SandboxEngine::kRemotePlatformLimit`, the client's queued bytes and calls, one waiting request answered within `SandboxEngine::kPlatformAnswerSeconds`). Nothing else crosses: no privileged call, grant, haptic, theme, data, safe area or probe. It owns the route (the hosted client) and one thread named `twidget-host` on which its observers run in order, the first only after the WidgetHost's last platform observer call. It ends at `release()` (the destructor's too), which the host asks for: no observer call after it; or without the host asking, at a death the host decides (a flood, a platform request unanswered or with no observer) or at the end of the transport, which `onEnded` reports. Every call from the owner's thread; never destroyed on its own thread.
++/// What `WidgetHost::platformDelivery` gives inside a platform observer, a WidgetHost's or a kept renderer's: `hold` keeps the message or request being delivered counted against its client's queued bytes and calls (`SandboxEngine::kRemoteQueuedBytes`, `kRemoteQueuedCalls`) for as long as a copy of it lives, and `request` is a request's number (`SandboxHostedWait::admitted`; 0 for a message).
++struct HostedPlatformDelivery {
++    SandboxEngine::RemoteHold hold;
++    uint64_t request = 0;
++};
++
++/// What a host keeps of a hosted widget past its WidgetHost (`WidgetHost::keepRenderer`): the engine process's renderer of that widget, without its engine or validator, reachable through its platform traffic alone, both ways under the live widget's bounds (`SandboxEngine::kRemotePlatformLimit`, the client's queued bytes and calls, one waiting request answered before it is due, as its client's SandboxHostedWait says when it has one). Nothing else crosses: no privileged call, grant, haptic, theme, data, safe area or probe. It owns the route (the hosted client) and one thread named `twidget-host` on which its observers run in order, the first only after the WidgetHost's last platform observer call. It ends at `release()` (the destructor's too), which the host asks for: no observer call after it; or without the host asking, at a death the host decides (a flood, a platform request unanswered or with no observer) or at the end of the transport, which `onEnded` reports. Every call from the owner's thread; never destroyed on its own thread.
+ class HostedKeptRenderer {
+ public:
+-    /// Set when the renderer is kept (`WidgetHost::keepRenderer`), each on the handle's thread.
++    /// Set when the renderer is kept (`WidgetHost::keepRenderer`), each on the handle's thread; inside the two platform ones `WidgetHost::platformDelivery()` gives what they deliver.
+     struct Observers {
+         /// An opaque message of the renderer for the embedder's platform, in the order it sent them.
+         std::function<void(const std::string& message)> onPlatformMessage;
+-        /// A request the renderer waits for, one at a time: call `respond` once, from any thread, within `SandboxEngine::kPlatformAnswerSeconds`, else the route ends (`onEnded`) and later calls are ignored; unset, the route ends at the first request.
++        /// A request the renderer waits for, one at a time: call `respond` once, from any thread, before it is due (`SandboxEngine::kPlatformAnswerSeconds`, or as the client's SandboxHostedWait moved it), else the route ends (`onEnded`) and later calls are ignored; unset, the route ends at the first request.
+         std::function<void(const std::string& message, std::function<void(std::string answer)> respond)> onPlatformRequest;
+         /// The route ended without the host asking, once and last, with the reason (also `ended()`); never after `release()`.
+         std::function<void(const std::string& reason)> onEnded;
+@@ -203,8 +209,9 @@ class WidgetHost final : public SandboxEngineDelegate {
+     /// Throws JSError if the validator bundle fails to load, std::system_error when one of its threads cannot start (JSThread; those already started are joined first). Nothing runs until `start()`: set the observers and `stoppedLabel` before it; an engine behind a channel that failed while it was built (`SandboxEngine::make`) dies after it. Hosted, with neither validator nor renderer here, when a hook is set (`setHostedChannelFactory`) and no engine channel factory is (`SandboxEngine::remoteChannelFactorySet`).
+     WidgetHost(std::string html, WidgetTheme theme, double width, WidgetHostOptions options, std::shared_ptr<SandboxResources> resources,
+                RendererFactory rendererFactory, std::shared_ptr<IntlProvider> intl = nullptr);
+-    /// Hosted (remote_hosted.h): no validator and no renderer here, a hosted client over `hosted` (`SandboxEngine::hostedClient`; null: a widget that dies, "the widget engine process ended"), whatever the hook and the engine channel factory say; `intl` answers the widget's Intl requests on the client's dispatch thread.
+-    WidgetHost(std::string html, WidgetTheme theme, double width, WidgetHostOptions options, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl = nullptr);
++    /// Hosted (remote_hosted.h): no validator and no renderer here, a hosted client over `hosted` (`SandboxEngine::hostedClient`; null: a widget that dies, "the widget engine process ended"), whatever the hook and the engine channel factory say; `intl` answers the widget's Intl requests on the client's dispatch thread; with `wait` its renderer's platform requests are due as that record says (SandboxHostedWait), also once kept, without it `kPlatformAnswerSeconds` after their arrival.
++    WidgetHost(std::string html, WidgetTheme theme, double width, WidgetHostOptions options, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl = nullptr,
++               std::shared_ptr<SandboxHostedWait> wait = nullptr);
+     /// The API before SDK v1: a colour scheme only (the scheme's default palette, no button tokens).
+     [[deprecated("pass a WidgetTheme (SDK v1)")]]
+     WidgetHost(std::string html, std::string theme, double width, WidgetHostOptions options, std::shared_ptr<SandboxResources> resources,
+@@ -249,10 +256,16 @@ class WidgetHost final : public SandboxEngineDelegate {
+     void sendPlatform(std::string message);
+     /// Hosted only (else nothing): the embedder delivered a primary press to the widget's renderer (`SandboxEngine::pressDelivered`), the only source of the widget's grants and of its haptic touch: one privileged call within 2 s while visible.
+     void pressDelivered();
+-    /// Hosted only (else nothing): that press ended (lifted or cancelled), the haptic touch window follows it (`SandboxEngine::releaseDelivered`).
++    /// Hosted only (else nothing): `sendPlatform` for a message that delivers a primary press to the engine process's renderer, with that press (`pressDelivered`) in the same step (`SandboxEngine::platformPress`), timed from this call: the grant and the haptic touch exist only when the transport's writer admitted the message on the open, unkept route (`SandboxHostedChannel::platform`); nothing once the route closed, is ending or its writer refused it, and the route's close revokes the grant. It stays void: the client decides on its dispatch thread.
++    void sendPlatformPress(std::string message);
++    /// Hosted only (else nothing): that press ended (lifted or cancelled), the haptic touch window follows it (`SandboxEngine::releaseDelivered`), only for a press that counted.
+     void releaseDelivered();
+-    /// How long a platform request of the engine process's renderer waits for `onPlatformRequest`'s `respond`: then diagnostic `platform-timeout` and the widget dies.
++    /// How long a platform request of the engine process's renderer waits for `onPlatformRequest`'s `respond`, from its arrival or as the constructor's SandboxHostedWait moved it: then diagnostic `platform-timeout` and the widget dies.
+     static constexpr double kPlatformAnswerSeconds = SandboxEngine::kPlatformAnswerSeconds;
++    /// Inside `onPlatformMessage` or `onPlatformRequest`, a WidgetHost's or a kept renderer's (HostedKeptRenderer::Observers), on the thread that runs it, the first call on a handle's thread too: the message or request it delivers (HostedPlatformDelivery); empty anywhere else. Copy it before the observer returns: kept with the work it queues, the delivery stays counted against the client's bounds until that work ran or was dropped.
++    static HostedPlatformDelivery platformDelivery();
++    /// Hosted only (else nothing): a diagnostic of the embedder's own checks of the widget's platform traffic, as a local renderer's `onDiag` reports one: recorded on the host thread in the bounded `diagnostics().diags`, then `onChange`; nothing once `destroy()` or `keepRenderer()` returned.
++    void platformDiag(const std::string& kind, const std::string& detail);
+     /// Snapshot of the diagnostics (any thread).
+     WidgetDiagnostics diagnostics() const;
+     /// Runs `fn` on the host thread and waits for it (inline when already there).
+@@ -314,8 +327,10 @@ class WidgetHost final : public SandboxEngineDelegate {
+     std::function<void(bool on)> onWatchPublicData;
+     /// Hosted only: an opaque message of the engine process's renderer for the embedder's platform (at most `SandboxEngine::kRemotePlatformLimit` bytes), in the order it sent them and in order with the widget's other reports; none after `destroy()` or `keepRenderer()` returned.
+     std::function<void(const std::string& message)> onPlatformMessage;
+-    /// Hosted only: a request the engine process's renderer waits for (one at a time); call `respond` once, from any thread, within `kPlatformAnswerSeconds`, else the widget dies (diagnostic `platform-timeout`) and later calls are ignored. Read when the request arrives: unset then, the widget dies at once. The client waits for the answer on the request's own thread, never on its dispatch thread; still never wait for the widget in it: a `probe` from inside may wait for the very request it answers.
++    /// Hosted only: a request the engine process's renderer waits for (one at a time); call `respond` once, from any thread, before it is due (`kPlatformAnswerSeconds`, or as the constructor's SandboxHostedWait moved it), else the widget dies (diagnostic `platform-timeout`) and later calls are ignored. Read when the request arrives: unset then, the widget dies at once. The client waits for the answer on the request's own thread, never on its dispatch thread; still never wait for the widget in it: a `probe` from inside may wait for the very request it answers.
+     std::function<void(const std::string& message, std::function<void(std::string answer)> respond)> onPlatformRequest;
++    /// The widget's death as `diagnostics().dead` recorded it, once, on the host thread, right after that and `onChange`, before a local renderer gets `frozen`: its own limit, a validator cap, the client's own end of it (a lost engine process, a flood, a platform request left unanswered), in either mode. Never for the end the owner asked for (`destroy()`, `keepRenderer()`, a death that comes once either began), nor for a kept route's end (`HostedKeptRenderer::Observers::onEnded`). Set it before `start()`.
++    std::function<void(const std::string& reason)> onDeath;
+     /// Deprecated since v0.1.2 (`onGesture`): the claim's `x` and `y` (always false), right after `onGesture`.
+     [[deprecated("use onGesture (v0.1.2)")]]
+     std::function<void(bool x, bool y)> onGestureClaim;
+@@ -387,6 +402,18 @@ class WidgetHost final : public SandboxEngineDelegate {
+     void keepRendererOnly();
+     /// Host thread: the platform observers get nothing more; while keeping, only once `keepRenderer` handed the route over, so what came before the keep still reaches them.
+     bool platformClosed() const { return keeping_ ? callbacksClosed_ : bool(destroyed_); }
++    /// A served host's glue thread inside its renderer's platform requests as one reading: `at`, the total time up to `at` (a wait in progress included) and whether one is in progress then.
++    struct GlueWaited {
++        std::chrono::steady_clock::time_point at;
++        std::chrono::steady_clock::duration total{};
++        bool waiting = false;
++    };
++    /// The served host's reading (SandboxHostedRuntime sets it before `start()`): a layout query's 3 s leave that time out. Empty in the local and hosted modes, whose queries keep their 3 s.
++    std::function<GlueWaited()> glueWaits_;
++    /// `glueWaits_`'s reading, or now and nothing without one.
++    GlueWaited glueWaited() const;
++    /// SandboxHostedRuntime, on the glue thread, outside its accounting: a wait inside a platform request ended, so a layout query waiting through it reads again; never once the runtime's destructor stopped watching that thread, before this host goes (its `destroy()` answers such a query).
++    void glueWaitEnded();
+ 
+     /// Fed only the events the renderer marks `trusted`.
+     GestureCounter gestures_;
+@@ -395,6 +422,8 @@ class WidgetHost final : public SandboxEngineDelegate {
+         bool done = false;
+         std::string json = "null";
+         std::optional<std::vector<uint8_t>> binary;
++        /// A served host's glue waits in its renderer's platform requests in all, as they stood when it was answered (`glueWaits_`).
++        std::chrono::steady_clock::duration glueWaited{};
+     };
+     /// A message the renderer gets at its `ready`; the engine's count against the backlog bounds and are dropped at the cut.
+     struct PendingMessage {
+diff --git a/packages/desktop/sandbox/src/remote_hosted.cpp b/packages/desktop/sandbox/src/remote_hosted.cpp
+@@ -6,39 +6,113 @@
+ #include "twidget/widget_host.h"
+ 
+ #include <atomic>
++#include <chrono>
++#include <condition_variable>
+ #include <exception>
+ #include <functional>
+ #include <memory>
+ #include <mutex>
+ #include <optional>
+ #include <string>
++#include <thread>
+ #include <utility>
+ #include <vector>
+ 
+ namespace twidget {
+ 
+ namespace {
+ 
+-/// A hosted renderer's platform over its runtime's sink: each message straight to it, the requests one at a time; nothing once the runtime closed.
++/// A hosted renderer's platform over its runtime's sink: each message straight to it, the requests one at a time; nothing once the runtime closed. It keeps the time the served host's glue thread spends inside `request`, its wait for its turn included, as the glue's layout queries read it (`WidgetHost::glueWaits_`), and wakes them at each such wait's end while the runtime watches that thread: from `watchGlue` to `unwatchGlue`, which the runtime calls while its host and that thread live, both under the count's lock, so a renderer that keeps its platform past its widget never reaches a host that is gone, from that thread's id given to another thread either.
+ class HostedPlatform final : public SandboxHostedPlatform {
+ public:
++    using Clock = std::chrono::steady_clock;
++    struct Waited {
++        Clock::time_point at;
++        Clock::duration total{};
++        bool waiting = false;
++    };
++
+     explicit HostedPlatform(std::shared_ptr<SandboxRemoteSink> sink) : sink_(std::move(sink)) {}
+ 
+     void send(const std::string& message) override {
+         if (!closed_) sink_->remotePlatformMessage(message);
+     }
+     std::optional<std::string> request(const std::string& message) override {
++        // Closed: nullopt at once, neither counted nor behind the turn of a request still under way.
++        if (closed_) return std::nullopt;
++        const GlueWait counted(*this);
+         std::lock_guard<std::mutex> l(requesting_);
+         if (closed_) return std::nullopt;
+         return sink_->remotePlatformRequest(message);
+     }
+     /// From now on no message goes out, and every request, one waiting for its turn too, answers nullopt.
+     void close() { closed_ = true; }
++    /// Once, before the served host starts: its glue thread, whose time in `request` counts, and what hears each such wait end (on that thread, outside the count's lock, the count already updated).
++    void watchGlue(std::thread::id glue, std::function<void()> ended) {
++        std::lock_guard<std::mutex> l(accounting_);
++        glue_ = glue;
++        waitEnded_ = std::move(ended);
++    }
++    /// While the served host and its glue thread still live, before the join that frees that thread's id: from now on no wait in `request` is counted from it or heard, and once this returns an `ended` under way has returned too, so none reaches the host after it.
++    void unwatchGlue() {
++        std::unique_lock<std::mutex> l(accounting_);
++        glue_ = std::thread::id();
++        idle_.wait(l, [this] { return hearing_ == 0; });
++        waitEnded_ = nullptr;
++    }
++    /// The glue thread's time in `request` to now, a wait in progress included, and whether one is, read together.
++    Waited waited() const {
++        std::lock_guard<std::mutex> l(accounting_);
++        const Clock::time_point now = Clock::now();
++        return {now, total_ + (since_ ? now - *since_ : Clock::duration::zero()), since_.has_value()};
++    }
+ 
+ private:
++    /// Admitted on the watched glue thread alone, under the count's lock: that thread's wait in `request` counts, and its end is heard if the watch still lasts then; never under `requesting_`, and the count's lock is held for no call.
++    class GlueWait {
++    public:
++        explicit GlueWait(HostedPlatform& platform) : platform_(platform) {
++            std::lock_guard<std::mutex> l(platform_.accounting_);
++            if (platform_.glue_ != std::this_thread::get_id()) return;
++            counted_ = true;
++            platform_.since_ = Clock::now();
++        }
++        ~GlueWait() {
++            if (!counted_) return;
++            {
++                std::lock_guard<std::mutex> l(platform_.accounting_);
++                if (platform_.since_) platform_.total_ += Clock::now() - *platform_.since_;
++                platform_.since_.reset();
++                // Unwatched meanwhile: the host is being destroyed, which answers a query that waited through this.
++                if (platform_.glue_ != std::this_thread::get_id()) return;
++                platform_.hearing_++;
++            }
++            if (platform_.waitEnded_) platform_.waitEnded_();
++            {
++                std::lock_guard<std::mutex> l(platform_.accounting_);
++                platform_.hearing_--;
++            }
++            platform_.idle_.notify_all();
++        }
++        GlueWait(const GlueWait&) = delete;
++        GlueWait& operator=(const GlueWait&) = delete;
++
++    private:
++        HostedPlatform& platform_;
++        bool counted_ = false;
++    };
++
+     const std::shared_ptr<SandboxRemoteSink> sink_;
+     std::mutex requesting_;
+     std::atomic<bool> closed_{false};
++    /// Under `accounting_`: the watched glue thread (none before `watchGlue` and after `unwatchGlue`), what hears its waits end (called outside the lock, changed only while no call of it is under way), how many such calls are and the signal of their end.
++    std::thread::id glue_;
++    std::function<void()> waitEnded_;
++    int hearing_ = 0;
++    std::condition_variable idle_;
++    mutable std::mutex accounting_;
++    Clock::duration total_{};
++    std::optional<Clock::time_point> since_;
+ };
+ 
+ constexpr const char* kNotBuilt = "the widget could not be built in the engine process: ";
+@@ -50,7 +124,7 @@ class SandboxHostedRuntime final : public detail::HostedRuntime, public SandboxE
+ public:
+     SandboxHostedRuntime(std::shared_ptr<SandboxRemoteSink> sink, std::shared_ptr<SandboxResources> resources, HostedRendererFactory renderers)
+         : sink_(std::move(sink)), resources_(std::move(resources)), renderers_(std::move(renderers)), forwarder_(sink_, resources_), platform_(std::make_shared<HostedPlatform>(sink_)) {}
+-    /// Closes, then destroys the served host, joining its threads while this delegate and the forwarder still exist.
++    /// Closes, stops the platform's watch of the glue thread, then destroys the served host, joining its threads while this delegate and the forwarder still exist.
+     ~SandboxHostedRuntime() override;
+     SandboxHostedRuntime(const SandboxHostedRuntime&) = delete;
+     SandboxHostedRuntime& operator=(const SandboxHostedRuntime&) = delete;
+@@ -154,6 +228,8 @@ SandboxHostedRuntime::~SandboxHostedRuntime() {
+         std::lock_guard<std::mutex> l(mutex_);
+         host = std::move(host_);
+     }
++    // While the host and its glue thread live: a renderer that keeps the platform reaches neither from here on, its glue thread's id free for another thread after the join.
++    platform_->unwatchGlue();
+     // Outside the lock: the host's destructor joins its threads, whose last calls come here.
+     host.reset();
+ }
+@@ -173,6 +249,14 @@ std::unique_ptr<WidgetHost> SandboxHostedRuntime::build(const std::string& html,
+                                                     *this, std::move(reports)));
+     host->stoppedLabel = start.stoppedLabel;
+     if (start.validatedOps) host->onRenderOps = [sink](const std::string& json) { sink->remoteValidatedOps(json); };
++    // Only the glue's own waits in its platform requests leave its layout queries' time; `ended` is called on the glue thread alone, until the destructor unwatches it before the host goes.
++    const std::shared_ptr<HostedPlatform> platform = platform_;
++    WidgetHost* served = host.get();
++    host->glueWaits_ = [platform] {
++        const HostedPlatform::Waited w = platform->waited();
++        return WidgetHost::GlueWaited{w.at, w.total, w.waiting};
++    };
++    platform->watchGlue(host->hostThread_.sync([] { return std::this_thread::get_id(); }), [served] { served->glueWaitEnded(); });
+     return host;
+ }
+ 
+@@ -295,7 +379,11 @@ void SandboxHostedLoopbackChannel::hostedTheme(const WidgetTheme& theme) {
+     if (std::optional<WidgetTheme> coded = SandboxRemoteCoding::decodeTheme(SandboxRemoteCoding::encodeTheme(theme))) runtime_->theme(*coded);
+     else client_->remoteDisconnected();
+ }
+-void SandboxHostedLoopbackChannel::platform(const std::string& message) { runtime_->platform(message); }
++bool SandboxHostedLoopbackChannel::platform(const std::string& message) {
++    if (closed_ || !runtime_) return false;
++    runtime_->platform(message);
++    return true;
++}
+ void SandboxHostedLoopbackChannel::contentSafeArea(const WidgetContentSafeArea& area) {
+     if (std::optional<WidgetContentSafeArea> coded = SandboxRemoteCoding::decodeSafeArea(SandboxRemoteCoding::encodeSafeArea(area))) runtime_->contentSafeArea(*coded);
+     else client_->remoteDisconnected();
+@@ -311,7 +399,10 @@ void SandboxHostedLoopbackChannel::answer(int64_t id, const SandboxRemoteOutcome
+     else client_->remoteDisconnected();
+ }
+ std::string SandboxHostedLoopbackChannel::probe(const std::string& code) { return runtime_->probe(code); }
+-void SandboxHostedLoopbackChannel::close() { runtime_->close(); }
++void SandboxHostedLoopbackChannel::close() {
++    closed_ = true;
++    runtime_->close();
++}
+ 
+ // The engine-only calls, which a hosted client never makes: the widget's own glue makes them inside the runtime.
+ void SandboxHostedLoopbackChannel::start(const std::string&, const SandboxConfig&) {}
+diff --git a/packages/desktop/sandbox/src/sandbox_engine_client.cpp b/packages/desktop/sandbox/src/sandbox_engine_client.cpp
+@@ -61,14 +61,145 @@ class Posted {
+ 
+ QueryAnswer deadQuery() { return {"{\"error\":\"dead\"}", std::nullopt}; }
+ 
++/// Every hosted client's platform requests are numbered from one counter, so a number names one request in the process (`SandboxHostedWait::admitted`).
++std::atomic<uint64_t> platformRequests{0};
++
+ } // namespace
+ 
++// MARK: a platform request's deadline
++
++namespace detail {
++
++/// A platform request waiting for the host's platform on its caller's thread: settled once, by its responder, a close, or its waiter at its deadline. Due `kPlatformAnswerSeconds` after its arrival unless its client's SandboxHostedWait moves that, always under `mutex`, the waiter woken at each move to read it again.
++struct PlatformCall {
++    using Clock = std::chrono::steady_clock;
++    static Clock::duration answerTime() { return std::chrono::duration_cast<Clock::duration>(std::chrono::duration<double>(SandboxEngine::kPlatformAnswerSeconds)); }
++
++    PlatformCall(uint64_t number, Clock::time_point arrival) : number(number), arrival(arrival), deadline(arrival + answerTime()) {}
++
++    const uint64_t number;
++    const Clock::time_point arrival;
++    std::mutex mutex;
++    std::condition_variable cv;
++    Clock::time_point deadline;
++    /// The end of the input exemption that keeps a later release from holding it now (SandboxHostedWait): the waiter wakes then too and reads the record again (`HostedWaits::recheck`), a renewal moving it; none while nothing would hold it.
++    std::optional<Clock::time_point> check;
++    /// The embedder's platform took it (SandboxHostedWait::admitted): no release moves its deadline again.
++    bool admitted = false;
++    bool settled = false;
++    std::optional<std::string> answer;
++    /// Settled by `unanswered()`: no platform for it.
++    bool none = false;
++
++    /// Once; later calls are ignored.
++    void settle(std::optional<std::string> value, bool unanswered) {
++        {
++            std::lock_guard<std::mutex> l(mutex);
++            if (settled) return;
++            settled = true;
++            answer = std::move(value);
++            none = unanswered;
++        }
++        cv.notify_all();
++    }
++    /// Under `mutex`: due at `at`, the waiter woken when that is a change.
++    void dueAt(Clock::time_point at) {
++        if (at == deadline) return;
++        deadline = at;
++        cv.notify_all();
++    }
++    /// Under `mutex`: read again at `at` (none: never), the waiter woken when that is a change.
++    void checkAt(std::optional<Clock::time_point> at) {
++        if (at == check) return;
++        check = at;
++        cv.notify_all();
++    }
++};
++
++/// What a hosted client tells its SandboxHostedWait, under the record's lock and then the call's, never the other way round.
++struct HostedWaits {
++    /// The one rule for the waiting `call` at `now`, under both locks, while it is neither admitted nor settled: the meter holds the widget now (a release ahead and no exemption in force) before the call is due, or held it since its `check` passed with no renewal before it (the exemption ended with the release still ahead, which a check never set past the deadline makes before the call was due), so it is due `kPlatformAnswerSeconds` after that release if that is later; an exemption in force that ends before the deadline with the release past its end is read again at that end; otherwise nothing holds it and its deadline stays. An exemption renewed before it ends never extends it, and while one is in force the deadline never grows, so a check stays before it.
++    static void apply(SandboxHostedWait& wait, PlatformCall& call, PlatformCall::Clock::time_point now) {
++        if (call.settled || call.admitted || !wait.release_) return call.checkAt(std::nullopt);
++        const PlatformCall::Clock::time_point release = *wait.release_;
++        const std::optional<PlatformCall::Clock::time_point> exemption = wait.exemptUntil_;
++        const bool exempt = exemption && *exemption > now;
++        const bool lapsed = call.check && *call.check <= now;
++        const bool held = !exempt && release > now && now < call.deadline;
++        if (lapsed || held) call.dueAt(std::max(call.deadline, release + PlatformCall::answerTime()));
++        call.checkAt(exempt && release > *exemption && *exemption < call.deadline ? exemption : std::nullopt);
++    }
++    /// `call` waits from now on, the newest request (an older one no longer moves): the rule at its arrival, so it is due after the release of a hold in force then; one that arrives in an exemption is only read again at the exemption's end.
++    static void began(SandboxHostedWait& wait, const std::shared_ptr<PlatformCall>& call) {
++        std::lock_guard<std::mutex> l(wait.mutex_);
++        wait.waiting_ = call;
++        std::lock_guard<std::mutex> c(call->mutex);
++        apply(wait, *call, call->arrival);
++    }
++    /// `call`'s waiter at its `check`, holding no lock: the rule again, now, so a renewed exemption moves the check and an ended one extends the deadline; a call no longer the record's is never read again.
++    static void recheck(SandboxHostedWait& wait, const std::shared_ptr<PlatformCall>& call) {
++        std::lock_guard<std::mutex> l(wait.mutex_);
++        std::lock_guard<std::mutex> c(call->mutex);
++        if (wait.waiting_ == call) apply(wait, *call, PlatformCall::Clock::now());
++        else call->checkAt(std::nullopt);
++    }
++    /// The record changed (`hold`, `exempt`): the rule for the call waiting now, if any.
++    static void changed(SandboxHostedWait& wait) {
++        if (!wait.waiting_) return;
++        std::lock_guard<std::mutex> c(wait.waiting_->mutex);
++        apply(wait, *wait.waiting_, PlatformCall::Clock::now());
++    }
++    /// `call`'s caller no longer waits.
++    static void ended(SandboxHostedWait& wait, const std::shared_ptr<PlatformCall>& call) {
++        std::lock_guard<std::mutex> l(wait.mutex_);
++        if (wait.waiting_ == call) wait.waiting_.reset();
++    }
++};
++
++} // namespace detail
++
++void SandboxHostedWait::hold(Clock::time_point release) {
++    if (release > Clock::time_point::max() - detail::PlatformCall::answerTime()) return;
++    std::lock_guard<std::mutex> l(mutex_);
++    if (release_ && release <= *release_) return;
++    release_ = release;
++    detail::HostedWaits::changed(*this);
++}
++
++void SandboxHostedWait::exempt(Clock::time_point until) {
++    std::lock_guard<std::mutex> l(mutex_);
++    if (exemptUntil_ && until <= *exemptUntil_) return;
++    exemptUntil_ = until;
++    detail::HostedWaits::changed(*this);
++}
++
++void SandboxHostedWait::admitted(uint64_t request) {
++    std::lock_guard<std::mutex> l(mutex_);
++    if (!waiting_ || waiting_->number != request) return;
++    std::lock_guard<std::mutex> c(waiting_->mutex);
++    if (waiting_->settled || waiting_->admitted) return;
++    // A hold it met up to now still counts: an exemption that ended before its waiter woke to read it.
++    const Clock::time_point now = Clock::now();
++    detail::HostedWaits::apply(*this, *waiting_, now);
++    waiting_->admitted = true;
++    waiting_->checkAt(std::nullopt);
++    waiting_->dueAt(std::min(waiting_->deadline, now + detail::PlatformCall::answerTime()));
++}
++
++std::optional<SandboxHostedWait::Clock::time_point> SandboxHostedWait::due(uint64_t request) const {
++    std::lock_guard<std::mutex> l(mutex_);
++    if (!waiting_ || waiting_->number != request) return std::nullopt;
++    std::lock_guard<std::mutex> c(waiting_->mutex);
++    if (waiting_->settled) return std::nullopt;
++    return waiting_->deadline;
++}
++
+ // MARK: the sink
+ 
+ /// What the channel calls back, also after the engine is gone: the liveness lock only covers seeing the engine and queueing work, never a wait or a call out. What it queues is admitted first against `kRemoteQueuedBytes` and `kRemoteQueuedCalls`, before anything of the message is copied, and stays counted while the work its delegate queued with it waits (`remoteHold`). A hosted client's engine's side keeps the render calls (ops, queries, listen, preventDefault, anim, frame requests) to itself, so each is a protocol violation here, refused before it is admitted; an engine-only client refuses a hosted runtime's calls the same way.
+ class SandboxEngine::RemoteClient final : public SandboxRemoteSink {
+ public:
+-    RemoteClient(std::shared_ptr<Liveness> life, bool hosted) : life_(std::move(life)), hosted_(hosted) {}
++    RemoteClient(std::shared_ptr<Liveness> life, bool hosted, std::shared_ptr<SandboxHostedWait> wait) : life_(std::move(life)), hosted_(hosted), wait_(std::move(wait)) {}
+ 
+     bool hosted() const { return hosted_; }
+     RemoteBacklog backlog() const { return {backlog_->bytes.load(), backlog_->calls.load()}; }
+@@ -302,7 +433,7 @@ class SandboxEngine::RemoteClient final : public SandboxRemoteSink {
+         }
+     }
+ 
+-    // Delivered on the dispatch thread in order with the other calls, then waited for here, on the caller's thread (the transport's), up to `kPlatformAnswerSeconds` from its arrival: the dispatch thread never waits for the host's platform, so a keep (`keepHosted`) can switch the delegate while a request waits and the request survives it. One at a time; none at once once the route closed or the client is going.
++    // Delivered on the dispatch thread in order with the other calls, then waited for here, on the caller's thread (the transport's), until it is due (`kPlatformAnswerSeconds` from its arrival, or as `wait_` moves it, the waiter also waking at the end of an exemption a release outlasts to ask the record again): the dispatch thread never waits for the host's platform, so a keep (`keepHosted`) can switch the delegate while a request waits and the request survives it. One at a time; none at once once the route closed or the client is going.
+     std::optional<std::string> remotePlatformRequest(const std::string& message) override {
+         if (!hosted_) {
+             violation("a platform request from an engine-only runtime");
+@@ -312,20 +443,22 @@ class SandboxEngine::RemoteClient final : public SandboxRemoteSink {
+             violation("a platform request over 32 MB");
+             return std::string();
+         }
+-        const auto deadline = std::chrono::steady_clock::now() + std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(kPlatformAnswerSeconds));
+-        auto call = std::make_shared<PlatformCall>();
++        const auto arrival = std::chrono::steady_clock::now();
++        std::shared_ptr<detail::PlatformCall> call;
+         bool second = false;
+         {
+             // The closed check and the publish in one step: a close settles this call or the request answers none here.
+             std::lock_guard<std::mutex> l(platformMutex_);
+             if (requestsClosed_) return std::nullopt;
+             second = waiting_ != nullptr;
+-            if (!second) waiting_ = call;
++            if (!second) waiting_ = call = std::make_shared<detail::PlatformCall>(++platformRequests, arrival);
+         }
+         if (second) {
+             violation("a second platform request while one waits");
+             return std::nullopt;
+         }
++        // Before the delegate can hear it: a release or an admission from now on is this request's, and none of an older one's moves it.
++        if (wait_) detail::HostedWaits::began(*wait_, call);
+         Admitted admitted = admit(message.size());
+         if (!admitted) {
+             finished(call);
+@@ -336,13 +469,30 @@ class SandboxEngine::RemoteClient final : public SandboxRemoteSink {
+             engine.delegate_->onHostedRequest(engine, message, hostedResponder([call](std::optional<std::string> answer) {
+                 const bool none = !answer;
+                 call->settle(std::move(answer), none);
+-            }));
++            }, call->number));
+         });
+         std::optional<std::string> answer;
+         bool none = false, late = false;
+         {
+             std::unique_lock<std::mutex> l(call->mutex);
+-            late = !call->cv.wait_until(l, deadline, [&] { return call->settled; });
++            while (!call->settled) {
++                // Read again at every wake: a hold, an exemption or the admission may have moved either.
++                const auto now = std::chrono::steady_clock::now();
++                if (wait_ && call->check && now >= *call->check) {
++                    // Before the deadline: a hold that resumed at the check may have moved it past now.
++                    l.unlock();
++                    detail::HostedWaits::recheck(*wait_, call);
++                    l.lock();
++                    continue;
++                }
++                if (now >= call->deadline) {
++                    late = true;
++                    break;
++                }
++                // A copy taken under the lock: `wait_until` reads its time again once it has the lock back, when an admission or a renewal may have ended the `check` it would refer to.
++                const auto wake = call->check ? std::min(call->deadline, *call->check) : call->deadline;
++                call->cv.wait_until(l, wake);
++            }
+             // A `respond` from now on is late: ignored.
+             call->settled = true;
+             answer = std::move(call->answer);
+@@ -357,7 +507,7 @@ class SandboxEngine::RemoteClient final : public SandboxRemoteSink {
+ 
+     /// The route closed or the client is going: the waiting platform request answers none at once, without a kill, and so does every later one.
+     void settleWaiting() {
+-        std::shared_ptr<PlatformCall> call;
++        std::shared_ptr<detail::PlatformCall> call;
+         {
+             std::lock_guard<std::mutex> l(platformMutex_);
+             requestsClosed_ = true;
+@@ -402,30 +552,13 @@ class SandboxEngine::RemoteClient final : public SandboxRemoteSink {
+     }
+ 
+ private:
+-    /// A platform request waiting for the host's platform on its caller's thread: settled once, by its responder, a close, or its waiter at the timeout.
+-    struct PlatformCall {
+-        std::mutex mutex;
+-        std::condition_variable cv;
+-        bool settled = false;
+-        std::optional<std::string> answer;
+-        /// Settled by `unanswered()`: no platform for it.
+-        bool none = false;
+-        /// Once; later calls are ignored.
+-        void settle(std::optional<std::string> value, bool unanswered) {
+-            {
+-                std::lock_guard<std::mutex> l(mutex);
+-                if (settled) return;
+-                settled = true;
+-                answer = std::move(value);
+-                none = unanswered;
+-            }
+-            cv.notify_all();
+-        }
+-    };
+     /// `call` is no longer the waiting one.
+-    void finished(const std::shared_ptr<PlatformCall>& call) {
+-        std::lock_guard<std::mutex> l(platformMutex_);
+-        if (waiting_ == call) waiting_.reset();
++    void finished(const std::shared_ptr<detail::PlatformCall>& call) {
++        {
++            std::lock_guard<std::mutex> l(platformMutex_);
++            if (waiting_ == call) waiting_.reset();
++        }
++        if (wait_) detail::HostedWaits::ended(*wait_, call);
+     }
+ 
+     /// What is queued and has neither run nor been dropped; `overflowed` once a message did not fit.
+@@ -513,10 +646,12 @@ class SandboxEngine::RemoteClient final : public SandboxRemoteSink {
+ 
+     std::shared_ptr<Liveness> life_;
+     const bool hosted_;
++    /// What moves its platform requests' deadlines (SandboxHostedWait); none: each is due `kPlatformAnswerSeconds` after its arrival.
++    const std::shared_ptr<SandboxHostedWait> wait_;
+     const std::shared_ptr<Backlog> backlog_ = std::make_shared<Backlog>();
+     /// The platform request waiting now, and whether requests are closed (`settleWaiting`).
+     std::mutex platformMutex_;
+-    std::shared_ptr<PlatformCall> waiting_;
++    std::shared_ptr<detail::PlatformCall> waiting_;
+     bool requestsClosed_ = false;
+ };
+ 
+@@ -527,24 +662,26 @@ SandboxEngine::SandboxEngine(std::string html, SandboxConfig config, std::shared
+     attachClient(std::move(remote), false);
+ }
+ 
+-SandboxEngine::SandboxEngine(HostedTag, std::string html, SandboxConfig config, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl)
++SandboxEngine::SandboxEngine(HostedTag, std::string html, SandboxConfig config, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl,
++                             std::shared_ptr<SandboxHostedWait> wait)
+     : SandboxEngine("widget.client", std::move(html), std::move(config), std::shared_ptr<SandboxResources>(), std::move(intl)) {
+     hosted_ = hosted;
+-    attachClient(std::move(hosted), true);
++    attachClient(std::move(hosted), true, std::move(wait));
+ }
+ 
+-void SandboxEngine::attachClient(std::shared_ptr<SandboxRemoteChannel> remote, bool hosted) {
++void SandboxEngine::attachClient(std::shared_ptr<SandboxRemoteChannel> remote, bool hosted, std::shared_ptr<SandboxHostedWait> wait) {
+     remote_ = std::move(remote);
+-    client_ = std::make_shared<RemoteClient>(liveness_, hosted);
++    client_ = std::make_shared<RemoteClient>(liveness_, hosted, std::move(wait));
+     // Before anything the channel delivers: its calls run on the dispatch thread after this.
+     routeOpen_ = bool(remote_);
+     // A host's factory without a channel: dead from the first task, never in process.
+     if (remote_) remote_->attach(client_);
+     else thread_.async([this] { remoteKill(kEngineGone, false, false); });
+ }
+ 
+-std::unique_ptr<SandboxEngine> SandboxEngine::hostedClient(std::string html, SandboxConfig config, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl) {
+-    return std::unique_ptr<SandboxEngine>(new SandboxEngine(HostedTag{}, std::move(html), std::move(config), std::move(hosted), std::move(intl)));
++std::unique_ptr<SandboxEngine> SandboxEngine::hostedClient(std::string html, SandboxConfig config, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl,
++                                                           std::shared_ptr<SandboxHostedWait> wait) {
++    return std::unique_ptr<SandboxEngine>(new SandboxEngine(HostedTag{}, std::move(html), std::move(config), std::move(hosted), std::move(intl), std::move(wait)));
+ }
+ 
+ bool SandboxEngine::isHosted() const { return client_ && client_->hosted(); }
+@@ -670,6 +807,7 @@ bool SandboxEngine::keepHosted(SandboxEngineDelegate& kept) {
+             remote_->stop("terminated");
+         }
+         grants_.clear();
++        pressAdmitted_ = false;
+         remoteTaskOpen_ = false;
+         delegate_ = &kept;
+         kept_ = true;
+@@ -684,16 +822,31 @@ void SandboxEngine::pressDelivered() {
+     const double at = nowMs();
+     thread_.async([this, at] {
+         if (dead_ || config_.context.preview) return;
++        pressAdmitted_ = true;
++        haptics_.press(at);
++        if (visible_) grant(++hostedGesture_, at);
++    });
++}
++
++// The press and its message in one job, stamped at the call: a grant never exists before the transport's writer took the message, nor for one a closed, ending or kept route or a refusing writer dropped.
++void SandboxEngine::platformPress(std::string message) {
++    if (!hosted_) return;
++    const double at = nowMs();
++    thread_.async([this, message = std::move(message), at] {
++        if (!routeOpen_ || !hosted_->platform(message)) return;
++        if (dead_ || kept_ || config_.context.preview) return;
++        pressAdmitted_ = true;
+         haptics_.press(at);
+         if (visible_) grant(++hostedGesture_, at);
+     });
+ }
+ 
++// Only the end of a press that counted: a refused down leaves no touch window to its release.
+ void SandboxEngine::releaseDelivered() {
+     if (!hosted_) return;
+     const double at = nowMs();
+     thread_.async([this, at] {
+-        if (!dead_ && !config_.context.preview) haptics_.release(at);
++        if (std::exchange(pressAdmitted_, false) && !dead_ && !config_.context.preview) haptics_.release(at);
+     });
+ }
+ 
+@@ -799,6 +952,8 @@ bool SandboxEngine::remoteDeath(const std::string& reason) {
+ void SandboxEngine::closeRoute(const std::string& reason, bool stop, bool ended) {
+     if (!routeOpen_) return;
+     routeOpen_ = false;
++    grants_.clear();
++    pressAdmitted_ = false;
+     clientSettleWaiting();
+     const std::string bounded = reason.substr(0, kRemoteTextLimit);
+     if (stop) remote_->stop(bounded);
+diff --git a/packages/desktop/sandbox/src/widget_host.cpp b/packages/desktop/sandbox/src/widget_host.cpp
+@@ -19,6 +19,21 @@ namespace {
+ /// Where a diagnostic of a new kind past WidgetHost::kMaxDiagKinds is counted.
+ constexpr const char* kDiagKindDropped = "diag-kind-dropped";
+ 
++/// The platform message or request whose observer runs on this thread now (`WidgetHost::platformDelivery`), null outside one.
++thread_local const HostedPlatformDelivery* currentDelivery = nullptr;
++
++/// While it lives `WidgetHost::platformDelivery` on its thread gives `delivery`, then again what it gave before.
++class DeliveryScope {
++public:
++    explicit DeliveryScope(const HostedPlatformDelivery& delivery) : outer_(std::exchange(currentDelivery, &delivery)) {}
++    ~DeliveryScope() { currentDelivery = outer_; }
++    DeliveryScope(const DeliveryScope&) = delete;
++    DeliveryScope& operator=(const DeliveryScope&) = delete;
++
++private:
++    const HostedPlatformDelivery* const outer_;
++};
++
+ } // namespace
+ 
+ // The deprecated observers are members: their implicit construction and destruction here use nothing of them.
+@@ -29,15 +44,16 @@ constexpr const char* kDiagKindDropped = "diag-kind-dropped";
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+ #endif
+-WidgetHost::WidgetHost(std::string html, WidgetTheme theme, double width, WidgetHostOptions options, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl)
++WidgetHost::WidgetHost(std::string html, WidgetTheme theme, double width, WidgetHostOptions options, std::shared_ptr<SandboxHostedChannel> hosted, std::shared_ptr<IntlProvider> intl,
++                       std::shared_ptr<SandboxHostedWait> wait)
+     : hostThread_("twidget-host"),
+       html_(std::move(html)),
+       theme_(theme.colorScheme == "dark" ? "dark" : "light"),
+       widgetTheme_(normalized(std::move(theme))),
+       config_(makeConfig(options, width, widgetTheme_)),
+       hosting_{true, nullptr},
+       validator_(nullptr, nullptr),
+-      engine_(SandboxEngine::hostedClient(html_, config_, std::move(hosted), std::move(intl))),
++      engine_(SandboxEngine::hostedClient(html_, config_, std::move(hosted), std::move(intl), std::move(wait))),
+       viewportW_(width), viewportH_(300), viewportDpr_(options.devicePixelRatio) {}
+ 
+ WidgetHost::~WidgetHost() {
+@@ -125,10 +141,23 @@ void WidgetHost::pressDelivered() {
+     if (hosting_.hosted && engine_) engine_->pressDelivered();
+ }
+ 
++void WidgetHost::sendPlatformPress(std::string message) {
++    if (hosting_.hosted && engine_) engine_->platformPress(std::move(message));
++}
++
+ void WidgetHost::releaseDelivered() {
+     if (hosting_.hosted && engine_) engine_->releaseDelivered();
+ }
+ 
++HostedPlatformDelivery WidgetHost::platformDelivery() { return currentDelivery ? *currentDelivery : HostedPlatformDelivery{}; }
++
++void WidgetHost::platformDiag(const std::string& kind, const std::string& detail) {
++    if (!hosting_.hosted) return;
++    host([this, kind, detail] {
++        if (!callbacksClosed_) diag(kind, detail);
++    });
++}
++
+ void WidgetHost::destroy() {
+     if (destroyed_.exchange(true)) return;
+     // Unblock an engine thread waiting for a renderer answer before the engine is stopped; a hosted client's waiting platform request answers none as its route closes.
+@@ -355,6 +384,8 @@ void WidgetHost::onDied(SandboxEngine& engine, const std::string& reason) {
+             diagnostics_.dead = effective;
+         }
+         changed();
++        // The end the owner asked for (`destroy()`, `keepRenderer()`) is no death to hear.
++        if (onDeath && !destroyed_) onDeath(effective);
+         if (glue_) (this->*glue_->died)(effective);
+     }, engine.remoteHold());
+ }
+@@ -386,10 +417,15 @@ void WidgetHost::changed() {
+ 
+ // ───────────── a hosted client's reports (its dispatch thread) ─────────────
+ 
++// The observer finds the delivery's hold through `platformDelivery()` for as long as it runs.
+ void WidgetHost::onHostedMessage(SandboxEngine& engine, const std::string& message) {
+-    engineWork([this, message] {
+-        if (!platformClosed() && onPlatformMessage) onPlatformMessage(message);
+-    }, engine.remoteHold());
++    const SandboxEngine::RemoteHold hold = engine.remoteHold();
++    engineWork([this, message, hold] {
++        if (platformClosed() || !onPlatformMessage) return;
++        const HostedPlatformDelivery delivery{hold, 0};
++        DeliveryScope scope(delivery);
++        onPlatformMessage(message);
++    }, hold);
+ }
+ 
+ void WidgetHost::onHostedOps(SandboxEngine& engine, const std::string& json) {
+@@ -434,11 +470,14 @@ void WidgetHost::onHostedNodes(SandboxEngine& engine, int nodes) {
+ 
+ // The client waits for the answer on the request's own thread: this only hands it to `onPlatformRequest` on the host thread, whose `respond` holds only the request. One that comes once the platform observers are closed is left to the route's close (`destroy()`, a keep that keeps nothing), so it ends the widget as that close does.
+ void WidgetHost::onHostedRequest(SandboxEngine& engine, const std::string& message, HostedRequestResponder respond) {
+-    host([this, message, respond] {
++    const SandboxEngine::RemoteHold hold = engine.remoteHold();
++    host([this, message, respond, hold] {
+         if (platformClosed()) return;
+         if (!onPlatformRequest) return respond.unanswered();
++        const HostedPlatformDelivery delivery{hold, respond.request()};
++        DeliveryScope scope(delivery);
+         onPlatformRequest(message, [respond](std::string answer) { respond(std::move(answer)); });
+-    }, engine.remoteHold());
++    }, hold);
+ }
+ 
+ // The client goes on the host thread, after everything it handed this host before the switch (the platform traffic among it, `keeping_`), so each platform message reaches exactly one observer, this host's first.
+@@ -470,7 +509,7 @@ std::unique_ptr<HostedKeptRenderer> WidgetHost::keepRenderer(HostedKeptRenderer:
+ 
+ // ───────────── a kept renderer (HostedKeptRenderer) ─────────────
+ 
+-/// Its platform traffic to the observers on the handle's thread, in order, each queued call keeping its message counted; every other call is dropped (the client delivers none of them past the keep but a layout query's refusal).
++/// Its platform traffic to the observers on the handle's thread, in order, each queued call keeping its message counted and giving it to `WidgetHost::platformDelivery()` while its observer runs (the first one too, which may run before `keepRenderer` returned); every other call is dropped (the client delivers none of them past the keep but a layout query's refusal).
+ class HostedKeptRenderer::Delegate final : public SandboxEngineDelegate {
+ public:
+     explicit Delegate(HostedKeptRenderer& kept) : kept_(kept) {}
+@@ -488,12 +527,17 @@ class HostedKeptRenderer::Delegate final : public SandboxEngineDelegate {
+ 
+     void onHostedMessage(SandboxEngine& engine, const std::string& message) override {
+         kept_.thread_.async([&kept = kept_, message, hold = engine.remoteHold()] {
+-            if (!kept.released_ && kept.observers_.onPlatformMessage) kept.observers_.onPlatformMessage(message);
++            if (kept.released_ || !kept.observers_.onPlatformMessage) return;
++            const HostedPlatformDelivery delivery{hold, 0};
++            DeliveryScope scope(delivery);
++            kept.observers_.onPlatformMessage(message);
+         });
+     }
+     void onHostedRequest(SandboxEngine& engine, const std::string& message, HostedRequestResponder respond) override {
+         kept_.thread_.async([&kept = kept_, message, respond, hold = engine.remoteHold()] {
+             if (kept.released_ || !kept.observers_.onPlatformRequest) return respond.unanswered();
++            const HostedPlatformDelivery delivery{hold, respond.request()};
++            DeliveryScope scope(delivery);
+             kept.observers_.onPlatformRequest(message, [respond](std::string answer) { respond(std::move(answer)); });
+         });
+     }
+diff --git a/packages/desktop/sandbox/src/widget_host_local.cpp b/packages/desktop/sandbox/src/widget_host_local.cpp
+@@ -238,7 +238,12 @@ void WidgetHost::localSetTheme() {
+     renderer_->setTheme(theme_);
+     toRenderer(themeMessage());
+     // Past the cut the renderer never gets the nodes the re-themed stylesheets would name.
+-    if (!engineCut_) toRenderer("{\"type\":\"ops\",\"ops\":" + validator_->setTheme(theme_) + "}");
++    if (!engineCut_) {
++        // A validated batch too: `onRenderOps` (the harness's leak scan) sees every batch the renderer gets.
++        const std::string clean = validator_->setTheme(theme_);
++        toRenderer("{\"type\":\"ops\",\"ops\":" + clean + "}");
++        if (clean != "[]" && onRenderOps) onRenderOps(clean);
++    }
+     engine_->theme(theme_, widgetTheme_.params);
+ }
+ 
+@@ -325,6 +330,8 @@ QueryAnswer WidgetHost::localQuery(SandboxEngine& engine, const std::string& jso
+         if (pendingQuery_ == pending) pendingQuery_.reset();
+         return {"{\"error\":\"dead\"}", std::nullopt};
+     }
++    // 3 s of the glue's own time, read before the glue can run this query: a served host's glue thread waiting inside its renderer's platform requests from here on (one ahead of this query too) is the embedder's time, left out here and in the widget's query budget, however late this thread waits.
++    const GlueWaited first = glueWaited();
+     host([this, pending, clean] {
+         if (destroyed_ || engineCut_ || rendererOnly_) return resolveQuery("{\"error\":\"dead\"}", std::nullopt);
+         if (!clean) return resolveQuery("{\"error\":\"invalid query\"}", std::nullopt);
+@@ -336,12 +343,34 @@ QueryAnswer WidgetHost::localQuery(SandboxEngine& engine, const std::string& jso
+         // Not kept: the cut, or destroy(), resolved this query and no longer waits for its qid.
+         engineToRenderer("{\"type\":\"query\",\"qid\":" + std::to_string(qid_) + ",\"query\":" + *clean + "}");
+     }, std::move(*hold));
++    const auto platformSeconds = [&](std::chrono::steady_clock::duration total) {
++        return std::chrono::duration<double>(std::max(total - first.total, std::chrono::steady_clock::duration::zero())).count();
++    };
+     std::unique_lock<std::mutex> l(queryMutex_);
+-    if (!queryCv_.wait_for(l, std::chrono::seconds(3), [&] { return pending->done; })) {
+-        if (pendingQuery_ == pending) pendingQuery_.reset();
+-        return {"{\"error\":\"timeout\"}", std::nullopt};
++    while (!pending->done) {
++        const GlueWaited now = glueWaited();
++        const auto deadline = first.at + std::chrono::seconds(3) + (now.total - first.total);
++        if (now.at >= deadline) {
++            if (pendingQuery_ == pending) pendingQuery_.reset();
++            // Its 3 s of the glue's own time are charged, the platform waits in it are not, as for an answer.
++            return {"{\"error\":\"timeout\"}", std::nullopt, platformSeconds(now.total)};
++        }
++        // A wait in progress moves the deadline with it: its end (`glueWaitEnded`) or the answer wakes this.
++        if (now.waiting) queryCv_.wait(l);
++        else queryCv_.wait_until(l, deadline);
+     }
+-    return {pending->json, pending->binary};
++    // Up to the answer's own reading (`resolveQuery`), whenever this thread woke.
++    return {pending->json, pending->binary, platformSeconds(pending->glueWaited)};
++}
++
++WidgetHost::GlueWaited WidgetHost::glueWaited() const { return glueWaits_ ? glueWaits_() : GlueWaited{std::chrono::steady_clock::now()}; }
++
++void WidgetHost::glueWaitEnded() {
++    // Under the query's lock, so a query between its reading and its wait cannot miss it.
++    {
++        std::lock_guard<std::mutex> l(queryMutex_);
++    }
++    queryCv_.notify_all();
+ }
+ 
+ void WidgetHost::resolveQuery(const std::string& json, std::optional<std::vector<uint8_t>> binary) {
+@@ -351,6 +380,7 @@ void WidgetHost::resolveQuery(const std::string& json, std::optional<std::vector
+     if (!p) return;
+     p->json = json;
+     p->binary = std::move(binary);
++    p->glueWaited = glueWaited().total;
+     p->done = true;
+     queryCv_.notify_all();
+ }

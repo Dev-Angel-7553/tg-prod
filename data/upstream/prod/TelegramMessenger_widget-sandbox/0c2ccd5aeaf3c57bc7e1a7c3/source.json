@@ -1,0 +1,51 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/widget-sandbox:0170015772ddbd443d81dc6f9f050a49929588a8:code:mixed",
+  "files": [
+    {
+      "additions": 58,
+      "deletions": 12,
+      "filename": "packages/desktop/sandbox/include/twidget/sandbox_engine.h",
+      "status": "modified"
+    },
+    {
+      "additions": 37,
+      "deletions": 8,
+      "filename": "packages/desktop/sandbox/include/twidget/widget_host.h",
+      "status": "modified"
+    },
+    {
+      "additions": 95,
+      "deletions": 4,
+      "filename": "packages/desktop/sandbox/src/remote_hosted.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 194,
+      "deletions": 39,
+      "filename": "packages/desktop/sandbox/src/sandbox_engine_client.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 53,
+      "deletions": 9,
+      "filename": "packages/desktop/sandbox/src/widget_host.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 35,
+      "deletions": 5,
+      "filename": "packages/desktop/sandbox/src/widget_host_local.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "js-sandbox",
+    "date": "2026-11-19T11:11:11Z",
+    "repo": "TelegramMessenger/widget-sandbox",
+    "sha": "0170015772ddbd443d81dc6f9f050a49929588a8",
+    "url": "https://github.com/TelegramMessenger/widget-sandbox/compare/a969c2c3cbbadb6560e67550bbda852dd2e40845...0170015772ddbd443d81dc6f9f050a49929588a8"
+  }
+}

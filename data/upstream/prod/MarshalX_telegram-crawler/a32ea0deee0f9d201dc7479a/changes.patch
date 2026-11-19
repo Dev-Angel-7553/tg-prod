@@ -1,0 +1,49 @@
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc
+@@ -0,0 +1 @@
++a6b3b5288ffd0ded980f6b795a23cf16e089d350015037306cc5a406c808e8ec
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc
+@@ -0,0 +1 @@
++b777fa6747a5ddba1e4c92c26f879ec06f360b74243e017818a29d6264c4454f
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/manifest.txt b/data/client/android-beta/assets/WidgetSandbox/manifest.txt
+@@ -1 +1 @@
+-fb71cc92639a536eeca48d3922ab0e967ab164e80240a8c6e00b9421e813bcf8
+\ No newline at end of file
++d7e80a7fa857923c7e7d56000740cab2cb7e94a139b9b005022b16fea3d412e6
+\ No newline at end of file
+diff --git a/data/client/android-beta/res/values/strings.xml b/data/client/android-beta/res/values/strings.xml
+@@ -12258,7 +12258,7 @@ Do you still remember your password?"</string>
+     <string name="chatDate">MMMM d</string>
+     <string name="chatDateShort">MMM d</string>
+     <string name="chatFullDate">MMMM d, yyyy</string>
+-    <string name="com.google.firebase.crashlytics.mapping_file_id">bc705a30e9b6438cb98ab6de3e248974</string>
++    <string name="com.google.firebase.crashlytics.mapping_file_id">1b5cd31128f840c99100d356131433a9</string>
+     <string name="com.google.firebase.crashlytics.version_control_info">"generate_error_reason: NO_VALID_GIT_FOUND
+ "</string>
+     <string name="common_google_play_services_enable_button">Enable</string>
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json b/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json
+@@ -1 +1 @@
+-87091c113923d27aaac8e5559e884b1156c8a81b1ffaa900fcb5bac81ad5cd39
+\ No newline at end of file
++e8b25b20ee7c0de2a8e48be31827d0cef21e4a7ab9f3823f558cba1adec99293
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/en.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/en.lproj/Localizable.strings
+@@ -413,6 +413,8 @@
+ "AIAssistant.SettingsController.InstallWhisperInfo" = "Install the Whisper plugin in Dictator → Plugins to send voice messages.";
+ "AIAssistant.SettingsController.LearnFromHowIUseTelegram" = "Learn from How I Use Telegram";
+ "AIAssistant.SettingsController.LeaveEmptyToKeepTheCurrentKey" = "Leave empty to keep the current key";
++"AIAssistant.SettingsController.LockWithMac" = "Lock When the Mac Locks";
++"AIAssistant.SettingsController.LockWithMacInfo" = "Agents keep using Telegram while your Mac is locked unless Telegram has a passcode. Turn this on to stop them whenever your Mac locks, even without a passcode.";
+ "AIAssistant.SettingsController.Memory" = "MEMORY";
+ "AIAssistant.SettingsController.Model" = "Model";
+ "AIAssistant.SettingsController.NeedsWhisper" = "Needs Whisper";
+@@ -6556,7 +6558,7 @@
+ "LocalAgent.Actions.NoChatMatches" = "No chat matches %1$@.";
+ "LocalAgent.Actions.NotAllowedByTheUserSTelegramPermissions" = "Not allowed by the user's Telegram permissions: %1$@.";
+ "LocalAgent.Actions.ShowsSomethingOnScreenAndThisConversationSTelegramAccount" = "%1$@ shows something on screen, and this conversation's Telegram account isn't the one open in the app. Do the rest without it, or call switch_account first.";
+-"LocalAgent.Actions.TelegramIsLockedUnlockTelegramAndMakeANew" = "Telegram is locked. Unlock Telegram and make a new request.";
++"LocalAgent.Actions.TelegramIsLockedUnlockTelegramAndMakeANew" = "Telegram is locked. Unlock Telegram (and the Mac, if it's locked) and make a new request.";
+ "LocalAgent.Actions.TheUserBlockedTheAgentFrom" = "The user blocked the agent from %1$@.";
+ "LocalAgent.Actions.TheUserDeclinedThisRequest" = "The user declined this request.";
+ "LocalAgent.Actions.TheUserTurnedOffTelegramActionsForTheAgent" = "The user turned off Telegram actions for the agent.";

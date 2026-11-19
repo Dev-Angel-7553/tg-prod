@@ -1,0 +1,12 @@
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json b/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json
+@@ -1 +1 @@
+-e8b25b20ee7c0de2a8e48be31827d0cef21e4a7ab9f3823f558cba1adec99293
+\ No newline at end of file
++87091c113923d27aaac8e5559e884b1156c8a81b1ffaa900fcb5bac81ad5cd39
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Resources/default.metallib b/data/client/macos-beta/Telegram.app/Contents/Resources/PeerInfoUI_PeerInfoUI.bundle/Contents/Resources/default.metallib
+@@ -1 +1 @@
+-9b2c8345b2e9bc380c9a9910703aa0c8553b53d48d6df5e864b9ae676ac863b9
+\ No newline at end of file
++99c54e049325f34dfa5673e4112ad1ad65812356370f6402ce5e33302fa0ccd7
+\ No newline at end of file

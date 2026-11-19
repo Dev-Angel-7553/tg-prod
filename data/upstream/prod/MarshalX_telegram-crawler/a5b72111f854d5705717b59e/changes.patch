@@ -1,0 +1,73 @@
+diff --git a/data/web_tr/translation_keys.json b/data/web_tr/translation_keys.json
+@@ -28515,6 +28515,7 @@
+         "PUSH_ENCRYPTION_REQUEST",
+         "PUSH_LOCKED_MESSAGE",
+         "PUSH_LOCKED_STORY",
++        "PUSH_MARK_FORWARDED",
+         "PUSH_MESSAGE",
+         "PUSH_MESSAGES",
+         "PUSH_MESSAGES_TEXT",
+diff --git a/data/web_tr/translations.telegram.org/en/android/unsorted.json b/data/web_tr/translations.telegram.org/en/android/unsorted.json
+@@ -11450,7 +11450,7 @@
+     "GiftOnchainOfferUnlistFirst": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferUnlistFirst",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This gift is on sale. Remove it from sale first to accept the offer."
+         }
+@@ -11820,7 +11820,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Wallet"
++            "singular": "Money"
+         }
+     },
+     "GiftPremiumActivateErrorText": {
+diff --git a/data/web_tr/translations.telegram.org/en/ios.html b/data/web_tr/translations.telegram.org/en/ios.html
+@@ -220,7 +220,7 @@
+ </div></nav>
+     <section class="content clearfix">
+       <section class="tr-content"><h3 class="tr-header">
+-  <a href="/en/" class="tr-back"></a>iOS<span class="tr-header-counter">12868</span>
++  <a href="/en/" class="tr-back"></a>iOS<span class="tr-header-counter">12869</span>
+   <div class="tr-header-tabs"><span class="tr-header-tab"><a href="/en/ios/recent/translations">Translations</a></span><span class="tr-header-tab"><a href="/en/ios/recent/suggestions">Suggestions</a></span><span class="tr-header-tab"><a href="/en/ios/recent/comments">Comments</a></span></div>
+ </h3>
+ <section class="tr-sections clearfix">
+@@ -302,7 +302,7 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/ios/general/" class="tr-section">
+     <div class="tr-section-cover cover1"></div>
+-    <div class="tr-section-caption">General (3452)</div>
++    <div class="tr-section-caption">General (3453)</div>
+   </a></div>
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/ios/unsorted/" class="tr-section">
+diff --git a/data/web_tr/translations.telegram.org/en/ios/general.json b/data/web_tr/translations.telegram.org/en/ios/general.json
+@@ -18161,6 +18161,14 @@
+             "singular": "You have a new message<mark class=\"token\">%1$@</mark>"
+         }
+     },
++    "PUSH_MARK_FORWARDED": {
++        "url": "https://translations.telegram.org/en/ios/general/PUSH_MARK_FORWARDED",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Forwarded"
++        }
++    },
+     "PUSH_MESSAGES": {
+         "url": "https://translations.telegram.org/en/ios/general/PUSH_MESSAGES",
+         "photo_url": "https://telegra.ph/file/p/afbd89726bf/882fb3e969ac9b1101e0a16.jpg?c=0,308,276,280,276,280",
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -4358,7 +4358,7 @@
+     "Gift.OnchainOffer.Error.OnSale": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.OnchainOffer.Error.OnSale",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This gift is listed for sale. Remove it from sale first to accept the offer."
+         }

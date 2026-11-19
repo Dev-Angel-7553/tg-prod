@@ -1,0 +1,10 @@
+diff --git a/data/web_tr/translations.telegram.org/en/unigram/unsorted.json b/data/web_tr/translations.telegram.org/en/unigram/unsorted.json
+@@ -12966,7 +12966,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Docked Header and Composer"
++            "singular": "Classic Docked Layout"
+         }
+     },
+     "DoubleClickReact": {

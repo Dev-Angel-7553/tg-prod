@@ -1,0 +1,20 @@
+{
+  "category": "translations",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:e2001ff6fb8775af101585efb3d230b6f3da86f3:translations:mixed",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/unigram/unsorted.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-19T17:32:03Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "e2001ff6fb8775af101585efb3d230b6f3da86f3",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/e2001ff6fb8775af101585efb3d230b6f3da86f3"
+  }
+}

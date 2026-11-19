@@ -1,0 +1,284 @@
+diff --git a/data/web_tr/translations.telegram.org/en/android/unsorted.json b/data/web_tr/translations.telegram.org/en/android/unsorted.json
+@@ -4117,7 +4117,7 @@
+     "BotInviteErrorAlreadyStartedMany": {
+         "url": "https://translations.telegram.org/en/android/unsorted/BotInviteErrorAlreadyStartedMany",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "These users already have a chat with **<mark class=\"token\">%s</mark>**."
+         }
+@@ -4133,7 +4133,7 @@
+     "BotInviteErrorNotOwner": {
+         "url": "https://translations.telegram.org/en/android/unsorted/BotInviteErrorNotOwner",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only the owner of **<mark class=\"token\">%s</mark>** can invite users to it."
+         }
+@@ -10690,7 +10690,7 @@
+     "GiftOnchainErrorNotForSaleFixed": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainErrorNotForSaleFixed",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This gift is no longer for sale."
+         }
+@@ -10714,7 +10714,7 @@
+     "GiftOnchainErrorNotOwner": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainErrorNotOwner",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This gift is not in your wallet."
+         }
+@@ -11242,7 +11242,7 @@
+     "GiftOnchainOfferRefundNote": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferRefundNote",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "If the seller declines your offer or it expires, your Grams will be automatically returned to you."
+         }
+@@ -11482,7 +11482,7 @@
+     "GiftOnchainOfferWithdrawFor": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferWithdrawFor",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Withdraw for <mark class=\"token\">%s</mark>"
+         }
+@@ -11562,7 +11562,7 @@
+     "GiftOnchainRowExpiration": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainRowExpiration",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Expiration"
+         }
+@@ -11594,7 +11594,7 @@
+     "GiftOnchainRowPrice": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainRowPrice",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Price"
+         }
+@@ -11618,7 +11618,7 @@
+     "GiftOnchainRowYouReceive": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainRowYouReceive",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You receive"
+         }
+@@ -12150,7 +12150,7 @@
+     "GramEarningsUseText": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GramEarningsUseText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "**<mark class=\"token\">%1$s</mark>** will be moved from Gram Earnings to your balance and used to buy this gift."
+         }
+@@ -13647,7 +13647,7 @@
+     "MakeGroupPrivateText": {
+         "url": "https://translations.telegram.org/en/android/unsorted/MakeGroupPrivateText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your group’s public link **<mark class=\"token\">%1$s</mark>** will be removed, and this username will become available to anyone. Continue?"
+         }
+@@ -14572,7 +14572,7 @@
+     "NewsNotInterestedDone": {
+         "url": "https://translations.telegram.org/en/android/unsorted/NewsNotInterestedDone",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You will see fewer posts like this."
+         }
+@@ -24927,7 +24927,7 @@
+     "WalletOnchainGiftOfferExpired": {
+         "url": "https://translations.telegram.org/en/android/unsorted/WalletOnchainGiftOfferExpired",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Offer expired"
+         }
+@@ -24943,7 +24943,7 @@
+     "WalletOnchainGiftPutOnSale": {
+         "url": "https://translations.telegram.org/en/android/unsorted/WalletOnchainGiftPutOnSale",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Put on sale"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -797,7 +797,7 @@
+     "BotInvite.Error.AlreadyStartedMultiple": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/BotInvite.Error.AlreadyStartedMultiple",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "These users already have a chat with the bot."
+         }
+@@ -813,7 +813,7 @@
+     "BotInvite.Error.NotOwner": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/BotInvite.Error.NotOwner",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only the owner of the bot can invite users."
+         }
+@@ -4054,7 +4054,7 @@
+     "Gift.Onchain.Error.NotOwner": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.Onchain.Error.NotOwner",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This gift isn't in your wallet."
+         }
+@@ -4174,7 +4174,7 @@
+     "Gift.Onchain.UseEarnings.Text": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.Onchain.UseEarnings.Text",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "**<mark class=\"token\">%@</mark>** will be moved from Gram Earnings to your balance and used to buy this gift."
+         }
+@@ -4246,7 +4246,7 @@
+     "Gift.OnchainOffer.Confirm.Refund": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.OnchainOffer.Confirm.Refund",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "If the seller declines your offer or it expires, **<mark class=\"token\">%@</mark>** will be automatically returned to you."
+         }
+@@ -4278,7 +4278,7 @@
+     "Gift.OnchainOffer.Confirm.YouReceive": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.OnchainOffer.Confirm.YouReceive",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You receive"
+         }
+@@ -4470,7 +4470,7 @@
+     "Gift.OnchainOffer.Withdraw.Action": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.OnchainOffer.Withdraw.Action",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Withdraw for <mark class=\"token\">%@</mark>"
+         }
+@@ -4742,7 +4742,7 @@
+     "Group.Edit.PrivateConfirmation.Text": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Group.Edit.PrivateConfirmation.Text",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your group's public link t.me/<mark class=\"token\">%@</mark> will be removed, and this username will become available to anyone. Continue?"
+         }
+@@ -11684,7 +11684,7 @@
+     "Wallet.Transaction.CollectibleOfferAccepted": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Wallet.Transaction.CollectibleOfferAccepted",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Offer accepted"
+         }
+@@ -11708,7 +11708,7 @@
+     "Wallet.Transaction.CollectibleOfferExpired": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Wallet.Transaction.CollectibleOfferExpired",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Offer expired"
+         }
+@@ -11852,7 +11852,7 @@
+     "Wallet.Transaction.OfferExpiration": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Wallet.Transaction.OfferExpiration",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Expiration"
+         }
+@@ -11868,7 +11868,7 @@
+     "Wallet.Transaction.OfferPrice": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Wallet.Transaction.OfferPrice",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Price"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -68983,7 +68983,7 @@
+     "Wallet.TransactionRowItem.OfferAccepted": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Wallet.TransactionRowItem.OfferAccepted",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Offer accepted"
+         }
+@@ -69007,7 +69007,7 @@
+     "Wallet.TransactionRowItem.OfferExpired": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Wallet.TransactionRowItem.OfferExpired",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Offer expired"
+         }
+@@ -69063,7 +69063,7 @@
+     "Wallet.TransactionRowItem.PutOnSale": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Wallet.TransactionRowItem.PutOnSale",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Put on sale"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/general.json b/data/web_tr/translations.telegram.org/en/tdesktop/general.json
+@@ -8560,7 +8560,7 @@
+     "lng_gift_sell_put": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_gift_sell_put",
+         "photo_url": "https://telegra.ph/file/p/3af69adaee7/70965be9600e85c77377d17.jpg?c=160,501,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Put for Sale"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/profile.json b/data/web_tr/translations.telegram.org/en/tdesktop/profile.json
+@@ -696,7 +696,7 @@
+     "lng_gift_sell_put": {
+         "url": "https://translations.telegram.org/en/tdesktop/profile/lng_gift_sell_put",
+         "photo_url": "https://telegra.ph/file/p/8a144673650/58f5bbc412eb388cae08017.jpg?c=161,455,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Put for Sale"
+         }

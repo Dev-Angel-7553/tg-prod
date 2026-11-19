@@ -1,0 +1,2028 @@
+diff --git a/data/web_tr/translation_keys.json b/data/web_tr/translation_keys.json
+@@ -13206,6 +13206,32 @@
+         "CallMessageOutgoingMissed",
+         "CallMessageOutgoingMissed",
+         "CallNoLongerActive",
++        "CallOngoingIncoming",
++        "CallOngoingOutgoing",
++        "CallProblemAppChannel",
++        "CallProblemAppChannelGuide",
++        "CallProblemBackground",
++        "CallProblemBackgroundAction",
++        "CallProblemBackgroundGuide",
++        "CallProblemChannel",
++        "CallProblemChannelAction",
++        "CallProblemChannelGuide",
++        "CallProblemFullScreen",
++        "CallProblemFullScreenAction",
++        "CallProblemFullScreenGuide",
++        "CallProblemFullScreenSteps",
++        "CallProblemFullScreenStepsSamsung",
++        "CallProblemOngoingChannel",
++        "CallProblemOngoingChannelAction",
++        "CallProblemOngoingChannelGuide",
++        "CallRingtoneUserHint",
++        "CallSettingsReset",
++        "CallSettingsResetConfirm",
++        "CallSettingsResetConfirmCustom",
++        "CallSettingsResetOthers",
++        "CallTapToSeeCaller",
++        "CallUnlock",
++        "CallUnlockToAnswer",
+         "CallX",
+         "Calls",
+         "Calls",
+@@ -13452,6 +13478,7 @@
+         "ChatContentVoiceChatStarted",
+         "ChatContentVoiceChatStarted_outgoing",
+         "ChatContentVoiceDuration",
++        "ChatContentWidget",
+         "ChatDisabledAudio",
+         "ChatDisabledBots",
+         "ChatDisabledDart",
+@@ -14441,6 +14468,8 @@
+         "FromYou",
+         "FromYou",
+         "FromYouAnonymous",
++        "FullScreenAlerts",
++        "FullScreenNotifications",
+         "GIFs",
+         "Gallery",
+         "Gallery",
+@@ -15257,19 +15286,25 @@
+         "NotificationChannelCall",
+         "NotificationChannelChannelChat",
+         "NotificationChannelChannelChatPublic",
++        "NotificationChannelCommonCalls",
+         "NotificationChannelCommonChannels",
+         "NotificationChannelCommonGroups",
+         "NotificationChannelCommonPrivate",
+         "NotificationChannelCustom",
++        "NotificationChannelCustomCalls",
+         "NotificationChannelGroupChat",
+         "NotificationChannelGroupChatPublic",
++        "NotificationChannelIncomingCallScreen",
++        "NotificationChannelIncomingCalls",
+         "NotificationChannelMaybe",
+         "NotificationChannelMore",
++        "NotificationChannelOngoingCalls",
+         "NotificationChannelOther",
+         "NotificationChannelOutgoingCall",
+         "NotificationChannelPlayback",
+         "NotificationChannelSecretChat",
+         "NotificationChannelUser",
++        "NotificationChannelUserCalls",
+         "NotificationContactJoined",
+         "NotificationGame",
+         "NotificationGame_group",
+@@ -15341,15 +15376,19 @@
+         "NotificationsErrorUnselected",
+         "NotificationsGroupInfo",
+         "NotificationsGuideBlockedAll",
++        "NotificationsGuideBlockedAll2",
+         "NotificationsGuideBlockedApp",
++        "NotificationsGuideBlockedApp2",
+         "NotificationsGuideBlockedCategory",
++        "NotificationsGuideBlockedCategory2",
+         "NotificationsGuideCategoryLimit",
+         "NotificationsGuideCategoryLimitErrorChat",
+         "NotificationsGuideError",
+         "NotificationsGuideErrorChat",
+         "NotificationsGuideFirebaseError",
+         "NotificationsGuideFirebaseUnavailable",
+         "NotificationsGuidePermission",
++        "NotificationsGuidePermission2",
+         "NotificationsGuideSyncAppOff",
+         "NotificationsGuideSyncGlobalOff",
+         "NotificationsLed",
+@@ -15473,6 +15512,8 @@
+         "PasscodePIN",
+         "PasscodePattern",
+         "PasscodePattern",
++        "PasscodeRequireForCalls",
++        "PasscodeRequireForCallsInfo",
+         "PasscodeSettingDisabled",
+         "PasscodeTitle",
+         "PasswordAndHintMustBeDifferent",
+@@ -16117,6 +16158,7 @@
+         "RequestJoinGroupX",
+         "RequestToJoinChannelInfo",
+         "RequestToJoinGroupInfo",
++        "RequirePasscodeToAnswerDisabled",
+         "Reschedule",
+         "Resend",
+         "ResendRecoveryEmailCode",
+@@ -16204,6 +16246,9 @@
+         "Ringtone",
+         "RingtoneCustom",
+         "RingtoneDisabled",
++        "RingtoneSilent",
++        "RingtoneSystemDefault",
++        "RingtoneTelegramCall",
+         "RoamingUsage",
+         "RoleBanned",
+         "RoleChannel",
+@@ -17066,6 +17111,7 @@
+         "Vibrate",
+         "Vibrate",
+         "VibrateDisabled",
++        "VibrateEnabled",
+         "Video",
+         "VideoChatScheduledFor",
+         "VideoErrorLog",
+@@ -17142,6 +17188,7 @@
+         "VoipFailed",
+         "VoipFeedbackCommentHint",
+         "VoipInCallBranding",
++        "VoipMicrophoneOff",
+         "VoipMissed",
+         "VoipMissedOutgoing",
+         "VoipOffline",
+diff --git a/data/web_tr/translations.telegram.org/en/android/general.json b/data/web_tr/translations.telegram.org/en/android/general.json
+@@ -19799,7 +19799,7 @@
+     "StarsSubscribeInfoLink": {
+         "url": "https://translations.telegram.org/en/android/general/StarsSubscribeInfoLink",
+         "photo_url": "https://telegra.ph/file/p/0e23a738203/4488315c243eca402c9be19.jpg?c=692,2073,296,296,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "https://telegram.org/tos/stars"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/android/groups_and_channels.json b/data/web_tr/translations.telegram.org/en/android/groups_and_channels.json
+@@ -6752,7 +6752,7 @@
+     "Gift2ChannelMadePrivateTitle": {
+         "url": "https://translations.telegram.org/en/android/groups_and_channels/Gift2ChannelMadePrivateTitle",
+         "photo_url": "https://telegra.ph/file/p/38b6d083ea9/b98339fda8a600efa913017.jpg?c=66,916,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift Hidden"
+         }
+@@ -6768,7 +6768,7 @@
+     "Gift2ChannelMadePublicTitle": {
+         "url": "https://translations.telegram.org/en/android/groups_and_channels/Gift2ChannelMadePublicTitle",
+         "photo_url": "https://telegra.ph/file/p/98e0e3da291/f65a6fa3ff2827121031517.jpg?c=66,916,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift Shown"
+         }
+@@ -8403,7 +8403,7 @@
+     "LinkHashExpired": {
+         "url": "https://translations.telegram.org/en/android/groups_and_channels/LinkHashExpired",
+         "photo_url": "https://telegra.ph/file/p/093b7e91343/08c961faea36eb7fec97517.jpg?c=74,823,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Link is no longer active"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/android/private_chats.json b/data/web_tr/translations.telegram.org/en/android/private_chats.json
+@@ -2542,7 +2542,7 @@
+     "Gift2UpgradedTitle": {
+         "url": "https://translations.telegram.org/en/android/private_chats/Gift2UpgradedTitle",
+         "photo_url": "https://telegra.ph/file/p/24e54a0d103/766cfbcebdd2b84bf440717.jpg?c=71,107,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift Upgraded"
+         }
+@@ -4800,7 +4800,7 @@
+     "TopicsPanelAllMessages": {
+         "url": "https://translations.telegram.org/en/android/private_chats/TopicsPanelAllMessages",
+         "photo_url": "https://telegra.ph/file/p/e45eca01a31/66950c66a4a0b7761749417.jpg?c=142,193,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "All Messages"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/android/profile.json b/data/web_tr/translations.telegram.org/en/android/profile.json
+@@ -1669,7 +1669,7 @@
+     "Gift2TitleProfile": {
+         "url": "https://translations.telegram.org/en/android/profile/Gift2TitleProfile",
+         "photo_url": "https://telegra.ph/file/p/c9c6c074efc/5433487ef508e55ffe67b17.jpg?c=161,634,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/android/unsorted.json b/data/web_tr/translations.telegram.org/en/android/unsorted.json
+@@ -9599,7 +9599,7 @@
+     "Gift2HostAddress": {
+         "url": "https://translations.telegram.org/en/android/unsorted/Gift2HostAddress",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Owner"
+         }
+@@ -9615,7 +9615,7 @@
+     "Gift2InSenderMessageHidden2": {
+         "url": "https://translations.telegram.org/en/android/unsorted/Gift2InSenderMessageHidden2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only you can see the senderʼs name and message."
+         }
+@@ -9640,7 +9640,7 @@
+     "Gift2Info2BotRemove": {
+         "url": "https://translations.telegram.org/en/android/unsorted/Gift2Info2BotRemove",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You can remove this gift from your Profile."
+         }
+@@ -9781,15 +9781,15 @@
+     "Gift2OutSenderHidden2": {
+         "url": "https://translations.telegram.org/en/android/unsorted/Gift2OutSenderHidden2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only <mark class=\"token\">%s</mark> can see the senderʼs name."
+         }
+     },
+     "Gift2OutSenderMessageHidden2": {
+         "url": "https://translations.telegram.org/en/android/unsorted/Gift2OutSenderMessageHidden2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only <mark class=\"token\">%s</mark> can see the senderʼs name and message."
+         }
+@@ -10128,7 +10128,7 @@
+     "Gift2UniqueTitle2": {
+         "url": "https://translations.telegram.org/en/android/unsorted/Gift2UniqueTitle2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift"
+         }
+@@ -10265,7 +10265,7 @@
+     "GiftCraftLaterTitle": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftCraftLaterTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Try Later"
+         }
+@@ -11370,7 +11370,7 @@
+     "GiftOnchainOfferStatusCancelling": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferStatusCancelling",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The offer is being withdrawn…"
+         }
+@@ -11546,7 +11546,7 @@
+     "GiftOnchainRowCancellationFee": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainRowCancellationFee",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Cancellation fee"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/android_x.html b/data/web_tr/translations.telegram.org/en/android_x.html
+@@ -220,7 +220,7 @@
+ </div></nav>
+     <section class="content clearfix">
+       <section class="tr-content"><h3 class="tr-header">
+-  <a href="/en/" class="tr-back"></a>Android X<span class="tr-header-counter">4799</span>
++  <a href="/en/" class="tr-back"></a>Android X<span class="tr-header-counter">4846</span>
+   <div class="tr-header-tabs"><span class="tr-header-tab"><a href="/en/android_x/recent/translations">Translations</a></span><span class="tr-header-tab"><a href="/en/android_x/recent/suggestions">Suggestions</a></span><span class="tr-header-tab"><a href="/en/android_x/recent/comments">Comments</a></span></div>
+ </h3>
+ <section class="tr-sections clearfix">
+@@ -307,7 +307,7 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/android_x/unsorted/" class="tr-section">
+     <div class="tr-section-cover cover0"></div>
+-    <div class="tr-section-caption">Unsorted (1398)</div>
++    <div class="tr-section-caption">Unsorted (1445)</div>
+   </a></div>
+ </div>
+ </section></section>
+diff --git a/data/web_tr/translations.telegram.org/en/android_x/unsorted.json b/data/web_tr/translations.telegram.org/en/android_x/unsorted.json
+@@ -1297,6 +1297,216 @@
+             "singular": "This call is no longer active"
+         }
+     },
++    "CallOngoingIncoming": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallOngoingIncoming",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Ongoing Call"
++        }
++    },
++    "CallOngoingOutgoing": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallOngoingOutgoing",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Outgoing Call"
++        }
++    },
++    "CallProblemAppChannel": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemAppChannel",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Incoming calls don't pop up"
++        }
++    },
++    "CallProblemAppChannelGuide": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemAppChannelGuide",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Notifications of **Incoming Call Screen** are turned off, kept off the screen or hidden on the lock screen in the system settings, so incoming calls can't show over other apps and over the lock screen.<br/><br/>Tap **Open settings of incoming calls**, let them pop on screen and show them on the lock screen."
++        }
++    },
++    "CallProblemBackground": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemBackground",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Calls may not come while the app is closed"
++        }
++    },
++    "CallProblemBackgroundAction": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemBackgroundAction",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Open battery settings"
++        }
++    },
++    "CallProblemBackgroundGuide": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemBackgroundGuide",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Background activity of **Telegram X** is restricted in the battery settings of your phone, so incoming calls may not come while the app is closed.<br/><br/>Tap **Open battery settings**, then **Battery**, and lift the background restriction of Telegram X."
++        }
++    },
++    "CallProblemChannel": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemChannel",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Incoming calls are silenced"
++        }
++    },
++    "CallProblemChannelAction": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemChannelAction",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Open settings of incoming calls"
++        }
++    },
++    "CallProblemChannelGuide": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemChannelGuide",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Notifications of **Incoming Calls** of this account are silenced or turned off in the system settings, so incoming calls don't ring and don't show over the lock screen.<br/><br/>Tap **Open settings of incoming calls** and let them make sound and pop on screen."
++        }
++    },
++    "CallProblemFullScreen": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemFullScreen",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Calls can't show on the lock screen"
++        }
++    },
++    "CallProblemFullScreenAction": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemFullScreenAction",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Allow calls on the lock screen"
++        }
++    },
++    "CallProblemFullScreenGuide": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemFullScreenGuide",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "While the phone is locked, incoming calls come only as a notification: **Telegram X** isn't allowed to turn on the screen and show them."
++        }
++    },
++    "CallProblemFullScreenSteps": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemFullScreenSteps",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Open **Full-screen notifications** and turn on **Allow full-screen notifications from this app** so that you don't miss calls while the app is closed."
++        }
++    },
++    "CallProblemFullScreenStepsSamsung": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemFullScreenStepsSamsung",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Open **Full screen alerts** and turn on **Allow permission** so that you don't miss calls while the app is closed."
++        }
++    },
++    "CallProblemOngoingChannel": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemOngoingChannel",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Calls in progress have no notification"
++        }
++    },
++    "CallProblemOngoingChannelAction": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemOngoingChannelAction",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Open settings of ongoing calls"
++        }
++    },
++    "CallProblemOngoingChannelGuide": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallProblemOngoingChannelGuide",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Notifications of **Ongoing Calls** are turned off in the system settings, so a call in progress has no notification to go back to it or hang up.<br/><br/>Tap **Open settings of ongoing calls** and turn them on."
++        }
++    },
++    "CallRingtoneUserHint": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallRingtoneUserHint",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "You can set custom ringtone for specific users on their profile page."
++        }
++    },
++    "CallSettingsReset": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallSettingsReset",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Reset to Default"
++        }
++    },
++    "CallSettingsResetConfirm": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallSettingsResetConfirm",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Would you like to reset call settings to default?"
++        }
++    },
++    "CallSettingsResetConfirmCustom": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallSettingsResetConfirmCustom",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Would you like to reset call settings to default including <mark class=\"token\">%1$s</mark> custom one?",
++            "plural": "Would you like to reset call settings to default including <mark class=\"token\">%1$s</mark> custom ones?"
++        }
++    },
++    "CallSettingsResetOthers": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallSettingsResetOthers",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Reset for <mark class=\"token\">%1$s</mark> other account",
++            "plural": "Reset for <mark class=\"token\">%1$s</mark> other accounts"
++        }
++    },
++    "CallTapToSeeCaller": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallTapToSeeCaller",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Tap to see who is calling"
++        }
++    },
++    "CallUnlock": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallUnlock",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Unlock"
++        }
++    },
++    "CallUnlockToAnswer": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/CallUnlockToAnswer",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Unlock the app to answer the call"
++        }
++    },
+     "CameraSettings": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/CameraSettings",
+         "photo_url": null,
+@@ -1935,6 +2145,14 @@
+             "singular": "Started a video chat"
+         }
+     },
++    "ChatContentWidget": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/ChatContentWidget",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Widget"
++        }
++    },
+     "ChatDisabledAudio": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/ChatDisabledAudio",
+         "photo_url": "https://telegra.ph/file/p/fcbbe844b5d/d9e2ce4d4e0be2c4da0e717.jpg?c=96,692,445,445,280,280",
+@@ -4082,6 +4300,22 @@
+             "singular": "Admin"
+         }
+     },
++    "FullScreenAlerts": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/FullScreenAlerts",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Full screen alerts"
++        }
++    },
++    "FullScreenNotifications": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/FullScreenNotifications",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Full-screen notifications"
++        }
++    },
+     "GameInvite": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/GameInvite",
+         "photo_url": null,
+@@ -5860,6 +6094,38 @@
+             "singular": "Incoming Call"
+         }
+     },
++    "NotificationChannelCommonCalls": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationChannelCommonCalls",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Default ringtone settings for all incoming calls."
++        }
++    },
++    "NotificationChannelCustomCalls": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationChannelCustomCalls",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Calls: <mark class=\"token\">%1$s</mark>"
++        }
++    },
++    "NotificationChannelIncomingCallScreen": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationChannelIncomingCallScreen",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Incoming Call Screen"
++        }
++    },
++    "NotificationChannelIncomingCalls": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationChannelIncomingCalls",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Incoming Calls"
++        }
++    },
+     "NotificationChannelMaybe": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationChannelMaybe",
+         "photo_url": null,
+@@ -5868,6 +6134,22 @@
+             "singular": "Missed notifications"
+         }
+     },
++    "NotificationChannelOngoingCalls": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationChannelOngoingCalls",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Ongoing Calls"
++        }
++    },
++    "NotificationChannelUserCalls": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationChannelUserCalls",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Custom ringtone settings for calls from <mark class=\"token\">%1$s</mark>."
++        }
++    },
+     "NotificationImportanceDefaultMuted": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationImportanceDefaultMuted",
+         "photo_url": null,
+@@ -6038,6 +6320,22 @@
+             "singular": "Notifications from Telegram are blocked in your device settings.<br/><br/>To enable notifications:<br/>• Tap System Notification Settings.<br/>• Turn on Show Notifications."
+         }
+     },
++    "NotificationsGuideBlockedAll2": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationsGuideBlockedAll2",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Notifications from Telegram are blocked in your device settings. Incoming calls don't show either: they can only ring, and you answer them in the app.<br/><br/>To enable notifications:<br/>• Tap System Notification Settings.<br/>• Turn on Show Notifications."
++        }
++    },
++    "NotificationsGuideBlockedApp2": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationsGuideBlockedApp2",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Notifications from Telegram are blocked in system settings. Incoming calls don't show either: they can only ring, and you answer them in the app. Tap System Notification Settings to unblock notifications."
++        }
++    },
+     "NotificationsGuideBlockedCategory": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationsGuideBlockedCategory",
+         "photo_url": null,
+@@ -6046,6 +6344,14 @@
+             "singular": "Notifications for the current account are disabled in system settings.<br/><br/>To enable notifications:<br/>• Tap System Notification Settings<br/>• Find the \"<mark class=\"token\">%1$s</mark>\" notification category<br/>• Turn the toggle on to unblock notifications."
+         }
+     },
++    "NotificationsGuideBlockedCategory2": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationsGuideBlockedCategory2",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Notifications for the current account are disabled in system settings. Incoming calls of this account still ring and show: Telegram X rings them by itself.<br/><br/>To enable notifications:<br/>• Tap System Notification Settings<br/>• Find the \"<mark class=\"token\">%1$s</mark>\" notification category<br/>• Turn the toggle on to unblock notifications."
++        }
++    },
+     "NotificationsGuideCategoryLimit": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationsGuideCategoryLimit",
+         "photo_url": null,
+@@ -6062,6 +6368,14 @@
+             "singular": "**Telegram X** was unable to display some notifications from <mark class=\"token\">%1$s</mark> due to notification categories system limit.<br/><br/>Please make sure:<br/>• All system updates are installed<br/>• Telegram X is up-to-date<br/>• There are no notification restrictions in system settings.<br/><br/>If the steps above do not help, you might want to ask @tgandroidtests for troubleshooting tips for your device, or re-install Telegram X, which should help resolving this error, but requires logging in to your account again."
+         }
+     },
++    "NotificationsGuidePermission2": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationsGuidePermission2",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Notifications from Telegram are blocked in your system settings. Incoming calls don't show either: they can only ring, and you answer them in the app.<br/><br/>To enable notifications:<br/>• Go to system settings – Applications – Telegram X.<br/>• Tap Notifications – Allow notifications."
++        }
++    },
+     "NotificationsGuideSyncAppOff": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/NotificationsGuideSyncAppOff",
+         "photo_url": null,
+@@ -6208,6 +6522,22 @@
+             "singular": "Fingerprints do not match"
+         }
+     },
++    "PasscodeRequireForCalls": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/PasscodeRequireForCalls",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Require for Incoming Calls"
++        }
++    },
++    "PasscodeRequireForCallsInfo": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/PasscodeRequireForCallsInfo",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "If enabled, you will not be able to answer incoming calls without unlocking the app with Passcode Lock first."
++        }
++    },
+     "PasswordIsInvalid": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/PasswordIsInvalid",
+         "photo_url": null,
+@@ -7818,6 +8148,14 @@
+             "singular": "This group accepts new members only after they are being accepted by admins."
+         }
+     },
++    "RequirePasscodeToAnswerDisabled": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/RequirePasscodeToAnswerDisabled",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Enable Passcode to activate this feature"
++        }
++    },
+     "Resend": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/Resend",
+         "photo_url": "https://telegra.ph/file/p/d8f386893de/abcb567a6866dfd0e0b8517.jpg?c=45,0,280,271,280,272",
+@@ -7995,6 +8333,30 @@
+             "singular": "Manage welcome messages"
+         }
+     },
++    "RingtoneSilent": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/RingtoneSilent",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Silent"
++        }
++    },
++    "RingtoneSystemDefault": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/RingtoneSystemDefault",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "System Default"
++        }
++    },
++    "RingtoneTelegramCall": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/RingtoneTelegramCall",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Telegram Call"
++        }
++    },
+     "RoleChannel": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/RoleChannel",
+         "photo_url": null,
+@@ -9015,6 +9377,14 @@
+             "singular": "Drag and drop usernames to change order of their appearance on the profile screen."
+         }
+     },
++    "VibrateEnabled": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/VibrateEnabled",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Enabled"
++        }
++    },
+     "VideoErrorLog": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/VideoErrorLog",
+         "photo_url": null,
+@@ -9186,6 +9556,14 @@
+             "singular": "Add an optional comment"
+         }
+     },
++    "VoipMicrophoneOff": {
++        "url": "https://translations.telegram.org/en/android_x/unsorted/VoipMicrophoneOff",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Microphone is off. Open the call to turn it on"
++        }
++    },
+     "VoipMissed": {
+         "url": "https://translations.telegram.org/en/android_x/unsorted/VoipMissed",
+         "photo_url": null,
+diff --git a/data/web_tr/translations.telegram.org/en/ios/general.json b/data/web_tr/translations.telegram.org/en/ios/general.json
+@@ -826,55 +826,55 @@
+     "Appstore.new.Cloud.subtitle": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Cloud.subtitle",
+         "photo_url": "https://telegra.ph/file/p/bb685c096f0/ec8c97ab86b94d1a629bf17.jpg?c=66,79,468,468,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Unlimited storage for chats,<br/>media and documents."
+         }
+     },
+     "Appstore.new.Cloud.title": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Cloud.title",
+         "photo_url": "https://telegra.ph/file/p/bb685c096f0/ec8c97ab86b94d1a629bf17.jpg?c=50,26,500,500,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Cloud-based"
+         }
+     },
+     "Appstore.new.Creative.message1": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Creative.message1",
+         "photo_url": "https://telegra.ph/file/p/d3919296ecc/f5b6793bf6a460787575517.jpg?c=120,415,336,336,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Send a dice emoji to roll a die!"
+         }
+     },
+     "Appstore.new.Creative.message2": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Creative.message2",
+         "photo_url": "https://telegra.ph/file/p/d3919296ecc/f5b6793bf6a460787575517.jpg?c=172,536,357,357,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Advance to Illinois Ave. If you pass Go, collect coffee"
+         }
+     },
+     "Appstore.new.Creative.message3": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Creative.message3",
+         "photo_url": "https://telegra.ph/file/p/d3919296ecc/f5b6793bf6a460787575517.jpg?c=57,620,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Passed!"
+         }
+     },
+     "Appstore.new.Creative.message4": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Creative.message4",
+         "photo_url": "https://telegra.ph/file/p/d3919296ecc/f5b6793bf6a460787575517.jpg?c=217,862,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Okay"
+         }
+     },
+     "Appstore.new.Creative.message5": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Creative.message5",
+         "photo_url": "https://telegra.ph/file/p/d3919296ecc/f5b6793bf6a460787575517.jpg?c=188,898,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Wait for me there."
+         }
+@@ -890,15 +890,15 @@
+     "Appstore.new.Creative.subtitle": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Creative.subtitle",
+         "photo_url": "https://telegra.ph/file/p/d3919296ecc/f5b6793bf6a460787575517.jpg?c=58,78,483,483,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Color themes, stickers, GIFs,<br/>video messages and more."
+         }
+     },
+     "Appstore.new.Creative.title": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Creative.title",
+         "photo_url": "https://telegra.ph/file/p/d3919296ecc/f5b6793bf6a460787575517.jpg?c=134,32,333,333,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Creative"
+         }
+@@ -954,15 +954,15 @@
+     "Appstore.new.Fast.chat4.group": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Fast.chat4.group",
+         "photo_url": "https://telegra.ph/file/p/16dc6f9a12a/7a328f63544b4bb1c6d0817.jpg?c=116,723,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Digital Nomads"
+         }
+     },
+     "Appstore.new.Fast.chat4.message": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Fast.chat4.message",
+         "photo_url": "https://telegra.ph/file/p/16dc6f9a12a/7a328f63544b4bb1c6d0817.jpg?c=142,703,355,355,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "We just reached 2,500 members! WOO!"
+         }
+@@ -978,23 +978,23 @@
+     "Appstore.new.Fast.chat5.message": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Fast.chat5.message",
+         "photo_url": "https://telegra.ph/file/p/16dc6f9a12a/7a328f63544b4bb1c6d0817.jpg?c=147,807,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Table for four, 2 PM. Be there."
+         }
+     },
+     "Appstore.new.Fast.chat5.name": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Fast.chat5.name",
+         "photo_url": "https://telegra.ph/file/p/16dc6f9a12a/7a328f63544b4bb1c6d0817.jpg?c=105,790,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Penelope"
+         }
+     },
+     "Appstore.new.Fast.chat6.message": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Fast.chat6.message",
+         "photo_url": "https://telegra.ph/file/p/16dc6f9a12a/7a328f63544b4bb1c6d0817.jpg?c=117,873,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Check these out!"
+         }
+@@ -1010,31 +1010,31 @@
+     "Appstore.new.Fast.subtitle": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Fast.subtitle",
+         "photo_url": "https://telegra.ph/file/p/16dc6f9a12a/7a328f63544b4bb1c6d0817.jpg?c=68,80,463,463,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Simple, reliable and synced<br/>across all your devices."
+         }
+     },
+     "Appstore.new.Fast.title": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Fast.title",
+         "photo_url": "https://telegra.ph/file/p/16dc6f9a12a/7a328f63544b4bb1c6d0817.jpg?c=160,38,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Fast"
+         }
+     },
+     "Appstore.new.Powerful.chat1.message": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Powerful.chat1.message",
+         "photo_url": "https://telegra.ph/file/p/baf88d6f037/6e28301b8ce91d33a69c917.jpg?c=96,327,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Good morning!"
+         }
+     },
+     "Appstore.new.Powerful.chat1.name": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Powerful.chat1.name",
+         "photo_url": "https://telegra.ph/file/p/baf88d6f037/6e28301b8ce91d33a69c917.jpg?c=75,298,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "James"
+         }
+@@ -1058,15 +1058,15 @@
+     "Appstore.new.Powerful.chat3.option1": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Powerful.chat3.option1",
+         "photo_url": "https://telegra.ph/file/p/baf88d6f037/6e28301b8ce91d33a69c917.jpg?c=88,720,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Sure!"
+         }
+     },
+     "Appstore.new.Powerful.chat3.option2": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Powerful.chat3.option2",
+         "photo_url": "https://telegra.ph/file/p/baf88d6f037/6e28301b8ce91d33a69c917.jpg?c=93,761,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Not sure"
+         }
+@@ -1082,7 +1082,7 @@
+     "Appstore.new.Powerful.chat4.name": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Powerful.chat4.name",
+         "photo_url": "https://telegra.ph/file/p/baf88d6f037/6e28301b8ce91d33a69c917.jpg?c=83,836,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Emma"
+         }
+@@ -1106,15 +1106,15 @@
+     "Appstore.new.Powerful.subtitle": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Powerful.subtitle",
+         "photo_url": "https://telegra.ph/file/p/baf88d6f037/6e28301b8ce91d33a69c917.jpg?c=99,86,403,403,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "No limits on the size of<br/>groups and broadcasts."
+         }
+     },
+     "Appstore.new.Powerful.title": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Powerful.title",
+         "photo_url": "https://telegra.ph/file/p/baf88d6f037/6e28301b8ce91d33a69c917.jpg?c=125,33,350,350,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Powerful"
+         }
+@@ -1130,7 +1130,7 @@
+     "Appstore.new.Private.message": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Private.message",
+         "photo_url": "https://telegra.ph/file/p/ace9ddb2e04/85307046607efc136e2fd17.jpg?c=105,515,347,347,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "No limits on the size of your cats."
+         }
+@@ -1146,15 +1146,15 @@
+     "Appstore.new.Private.subtitle": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Private.subtitle",
+         "photo_url": "https://telegra.ph/file/p/ace9ddb2e04/85307046607efc136e2fd17.jpg?c=58,69,486,486,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your data is never disclosed.<br/>Only you are in control."
+         }
+     },
+     "Appstore.new.Private.title": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Private.title",
+         "photo_url": "https://telegra.ph/file/p/ace9ddb2e04/85307046607efc136e2fd17.jpg?c=162,25,282,282,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Private"
+         }
+@@ -1258,63 +1258,63 @@
+     "Appstore.new.Secure.chat1.name": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Secure.chat1.name",
+         "photo_url": "https://telegra.ph/file/p/13d6f0fc197/9bd6cdd07116af9651f2517.jpg?c=169,264,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Little Sister"
+         }
+     },
+     "Appstore.new.Secure.message1": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Secure.message1",
+         "photo_url": "https://telegra.ph/file/p/13d6f0fc197/9bd6cdd07116af9651f2517.jpg?c=81,345,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Any gift ideas for mom?"
+         }
+     },
+     "Appstore.new.Secure.message2": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Secure.message2",
+         "photo_url": "https://telegra.ph/file/p/13d6f0fc197/9bd6cdd07116af9651f2517.jpg?c=215,410,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "A dog!"
+         }
+     },
+     "Appstore.new.Secure.message3": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Secure.message3",
+         "photo_url": "https://telegra.ph/file/p/13d6f0fc197/9bd6cdd07116af9651f2517.jpg?c=239,608,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "I'm serious. Let's get her a puppy."
+         }
+     },
+     "Appstore.new.Secure.message4": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Secure.message4",
+         "photo_url": "https://telegra.ph/file/p/13d6f0fc197/9bd6cdd07116af9651f2517.jpg?c=209,677,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "I saw this!"
+         }
+     },
+     "Appstore.new.Secure.message5": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Secure.message5",
+         "photo_url": "https://telegra.ph/file/p/13d6f0fc197/9bd6cdd07116af9651f2517.jpg?c=80,869,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "I needed proof this was your idea!"
+         }
+     },
+     "Appstore.new.Secure.subtitle": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Secure.subtitle",
+         "photo_url": "https://telegra.ph/file/p/13d6f0fc197/9bd6cdd07116af9651f2517.jpg?c=102,74,395,395,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "All chats are protected<br/>with strong encryption."
+         }
+     },
+     "Appstore.new.Secure.title": {
+         "url": "https://translations.telegram.org/en/ios/general/Appstore.new.Secure.title",
+         "photo_url": "https://telegra.ph/file/p/13d6f0fc197/9bd6cdd07116af9651f2517.jpg?c=159,23,281,281,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Secure"
+         }
+@@ -24790,7 +24790,7 @@
+     "VoiceChat.Mute": {
+         "url": "https://translations.telegram.org/en/ios/general/VoiceChat.Mute",
+         "photo_url": "https://telegra.ph/file/p/d9ca896f8bd/9d4ec144ae83ebe5a528f19.jpg?c=422,2139,354,354,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Mute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -6554,7 +6554,7 @@
+     "Notification.StarGiftOnchainOffer.Status.Cancelling": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Notification.StarGiftOnchainOffer.Status.Cancelling",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The offer is being cancelled."
+         }
+@@ -11844,7 +11844,7 @@
+     "Wallet.Transaction.OfferCancellationFee": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Wallet.Transaction.OfferCancellationFee",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Cancellation fee"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/stars_and_gifts.json b/data/web_tr/translations.telegram.org/en/macos/stars_and_gifts.json
+@@ -18,7 +18,7 @@
+     "StarGift.OnchainOffer.CancellationFee": {
+         "url": "https://translations.telegram.org/en/macos/stars_and_gifts/StarGift.OnchainOffer.CancellationFee",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Cancellation fee: <mark class=\"token\">%1$@</mark>"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -18661,7 +18661,7 @@
+     "Chat.Service.SuggestPost.Status.Rejected.LowBalanceTitle": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Chat.Service.SuggestPost.Status.Rejected.LowBalanceTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "<i class=\"emoji\" style=\"background-image:url('//telegram.org/img/emoji/40/E29AA0.png')\"><b>⚠️</b></i> Transaction failed"
+         }
+@@ -53988,7 +53988,7 @@
+     "StarGift.OnchainOffer.OfferAccepted": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StarGift.OnchainOffer.OfferAccepted",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You accepted the offer"
+         }
+@@ -54036,7 +54036,7 @@
+     "StarGift.OnchainOffer.OfferWithdrawn": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StarGift.OnchainOffer.OfferWithdrawn",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The offer was withdrawn."
+         }
+@@ -68991,7 +68991,7 @@
+     "Wallet.TransactionRowItem.OfferCancelled": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Wallet.TransactionRowItem.OfferCancelled",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Offer cancelled"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json b/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json
+@@ -1719,7 +1719,7 @@
+     "lng_action_not_enough_funds": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_action_not_enough_funds",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Transaction failed."
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/unigram/unsorted.json b/data/web_tr/translations.telegram.org/en/unigram/unsorted.json
+@@ -15842,7 +15842,7 @@
+     "Gift2ActionShare": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ActionShare",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Share"
+         }
+@@ -15906,39 +15906,39 @@
+     "Gift2ActionWear": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ActionWear",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Wear"
+         }
+     },
+     "Gift2ActionWearDone": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ActionWearDone",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You put on **<mark class=\"token\">{0}</mark>**"
+         }
+     },
+     "Gift2ActionWearNeededPremium": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ActionWearNeededPremium",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Subscribe to **Telegram Premium** to wear collectibles."
+         }
+     },
+     "Gift2ActionWearOff": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ActionWearOff",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Take Off"
+         }
+     },
+     "Gift2ActionWearOffDone": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ActionWearOffDone",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You took off **<mark class=\"token\">{0}</mark>**"
+         }
+@@ -16126,7 +16126,7 @@
+     "Gift2ButtonSendGift": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ButtonSendGift",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "send a gift"
+         }
+@@ -16160,7 +16160,7 @@
+     "Gift2CantDoTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2CantDoTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Action Locked"
+         }
+@@ -16184,7 +16184,7 @@
+     "Gift2ChannelMadePrivateTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ChannelMadePrivateTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift Hidden"
+         }
+@@ -16200,7 +16200,7 @@
+     "Gift2ChannelMadePublicTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ChannelMadePublicTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift Shown"
+         }
+@@ -16284,7 +16284,7 @@
+     "Gift2ConvertedChannel": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ConvertedChannel",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "<mark class=\"token\">{0}</mark> Star was sent to channel's balance",
+             "plural": "<mark class=\"token\">{0}</mark> Stars were sent to channel's balance"
+@@ -16301,23 +16301,23 @@
+     "Gift2DeleteOption": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2DeleteOption",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Delete Gift"
+         }
+     },
+     "Gift2DeleteText": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2DeleteText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Do you want to delete this gift?<br/><br/>It will disappear from your profile and can't be restored."
+         }
+     },
+     "Gift2Deleted": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2Deleted",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift deleted"
+         }
+@@ -16454,7 +16454,7 @@
+     "Gift2HideFromProfile": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2HideFromProfile",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Hide from Profile"
+         }
+@@ -16494,15 +16494,15 @@
+     "Gift2Host": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2Host",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Telegram"
+         }
+     },
+     "Gift2HostAddress": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2HostAddress",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Owner"
+         }
+@@ -16518,15 +16518,15 @@
+     "Gift2InSenderHidden2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2InSenderHidden2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only you can see the senderʼs name."
+         }
+     },
+     "Gift2InSenderMessageHidden2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2InSenderMessageHidden2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only you can see the senderʼs name and message."
+         }
+@@ -16551,7 +16551,7 @@
+     "Gift2Info2BotRemove": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2Info2BotRemove",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You can remove this gift from your Profile."
+         }
+@@ -16853,15 +16853,15 @@
+     "Gift2OutSenderHidden2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2OutSenderHidden2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only <mark class=\"token\">{0}</mark> can see the senderʼs name."
+         }
+     },
+     "Gift2OutSenderMessageHidden2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2OutSenderMessageHidden2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only <mark class=\"token\">{0}</mark> can see the senderʼs name and message."
+         }
+@@ -17162,7 +17162,7 @@
+     "Gift2Refunded": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2Refunded",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This gift was downgraded because a request to refund the payment related to this gift was made, and the money was returned."
+         }
+@@ -17377,7 +17377,7 @@
+     "Gift2ShowOnProfile": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2ShowOnProfile",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Show on Profile"
+         }
+@@ -17594,7 +17594,7 @@
+     "Gift2TitleProfile": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2TitleProfile",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift"
+         }
+@@ -17610,7 +17610,7 @@
+     "Gift2TitleSaved": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2TitleSaved",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Saved Gift"
+         }
+@@ -17876,7 +17876,7 @@
+     "Gift2UniqueTitle2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2UniqueTitle2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift"
+         }
+@@ -17924,7 +17924,7 @@
+     "Gift2Unpinned": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2Unpinned",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift unpinned"
+         }
+@@ -17972,15 +17972,15 @@
+     "Gift2UpgradeCostsFooter": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2UpgradeCostsFooter",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Upgrade cost drops every minute."
+         }
+     },
+     "Gift2UpgradeCostsInfo": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2UpgradeCostsInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "See how this price will decrease &gt;"
+         }
+@@ -17996,7 +17996,7 @@
+     "Gift2UpgradeCostsTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2UpgradeCostsTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Upgrade Cost"
+         }
+@@ -18092,7 +18092,7 @@
+     "Gift2UpgradeNext": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2UpgradeNext",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Upgrade Next Gift"
+         }
+@@ -18116,15 +18116,15 @@
+     "Gift2UpgradedText": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2UpgradedText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your gift **<mark class=\"token\">{0}</mark>** now has unique attributes and can be transferred to others."
+         }
+     },
+     "Gift2UpgradedTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2UpgradedTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift Upgraded"
+         }
+@@ -18180,7 +18180,7 @@
+     "Gift2WearFeature1Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2WearFeature1Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Radiant Badge"
+         }
+@@ -18196,7 +18196,7 @@
+     "Gift2WearFeature2Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2WearFeature2Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Unique Profile Design"
+         }
+@@ -18212,31 +18212,31 @@
+     "Gift2WearFeature3Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2WearFeature3Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Proof of Ownership"
+         }
+     },
+     "Gift2WearStart": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2WearStart",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Start Wearing"
+         }
+     },
+     "Gift2WearSubtitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2WearSubtitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "and get these benefits"
+         }
+     },
+     "Gift2WearTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2WearTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Wear <mark class=\"token\">{0}</mark>"
+         }
+@@ -18334,7 +18334,7 @@
+     "GiftCraftLaterTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/GiftCraftLaterTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Try Later"
+         }
+@@ -18430,7 +18430,7 @@
+     "GiftCraftUnavailableTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/GiftCraftUnavailableTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Crafting Unavailable"
+         }
+@@ -19100,7 +19100,7 @@
+     "GiftSkipAnimation": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/GiftSkipAnimation",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Skip"
+         }
+@@ -19444,7 +19444,7 @@
+     "GiftsFeature1Text": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/GiftsFeature1Text",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Upgrade your gifts to get a unique number, model, backdrop and symbol."
+         }
+@@ -19468,7 +19468,7 @@
+     "GiftsFeature3Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/GiftsFeature3Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Wearable"
+         }
+@@ -21556,7 +21556,7 @@
+     "LinkHashExpired": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/LinkHashExpired",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Link is no longer active"
+         }
+@@ -32970,7 +32970,7 @@
+     "StarsGiftUpgradeCompletedMoreButton": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsGiftUpgradeCompletedMoreButton",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Gift More"
+         }
+@@ -33002,7 +33002,7 @@
+     "StarsNeededTextBuySubscription": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsNeededTextBuySubscription",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Buy **Stars** and subscribe to **<mark class=\"token\">{0}</mark>** and other channels."
+         }
+@@ -33190,31 +33190,31 @@
+     "StarsSubscribeButton": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsSubscribeButton",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Subscribe"
+         }
+     },
+     "StarsSubscribeInfo": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsSubscribeInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "By subscribing you agree to the **Terms of Service**."
+         }
+     },
+     "StarsSubscribeInfoLink": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsSubscribeInfoLink",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "https://telegram.org/tos/stars"
+         }
+     },
+     "StarsSubscribeText": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsSubscribeText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Do you want to subscribe to **<mark class=\"token\">{1}</mark>** for **<mark class=\"token\">{0}</mark> Star** per month?",
+             "plural": "Do you want to subscribe to **<mark class=\"token\">{1}</mark>** for **<mark class=\"token\">{0}</mark> Stars** per month?"
+@@ -33223,7 +33223,7 @@
+     "StarsSubscribeTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsSubscribeTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Subscribe to the Channel"
+         }
+@@ -33271,15 +33271,15 @@
+     "StarsSubscriptionCompleted": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsSubscriptionCompleted",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Subscription successful!"
+         }
+     },
+     "StarsSubscriptionCompletedText": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StarsSubscriptionCompletedText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "<mark class=\"token\">{0}</mark> Star transferred to **<mark class=\"token\">{1}</mark>**.",
+             "plural": "<mark class=\"token\">{0}</mark> Stars transferred to **<mark class=\"token\">{1}</mark>**."
+@@ -33876,95 +33876,95 @@
+     "StoreScreenshot1Subtitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot1Subtitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Simple, reliable and synced<br/>across all your devices."
+         }
+     },
+     "StoreScreenshot1Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot1Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Fast"
+         }
+     },
+     "StoreScreenshot2Subtitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot2Subtitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "No limits on the size of<br/>groups and broadcasts."
+         }
+     },
+     "StoreScreenshot2Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot2Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Powerful"
+         }
+     },
+     "StoreScreenshot3Subtitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot3Subtitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your data is never disclosed.<br/>Only you are in control."
+         }
+     },
+     "StoreScreenshot3Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot3Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Private"
+         }
+     },
+     "StoreScreenshot4Subtitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot4Subtitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "All chats are protected<br/>with strong encryption."
+         }
+     },
+     "StoreScreenshot4Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot4Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Secure"
+         }
+     },
+     "StoreScreenshot5Subtitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot5Subtitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Color themes, stickers, GIFs,<br/>video messages and more."
+         }
+     },
+     "StoreScreenshot5Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot5Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Creative"
+         }
+     },
+     "StoreScreenshot6Subtitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot6Subtitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Unlimited storage for chats,<br/>media and documents."
+         }
+     },
+     "StoreScreenshot6Title": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshot6Title",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Cloud-based"
+         }
+@@ -34012,15 +34012,15 @@
+     "StoreScreenshotDigitalNomadsEmmaName": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotDigitalNomadsEmmaName",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Emma"
+         }
+     },
+     "StoreScreenshotDigitalNomadsMessage1": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotDigitalNomadsMessage1",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Good morning! <i class=\"emoji\" style=\"background-image:url('//telegram.org/img/emoji/40/F09F918B.png')\"><b>👋</b></i>"
+         }
+@@ -34036,23 +34036,23 @@
+     "StoreScreenshotDigitalNomadsMessage3": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotDigitalNomadsMessage3",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "We just reached 2,500 members! WOO!"
+         }
+     },
+     "StoreScreenshotDigitalNomadsPollOption1": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotDigitalNomadsPollOption1",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Sure!"
+         }
+     },
+     "StoreScreenshotDigitalNomadsPollOption2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotDigitalNomadsPollOption2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Not sure"
+         }
+@@ -34068,7 +34068,7 @@
+     "StoreScreenshotDigitalNomadsTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotDigitalNomadsTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Digital Nomads"
+         }
+@@ -34084,39 +34084,39 @@
+     "StoreScreenshotEmmaMessage1": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotEmmaMessage1",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Send a dice emoji to roll a die!"
+         }
+     },
+     "StoreScreenshotEmmaMessage2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotEmmaMessage2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Advance to Illinois Ave. If you pass Go, collect coffee"
+         }
+     },
+     "StoreScreenshotEmmaMessage3": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotEmmaMessage3",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Passed! <i class=\"emoji\" style=\"background-image:url('//telegram.org/img/emoji/40/F09F8E89.png')\"><b>🎉</b></i>"
+         }
+     },
+     "StoreScreenshotEmmaMessage4": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotEmmaMessage4",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Okay"
+         }
+     },
+     "StoreScreenshotEmmaMessage5": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotEmmaMessage5",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Wait for me there."
+         }
+@@ -34148,15 +34148,15 @@
+     "StoreScreenshotJamesMessage1": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotJamesMessage1",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Check these out!"
+         }
+     },
+     "StoreScreenshotJamesName": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotJamesName",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "James"
+         }
+@@ -34172,47 +34172,47 @@
+     "StoreScreenshotLittleSisterMessage1": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotLittleSisterMessage1",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Any gift ideas for mom?"
+         }
+     },
+     "StoreScreenshotLittleSisterMessage2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotLittleSisterMessage2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "A dog!"
+         }
+     },
+     "StoreScreenshotLittleSisterMessage3": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotLittleSisterMessage3",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "I’m serious. Let’s get her a puppy. <i class=\"emoji\" style=\"background-image:url('//telegram.org/img/emoji/40/F09F90B6.png')\"><b>🐶</b></i>"
+         }
+     },
+     "StoreScreenshotLittleSisterMessage4": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotLittleSisterMessage4",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "I saw this!"
+         }
+     },
+     "StoreScreenshotLittleSisterMessage5": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotLittleSisterMessage5",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "I needed proof this was your idea! <i class=\"emoji\" style=\"background-image:url('//telegram.org/img/emoji/40/F09F98A8.png')\"><b>😨</b></i><i class=\"emoji\" style=\"background-image:url('//telegram.org/img/emoji/40/F09FA4AB.png')\"><b>🤫</b></i>"
+         }
+     },
+     "StoreScreenshotLittleSisterName": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotLittleSisterName",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Little Sister"
+         }
+@@ -34252,23 +34252,23 @@
+     "StoreScreenshotPenelopeMessage2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotPenelopeMessage2",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Table for four, 2 PM. Be there."
+         }
+     },
+     "StoreScreenshotPenelopeMessage3": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotPenelopeMessage3",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "No limits on the size of your cats."
+         }
+     },
+     "StoreScreenshotPenelopeName": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoreScreenshotPenelopeName",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Penelope"
+         }
+@@ -36791,15 +36791,15 @@
+     "TopicsPanelAllMessages": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/TopicsPanelAllMessages",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "All Messages"
+         }
+     },
+     "TopicsSidebar": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/TopicsSidebar",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Sidebar"
+         }
+@@ -39426,7 +39426,7 @@
+     "VoipMute2": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/VoipMute2",
+         "photo_url": null,
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "mute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/weba/general.json b/data/web_tr/translations.telegram.org/en/weba/general.json
+@@ -354,7 +354,7 @@
+     "CallMuteAudio": {
+         "url": "https://translations.telegram.org/en/weba/general/CallMuteAudio",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Mute"
+         }
+@@ -2268,7 +2268,7 @@
+     "VoipMute": {
+         "url": "https://translations.telegram.org/en/weba/general/VoipMute",
+         "photo_url": null,
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Mute"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/webk/unsorted.json b/data/web_tr/translations.telegram.org/en/webk/unsorted.json
+@@ -7365,7 +7365,7 @@
+     "Call.Mute": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/Call.Mute",
+         "photo_url": null,
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Mute"
+         }

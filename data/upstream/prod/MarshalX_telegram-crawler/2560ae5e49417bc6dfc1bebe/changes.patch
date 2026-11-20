@@ -1,0 +1,27 @@
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/DustLayer_DustLayer.bundle/Contents/Resources/default.metallib b/data/client/macos-beta/Telegram.app/Contents/Resources/DustLayer_DustLayer.bundle/Contents/Resources/default.metallib
+@@ -1 +1 @@
+-9568bec57957bf83dc9cb4e0d6b7fa3182c973e482761be59f78de0da3ee9853
+\ No newline at end of file
++482e391f25e35a8934b92e0c5dfce7ef45dfd4eabbbef4b0f9295fa6db22ef63
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json b/data/client/macos-beta/Telegram.app/Contents/Resources/Metadata.appintents/version.json
+@@ -1 +1 @@
+-87091c113923d27aaac8e5559e884b1156c8a81b1ffaa900fcb5bac81ad5cd39
+\ No newline at end of file
++e8b25b20ee7c0de2a8e48be31827d0cef21e4a7ab9f3823f558cba1adec99293
+\ No newline at end of file
+diff --git a/data/client/macos-beta/Telegram.app/Contents/Resources/en.lproj/Localizable.strings b/data/client/macos-beta/Telegram.app/Contents/Resources/en.lproj/Localizable.strings
+@@ -1367,6 +1367,13 @@
+ "Appearance.Settings.AutoNightHeader" = "AUTO-NIGHT MODE";
+ "Appearance.Settings.BubblesMode" = "Bubble Mode";
+ "Appearance.Settings.DarkMode" = "Dark Mode";
++"Appearance.Settings.Font" = "Font";
++"Appearance.Settings.Font.Monospaced" = "Monospaced";
++"Appearance.Settings.Font.Rounded" = "Rounded";
++"Appearance.Settings.Font.Serif" = "Serif";
++"Appearance.Settings.Font.System" = "System";
++"Appearance.Settings.Monochrome" = "Monochrome";
++"Appearance.Settings.MonochromeInfo" = "Emoji, stickers, avatars, photos and videos turn black and white to match the Dictator theme. The media viewer keeps the original colors.";
+ "Appearance.Settings.ShowLess" = "Show Less";
+ "Appearance.Settings.ShowMore" = "Show More";
+ "Appearance.Theme.Accent" = "Accent";

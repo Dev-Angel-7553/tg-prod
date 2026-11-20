@@ -1,0 +1,56 @@
+{
+  "category": "web",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:c35de6c1c54778a66017e7d9f54df379eda83a46:web:beta",
+  "files": [
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-68bbde30b6fd.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-bcj-355da7183f6a.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-from-283568-45198ae959a6.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-from-283569-2d607866ee44.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-arm64-from-283570-1775d5094a40.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571-x86_64-438f7b500f34.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283571.app.zip.sha256",
+      "status": "removed"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-20T04:24:22Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "c35de6c1c54778a66017e7d9f54df379eda83a46",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/c35de6c1c54778a66017e7d9f54df379eda83a46"
+  }
+}

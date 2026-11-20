@@ -1,0 +1,382 @@
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/general.json b/data/web_tr/translations.telegram.org/en/tdesktop/general.json
+@@ -11116,7 +11116,7 @@
+     "lng_keys_legend_chat_switcher": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_chat_switcher",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=207,441,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Quick chat switcher"
+         }
+@@ -11140,7 +11140,7 @@
+     "lng_keys_legend_edit_last": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_edit_last",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=210,670,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Edit the last message"
+         }
+@@ -11156,7 +11156,7 @@
+     "lng_keys_legend_folder_numbers": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_folder_numbers",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=214,310,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Open folder by number"
+         }
+@@ -11332,7 +11332,7 @@
+     "lng_keys_legend_media_seek": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_media_seek",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=724,457,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Seek backward or forward"
+         }
+@@ -11396,23 +11396,23 @@
+     "lng_keys_legend_reply_next": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_reply_next",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=212,723,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Reply to next message"
+         }
+     },
+     "lng_keys_legend_reply_prev": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_reply_prev",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=220,697,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Reply to previous message"
+         }
+     },
+     "lng_keys_legend_section_chats": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_section_chats",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=51,153,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Chats list"
+         }
+@@ -11436,7 +11436,7 @@
+     "lng_keys_legend_section_general": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_section_general",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=493,109,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "General"
+         }
+@@ -11452,7 +11452,7 @@
+     "lng_keys_legend_section_media": {
+         "url": "https://translations.telegram.org/en/tdesktop/general/lng_keys_legend_section_media",
+         "photo_url": "https://telegra.ph/file/p/16f3fef508b/b307a0bc5b048100c885119.jpg?c=511,302,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Media viewer"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json b/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json
+@@ -9160,7 +9160,7 @@
+     "lng_mediaview_title": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_mediaview_title",
+         "photo_url": "https://telegra.ph/file/p/c1994f542ac/a2eb04e9a9e3d2ab909be17.jpg?c=269,498,280,276,280,276",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Media viewer"
+         }
+@@ -13103,7 +13103,7 @@
+     "lng_shortcuts_reset_sure": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_shortcuts_reset_sure",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Are you sure you want to reset all keyboard shortcuts to their default values?"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/weba/unsorted.json b/data/web_tr/translations.telegram.org/en/weba/unsorted.json
+@@ -13170,7 +13170,7 @@
+     "KeyboardShortcuts": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/KeyboardShortcuts",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Keyboard Shortcuts"
+         }
+@@ -20317,7 +20317,7 @@
+     "SettingsKeywordsShortcuts": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/SettingsKeywordsShortcuts",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "hotkeys, shortcuts, keyboard, keys, keybindings"
+         }
+@@ -20765,7 +20765,7 @@
+     "ShortcutBold": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutBold",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Bold"
+         }
+@@ -20829,7 +20829,7 @@
+     "ShortcutEditLastMessage": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutEditLastMessage",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Edit last message"
+         }
+@@ -20845,7 +20845,7 @@
+     "ShortcutFolderByNumber": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutFolderByNumber",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Open folder by number"
+         }
+@@ -20901,7 +20901,7 @@
+     "ShortcutItalic": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutItalic",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Italic"
+         }
+@@ -20933,15 +20933,15 @@
+     "ShortcutNewLine": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutNewLine",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "New line"
+         }
+     },
+     "ShortcutNextChat": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutNextChat",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Next chat"
+         }
+@@ -20981,15 +20981,15 @@
+     "ShortcutPlayPause": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutPlayPause",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Play / pause"
+         }
+     },
+     "ShortcutPreviousChat": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutPreviousChat",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Previous chat"
+         }
+@@ -21013,7 +21013,7 @@
+     "ShortcutQuickChatPicker": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutQuickChatPicker",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Quick chat switcher"
+         }
+@@ -21053,15 +21053,15 @@
+     "ShortcutReplyToNext": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutReplyToNext",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Reply to next message"
+         }
+     },
+     "ShortcutReplyToPrevious": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutReplyToPrevious",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Reply to previous message"
+         }
+@@ -21085,7 +21085,7 @@
+     "ShortcutResetAllText": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutResetAllText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Reset all keyboard shortcuts to their default values?"
+         }
+@@ -21101,15 +21101,15 @@
+     "ShortcutSeekVideo": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutSeekVideo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Seek backward or forward"
+         }
+     },
+     "ShortcutSendMessage": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutSendMessage",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Send message"
+         }
+@@ -21189,47 +21189,47 @@
+     "ShortcutsSectionChat": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutsSectionChat",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Chat"
+         }
+     },
+     "ShortcutsSectionChatList": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutsSectionChatList",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Chat List"
+         }
+     },
+     "ShortcutsSectionFormatting": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutsSectionFormatting",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Text Formatting"
+         }
+     },
+     "ShortcutsSectionGeneral": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutsSectionGeneral",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "General"
+         }
+     },
+     "ShortcutsSectionMediaEditor": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutsSectionMediaEditor",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Media Editor"
+         }
+     },
+     "ShortcutsSectionMediaViewer": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutsSectionMediaViewer",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Media Viewer"
+         }
+@@ -21253,7 +21253,7 @@
+     "ShortcutsSectionStories": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutsSectionStories",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Stories"
+         }
+@@ -25170,15 +25170,15 @@
+     "VoiceChatJoinConfirm": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/VoiceChatJoinConfirm",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Join the video chat **<mark class=\"token\">{chat}</mark>**?"
+         }
+     },
+     "VoiceChatJoinConfirmChannel": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/VoiceChatJoinConfirmChannel",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Do you want to join the live stream **<mark class=\"token\">{chat}</mark>**?"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/webk/unsorted.json b/data/web_tr/translations.telegram.org/en/webk/unsorted.json
+@@ -20167,7 +20167,7 @@
+     "KeyboardShortcuts.Action.NewLine": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/KeyboardShortcuts.Action.NewLine",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "New line"
+         }
+@@ -20263,7 +20263,7 @@
+     "KeyboardShortcuts.Action.Send": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/KeyboardShortcuts.Action.Send",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Send message"
+         }
+@@ -20375,7 +20375,7 @@
+     "KeyboardShortcuts.Section.MediaEditor": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/KeyboardShortcuts.Section.MediaEditor",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Media Editor"
+         }
+@@ -20423,7 +20423,7 @@
+     "KeyboardShortcuts.Section.Stories": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/KeyboardShortcuts.Section.Stories",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Stories"
+         }
+@@ -20439,7 +20439,7 @@
+     "KeyboardShortcuts.Title.SearchKeywords": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/KeyboardShortcuts.Title.SearchKeywords",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "hotkeys, shortcuts, keyboard"
+         }
+@@ -43220,7 +43220,7 @@
+     "WalletHowItWorksInfo": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/WalletHowItWorksInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only you control your funds —<br/>no one else has access."
+         }

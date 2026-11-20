@@ -1,6 +1,6 @@
 {
   "check": "http.https://translations.telegram.org/en/tdesktop/stars_and_gifts",
-  "error": "ValueError",
+  "error": "HTTPError",
   "scope": "This session and endpoint only; not proof of a global outage.",
-  "status": "api_error"
+  "status": "transport_error"
 }

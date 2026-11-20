@@ -1,0 +1,1166 @@
+diff --git a/packages/desktop/sandbox/include/twidget/nova_context.h b/packages/desktop/sandbox/include/twidget/nova_context.h
+@@ -1,7 +1,4 @@
+-// Thin C++ wrapper over quickjs-ng through the same qjs_shim.c that iOS and
+-// Android use (quickjs.h's JSValue macros are compound literals, not C++).
+-// One runtime, one context, string-based host functions. All methods must be
+-// called from the JSThread that owns the context.
++// Thin C++ wrapper over the Nova engine (TelegramMessenger/nova-safe) through the C interface of its nova_embed_ffi crate (nova_engine.h): one engine, one realm, string-based host functions; scripts, arguments and results cross as copies, and all methods must be called from the JSThread that owns the context.
+ #pragma once
+ 
+ #include <cstdint>
+@@ -12,8 +9,7 @@
+ #include <string>
+ #include <vector>
+ 
+-struct JSRuntime;
+-struct JSContext;
++struct nova_engine;
+ 
+ namespace twidget {
+ 
+@@ -44,22 +40,24 @@ struct JSResult {
+     std::optional<double> number;
+ };
+ 
+-class QuickJSContext {
++class NovaContext {
+ public:
+     using HostFunction = std::function<HostReturn(const std::vector<std::string>&)>;
+ 
+-    /// `maxStackBytes` must stay below the real stack of the thread that enters
+-    /// JS (JSThread: 8 MB). QuickJS only *detects* overflow against this limit.
+-    explicit QuickJSContext(size_t memoryLimitBytes, size_t maxStackBytes = size_t(384) << 10);
+-    ~QuickJSContext();
+-    QuickJSContext(const QuickJSContext&) = delete;
+-    QuickJSContext& operator=(const QuickJSContext&) = delete;
++    /// "nova_embed <version> (nova <commit>)".
++    static std::string engineVersion();
++
++    /// `maxStackBytes` must stay below the real stack of the thread that enters JS (JSThread: 8 MB); the engine's JavaScript gets three quarters of it, counted from each call into the engine. Throws JSError when the engine cannot be created or does not enforce its interrupt, heap and stack limits.
++    explicit NovaContext(size_t memoryLimitBytes, size_t maxStackBytes = size_t(384) << 10);
++    ~NovaContext();
++    NovaContext(const NovaContext&) = delete;
++    NovaContext& operator=(const NovaContext&) = delete;
+ 
+     /// Interrupt deadline in `now()` seconds; +inf disables it.
+     double deadline = std::numeric_limits<double>::infinity();
+     /// Set by the interrupt handler when the deadline fired; reset by the caller.
+     bool interrupted = false;
+-    /// Whether the error the last call threw is one script cannot catch (out of memory, the interrupt, any InternalError).
++    /// Whether the error the last call threw is one script cannot catch (out of memory, the interrupt, a host function's failure, an engine fault).
+     bool uncatchable = false;
+ 
+     /// Interrupt deadline in `threadCpuTime()` seconds of the thread running JS; +inf disables it.
+@@ -72,16 +70,12 @@ class QuickJSContext {
+ 
+     size_t memoryUsed() const;
+ 
+-    /// Exposes `name(...)` to the sandbox. Arguments arrive as strings (numbers are formatted).
++    /// Exposes `name(...)` to the sandbox, `name` an identifier. Arguments arrive as strings (numbers are formatted), at most eight of them.
+     void registerFunction(const std::string& name, HostFunction fn);
+ 
+     JSResult evaluate(const std::string& code, const std::string& filename, bool asModule = false);
+-    /// Runs one of our own precompiled bundles (`.qbc`, see qjs_shim.h), checked against
+-    /// the source it was built from; throws JSError on any mismatch so the caller can
+-    /// fall back to `evaluate`. Never for widget code: bytecode is not verified.
+-    JSResult evaluateBytecode(const std::vector<uint8_t>& blob, const std::string& source);
+-    /// Compiles `code` into the same container the build ships (tests).
+-    std::vector<uint8_t> compileBytecode(const std::string& code, const std::string& filename);
++    /// Runs one of our own bundles from code compiled once per process and shared by every context; false when it could not be shared and was evaluated from `source` instead. Never for widget code.
++    bool evaluateBundle(const std::string& source, const std::string& filename);
+     /// Calls the global function `name` with string arguments.
+     JSResult call(const std::string& name, const std::vector<std::string>& args = {});
+ 
+@@ -93,15 +87,19 @@ class QuickJSContext {
+     bool executePendingJob(const std::function<void(const JSError&)>& onError);
+ 
+ private:
++    enum class Failure { None, Memory, Other };
++
+     void enter();
+-    JSError takeException();
++    /// The value of a finished call, or its error thrown as JSError; frees `result`.
++    JSResult finish(int status, void* result);
+ 
+-    JSRuntime* runtime_;
+-    JSContext* context_;
++    nova_engine* engine_ = nullptr;
++    size_t memoryLimit_ = 0;
+     std::vector<HostFunction> functions_;
+-    struct Captured;
+-    std::vector<Captured*> captured_;
+-    friend struct QuickJSTrampoline;
++    /// A host function threw: nothing more reaches the host and the running script is ended.
++    Failure failure_ = Failure::None;
++    std::string failureText_;
++    friend struct NovaTrampoline;
+ };
+ 
+ } // namespace twidget
+diff --git a/packages/desktop/sandbox/include/twidget/sandbox_engine.h b/packages/desktop/sandbox/include/twidget/sandbox_engine.h
+@@ -1,5 +1,5 @@
+ // The sandbox engine: the C++ counterpart of src/host/worker.ts and of
+-// ios SandboxEngine.swift / android SandboxEngine.kt. Owns one QuickJS runtime
++// ios SandboxEngine.swift / android SandboxEngine.kt. Owns one Nova runtime
+ // per widget on its own JSThread, exposes exactly one capability to the
+ // untrusted code (`__host(kind, arg)` + `__hostBinary()`), enforces CPU and
+ // memory limits, and drives timers / frames / scripts.
+@@ -14,7 +14,7 @@
+ #include "twidget/cpu_budget.h"
+ #include "twidget/intl.h"
+ #include "twidget/js_thread.h"
+-#include "twidget/quickjs_context.h"
++#include "twidget/nova_context.h"
+ #include "twidget/resources.h"
+ #include "twidget/sdk_policy.h"
+ 
+@@ -330,7 +330,7 @@ class SandboxEngine {
+ 
+     void start();
+     void terminate();
+-    /// In process only (a client-mode engine does nothing), never from the engine's own thread, for an engine that died: its runtime goes, the thread ending once what it queued ran and then its QuickJS context freed; every later input is dropped (a probe answers "ERROR no runtime") and the object stays valid (a hosted widget's served engine, whose glue keeps the renderer, remote_hosted.h).
++    /// In process only (a client-mode engine does nothing), never from the engine's own thread, for an engine that died: its runtime goes, the thread ending once what it queued ran and then its Nova context freed; every later input is dropped (a probe answers "ERROR no runtime") and the object stays valid (a hosted widget's served engine, whose glue keeps the renderer, remote_hosted.h).
+     void release();
+     /// The host stops the widget (a counted cap of the validator passed under strict, its diagnostic `limit`): the
+     /// runtime dies with `reason` as it does for memory or CPU (`onDied(reason)`). From the engine thread (a delegate
+@@ -448,7 +448,7 @@ class SandboxEngine {
+     void inProcessSetVisible(bool visible);
+     std::string inProcessProbe(const std::string& code);
+     void inProcessChargeValidator(double ms);
+-    /// Those halves as one table, constant-initialised in sandbox_engine.cpp (`kInProcess`): the shared entry points reach them only through it, so a program of client-mode engines links neither them nor QuickJS.
++    /// Those halves as one table, constant-initialised in sandbox_engine.cpp (`kInProcess`): the shared entry points reach them only through it, so a program of client-mode engines links neither them nor Nova.
+     struct InProcess {
+         void (SandboxEngine::*start)();
+         void (SandboxEngine::*terminate)();
+@@ -500,9 +500,8 @@ class SandboxEngine {
+     std::optional<std::string> callTw(const std::string& kind, const std::string& arg);
+     void settle();
+     void evalScript(const std::string& code, const std::string& filename, bool asModule = false);
+-    /// One of our own bundles: the precompiled `.qbc` when shipped and matching the source,
+-    /// else the source. Returns "bytecode" or "source" for the diag.
+-    std::string evalBundle(const std::string& source, const std::vector<uint8_t>& bytecode, const std::string& filename);
++    /// One of our own bundles, from code compiled once per process when it can be shared, else from the source. Returns "compiled", "source" or "failed" for the diag.
++    std::string evalBundle(const std::string& source, const std::string& filename);
+     void pumpScripts();
+     void resetDeadline();
+     void task(const std::string& kind, double sliceMs, const std::function<void()>& body);
+@@ -519,7 +518,7 @@ class SandboxEngine {
+     std::shared_ptr<SandboxResources> resources_;
+     std::shared_ptr<IntlProvider> intl_;
+     /// The widget's runtime from `boot` until `release` or the destructor; `boot` sets the deleter with it (none before), so only sandbox_engine.cpp names the context's destructor.
+-    std::unique_ptr<QuickJSContext, void (*)(QuickJSContext*)> js_{nullptr, nullptr};
++    std::unique_ptr<NovaContext, void (*)(NovaContext*)> js_{nullptr, nullptr};
+     bool dead_ = false;
+     bool started_ = false;
+     SandboxStats stats_;
+diff --git a/packages/desktop/sandbox/include/twidget/trusted_validator.h b/packages/desktop/sandbox/include/twidget/trusted_validator.h
+@@ -1,5 +1,5 @@
+ // The validator / sanitizer (src/host/validator.ts) compiled into
+-// validator-bundle.js and run in a TRUSTED QuickJS context — a separate
++// validator-bundle.js and run in a TRUSTED Nova context — a separate
+ // runtime that never executes widget code. One instance per widget. Calls are
+ // synchronous from the caller's point of view but execute on the validator's
+ // own JSThread (css-tree needs the 8 MB stack). Input and output are JSON.
+@@ -11,7 +11,7 @@
+ #pragma once
+ 
+ #include "twidget/js_thread.h"
+-#include "twidget/quickjs_context.h"
++#include "twidget/nova_context.h"
+ #include "twidget/resources.h"
+ 
+ #include <functional>
+@@ -62,7 +62,7 @@ class TrustedValidator {
+     std::string metered(const char* name, const std::vector<std::string>& args);
+ 
+     JSThread thread_;
+-    std::unique_ptr<QuickJSContext> js_;
++    std::unique_ptr<NovaContext> js_;
+     DiagSink onDiag_;
+     mutable std::mutex stoppedMutex_;
+     std::optional<std::string> stopped_;
+diff --git a/packages/desktop/sandbox/src/nova_context.cpp b/packages/desktop/sandbox/src/nova_context.cpp
+@@ -0,0 +1,468 @@
++#include "twidget/nova_context.h"
++
++#include "steady_clock.h"
++
++#ifdef _WIN32
++#include <windows.h>
++#if (defined(_M_IX86) || defined(_M_X64)) && !defined(_M_ARM64EC) // ARM64EC code defines _M_X64 too
++#include <intrin.h>
++#define TW_TSC 1
++#endif
++#else
++#include <time.h>
++#endif
++
++#include <algorithm>
++#include <cmath>
++#include <cstdio>
++#include <cstdlib>
++#include <cstring>
++#include <map>
++#include <mutex>
++#include <new>
++
++#include "nova_engine.h"
++
++namespace twidget {
++namespace {
++
++constexpr size_t kMaxCompiledPerBundle = 4;
++
++const uint8_t* bytesOf(const std::string& s) { return reinterpret_cast<const uint8_t*>(s.data()); }
++
++std::string textOf(const nova_result& r) {
++    return (r.bytes && r.len) ? std::string(reinterpret_cast<const char*>(r.bytes), r.len) : std::string();
++}
++
++bool isIdentifier(const std::string& name) {
++    if (name.empty() || name.size() > 64 || (name[0] >= '0' && name[0] <= '9')) return false;
++    return std::all_of(name.begin(), name.end(), [](char c) {
++        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '_' || c == '$';
++    });
++}
++
++/// The length of the well-formed UTF-8 sequence at `p`, 0 when there is none (overlong forms, surrogates and values past U+10FFFF are none).
++size_t utf8SequenceLength(const unsigned char* p, size_t left) {
++    if (p[0] < 0x80) return 1;
++    auto tail = [&](size_t i) { return i < left && (p[i] & 0xC0) == 0x80; };
++    if (p[0] >= 0xC2 && p[0] <= 0xDF) return tail(1) ? 2 : 0;
++    if (p[0] >= 0xE0 && p[0] <= 0xEF) {
++        if (!tail(1) || !tail(2)) return 0;
++        if ((p[0] == 0xE0 && p[1] < 0xA0) || (p[0] == 0xED && p[1] > 0x9F)) return 0;
++        return 3;
++    }
++    if (p[0] >= 0xF0 && p[0] <= 0xF4) {
++        if (!tail(1) || !tail(2) || !tail(3)) return 0;
++        if ((p[0] == 0xF0 && p[1] < 0x90) || (p[0] == 0xF4 && p[1] > 0x8F)) return 0;
++        return 4;
++    }
++    return 0;
++}
++
++/// `text` with every byte that is not part of well-formed UTF-8 replaced by U+FFFD; nullopt when it is well-formed already.
++std::optional<std::string> repairedUtf8(const std::string& text) {
++    const auto* p = reinterpret_cast<const unsigned char*>(text.data());
++    std::optional<std::string> out;
++    size_t kept = 0;
++    for (size_t i = 0; i < text.size();) {
++        const size_t length = utf8SequenceLength(p + i, text.size() - i);
++        if (length) {
++            i += length;
++            continue;
++        }
++        if (!out) out.emplace();
++        out->append(text, kept, i - kept);
++        out->append("\xEF\xBF\xBD");
++        kept = ++i;
++    }
++    if (out) out->append(text, kept, std::string::npos);
++    return out;
++}
++
++/// Our own bundles compiled once per process (`nova_script_compile`): immutable code that holds no engine state, cannot be made from bytes and is never freed, which any context on any thread evaluates.
++struct CompiledBundles {
++    struct Entry {
++        std::string source;
++        nova_script* script = nullptr;
++    };
++    std::mutex mutex;
++    std::map<std::string, std::vector<Entry>> entries;
++
++    /// Null when `source` cannot be shared or does not compile: the caller evaluates it from source, which also reports the error.
++    nova_script* script(const std::string& source, const std::string& filename) {
++        std::lock_guard<std::mutex> lock(mutex);
++        auto& list = entries[filename];
++        for (const auto& entry : list) {
++            if (entry.source == source) return entry.script;
++        }
++        if (list.size() >= kMaxCompiledPerBundle) return nullptr;
++        nova_result error{};
++        nova_script* compiled = nova_script_compile(bytesOf(source), source.size(), &error);
++        nova_result_free(&error);
++        list.push_back(Entry{source, compiled});
++        return compiled;
++    }
++};
++
++CompiledBundles& compiledBundles() {
++    static auto* const result = new CompiledBundles();
++    return *result;
++}
++
++} // namespace
++
++struct NovaTrampoline {
++    // Nothing thrown here or by a host function may leave it: the engine's frames under this one cannot be unwound.
++    static void call(void* context, uint32_t id, const nova_arg* args, size_t argc, nova_return* ret) {
++        auto* self = static_cast<NovaContext*>(context);
++        if (!self) return;
++        if (self->failure_ != NovaContext::Failure::None || size_t(id) >= self->functions_.size()) return;
++        try {
++            std::vector<std::string> list;
++            list.reserve(argc);
++            for (size_t i = 0; i < argc; i++) {
++                const nova_arg& arg = args[i];
++                // A copy the engine's heap could not hold ends the script: the engine makes its copies outside that heap.
++                if (self->memoryLimit_ && arg.len > self->memoryLimit_) throw std::bad_alloc();
++                if (arg.kind == NOVA_VALUE_STRING) {
++                    const auto* text = reinterpret_cast<const char*>(arg.bytes);
++                    list.emplace_back(text ? text : "", text ? strnlen(text, arg.len) : 0);
++                } else if (arg.kind == NOVA_VALUE_NUMBER) {
++                    double d = arg.number;
++                    char buf[64];
++                    if (d == std::floor(d) && std::fabs(d) < 1e15) snprintf(buf, sizeof buf, "%lld", (long long)d);
++                    else snprintf(buf, sizeof buf, "%.17g", d);
++                    list.emplace_back(buf);
++                } else {
++                    list.emplace_back();
++                }
++            }
++            HostReturn r = self->functions_[size_t(id)](list);
++            if (self->memoryLimit_ && std::max(r.str.size(), r.bytes.size()) > self->memoryLimit_) throw std::bad_alloc();
++            switch (r.kind) {
++            case HostReturn::Kind::Undefined: break;
++            case HostReturn::Kind::Null: nova_return_null(ret); break;
++            case HostReturn::Kind::String: nova_return_string(ret, bytesOf(r.str), r.str.size()); break;
++            case HostReturn::Kind::Number: nova_return_number(ret, r.num); break;
++            case HostReturn::Kind::ArrayBuffer: nova_return_bytes(ret, r.bytes.data(), r.bytes.size()); break;
++            case HostReturn::Kind::RangeError: nova_return_range_error(ret, bytesOf(r.str), r.str.size()); break;
++            }
++        } catch (const std::bad_alloc&) {
++            self->failure_ = NovaContext::Failure::Memory;
++        } catch (const std::exception& e) {
++            self->failure_ = NovaContext::Failure::Other;
++            try { self->failureText_ = std::string("host function failed: ") + e.what(); } catch (...) { self->failureText_.clear(); }
++        } catch (...) {
++            self->failure_ = NovaContext::Failure::Other;
++            try { self->failureText_ = "host function failed"; } catch (...) { self->failureText_.clear(); }
++        }
++    }
++
++    static bool interrupt(void* context) {
++        auto* self = static_cast<NovaContext*>(context);
++        if (!self) return false;
++        if (self->failure_ != NovaContext::Failure::None) return true;
++        if (NovaContext::now() > self->deadline || (self->cpuDeadline != std::numeric_limits<double>::infinity() && NovaContext::threadCpuTime() > self->cpuDeadline)) {
++            self->interrupted = true;
++            return true;
++        }
++        return false;
++    }
++
++    /// Seconds east of UTC in the user's time zone, daylight saving time included.
++    static int32_t timeZone(void* /*context*/, int64_t epochSeconds) {
++#ifdef _WIN32
++        TIME_ZONE_INFORMATION info{};
++        const DWORD id = GetTimeZoneInformation(&info);
++        if (id == TIME_ZONE_ID_INVALID) return 0;
++        const LONG bias = info.Bias + ((id == TIME_ZONE_ID_DAYLIGHT) ? info.DaylightBias : 0);
++        return int32_t(-bias * 60);
++#else
++        const auto clamped = std::clamp<int64_t>(epochSeconds, std::numeric_limits<time_t>::min(), std::numeric_limits<time_t>::max());
++        const time_t seconds = time_t(clamped);
++        struct tm local {};
++        if (!localtime_r(&seconds, &local)) return 0;
++        return int32_t(local.tm_gmtoff);
++#endif
++    }
++};
++
++double NovaContext::now() { return detail::steadySeconds(); }
++
++#ifdef _WIN32
++namespace {
++
++constexpr double kFileTimeTicksPerSecond = 1e7;
++
++struct ThreadClockSource {
++    bool cycles = false;
++    double ticksPerSecond = kFileTimeTicksPerSecond;
++};
++
++struct ThreadClock {
++    double seconds = 0.;
++    uint64_t count = 0;
++    bool counting = false;
++};
++
++#ifdef TW_TSC
++constexpr unsigned kHypervisorPresent = 1u << 31;
++constexpr unsigned kInvariantTsc = 1u << 8;
++constexpr unsigned kCreatePartitions = 1u << 0;
++constexpr unsigned kNestedHypervisor = 1u << 12;
++constexpr double kMinTscRate = 1e8;
++constexpr double kMaxTscRate = 1e11;
++
++struct CpuidLeaf {
++    unsigned eax = 0;
++    unsigned ebx = 0;
++    unsigned ecx = 0;
++    unsigned edx = 0;
++};
++
++CpuidLeaf readCpuid(unsigned leaf) {
++    int registers[4] = {};
++    __cpuid(registers, int(leaf));
++    return {unsigned(registers[0]), unsigned(registers[1]), unsigned(registers[2]), unsigned(registers[3])};
++}
++
++bool onArm64Windows() {
++    using Function = BOOL(WINAPI*)(HANDLE, USHORT*, USHORT*);
++    const auto address = GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "IsWow64Process2");
++    const auto isWow64Process2 = reinterpret_cast<Function>(reinterpret_cast<void*>(address));
++    if (!isWow64Process2) return false; // missing before Windows 10 1709, older than any ARM64 Windows
++    auto process = USHORT(0);
++    auto native = USHORT(0);
++    return !isWow64Process2(GetCurrentProcess(), &process, &native) || native == IMAGE_FILE_MACHINE_ARM64;
++}
++
++// Hyper-V's root partition, not nested within Hyper-V, as Hyper-V's own leaves identify it:
++// https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/tlfs/feature-discovery
++bool hyperVRootPartition() {
++    if (readCpuid(0x40000000).eax < 0x40000004) return false;
++    const auto signature = readCpuid(0x40000001).eax;
++    if (std::memcmp(&signature, "Hv#1", sizeof(signature)) != 0) return false;
++    if (!(readCpuid(0x40000003).ebx & kCreatePartitions)) return false;
++    return !(readCpuid(0x40000004).eax & kNestedHypervisor);
++}
++
++double enumeratedTscRate() {
++    if (onArm64Windows()) return 0.;
++    const auto basic = readCpuid(0);
++    const unsigned vendor[] = {basic.ebx, basic.edx, basic.ecx};
++    if (std::memcmp(vendor, "GenuineIntel", sizeof(vendor)) != 0 || basic.eax < 0x15) return 0.;
++    if (readCpuid(0x80000000).eax < 0x80000007) return 0.;
++    if (!(readCpuid(0x80000007).edx & kInvariantTsc)) return 0.;
++    if ((readCpuid(1).ecx & kHypervisorPresent) && !hyperVRootPartition()) return 0.;
++    const auto tsc = readCpuid(0x15);
++    const auto denominator = tsc.eax;
++    const auto numerator = tsc.ebx;
++    const auto crystalHz = tsc.ecx;
++    if (!denominator || !numerator || !crystalHz) return 0.;
++    const auto rate = double(crystalHz) * numerator / denominator;
++    return (rate >= kMinTscRate && rate <= kMaxTscRate) ? rate : 0.;
++}
++#endif
++
++const ThreadClockSource& threadClockSource() {
++    static const ThreadClockSource source = [] {
++#ifdef TW_TSC
++        const auto rate = enumeratedTscRate();
++        if (rate > 0.) return ThreadClockSource{true, rate};
++#endif
++        return ThreadClockSource();
++    }();
++    return source;
++}
++
++} // namespace
++#endif
++
++double NovaContext::threadCpuTime() {
++#ifdef _WIN32
++    const auto& source = threadClockSource();
++    thread_local ThreadClock state;
++    auto count = uint64_t(0);
++    auto ok = false;
++    if (source.cycles) {
++        auto cycles = ULONG64(0);
++        ok = QueryThreadCycleTime(GetCurrentThread(), &cycles) != FALSE;
++        count = cycles;
++    } else {
++        FILETIME creation{}, exit{}, kernel{}, user{};
++        ok = GetThreadTimes(GetCurrentThread(), &creation, &exit, &kernel, &user) != FALSE;
++        auto ticks = [](const FILETIME& f) { return (uint64_t(f.dwHighDateTime) << 32) | f.dwLowDateTime; };
++        count = ticks(kernel) + ticks(user);
++    }
++    if (!ok) {
++        state.counting = false;
++        return state.seconds;
++    }
++    if (state.counting && count > state.count) state.seconds += double(count - state.count) / source.ticksPerSecond;
++    state.count = count;
++    state.counting = true;
++    return state.seconds;
++#else
++    timespec t{};
++    clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t);
++    return double(t.tv_sec) + double(t.tv_nsec) / 1e9;
++#endif
++}
++
++std::string NovaContext::engineVersion() {
++    const char* version = nova_embed_version();
++    return version ? version : "";
++}
++
++NovaContext::NovaContext(size_t memoryLimitBytes, size_t maxStackBytes) : memoryLimit_(memoryLimitBytes) {
++    // Without all three a script that never ends is never stopped, or deep recursion overflows the thread's stack.
++    constexpr uint32_t limits = NOVA_LIMIT_INTERRUPT | NOVA_LIMIT_HEAP | NOVA_LIMIT_STACK;
++    if ((nova_embed_limits() & limits) != limits) throw JSError("this build of the Nova engine does not enforce its limits");
++    nova_result error{};
++    engine_ = nova_engine_new(memoryLimitBytes, maxStackBytes / 4 * 3, &NovaTrampoline::call, &NovaTrampoline::interrupt, this, &error);
++    const std::string why = textOf(error);
++    nova_result_free(&error);
++    if (!engine_) throw JSError(why.empty() ? "the Nova engine could not be created" : why);
++    // Out of memory ends the script wherever it happens: caught, a script would go on just under its limit.
++    if (nova_engine_set_out_of_memory_fatal(engine_, true) != NOVA_OK) {
++        nova_engine_free(engine_);
++        throw JSError("the Nova engine did not take its out-of-memory mode");
++    }
++    // No module loader exists: `import` of anything fails inside the sandbox.
++    nova_engine_set_time_zone(engine_, &NovaTrampoline::timeZone);
++}
++
++NovaContext::~NovaContext() {
++    nova_engine_free(engine_);
++}
++
++size_t NovaContext::memoryUsed() const { return nova_engine_memory_used(engine_); }
++
++void NovaContext::registerFunction(const std::string& name, HostFunction fn) {
++    if (!isIdentifier(name)) throw JSError("a host function's name must be an identifier of at most 64 characters");
++    const uint32_t id = uint32_t(functions_.size());
++    functions_.push_back(std::move(fn));
++    nova_result result{};
++    const int status = nova_engine_register(engine_, bytesOf(name), name.size(), id, 2, NOVA_ARGS_VALUES, &result);
++    const std::string why = textOf(result);
++    nova_result_free(&result);
++    if (status != NOVA_OK) throw JSError("host function " + name + ": " + why);
++}
++
++void NovaContext::enter() {
++    uncatchable = false;
++}
++
++JSResult NovaContext::finish(int status, void* opaque) {
++    auto& result = *static_cast<nova_result*>(opaque);
++    struct Freed {
++        nova_result& result;
++        ~Freed() { nova_result_free(&result); }
++    } freed{result};
++    if (failure_ != Failure::None) {
++        const bool memory = (failure_ == Failure::Memory);
++        failure_ = Failure::None;
++        uncatchable = true;
++        throw JSError(memory ? std::string("InternalError: out of memory") : "InternalError: " + failureText_);
++    }
++    switch (status) {
++    case NOVA_OK: {
++        // A result the engine's heap could not hold is an error, as an argument of a host call is.
++        if (memoryLimit_ && result.len > memoryLimit_) {
++            uncatchable = true;
++            throw JSError("InternalError: out of memory");
++        }
++        JSResult r;
++        if (result.kind == NOVA_VALUE_STRING) r.string = textOf(result);
++        else if (result.kind == NOVA_VALUE_NUMBER) r.number = result.number;
++        return r;
++    }
++    case NOVA_EXCEPTION: {
++        const std::string text = textOf(result);
++        throw JSError(text.empty() ? "unknown error" : text);
++    }
++    case NOVA_NOT_A_FUNCTION:
++        throw JSError(textOf(result) + " is not a function");
++    case NOVA_INTERRUPTED:
++        uncatchable = true;
++        throw JSError("InternalError: interrupted");
++    case NOVA_OUT_OF_MEMORY:
++        uncatchable = true;
++        throw JSError("InternalError: out of memory");
++    default: {
++        uncatchable = true;
++        const std::string text = textOf(result);
++        throw JSError("InternalError: " + (text.empty() ? "the engine failed (status " + std::to_string(status) + ")" : text));
++    }
++    }
++}
++
++JSResult NovaContext::evaluate(const std::string& code, const std::string& /*filename*/, bool asModule) {
++    enter();
++    nova_result result{};
++    int status = nova_engine_eval(engine_, bytesOf(code), code.size(), asModule, &result);
++    if (status == NOVA_INVALID) {
++        // The engine takes well-formed UTF-8 only; a lone surrogate or a stray byte becomes U+FFFD.
++        if (const auto repaired = repairedUtf8(code)) {
++            nova_result_free(&result);
++            status = nova_engine_eval(engine_, bytesOf(*repaired), repaired->size(), asModule, &result);
++        }
++    }
++    return finish(status, &result);
++}
++
++bool NovaContext::evaluateBundle(const std::string& source, const std::string& filename) {
++    nova_script* script = compiledBundles().script(source, filename);
++    if (!script) {
++        evaluate(source, filename, false);
++        return false;
++    }
++    enter();
++    nova_result result{};
++    finish(nova_engine_eval_script(engine_, script, &result), &result);
++    return true;
++}
++
++bool NovaContext::captureGlobalFunction(const std::string& name) {
++    enter();
++    bool captured = false;
++    nova_result result{};
++    const int status = nova_engine_capture(engine_, bytesOf(name), name.size(), &captured, &result);
++    nova_result_free(&result);
++    if (failure_ != Failure::None) {
++        failure_ = Failure::None;
++        return false;
++    }
++    return status == NOVA_OK && captured;
++}
++
++JSResult NovaContext::call(const std::string& name, const std::vector<std::string>& args) {
++    enter();
++    if (args.size() > NOVA_MAX_CALL_ARGS) throw JSError("more than " + std::to_string(NOVA_MAX_CALL_ARGS) + " arguments to " + name);
++    std::vector<nova_str> list;
++    list.reserve(args.size());
++    for (const auto& arg : args) list.push_back(nova_str{arg.empty() ? nullptr : bytesOf(arg), arg.size()});
++    nova_result result{};
++    return finish(nova_engine_call(engine_, bytesOf(name), name.size(), list.data(), list.size(), &result), &result);
++}
++
++bool NovaContext::hasPendingJob() const { return nova_engine_has_pending_job(engine_); }
++
++bool NovaContext::executePendingJob(const std::function<void(const JSError&)>& onError) {
++    enter();
++    bool ran = false;
++    nova_result result{};
++    const int status = nova_engine_run_job(engine_, &ran, &result);
++    if (!ran) {
++        nova_result_free(&result);
++        return false;
++    }
++    try {
++        finish(status, &result);
++    } catch (const JSError& e) {
++        onError(e);
++    }
++    return true;
++}
++
++} // namespace twidget
+diff --git a/packages/desktop/sandbox/src/quickjs_context.cpp b/packages/desktop/sandbox/src/quickjs_context.cpp
+@@ -1,362 +0,0 @@
+-#include "twidget/quickjs_context.h"
+-
+-#include "steady_clock.h"
+-
+-#ifdef _WIN32
+-#include <windows.h>
+-#if (defined(_M_IX86) || defined(_M_X64)) && !defined(_M_ARM64EC) // ARM64EC code defines _M_X64 too
+-#include <intrin.h>
+-#define TW_TSC 1
+-#endif
+-#else
+-#include <time.h>
+-#endif
+-
+-#include <cmath>
+-#include <cstdlib>
+-#include <cstring>
+-#include <new>
+-
+-extern "C" {
+-#include "qjs_shim.h"
+-}
+-
+-namespace twidget {
+-
+-struct QuickJSTrampoline {
+-    static JSValue call(JSContext* ctx, JSValue /*this*/, int argc, JSValue* argv, int magic) {
+-        auto* self = static_cast<QuickJSContext*>(JS_GetContextOpaque(ctx));
+-        if (!self || magic < 0 || size_t(magic) >= self->functions_.size()) return qjs_undefined();
+-        // The engine's C frames under this one cannot be unwound: nothing thrown here or by a host function may leave it.
+-        try {
+-            std::vector<std::string> args;
+-            args.reserve(size_t(argc));
+-            for (int i = 0; i < argc; i++) {
+-                JSValue v = argv[i];
+-                if (qjs_is_string(v)) {
+-                    struct Copied {
+-                        JSContext* ctx;
+-                        const char* c;
+-                        ~Copied() { if (c) qjs_free_cstring(ctx, c); }
+-                    } copied{ctx, qjs_to_cstring(ctx, v)};
+-                    if (!copied.c) return JS_ThrowOutOfMemory(ctx);
+-                    args.emplace_back(copied.c);
+-                } else if (qjs_is_number(v)) {
+-                    double d = qjs_to_float64(ctx, v);
+-                    char buf[64];
+-                    if (d == std::floor(d) && std::fabs(d) < 1e15) snprintf(buf, sizeof buf, "%lld", (long long)d);
+-                    else snprintf(buf, sizeof buf, "%.17g", d);
+-                    args.emplace_back(buf);
+-                } else {
+-                    args.emplace_back();
+-                }
+-            }
+-            HostReturn r = self->functions_[size_t(magic)](args);
+-            switch (r.kind) {
+-            case HostReturn::Kind::Undefined: return qjs_undefined();
+-            case HostReturn::Kind::Null: return qjs_null();
+-            case HostReturn::Kind::String: return qjs_new_string_len(ctx, r.str.data(), r.str.size());
+-            case HostReturn::Kind::Number: return qjs_new_float64(ctx, r.num);
+-            case HostReturn::Kind::ArrayBuffer: return qjs_new_array_buffer_copy(ctx, r.bytes.data(), r.bytes.size());
+-            case HostReturn::Kind::RangeError: return JS_ThrowRangeError(ctx, "%s", r.str.c_str());
+-            }
+-            return qjs_undefined();
+-        } catch (const std::bad_alloc&) {
+-            return JS_ThrowOutOfMemory(ctx);
+-        } catch (const std::exception& e) {
+-            return JS_ThrowInternalError(ctx, "host function failed: %s", e.what());
+-        } catch (...) {
+-            return JS_ThrowInternalError(ctx, "host function failed");
+-        }
+-    }
+-
+-    static int interrupt(JSContext* /*ctx*/, void* opaque) {
+-        auto* self = static_cast<QuickJSContext*>(opaque);
+-        if (!self) return 0;
+-        if (QuickJSContext::now() > self->deadline || (self->cpuDeadline != std::numeric_limits<double>::infinity() && QuickJSContext::threadCpuTime() > self->cpuDeadline)) {
+-            self->interrupted = true;
+-            return 1;
+-        }
+-        return 0;
+-    }
+-};
+-
+-double QuickJSContext::now() { return detail::steadySeconds(); }
+-
+-#ifdef _WIN32
+-namespace {
+-
+-constexpr double kFileTimeTicksPerSecond = 1e7;
+-
+-struct ThreadClockSource {
+-    bool cycles = false;
+-    double ticksPerSecond = kFileTimeTicksPerSecond;
+-};
+-
+-struct ThreadClock {
+-    double seconds = 0.;
+-    uint64_t count = 0;
+-    bool counting = false;
+-};
+-
+-#ifdef TW_TSC
+-constexpr unsigned kHypervisorPresent = 1u << 31;
+-constexpr unsigned kInvariantTsc = 1u << 8;
+-constexpr unsigned kCreatePartitions = 1u << 0;
+-constexpr unsigned kNestedHypervisor = 1u << 12;
+-constexpr double kMinTscRate = 1e8;
+-constexpr double kMaxTscRate = 1e11;
+-
+-struct CpuidLeaf {
+-    unsigned eax = 0;
+-    unsigned ebx = 0;
+-    unsigned ecx = 0;
+-    unsigned edx = 0;
+-};
+-
+-CpuidLeaf readCpuid(unsigned leaf) {
+-    int registers[4] = {};
+-    __cpuid(registers, int(leaf));
+-    return {unsigned(registers[0]), unsigned(registers[1]), unsigned(registers[2]), unsigned(registers[3])};
+-}
+-
+-bool onArm64Windows() {
+-    using Function = BOOL(WINAPI*)(HANDLE, USHORT*, USHORT*);
+-    const auto address = GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "IsWow64Process2");
+-    const auto isWow64Process2 = reinterpret_cast<Function>(reinterpret_cast<void*>(address));
+-    if (!isWow64Process2) return false; // missing before Windows 10 1709, older than any ARM64 Windows
+-    auto process = USHORT(0);
+-    auto native = USHORT(0);
+-    return !isWow64Process2(GetCurrentProcess(), &process, &native) || native == IMAGE_FILE_MACHINE_ARM64;
+-}
+-
+-// Hyper-V's root partition, not nested within Hyper-V, as Hyper-V's own leaves identify it:
+-// https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/tlfs/feature-discovery
+-bool hyperVRootPartition() {
+-    if (readCpuid(0x40000000).eax < 0x40000004) return false;
+-    const auto signature = readCpuid(0x40000001).eax;
+-    if (std::memcmp(&signature, "Hv#1", sizeof(signature)) != 0) return false;
+-    if (!(readCpuid(0x40000003).ebx & kCreatePartitions)) return false;
+-    return !(readCpuid(0x40000004).eax & kNestedHypervisor);
+-}
+-
+-double enumeratedTscRate() {
+-    if (onArm64Windows()) return 0.;
+-    const auto basic = readCpuid(0);
+-    const unsigned vendor[] = {basic.ebx, basic.edx, basic.ecx};
+-    if (std::memcmp(vendor, "GenuineIntel", sizeof(vendor)) != 0 || basic.eax < 0x15) return 0.;
+-    if (readCpuid(0x80000000).eax < 0x80000007) return 0.;
+-    if (!(readCpuid(0x80000007).edx & kInvariantTsc)) return 0.;
+-    if ((readCpuid(1).ecx & kHypervisorPresent) && !hyperVRootPartition()) return 0.;
+-    const auto tsc = readCpuid(0x15);
+-    const auto denominator = tsc.eax;
+-    const auto numerator = tsc.ebx;
+-    const auto crystalHz = tsc.ecx;
+-    if (!denominator || !numerator || !crystalHz) return 0.;
+-    const auto rate = double(crystalHz) * numerator / denominator;
+-    return (rate >= kMinTscRate && rate <= kMaxTscRate) ? rate : 0.;
+-}
+-#endif
+-
+-const ThreadClockSource& threadClockSource() {
+-    static const ThreadClockSource source = [] {
+-#ifdef TW_TSC
+-        const auto rate = enumeratedTscRate();
+-        if (rate > 0.) return ThreadClockSource{true, rate};
+-#endif
+-        return ThreadClockSource();
+-    }();
+-    return source;
+-}
+-
+-} // namespace
+-#endif
+-
+-double QuickJSContext::threadCpuTime() {
+-#ifdef _WIN32
+-    const auto& source = threadClockSource();
+-    thread_local ThreadClock state;
+-    auto count = uint64_t(0);
+-    auto ok = false;
+-    if (source.cycles) {
+-        auto cycles = ULONG64(0);
+-        ok = QueryThreadCycleTime(GetCurrentThread(), &cycles) != FALSE;
+-        count = cycles;
+-    } else {
+-        FILETIME creation{}, exit{}, kernel{}, user{};
+-        ok = GetThreadTimes(GetCurrentThread(), &creation, &exit, &kernel, &user) != FALSE;
+-        auto ticks = [](const FILETIME& f) { return (uint64_t(f.dwHighDateTime) << 32) | f.dwLowDateTime; };
+-        count = ticks(kernel) + ticks(user);
+-    }
+-    if (!ok) {
+-        state.counting = false;
+-        return state.seconds;
+-    }
+-    if (state.counting && count > state.count) state.seconds += double(count - state.count) / source.ticksPerSecond;
+-    state.count = count;
+-    state.counting = true;
+-    return state.seconds;
+-#else
+-    timespec t{};
+-    clock_gettime(CLOCK_THREAD_CPUTIME_ID, &t);
+-    return double(t.tv_sec) + double(t.tv_nsec) / 1e9;
+-#endif
+-}
+-
+-QuickJSContext::QuickJSContext(size_t memoryLimitBytes, size_t maxStackBytes) {
+-    runtime_ = JS_NewRuntime();
+-    JS_SetMemoryLimit(runtime_, memoryLimitBytes);
+-    JS_SetMaxStackSize(runtime_, maxStackBytes);
+-    context_ = JS_NewContext(runtime_);
+-    JS_SetContextOpaque(context_, this);
+-    // No module loader is installed: `import()` of anything fails inside the sandbox.
+-    JS_SetInterruptHandler(runtime_, &QuickJSTrampoline::interrupt, this);
+-}
+-
+-struct QuickJSContext::Captured {
+-    std::string name;
+-    JSValue fn;
+-};
+-
+-QuickJSContext::~QuickJSContext() {
+-    for (Captured* c : captured_) {
+-        qjs_free_value(context_, c->fn);
+-        delete c;
+-    }
+-    JS_FreeContext(context_);
+-    JS_FreeRuntime(runtime_);
+-}
+-
+-size_t QuickJSContext::memoryUsed() const { return qjs_memory_used(runtime_); }
+-
+-void QuickJSContext::registerFunction(const std::string& name, HostFunction fn) {
+-    int magic = int(functions_.size());
+-    functions_.push_back(std::move(fn));
+-    JSValue f = qjs_new_cfunction_magic(context_, &QuickJSTrampoline::call, name.c_str(), 2, magic);
+-    qjs_set_global_prop(context_, name.c_str(), f); // takes ownership of f
+-}
+-
+-// QuickJS measures stack depth from the stack pointer it saw when the runtime
+-// was created; re-read it on every entry (belt and braces — contexts are pinned
+-// to a JSThread anyway).
+-void QuickJSContext::enter() {
+-    JS_UpdateStackTop(runtime_);
+-    uncatchable = false;
+-}
+-
+-/// False when a string could not be copied out: the engine's out of memory error is pending. Frees `v` either way.
+-static bool readResult(JSContext* ctx, JSValue v, JSResult& r) {
+-    bool copied = true;
+-    if (qjs_is_string(v)) {
+-        size_t length = 0;
+-        const char* c = JS_ToCStringLen2(ctx, &length, v, false);
+-        copied = c != nullptr;
+-        if (c) r.string = std::string(c, length);
+-        if (c) JS_FreeCString(ctx, c);
+-    } else if (qjs_is_number(v)) {
+-        r.number = qjs_to_float64(ctx, v);
+-    }
+-    qjs_free_value(ctx, v);
+-    return copied;
+-}
+-
+-JSError QuickJSContext::takeException() {
+-    JSValue e = JS_GetException(context_);
+-    uncatchable = JS_IsUncatchableError(e);
+-    if (!uncatchable) {
+-        JS_Throw(context_, e);
+-        char* c = qjs_take_exception_description(context_);
+-        std::string text(c ? c : "unknown error");
+-        free(c);
+-        if (!JS_HasException(context_)) return JSError(text);
+-        e = JS_GetException(context_);
+-        uncatchable = JS_IsUncatchableError(e);
+-        if (!uncatchable) {
+-            qjs_free_value(context_, e);
+-            return JSError(text);
+-        }
+-    }
+-    // Thrown again it is uncatchable again: reading its message runs no getter of the widget's.
+-    JS_Throw(context_, qjs_dup_value(context_, e));
+-    JSResult message;
+-    readResult(context_, JS_GetPropertyStr(context_, e, "message"), message);
+-    qjs_free_value(context_, JS_GetException(context_));
+-    qjs_free_value(context_, e);
+-    return JSError("InternalError: " + message.string.value_or(""));
+-}
+-
+-JSResult QuickJSContext::evaluate(const std::string& code, const std::string& filename, bool asModule) {
+-    enter();
+-    JSValue v = qjs_eval(context_, code.c_str(), code.size(), filename.c_str(), asModule);
+-    JSResult r;
+-    if (qjs_is_exception(v) || !readResult(context_, v, r)) throw takeException();
+-    return r;
+-}
+-
+-JSResult QuickJSContext::evaluateBytecode(const std::vector<uint8_t>& blob, const std::string& source) {
+-    enter();
+-    JSValue v = qjs_eval_bytecode(context_, blob.data(), blob.size(), source.data(), source.size());
+-    JSResult r;
+-    if (qjs_is_exception(v) || !readResult(context_, v, r)) throw takeException();
+-    return r;
+-}
+-
+-std::vector<uint8_t> QuickJSContext::compileBytecode(const std::string& code, const std::string& filename) {
+-    enter();
+-    size_t len = 0;
+-    uint8_t* blob = qjs_compile_bytecode(context_, code.data(), code.size(), filename.c_str(), &len);
+-    if (!blob) throw takeException();
+-    std::vector<uint8_t> out(blob, blob + len);
+-    qjs_free_bytecode(context_, blob);
+-    return out;
+-}
+-
+-bool QuickJSContext::captureGlobalFunction(const std::string& name) {
+-    enter();
+-    JSValue fn = qjs_get_global_prop(context_, name.c_str());
+-    if (!qjs_is_function(context_, fn)) {
+-        qjs_free_value(context_, fn);
+-        return false;
+-    }
+-    for (Captured* c : captured_) {
+-        if (c->name == name) {
+-            qjs_free_value(context_, c->fn);
+-            c->fn = fn;
+-            return true;
+-        }
+-    }
+-    captured_.push_back(new Captured{name, fn});
+-    return true;
+-}
+-
+-JSResult QuickJSContext::call(const std::string& name, const std::vector<std::string>& args) {
+-    enter();
+-    const JSValue* kept = nullptr;
+-    for (Captured* c : captured_) if (c->name == name) kept = &c->fn;
+-    JSValue fn = kept ? qjs_dup_value(context_, *kept) : qjs_get_global_prop(context_, name.c_str());
+-    if (!qjs_is_function(context_, fn)) {
+-        qjs_free_value(context_, fn);
+-        throw JSError(name + " is not a function");
+-    }
+-    std::vector<JSValue> argv;
+-    argv.reserve(args.size());
+-    for (const auto& a : args) argv.push_back(qjs_new_string_len(context_, a.data(), a.size()));
+-    JSValue r = qjs_call(context_, fn, int(argv.size()), argv.data());
+-    for (auto& v : argv) qjs_free_value(context_, v);
+-    qjs_free_value(context_, fn);
+-    JSResult result;
+-    if (qjs_is_exception(r) || !readResult(context_, r, result)) throw takeException();
+-    return result;
+-}
+-
+-bool QuickJSContext::hasPendingJob() const { return qjs_is_job_pending(runtime_); }
+-
+-bool QuickJSContext::executePendingJob(const std::function<void(const JSError&)>& onError) {
+-    enter();
+-    JSContext* ctx = nullptr;
+-    int r = qjs_execute_pending_job(runtime_, &ctx);
+-    if (r < 0) onError(takeException());
+-    return r != 0;
+-}
+-
+-} // namespace twidget
+diff --git a/packages/desktop/sandbox/src/sandbox_engine.cpp b/packages/desktop/sandbox/src/sandbox_engine.cpp
+@@ -1,4 +1,4 @@
+-// The in-process engine: the widget's QuickJS runtime on `widget.sandbox`, its halves of the entry points both modes share (sandbox_engine_shared.cpp reaches them through `kInProcess`), `release`, and `make` with the channel factory slot, which pick the in-process or a client-mode engine.
++// The in-process engine: the widget's Nova runtime on `widget.sandbox`, its halves of the entry points both modes share (sandbox_engine_shared.cpp reaches them through `kInProcess`), `release`, and `make` with the channel factory slot, which pick the in-process or a client-mode engine.
+ #include "twidget/sandbox_engine.h"
+ 
+ #include "twidget/bundle_stamp.h"
+@@ -101,7 +101,7 @@ static int countCanvasCommands(const std::string& json) {
+ static std::string truncate(const std::string& s, size_t n) { return s.size() <= n ? s : s.substr(0, n); }
+ 
+ /// `js_`'s deleter, which `boot` sets with the context: only this source frees one.
+-static void freeContext(QuickJSContext* js) { delete js; }
++static void freeContext(NovaContext* js) { delete js; }
+ 
+ namespace {
+ 
+@@ -202,7 +202,7 @@ void SandboxEngine::inProcessStop(const std::string& reason) {
+ void SandboxEngine::boot() {
+     if (started_) return;
+     started_ = true;
+-    js_ = {new QuickJSContext(config_.memoryLimitBytes, JSThread::kJSStackLimit), freeContext};
++    js_ = {new NovaContext(config_.memoryLimitBytes, JSThread::kJSStackLimit), freeContext};
+     js_->registerFunction("__host", [this](const std::vector<std::string>& args) {
+         return hostCall(args.empty() ? "" : args[0], args.size() > 1 ? args[1] : "");
+     });
+@@ -217,7 +217,7 @@ void SandboxEngine::boot() {
+         // Generous one-off budget for our own bundle; its time is ours, not the widget's.
+         js_->deadline = nowSeconds() + std::max(config_.cpuLimitMs, 5000.0) / 1000;
+         js_->cpuDeadline = kInf;
+-        std::string how = evalBundle(resources_->sandboxBundle, resources_->sandboxBytecode, "sandbox-bundle.js");
++        std::string how = evalBundle(resources_->sandboxBundle, "sandbox-bundle.js");
+         excludeMs_ = nowMs() - t0;
+         // Fail closed: a runtime whose shim did not load completely (its network
+         // stubs and DOM capture may be missing) never runs widget code.
+@@ -925,28 +925,18 @@ void SandboxEngine::settle() {
+     }
+ }
+ 
+-std::string SandboxEngine::evalBundle(const std::string& source, const std::vector<uint8_t>& bytecode, const std::string& filename) {
+-    // Bundles of another release are refused before anything runs, as a stale `.qbc` is (bundle_stamp.h).
++std::string SandboxEngine::evalBundle(const std::string& source, const std::string& filename) {
++    // Bundles of another release are refused before anything runs (bundle_stamp.h).
+     if (auto refusal = BundleStamp::refusal(*resources_)) {
+         if (delegate_) delegate_->onDiag(*this, "bundle-mismatch", *refusal);
+         return "failed";
+     }
+-    if (!bytecode.empty()) {
+-        try {
+-            js_->evaluateBytecode(bytecode, source);
+-            return "bytecode";
+-        } catch (const JSError& e) {
+-            std::string msg = e.what();
+-            if (delegate_) delegate_->onDiag(*this, "bytecode", filename + ": falling back to source — " + msg.substr(0, msg.find('\n')));
+-        }
+-    }
+     try {
+-        js_->evaluate(source, filename, false);
++        return js_->evaluateBundle(source, filename) ? "compiled" : "source";
+     } catch (const JSError& e) {
+         handleError(e.what(), filename);
+         return "failed";
+     }
+-    return "source";
+ }
+ 
+ void SandboxEngine::evalScript(const std::string& code, const std::string& filename, bool asModule) {
+@@ -980,7 +970,7 @@ void SandboxEngine::pumpScripts() {
+ /// kill widgets; wall-clock time is only a backstop for a thread that never runs.
+ void SandboxEngine::resetDeadline() {
+     js_->interrupted = false;
+-    js_->cpuDeadline = QuickJSContext::threadCpuTime() + currentSliceMs_ / 1000;
++    js_->cpuDeadline = NovaContext::threadCpuTime() + currentSliceMs_ / 1000;
+     js_->deadline = nowSeconds() + std::max(currentSliceMs_ * kWallBackstopFactor, kWallBackstopMinMs) / 1000;
+ }
+ 
+@@ -1001,15 +991,15 @@ void SandboxEngine::task(const std::string& kind, double sliceMs, const std::fun
+     taskQueries_ = 0;
+     taskOpsCostMs_ = 0;
+     queryLimitHit_ = {};
+-    double c0 = QuickJSContext::threadCpuTime();
++    double c0 = NovaContext::threadCpuTime();
+     resetDeadline();
+     body();
+     if (!dead_) settle();
+     if (!dead_) pumpScripts();
+     // Past the limit but done before the interrupt landed (a loop that ended on the error answers): stopped all the same.
+     if (!dead_ && !queryLimitHit_.empty()) kill(CpuBudget::queryLimitReason(queryLimitHit_, kind));
+     stats_.tasks++;
+-    double cpuMs = (QuickJSContext::threadCpuTime() - c0) * 1000 - excludeMs_;
++    double cpuMs = (NovaContext::threadCpuTime() - c0) * 1000 - excludeMs_;
+     stats_.jsMs += cpuMs;
+     double end = nowMs();
+     budget_->record(kind, cpuMs, end);
+diff --git a/packages/desktop/sandbox/src/trusted_validator.cpp b/packages/desktop/sandbox/src/trusted_validator.cpp
+@@ -8,7 +8,7 @@ TrustedValidator::TrustedValidator(const std::string& theme, std::shared_ptr<San
+     : thread_("widget.validator"), onDiag_(std::move(onDiag)) {
+     thread_.sync([&] {
+         // Kept local until the boot is over: a boot that throws frees the context here, on the thread it is pinned to.
+-        auto js = std::make_unique<QuickJSContext>(size_t(256) << 20, JSThread::kJSStackLimit);
++        auto js = std::make_unique<NovaContext>(size_t(256) << 20, JSThread::kJSStackLimit);
+         js->registerFunction("__diag", [this](const std::vector<std::string>& args) {
+             std::string kind = args.empty() ? "" : args[0], detail = args.size() > 1 ? args[1] : "";
+             if (kind == "limit") {
+@@ -26,14 +26,8 @@ TrustedValidator::TrustedValidator(const std::string& theme, std::shared_ptr<San
+             js_ = std::move(js);
+             return;
+         }
+-        // Precompiled when shipped and matching the source, else the source (same rule as the engine).
+-        bool fromBytecode = false;
+-        if (!resources->validatorBytecode.empty()) {
+-            try { js->evaluateBytecode(resources->validatorBytecode, resources->validatorBundle); fromBytecode = true; }
+-            catch (const JSError& e) { if (onDiag_) onDiag_("bytecode", std::string("validator-bundle.js: falling back to source — ") + e.what()); }
+-        }
+-        if (!fromBytecode) js->evaluate(resources->validatorBundle, "validator-bundle.js");
+-        // Flatten the API into globals so QuickJSContext::call can reach it.
++        js->evaluateBundle(resources->validatorBundle, "validator-bundle.js");
++        // Flatten the API into globals so NovaContext::call can reach it.
+         js->evaluate(
+             "globalThis.__v_processOps = (j) => __twValidator.processOps(j);"
+             "globalThis.__v_validateQuery = (j) => __twValidator.validateQuery(j);"
+@@ -75,9 +69,9 @@ void TrustedValidator::setCpuSink(CpuSink sink) {
+ std::string TrustedValidator::metered(const char* name, const std::vector<std::string>& args) {
+     return thread_.sync([&]() -> std::string {
+         if (!cpuSink_) return str(name, args);
+-        double t0 = QuickJSContext::threadCpuTime();
++        double t0 = NovaContext::threadCpuTime();
+         std::string out = str(name, args);
+-        cpuSink_((QuickJSContext::threadCpuTime() - t0) * 1000);
++        cpuSink_((NovaContext::threadCpuTime() - t0) * 1000);
+         return out;
+     });
+ }
+diff --git a/packages/desktop/sandbox/src/widget_host_local.cpp b/packages/desktop/sandbox/src/widget_host_local.cpp
+@@ -2,7 +2,7 @@
+ #include "twidget/widget_host.h"
+ 
+ #include "twidget/json.h"
+-#include "twidget/quickjs_context.h"
++#include "twidget/nova_context.h"
+ #include "widget_host_internal.h"
+ 
+ #include <algorithm>
+@@ -406,7 +406,7 @@ void WidgetHost::localAnim(SandboxEngine& engine, const std::string& json) {
+     if (!hold) return;
+     engineWork([this, anims] {
+         char now[64];
+-        std::snprintf(now, sizeof now, "%.17g", QuickJSContext::now() * 1000);
++        std::snprintf(now, sizeof now, "%.17g", NovaContext::now() * 1000);
+         engineToRenderer(std::string("{\"type\":\"anim\",\"now\":") + now + ",\"anims\":" + anims + "}");
+     }, std::move(*hold));
+ }

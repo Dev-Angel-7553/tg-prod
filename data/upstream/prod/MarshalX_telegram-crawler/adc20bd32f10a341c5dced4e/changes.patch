@@ -1,0 +1,20 @@
+diff --git a/data/web_tr/translations.telegram.org/en/android/unsorted.json b/data/web_tr/translations.telegram.org/en/android/unsorted.json
+@@ -11250,7 +11250,7 @@
+     "GiftOnchainOfferReview": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferReview",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Review"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -6530,7 +6530,7 @@
+     "Notification.StarGiftOnchainOffer.Review": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Notification.StarGiftOnchainOffer.Review",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Review"
+         }

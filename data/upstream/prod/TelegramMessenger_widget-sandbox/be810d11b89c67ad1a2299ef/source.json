@@ -1,0 +1,33 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/widget-sandbox:cac5a6cb244353fd664494026b817b6a037c1080:code:mixed",
+  "files": [
+    {
+      "additions": 137,
+      "deletions": 0,
+      "filename": "packages/desktop/harness/memory_stream.h",
+      "status": "added"
+    },
+    {
+      "additions": 476,
+      "deletions": 54,
+      "filename": "packages/desktop/sandbox/src/remote_stream.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 113,
+      "deletions": 33,
+      "filename": "packages/desktop/sandbox/src/sandbox_engine_client.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "js-sandbox",
+    "date": "2026-11-20T13:27:48Z",
+    "repo": "TelegramMessenger/widget-sandbox",
+    "sha": "cac5a6cb244353fd664494026b817b6a037c1080",
+    "url": "https://github.com/TelegramMessenger/widget-sandbox/compare/2871bfc912070ee03e1db3819b1ab9dceebd4931...cac5a6cb244353fd664494026b817b6a037c1080"
+  }
+}

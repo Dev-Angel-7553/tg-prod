@@ -1,0 +1,92 @@
+{
+  "category": "clients",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:a76f20b46e92ee48365c456f9b92a3beeb0e52aa:clients:mixed",
+  "files": [
+    {
+      "additions": 6,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/AndroidManifest.xml",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/WidgetSandbox/WidgetJS/renderer-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/WidgetSandbox/WidgetJS/validator-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/WidgetSandbox/manifest.txt",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/darkblue.attheme",
+      "status": "modified"
+    },
+    {
+      "additions": 261,
+      "deletions": 5,
+      "filename": "data/client/android-stable-dl/assets/localization_en.txt",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/lottie_meta.bin",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-stable-dl/assets/night.attheme",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "data/client/android-stable-dl/res/values/public.xml",
+      "status": "modified"
+    },
+    {
+      "additions": 266,
+      "deletions": 5,
+      "filename": "data/client/android-stable-dl/res/values/strings.xml",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-20T18:46:52Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "a76f20b46e92ee48365c456f9b92a3beeb0e52aa",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/a76f20b46e92ee48365c456f9b92a3beeb0e52aa"
+  }
+}

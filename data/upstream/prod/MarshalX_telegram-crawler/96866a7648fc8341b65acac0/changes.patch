@@ -1,0 +1,28 @@
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-3cae1487ac9d.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-3cae1487ac9d.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-3cae1487ac9d5851b884257c4699b6ad34567d743374a7f5f16fe9b7d2239c93
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-bcj-f625018beb31.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-bcj-f625018beb31.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-f625018beb313c3a70dcbb072da60b474db5920cde54c3b9ead4bf214515396d
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283570-8b2eb75622e7.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283570-8b2eb75622e7.delta.sha256
+@@ -1 +0,0 @@
+-8b2eb75622e7fb8de701fd393c3385a08d13d849c427c78265fbe3ed1b18d20d
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283571-3cf5199e541d.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283571-3cf5199e541d.delta.sha256
+@@ -1 +0,0 @@
+-3cf5199e541d00d25cb40b955e84e66589fc9ec98844ffe7e4bebf5c98b1a98f
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283573-afbe51a2207d.delta.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283573-afbe51a2207d.delta.sha256
+@@ -1 +0,0 @@
+-afbe51a2207d61026c24ddc084859e294b2296586261570d5c3c503d0cd25bc2
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-x86_64-347d7e5630b0.app.tar.xz.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-x86_64-347d7e5630b0.app.tar.xz.sha256
+@@ -1 +0,0 @@
+-347d7e5630b038114fd226901cc3788efcf3dcfd6d038eb4a9961ee4f32449ab
+\ No newline at end of file
+diff --git a/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574.app.zip.sha256 b/data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574.app.zip.sha256
+@@ -1 +0,0 @@
+-b9b3c7b1171e2998608069bf9dfa330884a019bc9fd33c938bd6c411d5733925
+\ No newline at end of file

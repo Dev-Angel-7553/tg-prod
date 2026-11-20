@@ -1,0 +1,56 @@
+{
+  "category": "web",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:3a8c9f0e28b0d6f633b0deb059009ac33a166d78:web:beta",
+  "files": [
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-3cae1487ac9d.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-bcj-f625018beb31.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283570-8b2eb75622e7.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283571-3cf5199e541d.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-arm64-from-283573-afbe51a2207d.delta.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574-x86_64-347d7e5630b0.app.tar.xz.sha256",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/web_res/mac-updates.telegram.org/beta/Telegram-13.2.0.283574.app.zip.sha256",
+      "status": "removed"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-20T13:27:29Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "3a8c9f0e28b0d6f633b0deb059009ac33a166d78",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/3a8c9f0e28b0d6f633b0deb059009ac33a166d78"
+  }
+}

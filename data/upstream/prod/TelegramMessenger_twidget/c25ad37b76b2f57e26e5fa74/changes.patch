@@ -1,0 +1,60 @@
+diff --git a/core/src/renderer.cpp b/core/src/renderer.cpp
+@@ -3390,7 +3390,7 @@ void Renderer::rebuild(bool patch) {
+ Renderer::NameMeter::NameMeter(Renderer& renderer) : r(renderer) {
+ #ifdef TW_LITEHTML_TWIDGET
+     if (r.name_meter_depth_++ == 0) {
+-        const auto usage = litehtml::_id_usage();
++        const auto usage = litehtml::_id_thread_usage();
+         names = usage.names;
+         bytes = usage.bytes;
+     }
+@@ -3400,7 +3400,7 @@ Renderer::NameMeter::NameMeter(Renderer& renderer) : r(renderer) {
+ Renderer::NameMeter::~NameMeter() {
+ #ifdef TW_LITEHTML_TWIDGET
+     if (--r.name_meter_depth_ != 0) return;
+-    const auto usage = litehtml::_id_usage();
++    const auto usage = litehtml::_id_thread_usage();
+     r.stats_.names += usage.names - names;
+     r.stats_.name_bytes += usage.bytes - bytes;
+     if (r.stats_.names > MAX_NAMES || r.stats_.name_bytes > MAX_NAME_BYTES) r.stop_names();
+diff --git a/litehtml/include/litehtml/string_id.h b/litehtml/include/litehtml/string_id.h
+@@ -131,6 +131,8 @@ namespace litehtml
+         size_t bytes = 0;
+     };
+     string_id_usage _id_usage();
++    // The names the calling thread added to the table and their bytes, since the thread began.
++    string_id_usage _id_thread_usage();
+ 
+ } // namespace litehtml
+ 
+diff --git a/litehtml/src/string_id.cpp b/litehtml/src/string_id.cpp
+@@ -17,6 +17,8 @@ namespace litehtml
+     static std::map<std::string, string_id>& map = *new std::map<std::string, string_id>;
+     static std::deque<std::string>&          array = *new std::deque<std::string>;
+     static size_t                            array_bytes = 0;
++    static thread_local size_t               thread_names = 0;
++    static thread_local size_t               thread_bytes = 0;
+ 
+     static int init()
+     {
+@@ -48,6 +50,8 @@ namespace litehtml
+         // else: str not found, add it to the array and the map
+         array.push_back(str);
+         array_bytes += str.size();
++        thread_names++;
++        thread_bytes += str.size();
+         return map[str] = static_cast<string_id>(array.size() - 1);
+     }
+ 
+@@ -69,6 +73,11 @@ namespace litehtml
+         return {array.size(), array_bytes};
+     }
+ 
++    string_id_usage _id_thread_usage()
++    {
++        return {thread_names, thread_bytes};
++    }
++
+     const std::string& _s(string_id id)
+     {
+         lock_guard;

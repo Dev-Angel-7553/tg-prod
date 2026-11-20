@@ -1,0 +1,33 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/twidget:a5375fdfcd61e666a1846ec94968331f3921692c:code:mixed",
+  "files": [
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "core/src/renderer.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "filename": "litehtml/include/litehtml/string_id.h",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 0,
+      "filename": "litehtml/src/string_id.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "js-sandbox",
+    "date": "2026-11-19T23:16:38Z",
+    "repo": "TelegramMessenger/twidget",
+    "sha": "a5375fdfcd61e666a1846ec94968331f3921692c",
+    "url": "https://github.com/TelegramMessenger/twidget/compare/5bc96397acba15ba56801c62ac2ea33bc2ae90df...a5375fdfcd61e666a1846ec94968331f3921692c"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "category": "web",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:f9c7ce6e7a812c2e0038c543a104e89aeca7965d:web:beta",
+  "files": [
+    {
+      "additions": 16,
+      "deletions": 16,
+      "filename": "data/web/mac-updates.telegram.org/beta/versions.xml.xsl",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-20T02:48:22Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "f9c7ce6e7a812c2e0038c543a104e89aeca7965d",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/f9c7ce6e7a812c2e0038c543a104e89aeca7965d"
+  }
+}

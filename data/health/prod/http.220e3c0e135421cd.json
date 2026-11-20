@@ -1,6 +1,6 @@
 {
   "check": "http.https://translations.telegram.org/en/webk/premium_and_business",
-  "error": "HTTPError",
+  "error": "ValueError",
   "scope": "This session and endpoint only; not proof of a global outage.",
-  "status": "transport_error"
+  "status": "api_error"
 }

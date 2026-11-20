@@ -1,0 +1,1566 @@
+diff --git a/core/src/backend.h b/core/src/backend.h
+@@ -36,6 +36,11 @@ inline bool set_em_box(FontMetrics& m, float ascent, float descent, float size)
+     return true;
+ }
+ 
++struct TextInFont {
++    int font = 0;
++    std::string text;
++};
++
+ class Backend {
+ public:
+     virtual ~Backend() = default;
+@@ -52,6 +57,12 @@ class Backend {
+     virtual void delete_font(int font) = 0;
+     /// Advance width of `text` (UTF-8) in CSS px.
+     virtual float text_width(int font, const std::string& text) = 0;
++    virtual std::vector<float> text_widths(const std::vector<TextInFont>& texts) {
++        std::vector<float> widths;
++        widths.reserve(texts.size());
++        for (const TextInFont& t : texts) widths.push_back(text_width(t.font, t.text));
++        return widths;
++    }
+     /// Decodes a `data:` image (anything else is refused by the container before this) and keeps it
+     /// under `id` for the painter; `w`/`h` get the intrinsic size in CSS px. False when undecodable.
+     virtual bool load_image(int id, const std::string& url, float& w, float& h) = 0;
+diff --git a/core/src/platform_end.cpp b/core/src/platform_end.cpp
+@@ -28,7 +28,7 @@ template <class M> bool PlatformEnd::send(const M& message, const Expected* expe
+     if (refused_) return false;
+     std::string bytes;
+     if (!encode(message, caps_, bytes)) return refuse("an input did not encode within the caps");
+-    if (expected) expected_.push_back(*expected);
++    if (expected) expected_->push_back(*expected);
+     channel_.send(std::move(bytes));
+     return true;
+ }
+@@ -46,22 +46,32 @@ template <class M> bool PlatformEnd::respond(const M& message, std::string& repl
+ }
+ 
+ bool PlatformEnd::solicited(Kind kind, uint64_t seq) {
+-    if (expected_.empty()) return refuse("an unsolicited message of " + named(kind));
+-    const Expected& front = expected_.front();
+-    if (front.kind != kind) return refuse("a message of " + named(kind) + " where " + named(front.kind) + " was due");
++    if (!due(kind, kind, seq)) return false;
++    expected_->pop_front();
++    return true;
++}
++
++bool PlatformEnd::due(Kind kind, Kind answers, uint64_t seq) {
++    if (expected_->empty()) return refuse("an unsolicited message of " + named(kind));
++    const Expected& front = expected_->front();
++    if (front.kind != answers) return refuse("a message of " + named(kind) + " where " + named(front.kind) + " was due");
+     if (front.seq != seq) return refuse("a message of " + named(kind) + " for request " + std::to_string(seq) + " where " + std::to_string(front.seq) + " was due");
+-    expected_.pop_front();
+     return true;
+ }
+ 
+ bool PlatformEnd::refuse(const std::string& reason) {
+     if (refused_) return false;
+-    refused_ = true;
+-    expected_.clear();
++    close();
+     host_.refused(reason);
+     return false;
+ }
+ 
++void PlatformEnd::close() noexcept {
++    refused_ = true;
++    expected_.reset();
++    base_.reset();
++}
++
+ uint64_t PlatformEnd::request_frame(bool tick, Paint paint) {
+     const Expected next{Kind::Frame, frames_ + 1};
+     if (!send(FrameRequest{next.seq, tick, paint}, &next)) return 0;
+@@ -109,11 +119,18 @@ bool PlatformEnd::receive(std::string_view message) {
+     switch (*kind) {
+     case Kind::Frame: {
+         Frame frame;
+-        if (!take(message, *kind, frame) || !solicited(*kind, frame.seq)) return false;
+-        state_ = frame.state;
+-        host_.frame(std::move(frame));
++        std::string_view list;
++        if (!decode(message, caps_, frame, list)) return refuse("a message of " + named(*kind) + " did not decode");
++        if (!due(*kind, *kind, frame.seq)) return false;
++        std::optional<std::string> kept;
++        if (frame.painted && list.size() <= caps_.delta_base) kept.emplace(list);
++        expected_->pop_front();
++        framed(std::move(frame), std::move(kept));
+         break;
+     }
++    case Kind::FrameDelta:
++        if (!take_delta(message)) return false;
++        break;
+     case Kind::State: {
+         State state;
+         if (!take(message, *kind, state)) return false;
+@@ -164,13 +181,38 @@ bool PlatformEnd::receive(std::string_view message) {
+     case Kind::WidthRequest:
+     case Kind::ImageRequest:
+     case Kind::PixelsRequest:
++    case Kind::WidthsRequest:
+         return refuse("a request of " + named(*kind) + " where a one-way message belongs");
+     default:
+         return refuse("a message of " + named(*kind) + ", which only the platform end sends");
+     }
+     return !refused_;
+ }
+ 
++bool PlatformEnd::take_delta(std::string_view message) {
++    uint64_t seq = 0, base = 0;
++    if (!delta_ids(message, seq, base)) return refuse("a message of " + named(Kind::FrameDelta) + " did not decode");
++    if (!due(Kind::FrameDelta, Kind::Frame, seq)) return false;
++    if (!base_) return refuse("a message of " + named(Kind::FrameDelta) + " with no painted list kept to copy from");
++    if (base != base_seq_)
++        return refuse("a message of " + named(Kind::FrameDelta) + " copying from frame " + std::to_string(base) + " where " + std::to_string(base_seq_) + " was painted last");
++    Frame frame;
++    std::string list;
++    if (!rebuild(message, caps_, base_seq_, *base_, frame, list)) return refuse("a message of " + named(Kind::FrameDelta) + " did not rebuild a frame");
++    expected_->pop_front();
++    framed(std::move(frame), std::move(list));
++    return true;
++}
++
++void PlatformEnd::framed(Frame&& frame, std::optional<std::string> list) {
++    if (frame.painted) {
++        base_ = std::move(list);
++        base_seq_ = frame.seq;
++    }
++    state_ = frame.state;
++    host_.frame(std::move(frame));
++}
++
+ bool PlatformEnd::take_messages(std::string_view message) {
+     Messages batch;
+     if (!take(message, Kind::Messages, batch)) return false;
+@@ -212,6 +254,13 @@ bool PlatformEnd::answer(std::string_view request, std::string& reply) {
+     }
+     case Kind::PixelsRequest:
+         return answer_pixels(request, reply);
++    case Kind::WidthsRequest: {
++        WidthsRequest m;
++        if (!take(request, *kind, m)) return false;
++        std::vector<float> widths = backend_.text_widths(m.texts);
++        if (widths.size() != m.texts.size()) return refuse("the Backend gave " + std::to_string(widths.size()) + " widths for " + std::to_string(m.texts.size()) + " texts");
++        return respond(WidthsAnswer{std::move(widths)}, reply);
++    }
+     case Kind::Frame:
+     case Kind::State:
+     case Kind::Messages:
+@@ -221,6 +270,7 @@ bool PlatformEnd::answer(std::string_view request, std::string& reply) {
+     case Kind::FontRelease:
+     case Kind::CanvasRun:
+     case Kind::CanvasRelease:
++    case Kind::FrameDelta:
+         return refuse("a one-way message of " + named(*kind) + " where a request belongs");
+     default:
+         return refuse("a message of " + named(*kind) + ", which only the platform end sends");
+diff --git a/core/src/platform_end.h b/core/src/platform_end.h
+@@ -6,6 +6,7 @@
+ 
+ #include <cstdint>
+ #include <deque>
++#include <optional>
+ #include <string>
+ #include <string_view>
+ #include <vector>
+@@ -43,6 +44,8 @@ class PlatformEnd {
+ 
+     bool receive(std::string_view message);
+     bool answer(std::string_view request, std::string& reply);
++    /// Stops the end for good without a word to the host, as when the embedder ends the route itself: no reply is due any more and no painted list is kept. It allocates nothing.
++    void close() noexcept;
+ 
+     const State& state() const { return state_; }
+     bool refusing() const { return refused_; }
+@@ -57,6 +60,9 @@ class PlatformEnd {
+     template <class M> bool take(std::string_view message, Kind kind, M& out);
+     template <class M> bool respond(const M& message, std::string& reply);
+     bool solicited(Kind kind, uint64_t seq);
++    bool due(Kind kind, Kind answers, uint64_t seq);
++    bool take_delta(std::string_view message);
++    void framed(Frame&& frame, std::optional<std::string> list);
+     bool refuse(const std::string& reason);
+     bool take_messages(std::string_view message);
+     bool answer_pixels(std::string_view request, std::string& reply);
+@@ -66,10 +72,14 @@ class PlatformEnd {
+     Channel& channel_;
+     Caps caps_;
+     State state_;
+-    std::deque<Expected> expected_;
++    /// Dropped whole on close: an empty deque may allocate (libstdc++ does), and close() must not.
++    std::optional<std::deque<Expected>> expected_{std::in_place};
+     uint64_t frames_ = 0;
+     uint64_t claims_ = 0;
+     bool refused_ = false;
++    /// The list of the last painted Frame while it is within `delta_base`, for a FrameDelta to copy from.
++    std::optional<std::string> base_;
++    uint64_t base_seq_ = 0;
+ };
+ 
+ } // namespace twlite::remote
+diff --git a/core/src/remote.cpp b/core/src/remote.cpp
+@@ -17,6 +17,14 @@ static_assert(std::numeric_limits<float>::is_iec559 && std::numeric_limits<doubl
+ 
+ /// The fewest bytes a str takes: its length.
+ constexpr size_t STR_BYTES = 4;
++/// A WidthsRequest's header and count, and the fewest bytes one of its texts takes: its font and its length.
++constexpr size_t WIDTHS_HEAD = 2 + 4, WIDTHS_ITEM_BYTES = 4 + STR_BYTES;
++
++/// A painted Frame's bytes before its list: header, seq, state and the flag.
++constexpr size_t STATE_BYTES = 8 + 4 + 1 + 1 + 8 + 1, FRAME_HEAD = 2 + 8 + STATE_BYTES + 1;
++/// A FrameDelta run's tag, and the fewest bytes a run takes: a literal of one byte.
++constexpr uint8_t COPY_RUN = 0, LITERAL_RUN = 1;
++constexpr size_t RUN_BYTES = 1 + 4 + 1;
+ 
+ constexpr std::string_view PLATFORM_TYPES[] = {"size", "gesture", "limit", "violation", "bubble"};
+ 
+@@ -32,14 +40,32 @@ int32_t to_int(uint32_t u) {
+ }
+ 
+ bool known(uint8_t kind) {
+-    return (kind >= 1 && kind <= 8) || (kind >= 32 && kind <= 35) || (kind >= 64 && kind <= 72) || (kind >= 96 && kind <= 99);
++    return (kind >= 1 && kind <= 8) || (kind >= 32 && kind <= 36) || (kind >= 64 && kind <= 73) || (kind >= 96 && kind <= 100);
+ }
+ 
+ std::optional<uint32_t> pixel_bytes(int32_t w, int32_t h) {
+     if (w < 0 || h < 0 || w > Canvas::MAX_SIDE || h > Canvas::MAX_SIDE || int64_t(w) * h > Canvas::MAX_PIXELS) return std::nullopt;
+     return uint32_t(uint64_t(w) * uint64_t(h) * 4);
+ }
+ 
++/// How many of `texts`, from `from` on, keep within the widths caps in order: their count, each text and all of them, and, when `sized`, the message cap as a WidthsRequest's, which bounds its WidthsAnswer too.
++size_t widths_within(const std::vector<TextInFont>& texts, size_t from, const Caps& caps, bool sized) {
++    const size_t most = std::min<size_t>(caps.widths, UINT32_MAX), longest = std::min<size_t>(caps.text, UINT32_MAX);
++    size_t bytes = WIDTHS_HEAD, text = 0, n = 0;
++    for (size_t i = from; i < texts.size() && n < most; i++, n++) {
++        const size_t size = texts[i].text.size();
++        if (size > longest || size > caps.widths_text - text) break;
++        if (sized && (caps.message < bytes || caps.message - bytes < WIDTHS_ITEM_BYTES || size > caps.message - bytes - WIDTHS_ITEM_BYTES)) break;
++        bytes += WIDTHS_ITEM_BYTES + size;
++        text += size;
++    }
++    return n;
++}
++
++bool widths_fit(const WidthsRequest& request, const Caps& caps) {
++    return widths_within(request.texts, 0, caps, false) == request.texts.size();
++}
++
+ class Writer {
+ public:
+     Writer(std::string& out, size_t limit) : out_(out), start_(out.size()), limit_(limit) {}
+@@ -74,6 +100,11 @@ class Writer {
+         if (!v.empty()) out_.append(reinterpret_cast<const char*>(v.data()), v.size());
+         return true;
+     }
++    bool floats(const std::vector<float>& v, size_t cap) {
++        if (v.size() > SIZE_MAX / sizeof(float) || !room(v.size() * sizeof(float)) || !count(v.size(), cap)) return false;
++        for (const float& f : v) f32(f);
++        return true;
++    }
+     template <class Write> bool value(Write write) {
+         const size_t at = out_.size();
+         u32(0);
+@@ -156,6 +187,12 @@ class Reader {
+         }
+         return true;
+     }
++    bool view(std::string_view& v, size_t n) {
++        if (n > rest_.size()) return false;
++        v = rest_.substr(0, n);
++        rest_.remove_prefix(n);
++        return true;
++    }
+     template <class Read> bool value(Read read) {
+         uint32_t n = 0;
+         if (!u32(n) || n > rest_.size() || !read(rest_.substr(0, n))) return false;
+@@ -203,6 +240,14 @@ void commit(Frame& out, Frame& value) {
+     out.damage = std::move(value.damage);
+ }
+ 
++void commit(FrameDelta& out, FrameDelta& value) {
++    out.seq = value.seq;
++    commit(out.state, value.state);
++    out.base = value.base;
++    out.runs = std::move(value.runs);
++    out.damage = std::move(value.damage);
++}
++
+ /// Replaces `out` with what `read` takes from all of `message` after its header, once the last byte has passed.
+ template <class T, class Read> bool taken(std::string_view message, const Caps& caps, Kind kind, T& out, Read read) {
+     if (message.size() > caps.message) return false;
+@@ -247,6 +292,84 @@ template <class T> bool take_id(std::string_view message, const Caps& caps, Kind
+     return taken(message, caps, kind, out, [&](Reader& r, T& m) { return r.i32(m.*id); });
+ }
+ 
++/// Whether the painted Frame of a list and a damage of these lengths keeps within the frame and the message caps.
++bool fits_frame(const Caps& caps, uint64_t list, uint64_t damage) {
++    const uint64_t bytes = FRAME_HEAD + 4 + list + 4 + damage;
++    return bytes <= caps.frame && bytes <= caps.message;
++}
++
++/// A Frame after its header; for a painted one, `list` where its list went, starts noted within `most` bytes, when given.
++bool put_frame(Writer& w, const Frame& message, const Caps& caps, size_t most, WrittenList* list) {
++    w.u64(message.seq);
++    put_state(w, message.state);
++    w.flag(message.painted);
++    if (!message.painted) return message.list.empty() && !message.damage && w.written() <= caps.frame;
++    WrittenList written;
++    size_t damage = 0;
++    const bool put = w.value([&](std::string& s) {
++        written.at = s.size();
++        if (!(list ? wire::encode(message.list, caps.values, s, written.starts, most) : wire::encode(message.list, caps.values, s))) return false;
++        written.size = s.size() - written.at;
++        return true;
++    }) && w.value([&](std::string& s) {
++        const size_t at = s.size();
++        if (!wire::encode(message.damage, caps.values, s)) return false;
++        damage = s.size() - at;
++        return true;
++    }) && fits_frame(caps, written.size, damage);
++    if (put && list) *list = std::move(written);
++    return put;
++}
++
++/// One run for the list's head and one for each command: what an encoder that copies whole commands may need.
++size_t most_runs(const Caps& caps) {
++    return std::min<size_t>(caps.values.commands, UINT32_MAX - 1) + 1;
++}
++
++/// A FrameDelta's fields before its runs.
++struct DeltaHead {
++    uint64_t seq = 0;
++    State state;
++    uint64_t base = 0;
++    uint32_t length = 0;
++    size_t runs = 0;
++};
++
++bool read_delta_head(Reader& r, const Caps& caps, DeltaHead& h) {
++    return r.u64(h.seq) && read_state(r, h.state) && r.u64(h.base) && r.u32(h.length) && h.length > 0 && h.length <= caps.delta_base
++        && r.count(h.runs, std::min<size_t>(most_runs(caps), h.length), RUN_BYTES);
++}
++
++/// Takes runs that rebuild exactly `length` bytes, each copy within a base of `base` bytes and all of them copying no more than it holds, and gives each to `run(offset, length, literal)`, the literal empty for a copy.
++template <class Run> bool read_runs(Reader& r, size_t count, uint32_t length, size_t base, Run run) {
++    size_t built = 0, copied = 0;
++    for (size_t i = 0; i < count; i++) {
++        uint8_t tag = 0;
++        uint32_t offset = 0, n = 0;
++        std::string_view literal;
++        if (!r.u8(tag)) return false;
++        if (tag == COPY_RUN) {
++            if (!r.u32(offset) || !r.u32(n) || offset > base || n > base - offset || n > base - copied) return false;
++            copied += n;
++        } else if (tag != LITERAL_RUN || !r.u32(n) || !r.view(literal, n)) {
++            return false;
++        }
++        if (n == 0 || n > length - built) return false;
++        built += n;
++        run(offset, n, literal);
++    }
++    return built == length;
++}
++
++/// A FrameDelta's runs on a base of `base` bytes and its damage, read as views up to its last byte, and the Frame it stands for within the caps; nothing made yet, `damage` viewing the damage's bytes.
++bool scan_delta(Reader& r, const Caps& caps, const DeltaHead& h, size_t base, std::string_view& damage) {
++    const auto seen = [&](std::string_view bytes) {
++        damage = bytes;
++        return true;
++    };
++    return read_runs(r, h.runs, h.length, base, [](uint32_t, uint32_t, std::string_view) {}) && r.value(seen) && r.done() && fits_frame(caps, h.length, damage.size());
++}
++
+ } // namespace
+ 
+ std::optional<Kind> kind_of(std::string_view message) {
+@@ -424,26 +547,143 @@ bool decode(std::string_view message, const Caps& caps, const PixelsRequest& ask
+     });
+ }
+ 
+-bool encode(const Frame& message, const Caps& caps, std::string& out) {
+-    return appended(out, caps, Kind::Frame, [&](Writer& w) {
+-        w.u64(message.seq);
+-        put_state(w, message.state);
+-        w.flag(message.painted);
+-        if (!message.painted) return message.list.empty() && !message.damage;
+-        return w.value([&](std::string& s) { return wire::encode(message.list, caps.values, s); })
+-            && w.value([&](std::string& s) { return wire::encode(message.damage, caps.values, s); });
++bool encode(const WidthsAnswer& message, const Caps& caps, std::string& out) {
++    return appended(out, caps, Kind::WidthsAnswer, [&](Writer& w) { return w.floats(message.widths, caps.widths); });
++}
++
++bool decode(std::string_view message, const Caps& caps, const WidthsRequest& asked, WidthsAnswer& out) {
++    const bool fits = widths_fit(asked, caps);
++    return taken(message, caps, Kind::WidthsAnswer, out, [&](Reader& r, WidthsAnswer& m) {
++        size_t n = 0;
++        if (!fits || !r.count(n, caps.widths, sizeof(float)) || n != asked.texts.size()) return false;
++        m.widths.resize(n);
++        for (float& width : m.widths)
++            if (!r.f32(width)) return false;
++        return true;
+     });
+ }
+ 
++bool encode(const Frame& message, const Caps& caps, std::string& out) {
++    return appended(out, caps, Kind::Frame, [&](Writer& w) { return put_frame(w, message, caps, 0, nullptr); });
++}
++
++bool encode(const Frame& message, const Caps& caps, std::string& out, size_t most, WrittenList& list) {
++    WrittenList written;
++    if (!appended(out, caps, Kind::Frame, [&](Writer& w) { return put_frame(w, message, caps, most, &written); })) return false;
++    list = std::move(written);
++    return true;
++}
++
+ bool decode(std::string_view message, const Caps& caps, Frame& out) {
+-    return taken(message, caps, Kind::Frame, out, [&](Reader& r, Frame& m) {
++    std::string_view list;
++    return decode(message, caps, out, list);
++}
++
++bool decode(std::string_view message, const Caps& caps, Frame& out, std::string_view& list) {
++    std::string_view painted;
++    const bool taken_whole = message.size() <= caps.frame && taken(message, caps, Kind::Frame, out, [&](Reader& r, Frame& m) {
+         if (!r.u64(m.seq) || !read_state(r, m.state) || !r.flag(m.painted)) return false;
+         if (!m.painted) return true;
+-        return r.value([&](std::string_view bytes) { return wire::decode(bytes, caps.values, m.list); })
+-            && r.value([&](std::string_view bytes) { return wire::decode(bytes, caps.values, m.damage); });
++        return r.value([&](std::string_view bytes) {
++            painted = bytes;
++            return wire::decode(bytes, caps.values, m.list);
++        }) && r.value([&](std::string_view bytes) { return wire::decode(bytes, caps.values, m.damage); });
++    });
++    if (taken_whole) list = painted;
++    return taken_whole;
++}
++
++bool encode(const FrameDelta& message, const Caps& caps, std::string& out) {
++    return appended(out, caps, Kind::FrameDelta, [&](Writer& w) {
++        uint64_t length = 0, copied = 0;
++        for (const DeltaRun& run : message.runs) {
++            if (!run.literal.empty()) {
++                if (run.offset || run.length) return false;
++                length += run.literal.size();
++            } else {
++                if (run.length == 0 || run.offset > caps.delta_base || run.length > caps.delta_base - run.offset) return false;
++                copied += run.length;
++                length += run.length;
++            }
++        }
++        if (message.runs.empty() || message.runs.size() > most_runs(caps) || length > caps.delta_base || length > UINT32_MAX || copied > caps.delta_base) return false;
++        w.u64(message.seq);
++        put_state(w, message.state);
++        w.u64(message.base);
++        w.u32(uint32_t(length));
++        w.u32(uint32_t(message.runs.size()));
++        for (const DeltaRun& run : message.runs) {
++            if (!run.literal.empty()) {
++                w.u8(LITERAL_RUN);
++                if (!w.str(run.literal, caps.delta_base)) return false;
++                continue;
++            }
++            w.u8(COPY_RUN);
++            w.u32(run.offset);
++            w.u32(run.length);
++        }
++        const size_t before = w.written();
++        return w.value([&](std::string& s) { return wire::encode(message.damage, caps.values, s); }) && w.written() <= caps.frame
++            && fits_frame(caps, length, w.written() - before - 4);
++    });
++}
++
++bool decode(std::string_view message, const Caps& caps, FrameDelta& out) {
++    return message.size() <= caps.frame && taken(message, caps, Kind::FrameDelta, out, [&](Reader& r, FrameDelta& m) {
++        DeltaHead h;
++        std::string_view damage;
++        if (!read_delta_head(r, caps, h)) return false;
++        Reader runs = r;
++        if (!scan_delta(r, caps, h, caps.delta_base, damage)) return false;
++        m.seq = h.seq;
++        commit(m.state, h.state);
++        m.base = h.base;
++        m.runs.reserve(h.runs);
++        read_runs(runs, h.runs, h.length, caps.delta_base, [&](uint32_t offset, uint32_t n, std::string_view literal) {
++            if (literal.empty()) {
++                m.runs.push_back({offset, n, {}});
++            } else {
++                m.runs.push_back({0, 0, std::string(literal)});
++            }
++        });
++        return wire::decode(damage, caps.values, m.damage);
+     });
+ }
+ 
++bool delta_ids(std::string_view message, uint64_t& seq, uint64_t& base) {
++    Reader r(message);
++    uint64_t s = 0, b = 0;
++    State state;
++    if (!r.head(Kind::FrameDelta) || !r.u64(s) || !read_state(r, state) || !r.u64(b)) return false;
++    seq = s;
++    base = b;
++    return true;
++}
++
++bool rebuild(std::string_view message, const Caps& caps, uint64_t base_seq, std::string_view base, Frame& out, std::string& list) {
++    if (message.size() > caps.message || message.size() > caps.frame || base.size() > caps.delta_base) return false;
++    Reader r(message);
++    DeltaHead h;
++    std::string_view damage;
++    if (!r.head(Kind::FrameDelta) || !read_delta_head(r, caps, h) || h.base != base_seq) return false;
++    Reader runs = r;
++    if (!scan_delta(r, caps, h, base.size(), damage)) return false;
++    Frame frame;
++    if (!wire::decode(damage, caps.values, frame.damage)) return false;
++    std::string bytes;
++    bytes.reserve(h.length);
++    read_runs(runs, h.runs, h.length, base.size(), [&](uint32_t offset, uint32_t n, std::string_view literal) {
++        bytes.append(literal.empty() ? base.substr(offset, n) : literal);
++    });
++    if (!wire::decode(bytes, caps.values, frame.list)) return false;
++    frame.seq = h.seq;
++    commit(frame.state, h.state);
++    frame.painted = true;
++    commit(out, frame);
++    list = std::move(bytes);
++    return true;
++}
++
+ bool encode(const State& message, const Caps& caps, std::string& out) {
+     return appended(out, caps, Kind::State, [&](Writer& w) {
+         put_state(w, message);
+@@ -605,4 +845,34 @@ bool decode(std::string_view message, const Caps& caps, PixelsRequest& out) {
+     });
+ }
+ 
++size_t widths_in_request(const std::vector<TextInFont>& texts, size_t from, const Caps& caps) {
++    return widths_within(texts, from, caps, true);
++}
++
++bool encode(const WidthsRequest& message, const Caps& caps, std::string& out) {
++    return appended(out, caps, Kind::WidthsRequest, [&](Writer& w) {
++        if (widths_in_request(message.texts, 0, caps) != message.texts.size() || !w.count(message.texts.size(), caps.widths)) return false;
++        for (const TextInFont& t : message.texts) {
++            w.i32(t.font);
++            if (!w.str(t.text, caps.text)) return false;
++        }
++        return true;
++    });
++}
++
++bool decode(std::string_view message, const Caps& caps, WidthsRequest& out) {
++    return taken(message, caps, Kind::WidthsRequest, out, [&](Reader& r, WidthsRequest& m) {
++        size_t n = 0;
++        if (!r.count(n, caps.widths, WIDTHS_ITEM_BYTES)) return false;
++        m.texts.reserve(n);
++        size_t left = caps.widths_text;
++        for (size_t i = 0; i < n; i++) {
++            TextInFont& t = m.texts.emplace_back();
++            if (!r.i32(t.font) || !r.str(t.text, std::min(caps.text, left))) return false;
++            left -= t.text.size();
++        }
++        return true;
++    });
++}
++
+ } // namespace twlite::remote
+diff --git a/core/src/remote.h b/core/src/remote.h
+@@ -19,9 +19,9 @@ constexpr uint8_t VERSION = 1;
+ /// Kinds from 1 go from the platform to the renderer and kinds from 64 back; those from 32 answer the requests from 96.
+ enum class Kind : uint8_t {
+     FrameRequest = 1, SetWidth = 2, SetMaxHeight = 3, SetTheme = 4, Touch = 5, Hover = 6, ClearSelection = 7, ClaimQuery = 8,
+-    FontAnswer = 32, WidthAnswer = 33, ImageAnswer = 34, PixelsAnswer = 35,
+-    Frame = 64, State = 65, Messages = 66, Pointer = 67, Selection = 68, ClaimAnswer = 69, FontRelease = 70, CanvasRun = 71, CanvasRelease = 72,
+-    FontRequest = 96, WidthRequest = 97, ImageRequest = 98, PixelsRequest = 99,
++    FontAnswer = 32, WidthAnswer = 33, ImageAnswer = 34, PixelsAnswer = 35, WidthsAnswer = 36,
++    Frame = 64, State = 65, Messages = 66, Pointer = 67, Selection = 68, ClaimAnswer = 69, FontRelease = 70, CanvasRun = 71, CanvasRelease = 72, FrameDelta = 73,
++    FontRequest = 96, WidthRequest = 97, ImageRequest = 98, PixelsRequest = 99, WidthsRequest = 100,
+ };
+ 
+ struct Caps {
+@@ -31,6 +31,12 @@ struct Caps {
+     size_t text = size_t(4) << 20;
+     size_t url = size_t(8) << 20;
+     size_t messages = 1024;
++    size_t widths = 256;
++    size_t widths_text = size_t(16) << 10;
++    /// Bytes of one Frame, and of the Frame a FrameDelta stands for once rebuilt; SIZE_MAX leaves Frames to `message` alone.
++    size_t frame = SIZE_MAX;
++    /// Bytes of the painted list each end keeps for a FrameDelta to copy from, and of a list a FrameDelta rebuilds; both ends take the same, and 0 sends every painted Frame whole.
++    size_t delta_base = size_t(256) << 10;
+ };
+ 
+ enum class Paint : uint8_t { Skip = 0, IfDirty = 1, Force = 2 };
+@@ -93,6 +99,10 @@ struct PixelsAnswer {
+     std::vector<uint8_t> rgba;
+ };
+ 
++struct WidthsAnswer {
++    std::vector<float> widths;
++};
++
+ struct State {
+     double width = 0;
+     int32_t height = 0;
+@@ -109,6 +119,27 @@ struct Frame {
+     wire::Damage damage;
+ };
+ 
++/// Where encode(Frame) wrote a painted Frame's list: `size` bytes from byte `at` of its output, and, while the list kept within the bytes it was given, where each command starts and, last, where the list ends, counted from the list's first byte; no starts for a longer list or an unpainted Frame.
++struct WrittenList {
++    size_t at = 0, size = 0;
++    std::vector<size_t> starts;
++};
++
++/// `length` bytes of a FrameDelta's base from `offset`, or, when `literal` is not empty, those bytes, `offset` and `length` then 0.
++struct DeltaRun {
++    uint32_t offset = 0, length = 0;
++    std::string literal;
++};
++
++/// A painted Frame whose list is rebuilt from the list of the last painted Frame, its base, by copies and bytes of its own.
++struct FrameDelta {
++    uint64_t seq = 0;
++    State state;
++    uint64_t base = 0;
++    std::vector<DeltaRun> runs;
++    wire::Damage damage;
++};
++
+ struct Messages {
+     std::vector<std::string> texts;
+ };
+@@ -163,6 +194,10 @@ struct PixelsRequest {
+     int32_t id = 0, x = 0, y = 0, w = 0, h = 0;
+ };
+ 
++struct WidthsRequest {
++    std::vector<TextInFont> texts;
++};
++
+ std::optional<Kind> kind_of(std::string_view message);
+ bool is_platform_message(std::string_view type);
+ 
+@@ -178,6 +213,7 @@ bool encode(const FontAnswer& message, const Caps& caps, std::string& out);
+ bool encode(const WidthAnswer& message, const Caps& caps, std::string& out);
+ bool encode(const ImageAnswer& message, const Caps& caps, std::string& out);
+ bool encode(const PixelsAnswer& message, const Caps& caps, std::string& out);
++bool encode(const WidthsAnswer& message, const Caps& caps, std::string& out);
+ bool encode(const Frame& message, const Caps& caps, std::string& out);
+ bool encode(const State& message, const Caps& caps, std::string& out);
+ bool encode(const Messages& message, const Caps& caps, std::string& out);
+@@ -191,7 +227,13 @@ bool encode(const FontRequest& message, const Caps& caps, std::string& out);
+ bool encode(const WidthRequest& message, const Caps& caps, std::string& out);
+ bool encode(const ImageRequest& message, const Caps& caps, std::string& out);
+ bool encode(const PixelsRequest& message, const Caps& caps, std::string& out);
++bool encode(const WidthsRequest& message, const Caps& caps, std::string& out);
+ bool encode_canvas_run(int32_t id, int32_t w, int32_t h, const std::vector<CanvasOp>& ops, const Caps& caps, std::string& out);
++bool encode(const FrameDelta& message, const Caps& caps, std::string& out);
++/// As encode(message, caps, out), and `list` where it wrote the list, its starts noted while the list keeps within `most` bytes; `list` untouched on false.
++bool encode(const Frame& message, const Caps& caps, std::string& out, size_t most, WrittenList& list);
++/// How many of `texts`, from `from` on, one WidthsRequest holds within `caps`, together with its WidthsAnswer: as many as encode() takes in order, 0 when even the first is past them.
++size_t widths_in_request(const std::vector<TextInFont>& texts, size_t from, const Caps& caps);
+ 
+ bool decode(std::string_view message, const Caps& caps, FrameRequest& out);
+ bool decode(std::string_view message, const Caps& caps, SetWidth& out);
+@@ -205,6 +247,7 @@ bool decode(std::string_view message, const Caps& caps, FontAnswer& out);
+ bool decode(std::string_view message, const Caps& caps, WidthAnswer& out);
+ bool decode(std::string_view message, const Caps& caps, ImageAnswer& out);
+ bool decode(std::string_view message, const Caps& caps, const PixelsRequest& asked, PixelsAnswer& out);
++bool decode(std::string_view message, const Caps& caps, const WidthsRequest& asked, WidthsAnswer& out);
+ bool decode(std::string_view message, const Caps& caps, Frame& out);
+ bool decode(std::string_view message, const Caps& caps, State& out);
+ bool decode(std::string_view message, const Caps& caps, Messages& out);
+@@ -218,6 +261,14 @@ bool decode(std::string_view message, const Caps& caps, FontRequest& out);
+ bool decode(std::string_view message, const Caps& caps, WidthRequest& out);
+ bool decode(std::string_view message, const Caps& caps, ImageRequest& out);
+ bool decode(std::string_view message, const Caps& caps, PixelsRequest& out);
++bool decode(std::string_view message, const Caps& caps, WidthsRequest& out);
++bool decode(std::string_view message, const Caps& caps, FrameDelta& out);
++/// As decode(message, caps, out), and `list` views the bytes of a painted Frame's list in `message`, empty for an unpainted one; both untouched on false.
++bool decode(std::string_view message, const Caps& caps, Frame& out, std::string_view& list);
++/// A FrameDelta's seq and base, read from the fields after its header alone; it never stands in for decoding.
++bool delta_ids(std::string_view message, uint64_t& seq, uint64_t& base);
++/// The painted Frame a FrameDelta stands for, rebuilt on `base`, the list of painted Frame `base_seq`, with the rebuilt list's bytes in `list`; both untouched on false.
++bool rebuild(std::string_view message, const Caps& caps, uint64_t base_seq, std::string_view base, Frame& out, std::string& list);
+ 
+ class Channel {
+ public:
+diff --git a/core/src/renderer.cpp b/core/src/renderer.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include "computed_style.h"
+ #include "css.h"
++#include "text_widths.h"
+ #include "tw_ua_stylesheet.h"
+ 
+ #include <litehtml.h>
+@@ -554,11 +555,6 @@ constexpr size_t MAX_CACHED_PAINTS = 128;
+ constexpr size_t MAX_CACHED_COMMANDS = 50000;
+ /// A repeated background is recorded tile by tile while the display list is shorter than this; then once per layer.
+ constexpr size_t MAX_TILED_COMMANDS = 65536;
+-/// Measured widths, keyed by their text: longer text is measured each time, and every face's keys
+-/// together stay within the byte bound.
+-constexpr size_t MAX_WIDTH_ENTRIES = 4096;
+-constexpr size_t MAX_WIDTH_KEY = 256;
+-constexpr size_t MAX_WIDTH_BYTES = 1 << 20;
+ /// Past this a selectable run's carets are spread evenly over its width rather than measured: a press
+ /// or a move must not shape a long unbroken run once per probe.
+ constexpr size_t MAX_MEASURED_RUN = 4096;
+@@ -634,19 +630,23 @@ struct Renderer::Node {
+ };
+ 
+ #ifdef TW_LITEHTML_TWIDGET
++class Container;
++
+ /// Where overflow-wrap may break a word that does not fit: between user-perceived characters, measured
+ /// through the container like any other text. Clusters are approximated from code points (combining
+ /// marks, variation selectors, skin tones, tags and ZWJ sequences stay together; regional indicators
+ /// pair up), which is all the fork asks of a platform without a grapheme API.
+ class TextBreaker final : public litehtml::text_breaker {
+ public:
+-    TextBreaker(litehtml::document_container& measure, const std::string& text, litehtml::uint_ptr font)
+-        : measure_(measure), text_(text), font_(font) {
+-        boundaries_.push_back(0);
++    TextBreaker(Container& measure, const std::string& text, litehtml::uint_ptr font)
++        : measure_(measure), text_(text), font_(font), boundaries_(points(text)) {}
++
++    static std::vector<size_t> points(const std::string& text) {
++        std::vector<size_t> boundaries{0};
+         bool ascii = std::all_of(text.begin(), text.end(), [](unsigned char c) { return c >= 0x20 && c < 0x7f; });
+         if (ascii) {
+-            for (size_t i = 1; i <= text.size(); i++) boundaries_.push_back(i);
+-            return;
++            for (size_t i = 1; i <= text.size(); i++) boundaries.push_back(i);
++            return boundaries;
+         }
+         auto decode = [&](size_t at, uint32_t& cp) {
+             unsigned char c = (unsigned char)text[at];
+@@ -670,31 +670,32 @@ class TextBreaker final : public litehtml::text_breaker {
+             size_t n = decode(at, cp);
+             bool joined = at > 0 && (extends(cp) || previous == 0x200d || (regional(cp) && regionals % 2 == 1));
+             regionals = regional(cp) ? regionals + 1 : 0;
+-            if (at > 0 && !joined) boundaries_.push_back(at);
++            if (at > 0 && !joined) boundaries.push_back(at);
+             previous = cp;
+             at += n;
+         }
+-        boundaries_.push_back(text.size());
++        boundaries.push_back(text.size());
++        return boundaries;
+     }
+ 
+     size_t fit(size_t start, litehtml::pixel_t width) override {
+         auto first = std::lower_bound(boundaries_.begin(), boundaries_.end(), start);
+         if (first == boundaries_.end() || first + 1 == boundaries_.end()) return start;
+         // At least one character goes on the line, however narrow it is.
+         size_t lo = size_t(first - boundaries_.begin()) + 1, hi = boundaries_.size() - 1;
+-        if (float(width) <= 0 || measure(start, boundaries_[lo]) > float(width)) return boundaries_[lo];
++        if (float(width) <= 0 || measure(start, boundaries_[lo], *first == start) > float(width)) return boundaries_[lo];
+         // The end of the line is near its start: halving the whole rest of the text measures it for every line.
+         for (size_t step = 1; lo < hi; step *= 2) {
+             size_t probe = std::min(hi, lo + step);
+-            if (measure(start, boundaries_[probe]) > float(width)) {
++            if (measure(start, boundaries_[probe], false) > float(width)) {
+                 hi = probe - 1;
+                 break;
+             }
+             lo = probe;
+         }
+         while (lo < hi) {
+             size_t mid = (lo + hi + 1) / 2;
+-            if (measure(start, boundaries_[mid]) <= float(width)) lo = mid;
++            if (measure(start, boundaries_[mid], false) <= float(width)) lo = mid;
+             else hi = mid - 1;
+         }
+         return boundaries_[lo];
+@@ -703,17 +704,16 @@ class TextBreaker final : public litehtml::text_breaker {
+     litehtml::pixel_t minimum_width() override {
+         if (minimum_ < 0) {
+             minimum_ = 0;
+-            for (size_t i = 1; i < boundaries_.size(); i++) minimum_ = std::max(minimum_, measure(boundaries_[i - 1], boundaries_[i]));
++            for (size_t i = 1; i < boundaries_.size(); i++) minimum_ = std::max(minimum_, measure(boundaries_[i - 1], boundaries_[i], true));
+         }
+         return litehtml::pixel_t(minimum_);
+     }
+ 
+ private:
+-    float measure(size_t from, size_t to) {
+-        return float(measure_.text_width(text_.substr(from, to - from).c_str(), font_));
+-    }
++    /// The width of [from, to), one character when `character`.
++    float measure(size_t from, size_t to, bool character);
+ 
+-    litehtml::document_container& measure_;
++    Container& measure_;
+     std::string text_;
+     litehtml::uint_ptr font_;
+     std::vector<size_t> boundaries_;
+@@ -723,7 +723,11 @@ class TextBreaker final : public litehtml::text_breaker {
+ 
+ // ───────────────────────── litehtml container ─────────────────────────
+ 
+-class Container : public litehtml::document_container {
++class Container : public litehtml::document_container
++#ifdef TW_LITEHTML_TWIDGET
++    , private LayoutWidths::Fonts
++#endif
++{
+ public:
+     Container(Renderer& r, Backend& backend) : r_(r), backend_(backend) {}
+     ~Container() override {
+@@ -748,18 +752,43 @@ class Container : public litehtml::document_container {
+     /// nothing again, and the renderer stops (Renderer::stop_layout).
+     void layout(float width) {
+         uint64_t elements = 0;
+-        std::vector<const litehtml::element*> pending;
+-        if (auto root = doc_->root()) pending.push_back(root.get());
++        std::vector<std::pair<litehtml::element*, bool>> pending;
++#ifdef TW_LITEHTML_TWIDGET
++        std::vector<litehtml::el_text*> owed, shown;
++#endif
++        if (auto root = doc_->root()) pending.emplace_back(root.get(), false);
+         while (!pending.empty()) {
+-            const litehtml::element* el = pending.back();
++            auto [el, hidden] = pending.back();
+             pending.pop_back();
+             elements++;
+-            for (const auto& child : el->children()) pending.push_back(child.get());
++            hidden = hidden || el->css().get_display() == litehtml::display_none;
++#ifdef TW_LITEHTML_TWIDGET
++            if (el->is_text()) {
++                auto text = dynamic_cast<litehtml::el_text*>(el);
++                if (text && text->width_owed()) owed.push_back(text);
++                if (text && !hidden) shown.push_back(text);
++            }
++#endif
++            const auto& children = el->children();
++            for (auto it = children.rbegin(); it != children.rend(); ++it) pending.emplace_back(it->get(), hidden);
+         }
++#ifdef TW_LITEHTML_TWIDGET
++        widths_.before(owed, shown);
++#endif
+         doc_->set_layout_budget(kLayoutBudgetBase + kLayoutBudgetPerElement * elements);
+         doc_->render(litehtml::pixel_t(width));
++#ifdef TW_LITEHTML_TWIDGET
++        widths_.after();
++#endif
+         if (doc_->layout_exhausted()) r_.stop_layout(doc_->layout_spent());
+     }
++#ifdef TW_LITEHTML_TWIDGET
++    /// A character's width where a text breaks, as text_width gives it.
++    litehtml::pixel_t break_width(const char* text, litehtml::uint_ptr h) {
++        if (text) widths_.character(h, text);
++        return text_width(text, h);
++    }
++#endif
+ 
+     /// The last layout ran past the budget: the document is laid out no more.
+     bool exhausted() const { return doc_ && doc_->layout_exhausted(); }
+@@ -1381,6 +1410,7 @@ class Container : public litehtml::document_container {
+     std::shared_ptr<litehtml::text_breaker> create_text_breaker(const std::string& text, litehtml::uint_ptr font) override {
+         return fonts_.count(font) ? std::make_shared<TextBreaker>(*this, text, font) : nullptr;
+     }
++    bool measures_text_later() const override { return true; }
+ #endif
+     litehtml::pixel_t text_width(const char* text, litehtml::uint_ptr h) override {
+         auto it = fonts_.find(h);
+@@ -2338,39 +2368,10 @@ class Container : public litehtml::document_container {
+ private:
+     /// A backend font for one description, shared by every document and font handle asking for it,
+     /// with the widths measured in it.
+-    struct Face {
+-        int handle = 0;
++    struct Face : FaceWidths {
+         FontMetrics metrics;
+         int uses = 0;  // litehtml font handles on it
+         uint64_t used = 0;
+-        struct Hash {
+-            using is_transparent = void;
+-            size_t operator()(std::string_view s) const { return std::hash<std::string_view>{}(s); }
+-        };
+-        std::unordered_map<std::string, float, Hash, std::equal_to<>> widths;
+-        size_t* pool = nullptr;  // the key bytes every face holds
+-        size_t bytes = 0;        // this face's share of them
+-        Face() = default;
+-        Face(const Face&) = delete;
+-        Face& operator=(const Face&) = delete;
+-        ~Face() { forget(); }
+-        void forget() {
+-            widths.clear();
+-            if (pool) *pool -= bytes;
+-            bytes = 0;
+-        }
+-        float width(Backend& backend, std::string_view text) {
+-            if (auto c = widths.find(text); c != widths.end()) return c->second;
+-            float w = backend.text_width(handle, std::string(text));
+-            // Words repeat across documents, but a widget that types a counter would grow this forever.
+-            if (text.size() > MAX_WIDTH_KEY) return w;
+-            if (widths.size() >= MAX_WIDTH_ENTRIES || (pool && *pool + text.size() > MAX_WIDTH_BYTES)) forget();
+-            if (pool && *pool + text.size() > MAX_WIDTH_BYTES) return w;  // other faces hold the budget
+-            widths.emplace(std::string(text), w);
+-            bytes += text.size();
+-            if (pool) *pool += text.size();
+-            return w;
+-        }
+     };
+     using FaceKey = std::tuple<std::string, float, int, bool, std::string>;
+     Face* face_for(const std::string& family, float size, int weight, bool italic, const std::string& features = {}) {
+@@ -2417,6 +2418,23 @@ class Container : public litehtml::document_container {
+             return w;
+         }
+     };
++#ifdef TW_LITEHTML_TWIDGET
++    const Font* font_of(litehtml::uint_ptr h) const {
++        const auto it = fonts_.find(h);
++        return it == fonts_.end() ? nullptr : &it->second;
++    }
++    FaceWidths* face(litehtml::uint_ptr h) const override {
++        const Font* font = font_of(h);
++        return font ? font->face : nullptr;
++    }
++    std::vector<std::string_view> painted_units(litehtml::uint_ptr h, std::string_view text) const override {
++        const Font* font = font_of(h);
++        if (font && font->letter_spacing != 0) return spacing_units(text);
++        if (font && font->word_spacing != 0 && spacing_spaces(text)) return spacing_words(text);
++        return {};
++    }
++    std::vector<size_t> break_points(const std::string& text) const override { return TextBreaker::points(text); }
++#endif
+     struct Image {
+         int id = 0;
+         int canvas = 0;
+@@ -2522,6 +2540,9 @@ class Container : public litehtml::document_container {
+     std::map<FaceKey, std::unique_ptr<Face>> faces_;
+     uint64_t face_clock_ = 0;
+     std::unordered_map<litehtml::uint_ptr, Font> fonts_;
++#ifdef TW_LITEHTML_TWIDGET
++    LayoutWidths widths_{backend_, *this, width_bytes_};
++#endif
+     size_t built_fonts_ = 0;
+     litehtml::uint_ptr next_font_ = 0;
+     std::unordered_map<std::string, Image> images_;
+@@ -2557,6 +2578,13 @@ class Container : public litehtml::document_container {
+     }
+ };
+ 
++#ifdef TW_LITEHTML_TWIDGET
++float TextBreaker::measure(size_t from, size_t to, bool character) {
++    const std::string piece = text_.substr(from, to - from);
++    return float(character ? measure_.break_width(piece.c_str(), font_) : measure_.text_width(piece.c_str(), font_));
++}
++#endif
++
+ // ───────────────────────── Renderer ─────────────────────────
+ 
+ Renderer::Renderer(double width, double dpr, bool dark, Backend& backend, Clock* clock)
+diff --git a/core/src/renderer_end.cpp b/core/src/renderer_end.cpp
+@@ -1,8 +1,10 @@
+ // RendererEnd: each Backend call of the renderer becomes a message or a request that waits, each call ends with the reports in a fixed order, and the first failure stops the end for good.
+ #include "renderer_end.h"
+ 
++#include <algorithm>
+ #include <cstdint>
+ #include <cstring>
++#include <functional>
+ #include <utility>
+ 
+ namespace twlite::remote {
+@@ -25,8 +27,34 @@ bool same(const State& a, const State& b) {
+         && bits_of(a.next_tick_in) == bits_of(b.next_tick_in) && a.frame_asked == b.frame_asked;
+ }
+ 
++/// What a FrameDelta run costs before its bytes: a copy's tag, offset and length, a literal's tag and length.
++constexpr size_t COPY_RUN_BYTES = 1 + 4 + 4, LITERAL_RUN_BYTES = 1 + 4;
++/// How many commands of the base with a command's hash are compared with it when it does not continue the last copy.
++constexpr size_t PROBES = 4;
++constexpr uint32_t NONE = UINT32_MAX;
++
++struct Entry {
++    size_t hash = 0;
++    uint32_t unit = 0;
++};
++
++bool before(const Entry& a, const Entry& b) {
++    return a.hash < b.hash || (a.hash == b.hash && a.unit < b.unit);
++}
++
+ } // namespace
+ 
++/// A painted list as encoded once: unit 0 is its head, unit k from 1 its command k - 1, each bytes [bounds[k], bounds[k + 1]); its commands by hash for the next list to find.
++struct RendererEnd::Painted {
++    uint64_t seq = 0;
++    std::string bytes;
++    std::vector<uint32_t> bounds;
++    std::vector<Entry> index;
++
++    size_t units() const { return bounds.size() - 1; }
++    std::string_view unit(size_t u) const { return std::string_view(bytes).substr(bounds[u], bounds[u + 1] - bounds[u]); }
++};
++
+ template <class Encode> bool RendererEnd::post(Encode encode_message) {
+     if (stopped()) return false;
+     std::string bytes;
+@@ -73,6 +101,24 @@ class RendererEnd::Proxy final : public Backend {
+         return answered(WidthRequest{font, text}, answer) ? answer.width : 0;
+     }
+ 
++    std::vector<float> text_widths(const std::vector<TextInFont>& texts) override {
++        std::vector<float> widths(texts.size(), 0.f);
++        for (size_t i = 0; i < texts.size() && !end_.stopped();) {
++            const size_t n = widths_in_request(texts, i, end_.caps_);
++            if (n == 0) {
++                widths[i] = text_width(texts[i].font, texts[i].text);
++                i++;
++                continue;
++            }
++            const WidthsRequest request{std::vector<TextInFont>(texts.begin() + std::ptrdiff_t(i), texts.begin() + std::ptrdiff_t(i + n))};
++            WidthsAnswer answer;
++            if (!end_.ask(request, [&](std::string_view bytes) { return decode(bytes, end_.caps_, request, answer); })) break;
++            std::copy(answer.widths.begin(), answer.widths.end(), widths.begin() + std::ptrdiff_t(i));
++            i += request.texts.size();
++        }
++        return widths;
++    }
++
+     bool load_image(int id, const std::string& url, float& w, float& h) override {
+         if (url.size() > end_.caps_.url) return false;
+         ImageAnswer answer;
+@@ -122,6 +168,7 @@ RendererEnd::~RendererEnd() = default;
+ 
+ bool RendererEnd::stop(const std::string& reason) {
+     if (reason_.empty()) reason_ = reason;
++    base_.reset();
+     return false;
+ }
+ 
+@@ -255,14 +302,112 @@ void RendererEnd::finish(const std::vector<twidget::Json>& messages, const Point
+     const State state = current_state();
+     if (frame) {
+         frame->state = state;
+-        if (send(*frame)) sent_state_ = state;
++        if (send_frame(*frame)) sent_state_ = state;
+         return;
+     }
+     if (claim && !send(*claim)) return;
+     if (sent_state_ && same(*sent_state_, state)) return;
+     if (send(state)) sent_state_ = state;
+ }
+ 
++bool RendererEnd::send_frame(const Frame& frame) {
++    if (stopped()) return false;
++    if (!frame.painted) return send(frame);
++    std::string bytes;
++    WrittenList written;
++    if (!encode(frame, caps_, bytes, std::min<size_t>(caps_.delta_base, UINT32_MAX), written)) return stop("a message past the caps");
++    std::unique_ptr<Painted> next;
++    if (!written.starts.empty()) {
++        next = std::make_unique<Painted>();
++        next->seq = frame.seq;
++        next->bytes.assign(bytes.data() + written.at, written.size);
++        next->bounds.reserve(written.starts.size() + 1);
++        next->bounds.push_back(0);
++        for (size_t at : written.starts) next->bounds.push_back(uint32_t(at));
++        std::vector<size_t> hashes(next->units());
++        for (size_t u = 0; u < hashes.size(); u++) hashes[u] = std::hash<std::string_view>()(next->unit(u));
++        if (base_) {
++            FrameDelta delta{frame.seq, frame.state, base_->seq, runs_for(*base_, *next, hashes), frame.damage};
++            std::string smaller;
++            if (!delta.runs.empty() && encode(delta, caps_, smaller) && smaller.size() < bytes.size()) bytes = std::move(smaller);
++        }
++        next->index.reserve(next->units() - 1);
++        for (size_t u = 1; u < next->units(); u++) next->index.push_back({hashes[u], uint32_t(u)});
++        std::sort(next->index.begin(), next->index.end(), before);
++    }
++    channel_.send(std::move(bytes));
++    base_ = std::move(next);
++    return true;
++}
++
++std::vector<DeltaRun> RendererEnd::runs_for(const Painted& base, const Painted& list, const std::vector<size_t>& hashes) {
++    const size_t units = list.units();
++    const auto same_as = [&](size_t u, uint32_t b) { return b < base.units() && base.unit(b) == list.unit(u); };
++    std::vector<uint32_t> from(units, NONE);
++    size_t budget = base.bytes.size();
++    for (size_t u = 0; u < units; u++) {
++        const size_t length = list.unit(u).size();
++        if (length > budget) continue;
++        uint32_t found = NONE;
++        if (u == 0) {
++            if (same_as(0, 0)) found = 0;
++        } else if (from[u - 1] != NONE && same_as(u, from[u - 1] + 1)) {
++            found = from[u - 1] + 1;
++        } else {
++            auto it = std::lower_bound(base.index.begin(), base.index.end(), Entry{hashes[u], 0}, before);
++            for (size_t probe = 0; probe < PROBES && it != base.index.end() && it->hash == hashes[u]; probe++, ++it) {
++                if (same_as(u, it->unit)) {
++                    found = it->unit;
++                    break;
++                }
++            }
++        }
++        if (found == NONE) continue;
++        from[u] = found;
++        budget -= length;
++    }
++    enum Back : uint8_t { JOINS, AFTER_LITERAL, AFTER_COPY };
++    constexpr size_t FAR = SIZE_MAX / 4;
++    std::vector<Back> literal_back(units, AFTER_LITERAL), copy_back(units, AFTER_LITERAL);
++    size_t literal = LITERAL_RUN_BYTES + list.unit(0).size(), copy = from[0] != NONE ? COPY_RUN_BYTES : FAR;
++    for (size_t u = 1; u < units; u++) {
++        const size_t length = list.unit(u).size();
++        const size_t joined = literal + length, opened = copy + LITERAL_RUN_BYTES + length;
++        literal_back[u] = joined <= opened ? JOINS : AFTER_COPY;
++        const size_t next_literal = std::min(joined, opened);
++        size_t next_copy = FAR;
++        if (from[u] != NONE) {
++            const size_t after_literal = literal + COPY_RUN_BYTES, after_copy = copy + COPY_RUN_BYTES;
++            const size_t continued = from[u - 1] != NONE && from[u] == from[u - 1] + 1 ? copy : FAR;
++            next_copy = std::min({continued, after_literal, after_copy});
++            copy_back[u] = next_copy == continued ? JOINS : next_copy == after_literal ? AFTER_LITERAL : AFTER_COPY;
++        }
++        literal = next_literal;
++        copy = next_copy;
++    }
++    std::vector<bool> copies(units), opens(units);
++    bool copying = copy < literal, any = false;
++    for (size_t u = units; u-- > 0;) {
++        const Back back = copying ? copy_back[u] : literal_back[u];
++        copies[u] = copying;
++        any = any || copying;
++        opens[u] = u == 0 || back != JOINS;
++        if (back != JOINS) copying = back == AFTER_COPY;
++    }
++    std::vector<DeltaRun> runs;
++    if (!any) return runs;
++    for (size_t u = 0; u < units; u++) {
++        const std::string_view bytes = list.unit(u);
++        if (opens[u]) runs.push_back(copies[u] ? DeltaRun{base.bounds[from[u]], 0, {}} : DeltaRun{});
++        if (copies[u]) {
++            runs.back().length += uint32_t(bytes.size());
++        } else {
++            runs.back().literal.append(bytes);
++        }
++    }
++    return runs;
++}
++
+ State RendererEnd::current_state() const {
+     return State{renderer_->width(), renderer_->viewport_height(), renderer_->dirty(), renderer_->wants_tick(), renderer_->next_tick_in(), frame_asked_};
+ }
+diff --git a/core/src/renderer_end.h b/core/src/renderer_end.h
+@@ -38,6 +38,7 @@ class RendererEnd {
+ 
+ private:
+     class Proxy;
++    struct Painted;
+ 
+     template <class Encode> bool post(Encode encode_message);
+     template <class M> bool send(const M& message);
+@@ -48,6 +49,9 @@ class RendererEnd {
+     void run_frame(const FrameRequest& request, Output& out);
+     void pointed(const std::vector<twidget::Json>& messages);
+     void finish(const std::vector<twidget::Json>& messages, const Pointer* pointer = nullptr, Frame* frame = nullptr, const ClaimAnswer* claim = nullptr);
++    bool send_frame(const Frame& frame);
++    /// Copies of what `list`, whose units hash to `hashes`, shares byte for byte with `base`, no more than the base holds in all, and literals for the rest, in as few bytes as such runs take; none when nothing is worth copying.
++    static std::vector<DeltaRun> runs_for(const Painted& base, const Painted& list, const std::vector<size_t>& hashes);
+     State current_state() const;
+ 
+     RendererChannel& channel_;
+@@ -56,6 +60,8 @@ class RendererEnd {
+     std::optional<State> sent_state_;
+     std::string sent_selection_;
+     bool frame_asked_ = false;
++    /// The list of the last painted Frame sent while it is within `delta_base`, for the next one to copy from; made before the renderer, whose construction may stop the end.
++    std::unique_ptr<Painted> base_;
+     std::unique_ptr<Proxy> proxy_;
+     std::unique_ptr<Renderer> renderer_;
+ };
+diff --git a/core/src/text_widths.cpp b/core/src/text_widths.cpp
+@@ -0,0 +1,87 @@
++// LayoutWidths: a layout's unknown widths asked for in one Backend::text_widths call each, in the order the layout meets them, within what the face caches keep.
++#include "text_widths.h"
++
++#ifdef TW_LITEHTML_TWIDGET
++#include <litehtml/el_text.h>
++
++#include <algorithm>
++#include <map>
++#include <set>
++#include <utility>
++
++namespace twlite {
++namespace {
++
++/// One Backend call for widths no face has, in the order asked, each face within what its cache keeps.
++struct Asking {
++    std::vector<TextInFont> texts;
++    std::vector<FaceWidths*> faces;
++    std::set<std::pair<const FaceWidths*, std::string_view>> asked;
++    std::map<const FaceWidths*, size_t> room;
++    size_t pool = 0;
++
++    void add(FaceWidths* face, std::string_view text) {
++        text = text.substr(0, text.find('\0'));  // every reader measures the text as a C string
++        if (!face || text.size() > MAX_WIDTH_KEY || face->widths.count(text) || asked.count({face, text})) return;
++        // Past what the caches keep, a batch would forget its first answers before they are read.
++        size_t& left = room.try_emplace(face, MAX_WIDTH_ENTRIES - std::min(face->widths.size(), MAX_WIDTH_ENTRIES)).first->second;
++        if (!left || text.size() > MAX_WIDTH_BYTES - pool) return;
++        left--;
++        pool += text.size();
++        asked.emplace(face, text);
++        texts.push_back(TextInFont{face->handle, std::string(text)});
++        faces.push_back(face);
++    }
++    void send(Backend& backend) {
++        if (texts.empty()) return;
++        const std::vector<float> widths = backend.text_widths(texts);
++        for (size_t i = 0; i < texts.size() && i < widths.size(); i++) faces[i]->remember(texts[i].text, widths[i]);
++    }
++};
++
++} // namespace
++
++void LayoutWidths::before(const std::vector<litehtml::el_text*>& owed, const std::vector<litehtml::el_text*>& shown) {
++    breakable_.clear();
++    Asking asking{.pool = pool_};
++    for (litehtml::el_text* text : owed) asking.add(fonts_.face(text->measured_font()), text->display_text());
++    for (litehtml::el_text* text : shown) {
++        const litehtml::uint_ptr font = text->css().get_font();
++        FaceWidths* face = fonts_.face(font);
++        if (!face) continue;
++        for (std::string_view unit : fonts_.painted_units(font, text->display_text())) asking.add(face, unit);
++        if (text->breaks_in_line() || text->breaks_at_narrowest()) breakable_.push_back(text);
++    }
++    asking.send(backend_);
++    for (litehtml::el_text* text : owed) {
++        const FaceWidths* face = fonts_.face(text->measured_font());
++        if (face && face->widths.count(text->display_text())) text->measure_width();
++    }
++    for (litehtml::el_text* text : owed) text->measure_width();
++}
++
++void LayoutWidths::character(litehtml::uint_ptr font, std::string_view text) {
++    if (breakable_.empty() || text.size() > MAX_WIDTH_KEY) return;
++    const FaceWidths* face = fonts_.face(font);
++    if (face && !face->widths.count(text)) measure_breaks();
++}
++
++void LayoutWidths::measure_breaks() {
++    Asking asking{.pool = pool_};
++    for (litehtml::el_text* text : std::exchange(breakable_, {})) {
++        FaceWidths* face = fonts_.face(text->css().get_font());
++        const std::string& t = text->display_text();
++        if (!face || t.empty()) continue;
++        // Every character of a run of spaces, as a preserved tab shows, is the one space.
++        if (t.find_first_not_of(' ') == std::string::npos) {
++            asking.add(face, " ");
++            continue;
++        }
++        const std::vector<size_t> points = fonts_.break_points(t);
++        for (size_t i = 1; i < points.size(); i++) asking.add(face, std::string_view(t).substr(points[i - 1], points[i] - points[i - 1]));
++    }
++    asking.send(backend_);
++}
++
++} // namespace twlite
++#endif
+diff --git a/core/src/text_widths.h b/core/src/text_widths.h
+@@ -0,0 +1,99 @@
++// The widths a face has measured, and those a layout asks for in bulk before it reads them: its texts' words, the units its spaced runs are painted in and, at its first unmeasured break, the characters of the texts it may break; docs/TWIDGET_CORE.md "A layout's words".
++#pragma once
++
++#include "backend.h"
++
++#include <cstddef>
++#include <functional>
++#include <string>
++#include <string_view>
++#include <unordered_map>
++#include <vector>
++
++#ifdef TW_LITEHTML_TWIDGET
++#include <litehtml/types.h>
++
++namespace litehtml {
++class el_text;
++}
++#endif
++
++namespace twlite {
++
++/// Measured widths, keyed by their text: longer text is measured each time, and every face's keys together stay within the byte bound.
++constexpr size_t MAX_WIDTH_ENTRIES = 4096;
++constexpr size_t MAX_WIDTH_KEY = 256;
++constexpr size_t MAX_WIDTH_BYTES = 1 << 20;
++
++/// The widths measured in one backend font.
++struct FaceWidths {
++    int handle = 0;
++    struct Hash {
++        using is_transparent = void;
++        size_t operator()(std::string_view s) const { return std::hash<std::string_view>{}(s); }
++    };
++    std::unordered_map<std::string, float, Hash, std::equal_to<>> widths;
++    size_t* pool = nullptr;  // the key bytes every face holds
++    size_t bytes = 0;        // this face's share of them
++    FaceWidths() = default;
++    FaceWidths(const FaceWidths&) = delete;
++    FaceWidths& operator=(const FaceWidths&) = delete;
++    ~FaceWidths() { forget(); }
++    void forget() {
++        widths.clear();
++        if (pool) *pool -= bytes;
++        bytes = 0;
++    }
++    float width(Backend& backend, std::string_view text) {
++        if (auto c = widths.find(text); c != widths.end()) return c->second;
++        float w = backend.text_width(handle, std::string(text));
++        remember(text, w);
++        return w;
++    }
++    void remember(std::string_view text, float w) {
++        // Words repeat across documents, but a widget that types a counter would grow this forever.
++        if (text.size() > MAX_WIDTH_KEY) return;
++        if (widths.size() >= MAX_WIDTH_ENTRIES || (pool && *pool + text.size() > MAX_WIDTH_BYTES)) forget();
++        if (pool && *pool + text.size() > MAX_WIDTH_BYTES) return;  // other faces hold the budget
++        if (!widths.emplace(std::string(text), w).second) return;
++        bytes += text.size();
++        if (pool) *pool += text.size();
++    }
++};
++
++#ifdef TW_LITEHTML_TWIDGET
++/// A layout's widths in bulk, each set in one Backend::text_widths call: before it, the words its texts owe and the units its spaced runs are painted in; at its first character no face has measured, the characters of every text it may break.
++class LayoutWidths {
++public:
++    /// What the container knows of a litehtml font: the widths of its face, null for a font it does not know, the units a run in it is painted in, none when it adds no spacing, and where a text may break, from 0 to its end.
++    class Fonts {
++    public:
++        virtual FaceWidths* face(litehtml::uint_ptr font) const = 0;
++        virtual std::vector<std::string_view> painted_units(litehtml::uint_ptr font, std::string_view text) const = 0;
++        virtual std::vector<size_t> break_points(const std::string& text) const = 0;
++
++    protected:
++        ~Fonts() = default;
++    };
++
++    /// `pool` counts the key bytes every face holds.
++    LayoutWidths(Backend& backend, const Fonts& fonts, const size_t& pool) : backend_(backend), fonts_(fonts), pool_(pool) {}
++
++    /// Measures the words `owed` owe and the units the `shown` texts are painted in, pays every owed width, and keeps the shown texts the layout may break.
++    void before(const std::vector<litehtml::el_text*>& owed, const std::vector<litehtml::el_text*>& shown);
++    /// One character of a text that breaks is about to be measured in `font`: the first its face lacks asks for the characters of every text kept, at most once a layout.
++    void character(litehtml::uint_ptr font, std::string_view text);
++    /// The layout is over: no text is kept past it.
++    void after() { breakable_.clear(); }
++
++private:
++    void measure_breaks();
++
++    Backend& backend_;
++    const Fonts& fonts_;
++    const size_t& pool_;
++    std::vector<litehtml::el_text*> breakable_;
++};
++#endif
++
++} // namespace twlite
+diff --git a/core/src/wire.cpp b/core/src/wire.cpp
+@@ -40,6 +40,8 @@ static_assert(CANVAS_OP_BITS == 38 && PAINT_BITS == 3);
+ /// The fewest bytes one item of a counted list takes.
+ constexpr size_t STOP_BYTES = 8, FLOAT_BYTES = 4, OP_BYTES = 1, FILTER_BYTES = 17, COMMAND_BYTES = 5, CANVAS_OP_BYTES = 9, CLIP_BYTES = 9,
+     RECT_BYTES = 16;
++/// A list's form, version and command count.
++constexpr size_t LIST_HEAD_BYTES = 2 + 4;
+ 
+ using Clips = std::vector<CanvasClip>;
+ using Pixels = std::vector<uint8_t>;
+@@ -736,18 +738,44 @@ bool read_op(Reader& r, const Caps& caps, ReadPayloads<Clips>& clips, ReadPayloa
+     return true;
+ }
+ 
++/// Writes a list, noting in `starts`, when given, where each command starts and where the list ends, from the list's first byte, until one of them passes `most`: then `starts` is left empty, its room given back.
++bool write_list(Writer& w, const Caps& caps, const DisplayList& list, std::vector<size_t>* starts, size_t most) {
++    const size_t origin = w.size();
++    const auto note = [&] {
++        if (!starts) return;
++        const size_t at = w.size() - origin;
++        if (at <= most) {
++            starts->push_back(at);
++            return;
++        }
++        std::vector<size_t>().swap(*starts);
++        starts = nullptr;
++    };
++    w.head(Form::List);
++    if (!w.count(list.size(), caps.commands)) return false;
++    WrittenPayloads<Path> paths;
++    WrittenPayloads<Filters> filters;
++    for (const Command& c : list) {
++        note();
++        if (!write_command(w, caps, paths, filters, c)) return false;
++    }
++    note();
++    return true;
++}
++
+ } // namespace
+ 
+ bool encode(const DisplayList& list, const Caps& caps, std::string& out) {
+-    return appended(out, [&](Writer& w) {
+-        w.head(Form::List);
+-        if (!w.count(list.size(), caps.commands)) return false;
+-        WrittenPayloads<Path> paths;
+-        WrittenPayloads<Filters> filters;
+-        for (const Command& c : list)
+-            if (!write_command(w, caps, paths, filters, c)) return false;
+-        return true;
+-    });
++    return appended(out, [&](Writer& w) { return write_list(w, caps, list, nullptr, SIZE_MAX); });
++}
++
++bool encode(const DisplayList& list, const Caps& caps, std::string& out, std::vector<size_t>& starts, size_t most) {
++    std::vector<size_t> at;
++    const bool may_fit = most >= LIST_HEAD_BYTES && list.size() <= (most - LIST_HEAD_BYTES) / COMMAND_BYTES;
++    if (may_fit && list.size() <= caps.commands) at.reserve(list.size() + 1);
++    if (!appended(out, [&](Writer& w) { return write_list(w, caps, list, may_fit ? &at : nullptr, most); })) return false;
++    starts = std::move(at);
++    return true;
+ }
+ 
+ bool decode(std::string_view bytes, const Caps& caps, DisplayList& out) {
+diff --git a/core/src/wire.h b/core/src/wire.h
+@@ -46,6 +46,8 @@ using Damage = std::optional<std::vector<Rect>>;
+ 
+ /// Appends `list` to `out` without the members equal to their version-1 defaults. False, `out` cut back to its size on entry, for what the decoder would refuse under `caps`: a count or a length past its cap or UINT32_MAX, or an enum value version 1 does not know, in a member its kind paints or not.
+ bool encode(const DisplayList& list, const Caps& caps, std::string& out);
++/// As encode(list, caps, out), and replaces `starts` with where each command starts and, last, where the list ends, counted from the list's first byte whatever `out` held before, while the list keeps within `most` bytes: for a longer one `starts` is left empty. `starts` untouched on false.
++bool encode(const DisplayList& list, const Caps& caps, std::string& out, std::vector<size_t>& starts, size_t most = SIZE_MAX);
+ /// Appends `damage` to `out`; false, `out` as on entry, for more rectangles than `caps.rects` or UINT32_MAX.
+ bool encode(const Damage& damage, const Caps& caps, std::string& out);
+ /// Appends `ops` to `out`; false, `out` as on entry, for what the decoder would refuse, as for a list.
+diff --git a/litehtml/include/litehtml/document_container.h b/litehtml/include/litehtml/document_container.h
+@@ -47,6 +47,8 @@ namespace litehtml
+         virtual void               delete_font(litehtml::uint_ptr hFont)                                            = 0;
+         virtual pixel_t            text_width(const char* text, litehtml::uint_ptr hFont)                           = 0;
+         virtual std::shared_ptr<text_breaker> create_text_breaker(const std::string&, uint_ptr) { return nullptr; }
++        // el_text may owe its width until it is read, so that a container measures many at once.
++        virtual bool               measures_text_later() const { return false; }
+         virtual void               draw_text(litehtml::uint_ptr hdc, const char* text, litehtml::uint_ptr hFont,
+                                              litehtml::web_color color, const litehtml::position& pos)              = 0;
+         virtual pixel_t            pt_to_px(float pt) const                                                         = 0;
+diff --git a/litehtml/include/litehtml/el_text.h b/litehtml/include/litehtml/el_text.h
+@@ -17,6 +17,7 @@ namespace litehtml
+         bool        m_draw_spaces;
+         uint_ptr    m_measured_font = 0;
+         int         m_measured_transform = -1;
++        bool        m_width_owed = false;
+         std::shared_ptr<text_breaker> m_breaker;
+         mutable int8_t m_strong_direction = 2;  // 2: not looked at yet
+ 
+@@ -27,7 +28,14 @@ namespace litehtml
+         void set_text(const std::string& text);
+         void compute_styles(bool recursive) override;
+         const std::string& display_text() const { return m_use_transformed ? m_transformed_text : m_text; }
++        bool width_owed() const { return m_width_owed; }
++        uint_ptr measured_font() const { return m_measured_font; }
++        void measure_width();
+         std::shared_ptr<text_breaker> breaker();
++        /// Whether inline layout may cut the text between its characters where a line ends.
++        bool breaks_in_line() const;
++        /// Whether the narrowest a box sized to its content can be takes the text's widest character.
++        bool breaks_at_narrowest() const;
+         /// The direction of the text's first strong character: 1 right to left, -1 left to right, 0 none
+         /// (digits, punctuation, spaces, symbols).
+         int strong_direction() const;
+diff --git a/litehtml/src/el_text.cpp b/litehtml/src/el_text.cpp
+@@ -18,9 +18,18 @@ litehtml::el_text::el_text(const char* text, const document::ptr& doc) :
+ 
+ void litehtml::el_text::get_content_size(size& sz, pixel_t /*max_width*/)
+ {
++    measure_width();
+     sz = m_size;
+ }
+ 
++void litehtml::el_text::measure_width()
++{
++    if(!m_width_owed)
++        return;
++    m_width_owed = false;
++    m_size.width = get_document()->container()->text_width(display_text().c_str(), m_measured_font);
++}
++
+ void litehtml::el_text::get_text(std::string& text) const
+ {
+     text += m_text;
+@@ -76,6 +85,7 @@ void litehtml::el_text::set_text(const std::string& text)
+     m_draw_spaces     = true;
+     m_size            = size();
+     m_measured_font   = 0;
++    m_width_owed      = false;
+     m_breaker.reset();
+     mark_layout_dirty();
+     css_w()           = css_properties();
+@@ -155,17 +165,19 @@ void litehtml::el_text::compute_styles(bool /*recursive*/)
+         m_size.height      = 0;
+         m_size.width       = 0;
+         m_measured_font    = 0;
++        m_width_owed       = false;
+     } else
+     {
+         m_size.height = fm.height;
+         const int transform = m_use_transformed ? (is_white_space() ? -2 : int(m_css.get_text_transform())) : -3;
+         if(m_measured_font != font || m_measured_transform != transform)
+         {
+             m_breaker.reset();
+-            m_size.width = get_document()->container()->text_width(
+-                m_use_transformed ? m_transformed_text.c_str() : m_text.c_str(), font);
+             m_measured_font      = font;
+             m_measured_transform = transform;
++            m_width_owed         = true;
++            if(!get_document()->container()->measures_text_later())
++                measure_width();
+         }
+     }
+     m_draw_spaces = fm.draw_spaces;
+@@ -178,6 +190,18 @@ std::shared_ptr<litehtml::text_breaker> litehtml::el_text::breaker()
+     return m_breaker;
+ }
+ 
++bool litehtml::el_text::breaks_in_line() const
++{
++    return !is_space() && !is_break() && css().get_wrapping() != overflow_wrap_normal &&
++           !is_one_of(css().get_white_space(), white_space_nowrap, white_space_pre);
++}
++
++bool litehtml::el_text::breaks_at_narrowest() const
++{
++    return css().get_wrapping() == overflow_wrap_anywhere && !is_one_of(css().get_white_space(), white_space_pre, white_space_nowrap) &&
++           !is_white_space();
++}
++
+ void litehtml::el_text::draw(uint_ptr hdc, pixel_t x, pixel_t y, const position* clip,
+                              const std::shared_ptr<render_item>& ri)
+ {
+diff --git a/litehtml/src/render_inline_context.cpp b/litehtml/src/render_inline_context.cpp
+@@ -46,7 +46,7 @@ litehtml::rendered_width litehtml::render_item_inline_context::measure(pixel_t x
+                     supported = false;
+                     break;
+                 }
+-                if(text->is_white_space())
++                if(!text->breaks_at_narrowest())
+                     continue;
+                 auto breaker = text->breaker();
+                 if(!breaker)
+@@ -526,8 +526,7 @@ void litehtml::render_item_inline_context::place_inline(std::unique_ptr<line_box
+                 auto text = std::dynamic_pointer_cast<el_text>(item->get_el()->src_el());
+                 const auto wrapping = text_item->css().get_wrapping();
+                 const auto whitespace = text_item->css().get_white_space();
+-                if(text && !text->is_space() && !text->is_break() && wrapping != overflow_wrap_normal &&
+-                   whitespace != white_space_nowrap && whitespace != white_space_pre)
++                if(text && text->breaks_in_line())
+                 {
+                     pixel_t line_left = 0_px;
+                     pixel_t line_right = self_size.render_width;

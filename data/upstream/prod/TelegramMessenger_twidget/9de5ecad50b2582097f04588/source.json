@@ -1,0 +1,111 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/twidget:f0a070dcedd3e6845f4aad1322eec4c4d55bf2d1:code:mixed",
+  "files": [
+    {
+      "additions": 11,
+      "deletions": 0,
+      "filename": "core/src/backend.h",
+      "status": "modified"
+    },
+    {
+      "additions": 60,
+      "deletions": 10,
+      "filename": "core/src/platform_end.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 1,
+      "filename": "core/src/platform_end.h",
+      "status": "modified"
+    },
+    {
+      "additions": 282,
+      "deletions": 12,
+      "filename": "core/src/remote.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 54,
+      "deletions": 3,
+      "filename": "core/src/remote.h",
+      "status": "modified"
+    },
+    {
+      "additions": 83,
+      "deletions": 55,
+      "filename": "core/src/renderer.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 146,
+      "deletions": 1,
+      "filename": "core/src/renderer_end.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "core/src/renderer_end.h",
+      "status": "modified"
+    },
+    {
+      "additions": 87,
+      "deletions": 0,
+      "filename": "core/src/text_widths.cpp",
+      "status": "added"
+    },
+    {
+      "additions": 99,
+      "deletions": 0,
+      "filename": "core/src/text_widths.h",
+      "status": "added"
+    },
+    {
+      "additions": 37,
+      "deletions": 9,
+      "filename": "core/src/wire.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "filename": "core/src/wire.h",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "filename": "litehtml/include/litehtml/document_container.h",
+      "status": "modified"
+    },
+    {
+      "additions": 8,
+      "deletions": 0,
+      "filename": "litehtml/include/litehtml/el_text.h",
+      "status": "modified"
+    },
+    {
+      "additions": 26,
+      "deletions": 2,
+      "filename": "litehtml/src/el_text.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 3,
+      "filename": "litehtml/src/render_inline_context.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "js-sandbox",
+    "date": "2026-11-20T20:58:30Z",
+    "repo": "TelegramMessenger/twidget",
+    "sha": "f0a070dcedd3e6845f4aad1322eec4c4d55bf2d1",
+    "url": "https://github.com/TelegramMessenger/twidget/compare/a5375fdfcd61e666a1846ec94968331f3921692c...f0a070dcedd3e6845f4aad1322eec4c4d55bf2d1"
+  }
+}

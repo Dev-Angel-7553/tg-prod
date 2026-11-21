@@ -1,0 +1,20 @@
+diff --git a/data/web_tr/translations.telegram.org/en/android/profile.json b/data/web_tr/translations.telegram.org/en/android/profile.json
+@@ -2328,7 +2328,7 @@
+     "ProfileActionsAddStory": {
+         "url": "https://translations.telegram.org/en/android/profile/ProfileActionsAddStory",
+         "photo_url": "https://telegra.ph/file/p/dc751a0b50d/9e8a36b6a82aefa624e5817.jpg?c=280,369,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Add Story"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json b/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json
+@@ -15026,7 +15026,7 @@
+     "lng_story_add_button": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_story_add_button",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Add Story"
+         }

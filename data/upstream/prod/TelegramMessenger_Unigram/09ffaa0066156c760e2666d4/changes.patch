@@ -1,0 +1,1874 @@
+diff --git a/Telegram/ViewModels/DialogViewModel.Footer.cs b/Telegram/ViewModels/DialogViewModel.Footer.cs
+@@ -5,6 +5,7 @@
+ // file LICENSE or copy at https://www.gnu.org/licenses/gpl-3.0.txt)
+ //
+ 
++using System;
+ using Telegram.Common;
+ using Telegram.Converters;
+ using Telegram.Td.Api;
+@@ -19,7 +20,9 @@ public enum ChatFooterKind
+         AccentButton,
+         StartButton,
+         Info,
+-        Link
++        FormattedInfo,
++        Link,
++        Progress
+     }
+ 
+     public enum ChatFooterAction
+@@ -62,6 +65,11 @@ public partial class DialogViewModel
+         private CanSendMessageToUserResult _canSendMessageToUser;
+ 
+         private ChatFooterState _footer;
++        private bool _footerEditing;
++        private bool _joiningChat;
++        private bool _joinRequestSent;
++        private int _businessMessageCount;
++        private ForumTopic _forumGeneralTopic;
+ 
+         // For the triggers that carry none of the chat's objects. Where a handler already holds them
+         // it passes them to an overload below, so each cache read takes ClientService's lock once.
+@@ -92,17 +100,22 @@ public void UpdateFooter()
+ 
+         public void UpdateFooter(Chat chat, User user, UserFullInfo fullInfo, SecretChat secretChat)
+         {
+-            ApplyFooter(chat, ResolveFrozenFooter() ?? ResolveUserFooter(chat, user, fullInfo, secretChat));
++            if (secretChat?.State is SecretChatStateClosed && chat.DraftMessage != null)
++            {
++                ClientService.Send(new SetChatDraftMessage(chat.Id, null, null));
++            }
++
++            ApplyFooter(chat, ResolveCommonFooter(user) ?? ResolveUserFooter(chat, user, fullInfo, secretChat));
+         }
+ 
+         public void UpdateFooter(Chat chat, BasicGroup group)
+         {
+-            ApplyFooter(chat, ResolveFrozenFooter() ?? ResolveBasicGroupFooter(chat, group));
++            ApplyFooter(chat, ResolveCommonFooter(null) ?? ResolveBasicGroupFooter(chat, group));
+         }
+ 
+         public void UpdateFooter(Chat chat, Supergroup group, SupergroupFullInfo fullInfo)
+         {
+-            ApplyFooter(chat, ResolveFrozenFooter() ?? ResolveSupergroupFooter(chat, group, fullInfo));
++            ApplyFooter(chat, ResolveCommonFooter(null) ?? ResolveSupergroupFooter(chat, group, fullInfo));
+         }
+ 
+         private void ApplyFooter(Chat chat, ChatFooterState state)
+@@ -111,11 +124,93 @@ private void ApplyFooter(Chat chat, ChatFooterState state)
+             Delegate?.UpdateFooter(chat, state);
+         }
+ 
+-        private ChatFooterState ResolveFrozenFooter()
++        private void UpdateFooterEditing(MessageComposerHeader header)
++        {
++            var editing = header?.Editing != null;
++            if (editing != _footerEditing)
++            {
++                _footerEditing = editing;
++                UpdateFooter();
++            }
++        }
++
++        protected void UpdateBusinessMessageCount(int count)
++        {
++            if (count != _businessMessageCount)
++            {
++                _businessMessageCount = count;
++                UpdateFooter();
++            }
++        }
++
++        private bool IsEditing => _composerHeader?.Editing != null;
++
++        // Editing a message brings the composer back over a button, but not over the restriction
++        // and secret chat texts, nor over the bot start, saved chat and link states.
++        private ChatFooterState Bar(ChatFooterState state)
++        {
++            return IsEditing ? ChatFooterState.Composer(0) : state;
++        }
++
++        private ChatFooterState ResolveCommonFooter(User user)
++        {
++            if (Type == DialogType.ScheduledMessages)
++            {
++                return ChatFooterState.Composer(0);
++            }
++            else if (Type is DialogType.History or DialogType.Thread && ClientService.FreezeState.IsFrozen && !IsFreezeAppealBot(user))
++            {
++                return new ChatFooterState(ChatFooterKind.Link, ChatFooterAction.Frozen, null);
++            }
++            else if (IsEditing)
++            {
++                return null;
++            }
++            else if (Type == DialogType.BusinessReplies)
++            {
++                var max = ClientService.Options.QuickReplyShortcutMessageCountMax;
++                if (max > 0 && _businessMessageCount >= max)
++                {
++                    return new ChatFooterState(ChatFooterKind.FormattedInfo, ChatFooterAction.None, Locale.Declension(Strings.R.BusinessRepliesLimit, max));
++                }
++            }
++            else if (Type == DialogType.WelcomeMessages)
++            {
++                var max = ClientService.Options.WelcomeMessageCountMax;
++                if (max > 0 && _businessMessageCount >= max)
++                {
++                    return new ChatFooterState(ChatFooterKind.FormattedInfo, ChatFooterAction.None, Locale.Declension(Strings.R.WelcomeMessagesLimit, max));
++                }
++            }
++
++            return null;
++        }
++
++        // The bot named by the appeal link stays writable, so that a frozen account can appeal.
++        private bool IsFreezeAppealBot(User user)
+         {
+-            return ClientService.FreezeState.IsFrozen
+-                ? new ChatFooterState(ChatFooterKind.Link, ChatFooterAction.Frozen, null)
+-                : null;
++            var username = user?.ActiveUsername();
++            if (string.IsNullOrEmpty(username))
++            {
++                return false;
++            }
++
++            var link = ClientService.FreezeState.AppealLink ?? string.Empty;
++            var index = link.IndexOf("t.me/", StringComparison.OrdinalIgnoreCase);
++            if (index < 0)
++            {
++                return false;
++            }
++
++            var start = index + 5;
++            var end = start;
++
++            while (end < link.Length && link[end] < 128 && char.IsLetterOrDigit(link[end]))
++            {
++                end++;
++            }
++
++            return end - start == username.Length && string.Compare(link, start, username, 0, username.Length, StringComparison.OrdinalIgnoreCase) == 0;
+         }
+ 
+         private ChatFooterState ResolveUserFooter(Chat chat, User user, UserFullInfo fullInfo, SecretChat secretChat)
+@@ -131,6 +226,10 @@ private ChatFooterState ResolveUserFooter(Chat chat, User user, UserFullInfo ful
+             {
+                 return ChatFooterState.Button(ChatFooterAction.ToggleSavedTag, Search.FilterByTag ? Strings.SavedTagShowOtherMessages : Strings.SavedTagHideOtherMessages);
+             }
++            else if (Type is DialogType.History or DialogType.Thread && user.Id != ClientService.Options.MyId && user.RestrictsNewChats && _canSendMessageToUser is CanSendMessageToUserResultUserRestrictsNewChats)
++            {
++                return new ChatFooterState(ChatFooterKind.Link, ChatFooterAction.None, string.Format(Strings.OnlyPremiumCanMessage, user.FirstName));
++            }
+             else if (SavedMessagesTopic != null)
+             {
+                 if (SavedMessagesTopic.Type is SavedMessagesTopicTypeAuthorHidden)
+@@ -151,41 +250,45 @@ private ChatFooterState ResolveUserFooter(Chat chat, User user, UserFullInfo ful
+             }
+             else if (Type == DialogType.Pinned)
+             {
+-                return ChatFooterState.Button(ChatFooterAction.Unpin, Strings.UnpinAllMessages);
++                return Bar(ChatFooterState.Button(ChatFooterAction.Unpin, Strings.UnpinAllMessages));
+             }
+-            else if (user.Type is UserTypeDeleted)
+-            {
+-                return ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteThisChat);
+-            }
+-            else if (chat.Id == ClientService.Options.RepliesBotChatId || chat.Id == ClientService.Options.VerificationCodesBotChatId)
++            else if (chat.Id == ClientService.Options.VerificationCodesBotChatId)
+             {
+                 return ChatFooterState.Button(ChatFooterAction.ToggleMute, ClientService.Notifications.IsMuted(chat) ? Strings.ChannelUnmute : Strings.ChannelMute);
+             }
+             else if (chat.BlockList is BlockListMain)
+             {
+-                return ChatFooterState.Button(ChatFooterAction.Unblock, user.Type is UserTypeBot ? Strings.BotUnblock : Strings.Unblock);
++                return Bar(ChatFooterState.Button(ChatFooterAction.Unblock, user.Type is UserTypeBot ? Strings.BotUnblock : Strings.Unblock));
++            }
++            else if (chat.Id == ClientService.Options.RepliesBotChatId)
++            {
++                return Bar(ChatFooterState.Button(ChatFooterAction.ToggleMute, ClientService.Notifications.IsMuted(chat) ? Strings.ChannelUnmute : Strings.ChannelMute));
++            }
++            else if (user.Type is UserTypeBot && (_accessToken != null || chat.LastMessage == null))
++            {
++                return new ChatFooterState(ChatFooterKind.StartButton, ChatFooterAction.Start, Strings.BotStart);
++            }
++            else if (user.Type is UserTypeDeleted)
++            {
++                return Bar(ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteThisChat));
+             }
+             else if (secretChat != null)
+             {
+                 return secretChat.State switch
+                 {
+-                    SecretChatStatePending => ChatFooterState.Info(string.Format(Strings.AwaitingEncryption, ClientService.GetTitle(chat))),
++                    SecretChatStatePending when secretChat.IsOutbound => new ChatFooterState(ChatFooterKind.FormattedInfo, ChatFooterAction.None, string.Format(Strings.AwaitingEncryption, "**" + user.FirstName + "**")),
++                    SecretChatStatePending => ChatFooterState.Info(Strings.EncryptionProcessing),
+                     SecretChatStateClosed => ChatFooterState.Info(Strings.EncryptionRejected),
+                     _ => ChatFooterState.Composer(0)
+                 };
+             }
+-            else if (user.Type is UserTypeBot && (_accessToken != null || chat.LastMessage == null))
+-            {
+-                return new ChatFooterState(ChatFooterKind.StartButton, ChatFooterAction.Start, Strings.BotStart);
+-            }
+             else if (user.RestrictsNewChats)
+             {
+                 return _canSendMessageToUser switch
+                 {
+                     CanSendMessageToUserResultOk => ChatFooterState.Composer(0),
+                     CanSendMessageToUserResultUserHasPaidMessages userHasPaidMessages => ChatFooterState.Composer(userHasPaidMessages.OutgoingPaidMessageStarCount),
+-                    CanSendMessageToUserResultUserIsDeleted => ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteThisChat),
+-                    CanSendMessageToUserResultUserRestrictsNewChats => new ChatFooterState(ChatFooterKind.Link, ChatFooterAction.None, string.Format(Strings.OnlyPremiumCanMessage, user.FirstName)),
++                    CanSendMessageToUserResultUserIsDeleted => Bar(ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteThisChat)),
+                     _ => ChatFooterState.Composer(paidMessageStarCount)
+                 };
+             }
+@@ -199,21 +302,26 @@ private ChatFooterState ResolveBasicGroupFooter(Chat chat, BasicGroup group)
+             {
+                 return ChatFooterState.Composer(0);
+             }
+-            else if (group.UpgradedToSupergroupId != 0)
++            else if (Type == DialogType.Pinned)
+             {
+-                return ChatFooterState.Button(ChatFooterAction.OpenSupergroup, Strings.OpenSupergroup);
++                return Bar(ChatFooterState.Button(ChatFooterAction.Unpin, CanPinMessages(chat, group.Status) ? Strings.UnpinAllMessages : Strings.HidePinnedMessages));
+             }
+-            else if (group.Status is ChatMemberStatusLeft or ChatMemberStatusBanned)
++            else if (group.UpgradedToSupergroupId != 0)
+             {
+-                return ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteThisGroup);
++                return Bar(ChatFooterState.Button(ChatFooterAction.OpenSupergroup, Strings.OpenSupergroup));
+             }
+             else if (group.Status is ChatMemberStatusCreator { IsMember: false })
+             {
+-                return new ChatFooterState(ChatFooterKind.AccentButton, ChatFooterAction.Join, Strings.ChannelJoin);
++                return Bar(new ChatFooterState(ChatFooterKind.AccentButton, ChatFooterAction.Join, Strings.GroupJoin));
+             }
+-            else if (Type == DialogType.Pinned)
++            else if (group.Status is ChatMemberStatusLeft or ChatMemberStatusBanned)
+             {
+-                return ChatFooterState.Button(ChatFooterAction.Unpin, chat.CanPinMessages(ClientService) ? Strings.UnpinAllMessages : Strings.HidePinnedMessages);
++                return Bar(ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteThisGroup));
++            }
++            else if (group.Status is ChatMemberStatusMember && !CanSendAnything(chat.Permissions, null))
++            {
++                // A basic group has no personal restrictions and no boosts, so only the default rights apply.
++                return ChatFooterState.Info(Strings.GlobalSendMessageRestricted);
+             }
+ 
+             return ChatFooterState.Composer(0);
+@@ -231,100 +339,178 @@ private ChatFooterState ResolveSupergroupFooter(Chat chat, Supergroup group, Sup
+             }
+             else if (Type == DialogType.Pinned)
+             {
+-                return ChatFooterState.Button(ChatFooterAction.Unpin, chat.CanPinMessages(ClientService) ? Strings.UnpinAllMessages : Strings.HidePinnedMessages);
++                return Bar(ChatFooterState.Button(ChatFooterAction.Unpin, CanPinMessages(chat, group.Status) && !group.IsDirectMessagesGroup ? Strings.UnpinAllMessages : Strings.HidePinnedMessages));
+             }
+-            else if (group.IsChannel || group.IsBroadcastGroup)
+-            {
+-                if ((group.Status is ChatMemberStatusLeft && (group.HasActiveUsername() || ClientService.IsChatAccessible(chat))) || group.Status is ChatMemberStatusCreator { IsMember: false })
+-                {
+-                    return new ChatFooterState(ChatFooterKind.AccentButton, ChatFooterAction.Join, Strings.ChannelJoin);
+-                }
+-                else if (group.Status is ChatMemberStatusCreator || group.Status is ChatMemberStatusAdministrator { Rights.CanPostMessages: true })
+-                {
+-                    return ChatFooterState.Composer(0);
+-                }
+-                else if (group.Status is ChatMemberStatusLeft or ChatMemberStatusBanned)
+-                {
+-                    return ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteChat);
+-                }
+ 
+-                return ChatFooterState.Button(ChatFooterAction.ToggleMute, ClientService.Notifications.IsMuted(chat) ? Strings.ChannelUnmute : Strings.ChannelMute);
++            var status = group.Status;
++            var notInChat = status is ChatMemberStatusLeft or ChatMemberStatusBanned or ChatMemberStatusRestricted { IsMember: false } or ChatMemberStatusCreator { IsMember: false };
++            if (!notInChat || !group.JoinByRequest)
++            {
++                _joinRequestSent = false;
+             }
+ 
+-            if ((group.Status is ChatMemberStatusLeft && (group.IsPublic() || ClientService.IsChatAccessible(chat))) || group.Status is ChatMemberStatusCreator { IsMember: false })
++            // A subscriber's view of a direct messages group is their own thread, which never asks to join.
++            if (notInChat && !(group.IsDirectMessagesGroup && !group.IsAdministeredDirectMessagesGroup))
+             {
+-                if (Type == DialogType.Thread)
++                if (!group.IsDirectMessagesGroup && (status is ChatMemberStatusBanned || (status is ChatMemberStatusLeft && !group.IsPublic() && !ClientService.IsChatAccessible(chat))))
++                {
++                    return Bar(ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteChat));
++                }
++                else if (group.IsForum || Type != DialogType.Thread || group.JoinToSendMessages)
+                 {
+-                    if (group.JoinToSendMessages)
++                    if (_joiningChat)
+                     {
+-                        return new ChatFooterState(ChatFooterKind.AccentButton, ChatFooterAction.Join, group.JoinByRequest ? Strings.ChannelJoinRequest : Strings.JoinGroup);
++                        return Bar(new ChatFooterState(ChatFooterKind.Progress, ChatFooterAction.None, null));
+                     }
+-                    else if (!chat.Permissions.CanSendBasicMessages)
++                    else if (group.JoinByRequest)
+                     {
+-                        return ChatFooterState.Info(Strings.GlobalSendMessageRestricted);
++                        if (_joinRequestSent)
++                        {
++                            return Bar(ChatFooterState.Info(group.IsChannel ? Strings.ChannelJoinRequestSent : Strings.GroupJoinRequestSent));
++                        }
++
++                        return Bar(new ChatFooterState(ChatFooterKind.AccentButton, ChatFooterAction.Join, group.IsChannel ? Strings.ChannelJoinRequest : Strings.GroupJoinRequest));
+                     }
+ 
+-                    return ChatFooterState.Composer(group.PaidMessageStarCount);
+-                }
+-                else if (group.IsDirectMessagesGroup)
+-                {
+-                    return ChatFooterState.Composer(group.PaidMessageStarCount);
++                    return Bar(new ChatFooterState(ChatFooterKind.AccentButton, ChatFooterAction.Join, group.IsChannel ? Strings.ChannelJoin : Strings.GroupJoin));
+                 }
++            }
+ 
+-                return new ChatFooterState(ChatFooterKind.AccentButton, ChatFooterAction.Join, group.JoinByRequest ? Strings.ChannelJoinRequest : Strings.ChannelJoin);
++            var administrator = status is ChatMemberStatusCreator or ChatMemberStatusAdministrator;
++
++            // Any administrator may write to a broadcast group, only those with the right may post to a channel.
++            var readOnly = group.IsChannel
++                ? !(status is ChatMemberStatusCreator || status is ChatMemberStatusAdministrator { Rights.CanPostMessages: true })
++                : group.IsBroadcastGroup && !administrator;
++
++            if (Type != DialogType.Thread && IsForumShownAsMessages(group) && !CanPostToGeneralTopic(group))
++            {
++                return Bar(ChatFooterState.Info(Strings.ForumReplyToMessagesInTopic, true));
+             }
+-            else if (group.Status is ChatMemberStatusCreator or ChatMemberStatusAdministrator)
++            else if (readOnly)
+             {
+-                if (Type != DialogType.Thread && group.IsDirectMessagesGroup && group.IsAdministeredDirectMessagesGroup)
++                if (Type != DialogType.Thread)
+                 {
+-                    return ChatFooterState.Info(Strings.ForumReplyToMessagesInTopic, true);
++                    return Bar(ChatFooterState.Button(ChatFooterAction.ToggleMute, ClientService.Notifications.IsMuted(chat) ? Strings.ChannelUnmute : Strings.ChannelMute));
+                 }
+-
+-                return ChatFooterState.Composer(0);
+             }
+-            else if (group.Status is ChatMemberStatusRestricted restricted)
++            else if (Type == DialogType.Thread && ForumTopic is ForumTopic { Info.IsClosed: true } forumTopic && !CanManageTopic(group, forumTopic))
+             {
+-                if (!restricted.IsMember && group.HasActiveUsername())
+-                {
+-                    return new ChatFooterState(ChatFooterKind.AccentButton, ChatFooterAction.Join, Strings.ChannelJoin);
+-                }
+-                else if (!restricted.Permissions.CanSendBasicMessages)
+-                {
+-                    return ChatFooterState.Info(restricted.IsForever()
+-                        ? Strings.SendMessageRestrictedForever
+-                        : string.Format(Strings.SendMessageRestricted, Formatter.BannedUntil(restricted.RestrictedUntilDate)));
+-                }
+-
+-                return ChatFooterState.Composer(group.PaidMessageStarCount);
++                return Bar(ChatFooterState.Info(Strings.TopicClosedByAdmin));
+             }
+-            else if (group.Status is ChatMemberStatusLeft or ChatMemberStatusBanned)
++
++            if (!group.IsChannel && !group.IsBroadcastGroup && !administrator && !IsUnrestrictedByBoosts(fullInfo))
+             {
+-                if (group.IsDirectMessagesGroup)
++                var restricted = status as ChatMemberStatusRestricted;
++                if (!CanSendAnything(chat.Permissions, restricted?.Permissions))
+                 {
+-                    return ChatFooterState.Composer(group.PaidMessageStarCount);
++                    if (!chat.Permissions.CanSendBasicMessages)
++                    {
++                        return fullInfo?.UnrestrictBoostCount > 0
++                            ? ChatFooterState.Button(ChatFooterAction.Boost, Strings.BoostingBoostToSendMessages)
++                            : ChatFooterState.Info(Strings.GlobalSendMessageRestricted);
++                    }
++                    else if (restricted != null)
++                    {
++                        return ChatFooterState.Info(restricted.IsForever()
++                            ? Strings.SendMessageRestrictedForever
++                            : string.Format(Strings.SendMessageRestricted, Formatter.BannedUntil(restricted.RestrictedUntilDate)));
++                    }
++
++                    return ChatFooterState.Info(Strings.GlobalSendMessageRestricted);
+                 }
++            }
+ 
+-                return ChatFooterState.Button(ChatFooterAction.DeleteChat, Strings.DeleteChat);
++            return ChatFooterState.Composer(administrator || group.IsAdministeredDirectMessagesGroup ? 0 : group.PaidMessageStarCount);
++        }
++
++        private bool IsForumShownAsMessages(Supergroup group)
++        {
++            return (group.IsForum && Type == DialogType.History) || (group.IsDirectMessagesGroup && group.IsAdministeredDirectMessagesGroup);
++        }
++
++        // A direct messages group has no General topic. A forum's General is requested when the chat
++        // opens; until it arrives it counts as postable, so that the composer does not flicker away.
++        private bool CanPostToGeneralTopic(Supergroup group)
++        {
++            if (group.IsDirectMessagesGroup)
++            {
++                return false;
+             }
+-            else if (!chat.Permissions.CanSendBasicMessages && (fullInfo == null || fullInfo.MyBoostCount < fullInfo.UnrestrictBoostCount))
++
++            var general = _forumGeneralTopic;
++            return general == null || !general.Info.IsClosed || CanManageTopic(group, general);
++        }
++
++        private static bool CanManageTopic(Supergroup group, ForumTopic topic)
++        {
++            return group.CanManageTopics() || topic.Info.IsOutgoing;
++        }
++
++        private static bool IsUnrestrictedByBoosts(SupergroupFullInfo fullInfo)
++        {
++            return fullInfo != null && fullInfo.UnrestrictBoostCount > 0 && fullInfo.MyBoostCount >= fullInfo.UnrestrictBoostCount;
++        }
++
++        // Polls are not counted: being able to send only a poll still leaves the chat read-only.
++        private static bool CanSendAnything(ChatPermissions permissions, ChatPermissions restricted)
++        {
++            return (permissions.CanSendBasicMessages && (restricted == null || restricted.CanSendBasicMessages))
++                || (permissions.CanSendPhotos && (restricted == null || restricted.CanSendPhotos))
++                || (permissions.CanSendVideos && (restricted == null || restricted.CanSendVideos))
++                || (permissions.CanSendVideoNotes && (restricted == null || restricted.CanSendVideoNotes))
++                || (permissions.CanSendVoiceNotes && (restricted == null || restricted.CanSendVoiceNotes))
++                || (permissions.CanSendDocuments && (restricted == null || restricted.CanSendDocuments))
++                || (permissions.CanSendAudios && (restricted == null || restricted.CanSendAudios))
++                || (permissions.CanSendOtherMessages && (restricted == null || restricted.CanSendOtherMessages));
++        }
++
++        private static bool CanPinMessages(Chat chat, ChatMemberStatus status)
++        {
++            return status switch
+             {
+-                if (fullInfo != null)
+-                {
+-                    return ChatFooterState.Button(ChatFooterAction.Boost, Strings.BoostingBoostToSendMessages);
+-                }
++                ChatMemberStatusMember => chat.Permissions.CanPinMessages,
++                ChatMemberStatusCreator => true,
++                ChatMemberStatusAdministrator administrator => administrator.Rights.CanPinMessages,
++                ChatMemberStatusRestricted restricted => restricted.Permissions.CanPinMessages,
++                _ => false
++            };
++        }
+ 
+-                return ChatFooterState.Info(Strings.GlobalSendMessageRestricted);
++        private void LoadForumGeneralTopic(Chat chat, Supergroup group)
++        {
++            _forumGeneralTopic = null;
++
++            if (group?.IsForum is true && Type == DialogType.History)
++            {
++                ClientService.Send(new GetForumTopic(chat.Id, 1), result =>
++                {
++                    if (result is ForumTopic topic)
++                    {
++                        BeginOnUIThread(() =>
++                        {
++                            if (_chat?.Id == chat.Id)
++                            {
++                                _forumGeneralTopic = topic;
++                                UpdateFooter();
++                            }
++                        });
++                    }
++                });
+             }
+-            else if (Type != DialogType.Thread && group.IsDirectMessagesGroup && group.IsAdministeredDirectMessagesGroup)
++        }
++
++        private void UpdateForumTopicFooter(ForumTopicInfo info)
++        {
++            if (info.ForumTopicId == 1 && _forumGeneralTopic != null)
+             {
+-                return ChatFooterState.Info(Strings.ForumReplyToMessagesInTopic, true);
++                _forumGeneralTopic.Info = info;
++                UpdateFooter();
+             }
+-            else if (ForumTopic is ForumTopic { Info.IsClosed: true })
++            else if (info.ForumTopicId == ForumTopic?.Info.ForumTopicId)
+             {
+-                return ChatFooterState.Info(Strings.TopicClosedByAdmin);
++                UpdateFooter();
+             }
+-
+-            return ChatFooterState.Composer(group.IsAdministeredDirectMessagesGroup ? 0 : group.PaidMessageStarCount);
+         }
+ 
+         public async void Action()
+diff --git a/Telegram/ViewModels/Profile/ProfileGiftsTabViewModel.cs b/Telegram/ViewModels/Profile/ProfileGiftsTabViewModel.cs
+@@ -7,6 +7,7 @@
+ 
+ using System;
+ using System.Collections.Concurrent;
++using System.Collections.Generic;
+ using System.Collections.ObjectModel;
+ using System.Collections.Specialized;
+ using System.Linq;
+@@ -36,6 +37,10 @@ public partial class ProfileGiftsTabViewModel : ViewModelBase, IHandle, IDiffHan
+ 
+         private MessageSender _senderId;
+ 
++        // The profile's pinned gifts in order, whichever collection or filter is on screen;
++        // null until a pin operation needs it.
++        private List<ReceivedGift> _pinned;
++
+         public ProfileGiftsTabViewModel(IClientService clientService, ISettingsService settingsService, IEventAggregator aggregator)
+             : base(clientService, settingsService, aggregator)
+         {
+@@ -56,13 +61,58 @@ public ReceivedGift GetOrCreate(ReceivedGift gift)
+ 
+             if (_cache.TryGetValue(gift.ReceivedGiftId, out ReceivedGift cached))
+             {
++                Refresh(cached, gift);
+                 return cached;
+             }
+ 
+             _cache[gift.ReceivedGiftId] = gift;
+             return gift;
+         }
+ 
++        /// <summary>
++        /// Every field but the id: the lists share one instance per gift, and the diff that swaps
++        /// in a reloaded list keeps the old instance wherever the gift did not move.
++        /// </summary>
++        private static void Refresh(ReceivedGift cached, ReceivedGift gift)
++        {
++            cached.SenderId = gift.SenderId;
++            cached.Text = gift.Text;
++            cached.UniqueGiftNumber = gift.UniqueGiftNumber;
++            cached.IsPrivate = gift.IsPrivate;
++            cached.IsSaved = gift.IsSaved;
++            cached.IsPinned = gift.IsPinned;
++            cached.CanBeUpgraded = gift.CanBeUpgraded;
++            cached.CanBeTransferred = gift.CanBeTransferred;
++            cached.CanBeDeleted = gift.CanBeDeleted;
++            cached.WasRefunded = gift.WasRefunded;
++            cached.Date = gift.Date;
++            cached.Gift = gift.Gift;
++            cached.CollectionIds = gift.CollectionIds;
++            cached.SellStarCount = gift.SellStarCount;
++            cached.PrepaidUpgradeStarCount = gift.PrepaidUpgradeStarCount;
++            cached.IsUpgradeSeparate = gift.IsUpgradeSeparate;
++            cached.TransferStarCount = gift.TransferStarCount;
++            cached.DropOriginalDetailsStarCount = gift.DropOriginalDetailsStarCount;
++            cached.NextTransferDate = gift.NextTransferDate;
++            cached.NextResaleDate = gift.NextResaleDate;
++            cached.ExportDate = gift.ExportDate;
++            cached.PrepaidUpgradeHash = gift.PrepaidUpgradeHash;
++            cached.CraftDate = gift.CraftDate;
++        }
++
++        private static int IndexOf(IList<ReceivedGift> list, string receivedGiftId)
++        {
++            for (int i = 0; i < list.Count; i++)
++            {
++                if (list[i].ReceivedGiftId == receivedGiftId)
++                {
++                    return i;
++                }
++            }
++
++            return -1;
++        }
++
+         protected override Task OnNavigatedToAsync(object parameter, NavigationMode mode, NavigationState state)
+         {
+             if (parameter is long chatId)
+@@ -167,13 +217,27 @@ public async void RenameCollection(GiftCollectionViewModel collection)
+         public async void DeleteCollection(GiftCollectionViewModel collection)
+         {
+             var confirm = await ShowPopupAsync(string.Format(Strings.GiftsCollectionMenuDeleteCollectionAsk, collection.Name), Strings.GiftsCollectionMenuDeleteCollection, Strings.Delete, Strings.Cancel, destructive: true);
+-            if (confirm == ContentDialogResult.Primary)
++            if (confirm != ContentDialogResult.Primary)
++            {
++                return;
++            }
++
++            var response = await ClientService.SendAsync(new DeleteGiftCollection(_senderId, collection.Id));
++            if (response is not Ok)
+             {
+-                ClientService.Send(new DeleteGiftCollection(_senderId, collection.Id));
++                return;
++            }
+ 
+-                Collections.Remove(collection);
+-                SelectedCollection = Collections[0];
++            foreach (var gift in _cache.Values)
++            {
++                if (gift.CollectionIds.Contains(collection.Id))
++                {
++                    gift.CollectionIds = gift.CollectionIds.Without(collection.Id);
++                }
+             }
++
++            Collections.Remove(collection);
++            SelectedCollection = Collections[0];
+         }
+ 
+         public async void CreateCollection(ReceivedGift gift)
+@@ -219,58 +283,93 @@ public async void AddGiftsToCollection(GiftCollectionViewModel collection)
+             var popup = new ChooseGiftsPopup(this);
+ 
+             var confirm = await ShowPopupAsync(popup);
+-            if (confirm == ContentDialogResult.Primary)
++            if (confirm != ContentDialogResult.Primary)
+             {
+-                var receivedGiftIds = new MutableVector<string>();
++                return;
++            }
+ 
+-                foreach (var gift in popup.SelectedItems)
++            var gifts = new List<ReceivedGift>();
++            var receivedGiftIds = new MutableVector<string>();
++
++            foreach (var gift in popup.SelectedItems)
++            {
++                if (gift.CollectionIds.Contains(collection.Id))
+                 {
+-                    if (gift.CollectionIds.Contains(collection.Id) /*|| album.Items.Contains(gift)*/)
+-                    {
+-                        continue;
+-                    }
++                    continue;
++                }
+ 
+-                    if (collection.HasLoadedItems)
+-                    {
+-                        collection.Items.Insert(0, gift);
+-                    }
++                gifts.Add(gift);
++                receivedGiftIds.Add(gift.ReceivedGiftId);
++            }
+ 
+-                    gift.CollectionIds = gift.CollectionIds.With(collection.Id);
+-                    receivedGiftIds.Add(gift.ReceivedGiftId);
+-                }
++            // addGiftCollectionGifts takes at least one gift.
++            if (gifts.Count == 0)
++            {
++                return;
++            }
+ 
+-                ClientService.Send(new AddGiftCollectionGifts(_senderId, collection.Id, receivedGiftIds));
+-                ShowToast(Locale.Declension(Strings.R.GiftAddedToCollectionTitle, receivedGiftIds.Count, collection.Name), ToastPopupIcon.Info);
++            var response = await ClientService.SendAsync(new AddGiftCollectionGifts(_senderId, collection.Id, receivedGiftIds));
++            if (response is not GiftCollection)
++            {
++                return;
+             }
++
++            // A list that has not loaded yet gets them from the server instead, and would hold them twice.
++            var items = collection.Items.Source;
++
++            foreach (var gift in gifts)
++            {
++                gift.CollectionIds = gift.CollectionIds.With(collection.Id);
++
++                if (items.IsLoaded)
++                {
++                    items.Insert(0, gift);
++                }
++            }
++
++            ShowToast(Locale.Declension(Strings.R.GiftAddedToCollectionTitle, gifts.Count, collection.Name), ToastPopupIcon.Info);
+         }
+ 
+-        public void AddGiftToCollection((ReceivedGift gift, GiftCollectionViewModel collection) param)
++        public async void AddGiftToCollection((ReceivedGift gift, GiftCollectionViewModel collection) param)
+         {
+-            if (param.gift.CollectionIds.Contains(param.collection.Id))
++            var gift = param.gift;
++            var collection = param.collection;
++            var items = collection.Items.Source;
++
++            if (gift.CollectionIds.Contains(collection.Id))
+             {
+-                ClientService.Send(new RemoveGiftCollectionGifts(_senderId, param.collection.Id, new[] { param.gift.ReceivedGiftId }));
++                var response = await ClientService.SendAsync(new RemoveGiftCollectionGifts(_senderId, collection.Id, new[] { gift.ReceivedGiftId }));
++                if (response is not GiftCollection)
++                {
++                    return;
++                }
+ 
+-                param.gift.CollectionIds = param.gift.CollectionIds.Without(param.collection.Id);
++                gift.CollectionIds = gift.CollectionIds.Without(collection.Id);
+ 
+-                if (param.collection.HasLoadedItems)
++                var index = IndexOf(items, gift.ReceivedGiftId);
++                if (index >= 0)
+                 {
+-                    param.collection.Items.Remove(param.gift);
++                    items.RemoveAt(index);
+                 }
+ 
+-                ShowToast(string.Format(Strings.GiftRemovedFromCollectionX, param.collection.Name), ToastPopupIcon.Info);
++                ShowToast(string.Format(Strings.GiftRemovedFromCollectionX, collection.Name), ToastPopupIcon.Info);
+             }
+             else
+             {
+-                ClientService.Send(new AddGiftCollectionGifts(_senderId, param.collection.Id, new[] { param.gift.ReceivedGiftId }));
++                var response = await ClientService.SendAsync(new AddGiftCollectionGifts(_senderId, collection.Id, new[] { gift.ReceivedGiftId }));
++                if (response is not GiftCollection)
++                {
++                    return;
++                }
+ 
+-                param.gift.CollectionIds = param.gift.CollectionIds.With(param.collection.Id);
++                gift.CollectionIds = gift.CollectionIds.With(collection.Id);
+ 
+-                if (param.collection.HasLoadedItems)
++                if (items.IsLoaded)
+                 {
+-                    param.collection.Items.Insert(0, param.gift);
++                    items.Insert(0, gift);
+                 }
+ 
+-                ShowToast(string.Format(Strings.GiftAddedToCollectionX, param.collection.Name), ToastPopupIcon.Info);
++                ShowToast(string.Format(Strings.GiftAddedToCollectionX, collection.Name), ToastPopupIcon.Info);
+             }
+         }
+ 
+@@ -283,69 +382,136 @@ public override void Subscribe()
+ 
+         private void Handle(UpdateGiftIsSaved update)
+         {
+-            BeginOnUIThread(() =>
++            BeginOnUIThread(() => UpdateIsSaved(update.ReceivedGiftId, update.IsSaved));
++        }
++
++        private void UpdateIsSaved(string receivedGiftId, bool isSaved)
++        {
++            // The server drops a gift from the pinned list when it leaves the profile page.
++            var unpinned = !isSaved && IsPinned(receivedGiftId);
++            if (unpinned && _pinned != null)
++            {
++                _pinned = Without(_pinned, receivedGiftId);
++            }
++
++            foreach (var collection in Collections)
+             {
+-                var receivedGift = Items.FirstOrDefault(x => x.ReceivedGiftId == update.ReceivedGiftId);
+-                if (receivedGift == null)
++                var items = collection.Items.Source;
++
++                var index = IndexOf(items, receivedGiftId);
++                if (index < 0)
+                 {
+-                    return;
++                    continue;
+                 }
+ 
+-                receivedGift.IsSaved = update.IsSaved;
++                var gift = items[index];
++                gift.IsSaved = isSaved;
+ 
+-                // The server drops a gift from the pinned list when it leaves the profile page.
+-                if (!update.IsSaved && receivedGift.IsPinned)
++                if (unpinned)
+                 {
+-                    receivedGift.IsPinned = false;
+-                    Items.Pinned.Remove(receivedGift.ReceivedGiftId);
+-
+-                    PlaceUnpinned(receivedGift);
+-                    return;
++                    gift.IsPinned = false;
+                 }
+ 
+-                var index = Items.IndexOf(receivedGift);
+-                Items.Remove(receivedGift);
+-                Items.Insert(index, receivedGift);
+-            });
++                items.RemoveAt(index);
++
++                if (!items.Accepts(gift))
++                {
++                    continue;
++                }
++                else if (unpinned && items.KeepsPinnedFirst)
++                {
++                    if (items.PlaceUnpinned(gift) is false)
++                    {
++                        collection.Reload(collection == SelectedCollection);
++                    }
++                }
++                else
++                {
++                    items.Insert(index, gift);
++                }
++            }
+         }
+ 
+         private void Handle(UpdateGiftIsSold update)
+         {
+             BeginOnUIThread(() =>
+             {
+-                var receivedGift = Items.FirstOrDefault(x => x.ReceivedGiftId == update.ReceivedGiftId);
+-                if (receivedGift == null)
++                if (_pinned != null)
+                 {
+-                    return;
++                    _pinned = Without(_pinned, update.ReceivedGiftId);
+                 }
+ 
+-                if (receivedGift.IsPinned)
++                foreach (var collection in Collections)
+                 {
+-                    Items.Pinned.Remove(receivedGift.ReceivedGiftId);
++                    var items = collection.Items.Source;
++
++                    var index = IndexOf(items, update.ReceivedGiftId);
++                    if (index >= 0)
++                    {
++                        items.RemoveAt(index);
++                    }
+                 }
+ 
+-                Items.Remove(receivedGift);
++                _cache.TryRemove(update.ReceivedGiftId, out _);
+             });
+         }
+ 
+         private void Handle(UpdateGiftUpgraded update)
+         {
+             BeginOnUIThread(() =>
+             {
+-                var receivedGift = Items.FirstOrDefault(x => x.ReceivedGiftId == update.ReceivedGiftId || x.ReceivedGiftId == update.OldReceivedGiftId);
+-                if (receivedGift == null)
++                _cache.TryRemove(update.OldReceivedGiftId, out _);
++
++                var gift = GetOrCreate(update.Gift);
++
++                foreach (var collection in Collections)
+                 {
+-                    return;
+-                }
++                    var items = collection.Items.Source;
+ 
+-                var index = Items.IndexOf(receivedGift);
+-                Items.Remove(receivedGift);
+-                Items.Insert(index, update.Gift);
++                    var index = IndexOf(items, update.OldReceivedGiftId);
++                    if (index < 0)
++                    {
++                        index = IndexOf(items, update.ReceivedGiftId);
++                    }
++
++                    if (index >= 0)
++                    {
++                        items.RemoveAt(index);
++                        items.Insert(index, gift);
++                    }
++                }
+             });
+         }
+ 
++        private bool IsPinned(string receivedGiftId)
++        {
++            if (_pinned != null)
++            {
++                return IndexOf(_pinned, receivedGiftId) >= 0;
++            }
++
++            return _cache.TryGetValue(receivedGiftId, out ReceivedGift gift) && gift.IsPinned;
++        }
++
++        private static List<ReceivedGift> Without(List<ReceivedGift> gifts, string receivedGiftId)
++        {
++            var index = IndexOf(gifts, receivedGiftId);
++            if (index < 0)
++            {
++                return gifts;
++            }
++
++            // A pin operation awaiting the server may still hold the old list.
++            var copy = new List<ReceivedGift>(gifts);
++            copy.RemoveAt(index);
++            return copy;
++        }
++
+         private void Reload(bool preload = true)
+         {
++            _pinned = null;
++
++            // The filters apply to every collection, so every list starts over; only the visible one loads now.
+             foreach (var collection in Collections)
+             {
+                 collection.Reload(preload && SelectedCollection == collection);
+@@ -363,6 +529,8 @@ public bool ExcludeUnsaved
+                     value = false;
+                     _excludeSaved = false;
+ 
++                    RaisePropertyChanged(nameof(ExcludeSaved));
++
+                     Reload();
+                 }
+                 else if (Set(ref _excludeUnsaved, value))
+@@ -383,6 +551,8 @@ public bool ExcludeSaved
+                     _excludeUnsaved = false;
+                     value = false;
+ 
++                    RaisePropertyChanged(nameof(ExcludeUnsaved));
++
+                     Reload();
+                 }
+                 else if (Set(ref _excludeSaved, value))
+@@ -405,6 +575,10 @@ public bool ExcludeUnlimited
+                     _excludeNonUpgradable = false;
+                     _excludeUpgraded = false;
+ 
++                    RaisePropertyChanged(nameof(ExcludeUpgradable));
++                    RaisePropertyChanged(nameof(ExcludeNonUpgradable));
++                    RaisePropertyChanged(nameof(ExcludeUpgraded));
++
+                     Reload();
+                 }
+                 else if (Set(ref _excludeUnlimited, value))
+@@ -427,6 +601,10 @@ public bool ExcludeUpgradable
+                     _excludeNonUpgradable = false;
+                     _excludeUpgraded = false;
+ 
++                    RaisePropertyChanged(nameof(ExcludeUnlimited));
++                    RaisePropertyChanged(nameof(ExcludeNonUpgradable));
++                    RaisePropertyChanged(nameof(ExcludeUpgraded));
++
+                     Reload();
+                 }
+                 else if (Set(ref _excludeUpgradable, value))
+@@ -449,6 +627,10 @@ public bool ExcludeNonUpgradable
+                     value = false;
+                     _excludeUpgraded = false;
+ 
++                    RaisePropertyChanged(nameof(ExcludeUnlimited));
++                    RaisePropertyChanged(nameof(ExcludeUpgradable));
++                    RaisePropertyChanged(nameof(ExcludeUpgraded));
++
+                     Reload();
+                 }
+                 else if (Set(ref _excludeNonUpgradable, value))
+@@ -471,6 +653,10 @@ public bool ExcludeUpgraded
+                     _excludeNonUpgradable = false;
+                     value = false;
+ 
++                    RaisePropertyChanged(nameof(ExcludeUnlimited));
++                    RaisePropertyChanged(nameof(ExcludeUpgradable));
++                    RaisePropertyChanged(nameof(ExcludeNonUpgradable));
++
+                     Reload();
+                 }
+                 else if (Set(ref _excludeUpgraded, value))
+@@ -528,11 +714,6 @@ protected void OnItemsReady()
+             ItemsReady = null;
+         }
+ 
+-        private ReceivedGiftsCollection UpdateItems(object arg1, string arg2)
+-        {
+-            return new ReceivedGiftsCollection(this, _senderId, _selectedCollection, _excludeUnsaved, _excludeSaved, _excludeUnlimited, _excludeUpgradable, _excludeNonUpgradable, _excludeUpgraded, _sortByPrice);
+-        }
+-
+         public ReceivedGiftsCollection CreateItemsSource(GiftCollectionViewModel collection)
+         {
+             return new ReceivedGiftsCollection(this, _senderId, collection, _excludeUnsaved, _excludeSaved, _excludeUnlimited, _excludeUpgradable, _excludeNonUpgradable, _excludeUpgraded, _sortByPrice);
+@@ -580,8 +761,6 @@ public partial class ReceivedGiftsCollection : ObservableCollection<ReceivedGift
+             private readonly bool _excludeUpgraded;
+             private readonly bool _sortByPrice;
+ 
+-            private readonly MutableVector<string> _pinnedGifts = new();
+-
+             private string _nextOffsetId = string.Empty;
+             private bool _loading;
+ 
+@@ -623,11 +802,6 @@ public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
+ 
+                         foreach (var gift in gifts.Gifts)
+                         {
+-                            if (gift.IsPinned && gift.ReceivedGiftId.Length > 0)
+-                            {
+-                                _pinnedGifts.Add(gift.ReceivedGiftId);
+-                            }
+-
+                             Add(_viewModel.GetOrCreate(gift));
+                             total++;
+                         }
+@@ -636,10 +810,9 @@ public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
+                     _viewModel.OnItemsReady();
+ 
+                     _collection.IsEmpty = Items.Count == 0;
+-                    _collection.HasMoreItems = !string.IsNullOrEmpty(_nextOffsetId);
+-                    _collection.HasLoadedItems = true;
+ 
+                     HasMoreItems = !string.IsNullOrEmpty(_nextOffsetId);
++                    IsLoaded = true;
+ 
+                     _loading = false;
+                     return new LoadMoreItemsResult
+@@ -651,8 +824,72 @@ public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
+ 
+             public bool HasMoreItems { get; private set; } = true;
+ 
+-            // This is only valid for owned gifts
+-            public MutableVector<string> Pinned => _pinnedGifts;
++            public bool IsLoaded { get; private set; }
++
++            /// <summary>
++            /// The full list puts the pinned gifts first; a collection keeps the order its owner gave it.
++            /// </summary>
++            public bool KeepsPinnedFirst => _collection.Id == 0;
++
++            public bool SortByPrice => _sortByPrice;
++
++            /// <summary>
++            /// Whether the filters still let the gift in. Only the ones a gift can move across while
++            /// the list is open are checked: being saved, and being upgraded.
++            /// </summary>
++            public bool Accepts(ReceivedGift gift)
++            {
++                if (gift.IsSaved ? _excludeSaved : _excludeUnsaved)
++                {
++                    return false;
++                }
++
++                return !_excludeUpgraded || gift.Gift is not SentGiftUpgraded;
++            }
++
++            /// <summary>
++            /// Moves a gift that just lost its pin back among the others, by date. Returns false when
++            /// the list is sorted by value, which only the server can place.
++            /// </summary>
++            public bool PlaceUnpinned(ReceivedGift gift)
++            {
++                var index = ProfileGiftsTabViewModel.IndexOf(this, gift.ReceivedGiftId);
++                if (index >= 0)
++                {
++                    // The search has to follow the removal: a position found in the longer list
++                    // is one slot too far down, and Count when the gift sorts last.
++                    RemoveAt(index);
++                }
++
++                if (_sortByPrice)
++                {
++                    return false;
++                }
++
++                index = this.BinarySearch(gift, UnpinnedComparison);
++                if (index < 0)
++                {
++                    index = ~index;
++                }
++
++                // Past the end of a list that has more to load, the gift arrives with the next page.
++                if (index < Count || !HasMoreItems)
++                {
++                    Insert(index, gift);
++                }
++
++                return true;
++            }
++
++            private static int UnpinnedComparison(ReceivedGift gift, ReceivedGift item)
++            {
++                if (item.IsPinned)
++                {
++                    return 1;
++                }
++
++                return item.Date.CompareTo(gift.Date);
++            }
+         }
+ 
+         public void OpenGift(ReceivedGift receivedGift)
+@@ -689,131 +926,302 @@ public async void PinGift(ReceivedGift gift)
+             await PinGiftAsync(gift);
+         }
+ 
+-        public async Task PinGiftAsync(ReceivedGift gift)
++        /// <summary>
++        /// setPinnedGifts replaces the whole list, so it is built from the profile's pins and never
++        /// from the list on screen, which a collection or a filter may leave without some of them.
++        /// </summary>
++        private async Task<List<ReceivedGift>> GetPinnedAsync()
+         {
+-            var pin = !gift.IsPinned;
+-            if (pin && Items.Pinned.Count == ClientService.Options.PinnedGiftCountMax)
++            if (_pinned != null)
+             {
+-                ShowToast(Locale.Declension(Strings.R.GiftsPinLimit, ClientService.Options.PinnedGiftCountMax), ToastPopupIcon.Info);
+-                return;
++                return _pinned;
+             }
+ 
+-            // setPinnedGifts refuses a gift that is not on the profile page.
+-            if (pin && !gift.IsSaved)
++            // Pinned gifts are upgraded and saved, and come first when sorted by date.
++            var limit = (int)Math.Min(ClientService.Options.PinnedGiftCountMax, 100);
++
++            var response = await ClientService.SendAsync(new GetReceivedGifts(_senderId, 0, true, false, true, true, true, false, false, false, false, string.Empty, limit));
++            if (response is not ReceivedGifts gifts)
+             {
+-                var saved = await ClientService.SendAsync(new ToggleGiftIsSaved(gift.ReceivedGiftId, true));
+-                if (saved is not Ok)
++                return null;
++            }
++
++            var pinned = new List<ReceivedGift>(gifts.Gifts.Count);
++
++            foreach (var gift in gifts.Gifts)
++            {
++                if (!gift.IsPinned)
+                 {
+-                    return;
++                    break;
+                 }
+ 
+-                gift.IsSaved = true;
+-                Aggregator.Publish(new UpdateGiftIsSaved(gift.ReceivedGiftId, true));
++                pinned.Add(GetOrCreate(gift));
+             }
+ 
+-            if (pin)
++            return _pinned = pinned;
++        }
++
++        public async Task<bool> IsPinLimitReachedAsync(ReceivedGift gift)
++        {
++            if (gift.IsPinned)
+             {
+-                Items.Pinned.Insert(0, gift.ReceivedGiftId);
++                return false;
+             }
+-            else
++
++            var pinned = await GetPinnedAsync();
++            return pinned != null && pinned.Count >= ClientService.Options.PinnedGiftCountMax;
++        }
++
++        public async Task PinGiftAsync(ReceivedGift gift)
++        {
++            var pinned = await GetPinnedAsync();
++            if (pinned == null)
+             {
+-                Items.Pinned.Remove(gift.ReceivedGiftId);
++                return;
+             }
+ 
+-            var response = await ClientService.SendAsync(new SetPinnedGifts(_senderId, Items.Pinned));
+-            if (response is not Ok)
++            var pin = IndexOf(pinned, gift.ReceivedGiftId) < 0;
++            if (pin && pinned.Count >= ClientService.Options.PinnedGiftCountMax)
+             {
+-                if (pin)
+-                {
+-                    Items.Pinned.Remove(gift.ReceivedGiftId);
+-                }
+-                else
++                await ReplacePinnedGiftAsync(gift, pinned);
++                return;
++            }
++
++            if (pin && await SaveForPinAsync(gift) is false)
++            {
++                return;
++            }
++
++            var updated = pin
++                ? new List<ReceivedGift>(pinned.Count + 1) { gift }
++                : new List<ReceivedGift>(pinned.Count);
++
++            foreach (var item in pinned)
++            {
++                if (item.ReceivedGiftId != gift.ReceivedGiftId)
+                 {
+-                    Items.Pinned.Insert(0, gift.ReceivedGiftId);
++                    updated.Add(item);
+                 }
++            }
+ 
++            if (await SetPinnedAsync(pinned, updated) is false)
++            {
+                 return;
+             }
+ 
+-            gift.IsPinned = pin;
+-
+             if (pin)
+             {
+-                Items.Remove(gift);
+-                Items.Insert(0, gift);
+-
+                 ShowToast(string.Format("**{0}**\n{1}", Strings.Gift2PinnedTitle, Strings.Gift2PinnedSubtitle), ToastPopupIcon.Pin);
+             }
+             else
+             {
+-                PlaceUnpinned(gift);
+                 ShowToast(Strings.Gift2Unpinned, ToastPopupIcon.Unpin);
+             }
+         }
+ 
+         /// <summary>
+-        /// Moves a gift that just lost its pin back among the others, sorted by date.
++        /// setPinnedGifts refuses a gift that is not on the profile page, so one is put there first.
+         /// </summary>
+-        private void PlaceUnpinned(ReceivedGift gift)
++        private async Task<bool> SaveForPinAsync(ReceivedGift gift)
+         {
+-            // The search has to follow the removal: a position found in the longer list
+-            // is one slot too far down, and Items.Count when the gift sorts last.
+-            Items.Remove(gift);
++            if (gift.IsSaved)
++            {
++                return true;
++            }
+ 
+-            var index = Items.BinarySearch(gift, (x, y) => Items.Pinned.Contains(y.ReceivedGiftId) ? 1 : y.Date.CompareTo(x.Date));
+-            if (index < 0)
++            var saved = await ClientService.SendAsync(new ToggleGiftIsSaved(gift.ReceivedGiftId, true));
++            if (saved is not Ok)
+             {
+-                index = ~index;
++                return false;
+             }
+ 
+-            if (index < Items.Count || !Items.HasMoreItems)
++            gift.IsSaved = true;
++            Aggregator.Publish(new UpdateGiftIsSaved(gift.ReceivedGiftId, true));
++
++            return true;
++        }
++
++        /// <summary>
++        /// With every pin taken, the user picks the pinned gift the new one replaces, in place.
++        /// </summary>
++        private async Task ReplacePinnedGiftAsync(ReceivedGift gift, List<ReceivedGift> pinned)
++        {
++            var popup = new ChooseGiftsPopup(ClientService, pinned);
++
++            var confirm = await ShowPopupAsync(popup);
++            if (confirm != ContentDialogResult.Primary || popup.SelectedItem is not ReceivedGift replaced)
+             {
+-                Items.Insert(index, gift);
++                return;
+             }
++
++            var index = IndexOf(pinned, replaced.ReceivedGiftId);
++            if (index < 0 || await SaveForPinAsync(gift) is false)
++            {
++                return;
++            }
++
++            var updated = new List<ReceivedGift>(pinned);
++            updated[index] = gift;
++
++            if (await SetPinnedAsync(pinned, updated))
++            {
++                ShowToast(string.Format("**{0}**\n{1}", string.Format(Strings.Gift2ReplacedPinTitle, GetName(gift)), string.Format(Strings.Gift2ReplacedPinSubtitle, GetName(replaced))), ToastPopupIcon.Pin);
++            }
++        }
++
++        private static string GetName(ReceivedGift gift)
++        {
++            return gift.Gift is SentGiftUpgraded upgraded ? upgraded.Gift.ToName() : string.Empty;
+         }
+ 
+-        private int UnpinGiftComparison(ReceivedGift x, ReceivedGift y)
++        /// <summary>
++        /// Nothing local changes until the server accepts the list, so a failure leaves the lists as they were.
++        /// </summary>
++        private async Task<bool> SetPinnedAsync(List<ReceivedGift> pinned, List<ReceivedGift> updated)
+         {
+-            if (y.IsPinned)
++            var receivedGiftIds = new MutableVector<string>(updated.Count);
++
++            foreach (var gift in updated)
+             {
+-                return 1;
++                receivedGiftIds.Add(gift.ReceivedGiftId);
+             }
+ 
+-            return y.Date.CompareTo(x.Date);
++            var response = await ClientService.SendAsync(new SetPinnedGifts(_senderId, receivedGiftIds));
++            if (response is not Ok)
++            {
++                return false;
++            }
++
++            ApplyPinned(pinned, updated);
++            return true;
+         }
+ 
+-        public void SetPinnedItems()
++        private void ApplyPinned(List<ReceivedGift> pinned, List<ReceivedGift> updated)
+         {
+-            var receivedGiftIds = new MutableVector<string>();
++            _pinned = updated;
++
++            foreach (var gift in pinned)
++            {
++                gift.IsPinned = false;
++            }
++
++            foreach (var gift in updated)
++            {
++                gift.IsPinned = true;
++            }
++
++            foreach (var collection in Collections)
++            {
++                var items = collection.Items.Source;
++                if (!items.IsLoaded)
++                {
++                    continue;
++                }
++
++                if (items.KeepsPinnedFirst && items.SortByPrice)
++                {
++                    collection.Reload(collection == SelectedCollection);
++                }
++                else if (items.KeepsPinnedFirst)
++                {
++                    foreach (var gift in pinned)
++                    {
++                        var index = IndexOf(items, gift.ReceivedGiftId);
++                        if (index >= 0)
++                        {
++                            items.RemoveAt(index);
++                        }
++                    }
++
++                    var position = 0;
++
++                    foreach (var gift in updated)
++                    {
++                        var index = IndexOf(items, gift.ReceivedGiftId);
++                        if (index >= 0)
++                        {
++                            items.RemoveAt(index);
++                        }
++
++                        if (items.Accepts(gift))
++                        {
++                            items.Insert(position++, gift);
++                        }
++                    }
++
++                    foreach (var gift in pinned)
++                    {
++                        if (!gift.IsPinned && items.Accepts(gift))
++                        {
++                            items.PlaceUnpinned(gift);
++                        }
++                    }
++                }
++                else
++                {
++                    // The order stays, only the pin badge changes.
++                    Redraw(items, pinned);
++                    Redraw(items, updated);
++                }
++            }
++        }
+ 
+-            foreach (var item in Items)
++        private static void Redraw(ReceivedGiftsCollection items, List<ReceivedGift> gifts)
++        {
++            foreach (var gift in gifts)
++            {
++                var index = IndexOf(items, gift.ReceivedGiftId);
++                if (index >= 0)
++                {
++                    items.RemoveAt(index);
++                    items.Insert(index, gift);
++                }
++            }
++        }
++
++        /// <summary>
++        /// Called after a pinned gift is dragged: the pinned gifts at the top of the list, in their
++        /// new order, become the profile's pins. A drop that leaves any of them below the others is
++        /// undone.
++        /// </summary>
++        public async void SetPinnedItems()
++        {
++            var order = new List<ReceivedGift>();
++
++            // The drag moved the items in the view only, not in the lists behind it.
++            foreach (var item in ItemsView)
+             {
+                 if (item.IsPinned)
+                 {
+-                    receivedGiftIds.Add(item.ReceivedGiftId);
++                    order.Add(item);
+                 }
+                 else
+                 {
+                     break;
+                 }
+             }
+ 
+-            if (receivedGiftIds.Count != Items.Pinned.Count)
++            var pinned = await GetPinnedAsync();
++            if (pinned == null)
+             {
+                 return;
+             }
+ 
+-            ClientService.Send(new SetPinnedGifts(_senderId, receivedGiftIds));
+-        }
++            var valid = order.Count == pinned.Count;
+ 
+-        public void SetPinnedItem(ReceivedGift gift)
+-        {
+-            var index = Items.Pinned.IndexOf(gift.ReceivedGiftId);
+-            if (index >= 0 && index < Items.Count)
++            for (int i = 0; valid && i < order.Count; i++)
+             {
+-                Items.Remove(gift);
+-                Items.Insert(index, gift);
++                valid = IndexOf(pinned, order[i].ReceivedGiftId) >= 0;
+             }
++
++            if (valid is false || await SetPinnedAsync(pinned, order) is false)
++            {
++                ApplyPinned(pinned, pinned);
++            }
++
++            // The lists forward their changes by index, which the drag left pointing at other items
++            // in the view, so it is matched to them again.
++            ItemsView.SetSource(_selectedCollection.Items);
+         }
+ 
+         public void CopyGift(ReceivedGift gift)
+@@ -857,6 +1265,14 @@ public async void ToggleGift(ReceivedGift gift)
+             }
+         }
+ 
++        public void ToggleWear(ReceivedGift gift)
++        {
++            if (gift.Gift is SentGiftUpgraded upgraded)
++            {
++                _ = ReceivedGiftPopup.ToggleWearAsync(ClientService, NavigationService, XamlRoot, upgraded.Gift);
++            }
++        }
++
+         public void TransferGift(ReceivedGift gift)
+         {
+             NavigationService.ShowPopup(new ChooseChatsPopup(), new ChooseChatsConfigurationTransferGift(gift));
+@@ -948,17 +1364,25 @@ public string Name
+         //    };
+         //}
+ 
+-        public bool HasMoreItems { get; set; } = true;
+-
+-        public bool HasLoadedItems { get; set; }
+-
+         private bool _isEmpty;
+         public bool IsEmpty
+         {
+             get => _isEmpty;
+-            set => Set(ref _isEmpty, value);
++            set
++            {
++                if (Set(ref _isEmpty, value))
++                {
++                    RaisePropertyChanged(nameof(ShowEmptyState));
++                }
++            }
+         }
+ 
++        /// <summary>
++        /// The empty state invites the owner to fill one of their collections; it is not what an
++        /// empty or filtered-out profile shows.
++        /// </summary>
++        public bool ShowEmptyState => _isEmpty && Id != 0 && _viewModel.IsOwned;
++
+         //public void ReorderStories()
+         //{
+         //    if (Id != 0)
+diff --git a/Telegram/Views/Popups/ChooseGiftsPopup.xaml.cs b/Telegram/Views/Popups/ChooseGiftsPopup.xaml.cs
+@@ -40,10 +40,43 @@ public ChooseGiftsPopup(ProfileGiftsTabViewModel viewModel)
+             ScrollingHost.ItemsSource = viewModel.Collections[0].Items;
+         }
+ 
++        /// <summary>
++        /// Picks the pinned gift that a new pin replaces, when every pin is taken.
++        /// </summary>
++        public ChooseGiftsPopup(IClientService clientService, IList<ReceivedGift> pinned)
++        {
++            InitializeComponent();
++
++            _clientService = clientService;
++
++            Title = Strings.Gift2UnpinAlertTitle;
++            Subtitle.Text = Strings.Gift2UnpinAlertSubtitle;
++            Subtitle.Visibility = Visibility.Visible;
++
++            PrimaryButtonText = Strings.Gift2UnpinAlertButton;
++            SecondaryButtonText = Strings.Cancel;
++            IsPrimaryButtonEnabled = false;
++
++            MoreButton.Visibility = Visibility.Collapsed;
++
++            ScrollingHost.SelectionMode = ListViewSelectionMode.Single;
++            ScrollingHost.ItemsSource = pinned;
++        }
++
+         public IEnumerable<ReceivedGift> SelectedItems => ScrollingHost.SelectedItems
+             .Cast<ReceivedGift>()
+             .OrderByDescending(x => x.Date);
+ 
++        public ReceivedGift SelectedItem => ScrollingHost.SelectedItem as ReceivedGift;
++
++        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
++        {
++            if (ScrollingHost.SelectionMode == ListViewSelectionMode.Single)
++            {
++                IsPrimaryButtonEnabled = ScrollingHost.SelectedItem != null;
++            }
++        }
++
+         private void OnChoosingItemContainer(ListViewBase sender, ChoosingItemContainerEventArgs args)
+         {
+             if (args.ItemContainer == null)
+@@ -71,12 +104,13 @@ private void OnContainerContentChanging(ListViewBase sender, ContainerContentCha
+ 
+         private void More_ContextRequested(object sender, RoutedEventArgs e)
+         {
++            // The item names the order it switches to.
+             var sort = new MenuFlyoutItem
+             {
+                 Text = _viewModel.SortByPrice
+-                    ? Strings.Gift2FilterSortByValue
+-                    : Strings.Gift2FilterSortByDate,
+-                Icon = MenuFlyoutHelper.CreateIcon(_viewModel.SortByPrice ? Icons.DollarArrowUp : Icons.CalendarArrowUp)
++                    ? Strings.Gift2FilterSortByDate
++                    : Strings.Gift2FilterSortByValue,
++                Icon = MenuFlyoutHelper.CreateIcon(_viewModel.SortByPrice ? Icons.CalendarArrowUp : Icons.DollarArrowUp)
+             };
+ 
+             var unlimited = new MenuFlyoutItem
+diff --git a/Telegram/Views/Profile/ProfileGiftsTabPage.xaml.cs b/Telegram/Views/Profile/ProfileGiftsTabPage.xaml.cs
+@@ -10,6 +10,7 @@
+ using Telegram.Controls.Media;
+ using Telegram.Td.Api;
+ using Telegram.ViewModels.Profile;
++using Telegram.Views.Stars.Popups;
+ using Windows.ApplicationModel.DataTransfer;
+ using Windows.UI.Xaml;
+ using Windows.UI.Xaml.Controls;
+@@ -43,6 +44,10 @@ public ProfileGiftsTabPage()
+         private void OnContextRequested(UIElement sender, ContextRequestedEventArgs args)
+         {
+             var gift = ScrollingHost.ItemFromContainer(sender) as ReceivedGift;
++            if (gift == null)
++            {
++                return;
++            }
+ 
+             var flyout = new MenuFlyout();
+ 
+@@ -95,13 +100,20 @@ private void OnContextRequested(UIElement sender, ContextRequestedEventArgs args
+                 flyout.Items.Add(item);
+             }
+ 
+-            if (gift.Gift is SentGiftUpgraded)
++            if (gift.Gift is SentGiftUpgraded upgraded)
+             {
+-                if (ViewModel.IsOwned)
++                // Pins lead the full list, so a collection does not offer them.
++                if (ViewModel.IsOwned && ViewModel.SelectedCollection.Id == 0)
+                 {
+                     flyout.CreateFlyoutItem(ViewModel.PinGift, gift, gift.IsPinned ? Strings.Gift2Unpin : Strings.Gift2Pin, gift.IsPinned ? Icons.PinOff : Icons.Pin);
+                 }
+ 
++                if (ViewModel.IsOwned)
++                {
++                    var worn = ReceivedGiftPopup.IsWorn(ViewModel.ClientService, upgraded.Gift);
++                    flyout.CreateFlyoutItem(ViewModel.ToggleWear, gift, worn ? Strings.Gift2ActionWearOff : Strings.Gift2ActionWear, worn ? Icons.CrownOffFilled : Icons.CrownFilled);
++                }
++
+                 flyout.CreateFlyoutItem(ViewModel.CopyGift, gift, Strings.CopyLink, Icons.Link);
+                 flyout.CreateFlyoutItem(ViewModel.ShareGift, gift, Strings.ShareFile, Icons.Share);
+             }
+@@ -142,7 +154,8 @@ private void OnDragItemsStarting(object sender, DragItemsStartingEventArgs e)
+         {
+             try
+             {
+-                if (e.Items[0] is ReceivedGift gift && gift.IsPinned && ViewModel.IsOwned)
++                // Pinned gifts lead the full list only, and only when it is sorted by date.
++                if (e.Items[0] is ReceivedGift gift && gift.IsPinned && ViewModel.IsOwned && ViewModel.SelectedCollection.Id == 0 && !ViewModel.SortByPrice)
+                 {
+                     ScrollingHost.CanReorderItems = true;
+                 }
+@@ -163,25 +176,9 @@ private void OnDragItemsCompleted(ListViewBase sender, DragItemsCompletedEventAr
+         {
+             ScrollingHost.CanReorderItems = false;
+ 
+-            if (args.DropResult == DataPackageOperation.Move && args.Items.Count == 1 && args.Items[0] is ReceivedGift gift)
++            if (args.DropResult == DataPackageOperation.Move && args.Items.Count == 1 && args.Items[0] is ReceivedGift)
+             {
+-                var items = ViewModel.Items;
+-                if (items.Count == 1)
+-                {
+-                    return;
+-                }
+-
+-                var index = items.IndexOf(gift);
+-                var compare = items[index > 0 ? index - 1 : index + 1];
+-
+-                if (compare.IsPinned)
+-                {
+-                    ViewModel.SetPinnedItems();
+-                }
+-                else
+-                {
+-                    ViewModel.SetPinnedItem(gift);
+-                }
++                ViewModel.SetPinnedItems();
+             }
+         }
+ 
+@@ -216,7 +213,10 @@ private void Navigation_ItemContextRequested(UIElement sender, ContextRequestedE
+                 flyout.CreateFlyoutItem(ViewModel.DeleteCollection, collection, Strings.GiftsCollectionMenuDeleteCollection, Icons.Delete, destructive: true);
+             }
+ 
+-            flyout.ShowAt(sender, args);
++            if (flyout.Items.Count > 0)
++            {
++                flyout.ShowAt(sender, args);
++            }
+         }
+ 
+         private void Navigation_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
+diff --git a/Telegram/Views/ProfilePage.xaml.cs b/Telegram/Views/ProfilePage.xaml.cs
+@@ -1154,12 +1154,13 @@ private void Menu_ContextRequested(object sender, RoutedEventArgs e)
+             }
+             else if (MediaFrame.Content is ProfileGiftsTabPage)
+             {
++                // The item names the order it switches to.
+                 var sort = new MenuFlyoutItem
+                 {
+                     Text = ViewModel.GiftsTab.SortByPrice
+-                        ? Strings.Gift2FilterSortByValue
+-                        : Strings.Gift2FilterSortByDate,
+-                    Icon = MenuFlyoutHelper.CreateIcon(ViewModel.GiftsTab.SortByPrice ? Icons.DollarArrowUp : Icons.CalendarArrowUp)
++                        ? Strings.Gift2FilterSortByDate
++                        : Strings.Gift2FilterSortByValue,
++                    Icon = MenuFlyoutHelper.CreateIcon(ViewModel.GiftsTab.SortByPrice ? Icons.CalendarArrowUp : Icons.DollarArrowUp)
+                 };
+ 
+                 var unlimited = new MenuFlyoutItem
+@@ -1199,8 +1200,25 @@ void UpdateFilters(Action action)
+                 upgradable.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.ExcludeUpgradable = !ViewModel.GiftsTab.ExcludeUpgradable);
+                 unique.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.ExcludeUpgraded = !ViewModel.GiftsTab.ExcludeUpgraded);
+ 
+-                flyout.Items.Add(sort);
+-                flyout.CreateFlyoutSeparator();
++                var gifts = ViewModel.GiftsTab;
++
++                // A collection keeps the order its owner gave it.
++                if (gifts.SelectedCollection?.Id is null or 0)
++                {
++                    flyout.Items.Add(sort);
++                }
++
++                // The first collection is All gifts, which is not one of the user's.
++                if (gifts.IsOwned && gifts.Collections.Count - 1 < gifts.ClientService.Options.GiftCollectionCountMax)
++                {
++                    flyout.CreateFlyoutItem(gifts.CreateCollection, (ReceivedGift)null, Strings.Gift2NewCollection, Icons.FolderAdd);
++                }
++
++                if (flyout.Items.Count > 0)
++                {
++                    flyout.CreateFlyoutSeparator();
++                }
++
+                 flyout.Items.Add(unlimited);
+                 flyout.Items.Add(limited);
+                 flyout.Items.Add(upgradable);
+diff --git a/Telegram/Views/Stars/Popups/ReceivedGiftPopup.xaml.cs b/Telegram/Views/Stars/Popups/ReceivedGiftPopup.xaml.cs
+@@ -705,7 +705,7 @@ private void InitializeUpgraded(IClientService clientService, ReceivedGift recei
+                     ResellButton.Content = Strings.Gift2ActionShare;
+                 }
+ 
+-                UpdateWearButton(IsWorn(gift));
++                UpdateWearButton(IsWorn(_clientService, gift));
+             }
+             else
+             {
+@@ -1668,7 +1668,18 @@ private void More_ContextRequested(object sender, RoutedEventArgs e)
+ 
+         private async void Pin()
+         {
+-            await _profile.PinGiftAsync(_gift);
++            // Over the limit the replacement picker opens, a ContentPopup, which this one makes way for.
++            if (await _profile.IsPinLimitReachedAsync(_gift))
++            {
++                Hide();
++
++                await _profile.PinGiftAsync(_gift);
++                await this.ShowQueuedAsync(XamlRoot);
++            }
++            else
++            {
++                await _profile.PinGiftAsync(_gift);
++            }
+ 
+             // Pinning saves a hidden gift first.
+             UpdateSavedInfo();
+@@ -2167,7 +2178,7 @@ private void WearButton_Click(object sender, RoutedEventArgs e)
+                 return;
+             }
+ 
+-            if (_shownWearInfo || IsWorn(upgraded.Gift))
++            if (_shownWearInfo || IsWorn(_clientService, upgraded.Gift))
+             {
+                 ToggleWear();
+             }
+@@ -2179,39 +2190,50 @@ private void WearButton_Click(object sender, RoutedEventArgs e)
+ 
+         private async void ToggleWear()
+         {
+-            if (_gift.Gift is not SentGiftUpgraded upgraded)
++            if (_gift.Gift is SentGiftUpgraded upgraded)
+             {
+-                _submitted = false;
+-                return;
++                var worn = IsWorn(_clientService, upgraded.Gift);
++
++                if (await ToggleWearAsync(_clientService, _navigationService, XamlRoot, upgraded.Gift, this))
++                {
++                    UpdateWearButton(!worn);
++                    ShowPage(GiftPage.Details);
++                }
+             }
+ 
+-            var gift = upgraded.Gift;
+-            var worn = IsWorn(gift);
++            _submitted = false;
++        }
++
++        /// <summary>
++        /// Puts the gift on as its holder's emoji status, or takes it off. False when nothing
++        /// changed. <paramref name="host"/> is the popup asking, if any: it steps aside while the
++        /// boost requirement for a channel is shown, and comes back after.
++        /// </summary>
++        public static async Task<bool> ToggleWearAsync(IClientService clientService, INavigationService navigationService, XamlRoot xamlRoot, UpgradedGift gift, ModalPopup host = null)
++        {
++            var worn = IsWorn(clientService, gift);
+ 
+             EmojiStatus status = null;
+ 
+             if (worn is false)
+             {
+                 if (HolderOf(gift) is MessageSenderChat senderChat)
+                 {
+-                    if (await CanSetChatEmojiStatusAsync(senderChat.ChatId) is false)
++                    if (await CanSetChatEmojiStatusAsync(clientService, navigationService, xamlRoot, senderChat.ChatId, host) is false)
+                     {
+-                        _submitted = false;
+-                        return;
++                        return false;
+                     }
+                 }
+-                else if (_clientService.IsPremium is false)
++                else if (clientService.IsPremium is false)
+                 {
+-                    _submitted = false;
+-                    ToastPopup.ShowFeaturePromo(_navigationService, Strings.Gift2ActionWearNeededPremium, new PremiumFeatureEmojiStatus());
+-                    return;
++                    ToastPopup.ShowFeaturePromo(navigationService, Strings.Gift2ActionWearNeededPremium, new PremiumFeatureEmojiStatus());
++                    return false;
+                 }
+ 
+                 var type = ToEmojiStatusType(gift);
+                 if (type == null)
+                 {
+-                    _submitted = false;
+-                    return;
++                    return false;
+                 }
+ 
+                 status = new EmojiStatus(type, 0);
+@@ -2221,42 +2243,44 @@ private async void ToggleWear()
+                 ? new SetChatEmojiStatus(ownerChat.ChatId, status)
+                 : new SetEmojiStatus(status);
+ 
+-            var response = await _clientService.SendAsync(function);
++            var response = await clientService.SendAsync(function);
+             if (response is Ok)
+             {
+-                UpdateWearButton(!worn);
+-                ShowPage(GiftPage.Details);
+-
+-                ToastPopup.Show(XamlRoot, string.Format(worn ? Strings.Gift2ActionWearOffDone : Strings.Gift2ActionWearDone, gift.ToName()), new DelayedFileSource(_clientService, gift.Model.Sticker));
++                ToastPopup.Show(xamlRoot, string.Format(worn ? Strings.Gift2ActionWearOffDone : Strings.Gift2ActionWearDone, gift.ToName()), new DelayedFileSource(clientService, gift.Model.Sticker));
++                return true;
+             }
+             else if (response is Error error)
+             {
+-                ToastPopup.ShowError(XamlRoot, error);
++                ToastPopup.ShowError(xamlRoot, error);
+             }
+ 
+-            _submitted = false;
++            return false;
+         }
+ 
+-        private async Task<bool> CanSetChatEmojiStatusAsync(long chatId)
++        private static async Task<bool> CanSetChatEmojiStatusAsync(IClientService clientService, INavigationService navigationService, XamlRoot xamlRoot, long chatId, ModalPopup host)
+         {
+-            if (!_clientService.TryGetChat(chatId, out Chat chat))
++            if (!clientService.TryGetChat(chatId, out Chat chat))
+             {
+                 return false;
+             }
+ 
+-            var response1 = await _clientService.SendAsync(new GetChatBoostFeatures(true));
+-            var response2 = await _clientService.SendAsync(new GetChatBoostStatus(chatId));
++            var response1 = await clientService.SendAsync(new GetChatBoostFeatures(true));
++            var response2 = await clientService.SendAsync(new GetChatBoostStatus(chatId));
+ 
+             // If the level can't be read, the server has the last word.
+             if (response1 is not ChatBoostFeatures features || response2 is not ChatBoostStatus status || status.Level >= features.MinEmojiStatusBoostLevel)
+             {
+                 return true;
+             }
+ 
+-            Hide();
++            host?.Hide();
+ 
+-            await _navigationService.ShowPopupAsync(new ChatBoostFeaturesPopup(_clientService, _navigationService, chat, status, null, features, ChatBoostFeature.EmojiStatus, features.MinEmojiStatusBoostLevel));
+-            await this.ShowQueuedAsync(XamlRoot);
++            await navigationService.ShowPopupAsync(new ChatBoostFeaturesPopup(clientService, navigationService, chat, status, null, features, ChatBoostFeature.EmojiStatus, features.MinEmojiStatusBoostLevel));
++
++            if (host != null)
++            {
++                await host.ShowQueuedAsync(xamlRoot);
++            }
+ 
+             return false;
+         }
+@@ -2270,17 +2294,17 @@ private static MessageSender HolderOf(UpgradedGift gift)
+             return gift.HostId ?? gift.OwnerId;
+         }
+ 
+-        private bool IsWorn(UpgradedGift gift)
++        public static bool IsWorn(IClientService clientService, UpgradedGift gift)
+         {
+             EmojiStatus status = null;
+ 
+             var holder = HolderOf(gift);
+ 
+-            if (_clientService.TryGetUser(holder, out User user))
++            if (clientService.TryGetUser(holder, out User user))
+             {
+                 status = user.EmojiStatus;
+             }
+-            else if (_clientService.TryGetChat(holder, out Chat chat))
++            else if (clientService.TryGetChat(holder, out Chat chat))
+             {
+                 status = chat.EmojiStatus;
+             }

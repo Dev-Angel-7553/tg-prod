@@ -1,0 +1,51 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/Unigram:07fb6ffb3d1c466ba8eb0aaaa10a2c0d738faec3:code:mixed",
+  "files": [
+    {
+      "additions": 277,
+      "deletions": 91,
+      "filename": "Telegram/ViewModels/DialogViewModel.Footer.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 563,
+      "deletions": 139,
+      "filename": "Telegram/ViewModels/Profile/ProfileGiftsTabViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 37,
+      "deletions": 3,
+      "filename": "Telegram/Views/Popups/ChooseGiftsPopup.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 22,
+      "deletions": 22,
+      "filename": "Telegram/Views/Profile/ProfileGiftsTabPage.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 23,
+      "deletions": 5,
+      "filename": "Telegram/Views/ProfilePage.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 58,
+      "deletions": 34,
+      "filename": "Telegram/Views/Stars/Popups/ReceivedGiftPopup.xaml.cs",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "develop",
+    "date": "2026-11-21T19:17:29Z",
+    "repo": "TelegramMessenger/Unigram",
+    "sha": "07fb6ffb3d1c466ba8eb0aaaa10a2c0d738faec3",
+    "url": "https://github.com/TelegramMessenger/Unigram/compare/5ef7b2a01e729772be00996bf0b50c744d67a011...07fb6ffb3d1c466ba8eb0aaaa10a2c0d738faec3"
+  }
+}

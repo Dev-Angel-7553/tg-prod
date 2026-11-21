@@ -1,0 +1,63 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "dkaraush/tinyasr:5a2c07675873c822163529cd90cdb9afadfebd7f:code:mixed",
+  "files": [
+    {
+      "additions": 13,
+      "deletions": 2,
+      "filename": "src/file.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 1523,
+      "deletions": 75,
+      "filename": "src/kernels.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 4,
+      "filename": "src/lib.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 116,
+      "deletions": 84,
+      "filename": "src/model.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 126,
+      "deletions": 6,
+      "filename": "src/par.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 100,
+      "deletions": 11,
+      "filename": "src/session.rs",
+      "status": "modified"
+    },
+    {
+      "additions": 16,
+      "deletions": 0,
+      "filename": "web/sw.js",
+      "status": "added"
+    },
+    {
+      "additions": 40,
+      "deletions": 0,
+      "filename": "web/wasm/src/lib.rs",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "main",
+    "date": "2026-11-21T10:15:42Z",
+    "repo": "dkaraush/tinyasr",
+    "sha": "5a2c07675873c822163529cd90cdb9afadfebd7f",
+    "url": "https://github.com/dkaraush/tinyasr/compare/58079749c5b6b7a42b5fba3a7d14f9e65af2baa1...5a2c07675873c822163529cd90cdb9afadfebd7f"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/Unigram:0c3ac8af52fa2865c242afeb7fb1841f92a8a91d:code:mixed",
+  "files": [
+    {
+      "additions": 403,
+      "deletions": 0,
+      "filename": "Telegram/ViewModels/DialogViewModel.Footer.cs",
+      "status": "added"
+    },
+    {
+      "additions": 63,
+      "deletions": 10,
+      "filename": "Telegram/ViewModels/DialogViewModel.Handle.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 54,
+      "deletions": 309,
+      "filename": "Telegram/Views/ChatView.xaml.cs",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "develop",
+    "date": "2026-11-21T10:03:38Z",
+    "repo": "TelegramMessenger/Unigram",
+    "sha": "0c3ac8af52fa2865c242afeb7fb1841f92a8a91d",
+    "url": "https://github.com/TelegramMessenger/Unigram/compare/294a31e089ced5652a1a4e07c03bdade79014f79...0c3ac8af52fa2865c242afeb7fb1841f92a8a91d"
+  }
+}

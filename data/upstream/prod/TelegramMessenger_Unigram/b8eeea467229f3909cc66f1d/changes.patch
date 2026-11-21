@@ -1,0 +1,3056 @@
+diff --git a/Telegram/Common/MessageHelper.cs b/Telegram/Common/MessageHelper.cs
+@@ -1444,7 +1444,11 @@ public static async void NavigateToGroupCall(IClientService clientService, INavi
+         public static async void NavigateToUpgradedGift(IClientService clientService, INavigationService navigation, string name)
+         {
+             var response = await clientService.SendAsync(new GetUpgradedGift(name));
+-            if (response is UpgradedGift gift)
++            if (response is UpgradedGift { IsBurned: true } || response is Error { Message: "STARGIFT_ALREADY_BURNED" })
++            {
++                navigation.ShowToast(Strings.UniqueGiftNotFoundBurned, ToastPopupIcon.Error);
++            }
++            else if (response is UpgradedGift gift)
+             {
+                 var text = gift.OriginalDetails?.Text ?? string.Empty.AsFormattedText();
+                 var receivedGift = new ReceivedGift(string.Empty, null, text, 0, true, false, false, false, false, false, false, 0, new SentGiftUpgraded(gift), Array.Empty<int>(), 0, 0, false, 0, 0, 0, 0, 0, string.Empty, 0);
+diff --git a/Telegram/Controls/Cells/ReceivedGiftCell.xaml.cs b/Telegram/Controls/Cells/ReceivedGiftCell.xaml.cs
+@@ -85,9 +85,7 @@ public void UpdateGift(IClientService clientService, ReceivedGift gift)
+ 
+                 Animated.Source = new DelayedFileSource(clientService, regular.Gift.Sticker);
+ 
+-                StarCount.Text = gift.SellStarCount > 0
+-                    ? gift.SellStarCount.ToString("N0")
+-                    : regular.Gift.StarCount.ToString("N0");
++                StarCount.Text = Icons.PremiumStar + " " + (gift.SellStarCount > 0 ? gift.SellStarCount : regular.Gift.StarCount).ToString("N0");
+ 
+                 if (regular.Gift.OverallLimits != null)
+                 {
+@@ -153,7 +151,7 @@ public void UpdateGift(IClientService clientService, ReceivedGift gift)
+                     }
+ 
+                     ResaleStarCountRoot.Background = new SolidColorBrush(edgeColor.Darken());
+-                    ResaleStarCount.Text = upgraded.Gift.ResaleParameters.StarCount.ToString("N0");
++                    UpdateResalePrice(upgraded.Gift.ResaleParameters);
+                 }
+                 else
+                 {
+@@ -167,6 +165,14 @@ public void UpdateGift(IClientService clientService, ReceivedGift gift)
+             }
+         }
+ 
++        private void UpdateResalePrice(GiftResaleParameters parameters)
++        {
++            // The glyphs are drawn for Segoe UI's baseline, so they go inline rather than beside the text.
++            ResaleStarCount.Text = parameters.GramOnly
++                ? Icons.Gram14 + " " + (parameters.GramCentCount / 100d).ToString("0.##")
++                : Icons.Star14 + " " + parameters.StarCount.ToString("N0");
++        }
++
+         public void UpdateGift(IClientService clientService, SentGiftUpgraded upgraded)
+         {
+             StarCountRoot.Visibility = Visibility.Collapsed;
+@@ -246,7 +252,7 @@ public void UpdateGift(IClientService clientService, GiftForResale gift)
+ 
+             FindName(nameof(ResaleStarCountRoot));
+             ResaleStarCountRoot.Background = new SolidColorBrush(edgeColor.Darken());
+-            ResaleStarCount.Text = gift.Gift.ResaleParameters.StarCount.ToString("N0");
++            UpdateResalePrice(gift.Gift.ResaleParameters);
+ 
+             Ribbon.Visibility = Visibility.Visible;
+             Ribbon.Text = string.Format("#{0:N0}", gift.Gift.Number);
+@@ -268,6 +274,10 @@ public void UpdateGift(IClientService clientService, ReceivedGift gift, bool tra
+ 
+             Pinned.Visibility = Visibility.Collapsed;
+ 
++            // The picker shows this beside available gifts, whose marks a container may still carry.
++            PremiumRoot?.Visibility = Visibility.Collapsed;
++            Locked?.Visibility = Visibility.Collapsed;
++
+             Photo.Visibility = Visibility.Collapsed;
+             Pattern.Visibility = Visibility.Visible;
+ 
+@@ -279,7 +289,6 @@ public void UpdateGift(IClientService clientService, ReceivedGift gift, bool tra
+             FindName(nameof(ResaleStarCountRoot));
+             ResaleStarCountRoot.Background = new SolidColorBrush(edgeColor.Darken());
+             ResaleStarCount.Text = Strings.Gift2TransferMine;
+-            ResaleStar.Visibility = Visibility.Collapsed;
+ 
+             Ribbon.Visibility = Visibility.Visible;
+             Ribbon.Text = string.Format("#{0:N0}", upgraded.Gift.Number);
+@@ -300,77 +309,93 @@ public void UpdateGift(IClientService clientService, ReceivedGift gift, bool tra
+         private readonly Color _ribbonPremiumTop = Color.FromArgb(0xFF, 0xD7, 0x90, 0x23);
+         private readonly Color _ribbonPremiumBottom = Color.FromArgb(0xFF, 0xBF, 0x7D, 0x16);
+ 
+-        public void UpdateGift(IClientService clientService, AvailableGift gift)
++        /// <param name="resale">The cell that opens the gift's resale listings, beside or instead of the one that buys it.</param>
++        /// <param name="upgrade">The price includes the upgrade: the receiver takes this gift only unique.</param>
++        public void UpdateGift(IClientService clientService, AvailableGift gift, bool resale, bool upgrade)
+         {
+             Photo.Visibility = Visibility.Collapsed;
+             Pinned.Visibility = Visibility.Collapsed;
+ 
+             StarCountParticles.Source = new ParticlesImageSource(Color.FromArgb(0x80, 0xE8, 0xAB, 0x02), Native.ParticlesType.Premium);
+             Animated.Source = new DelayedFileSource(clientService, gift.Gift.Sticker);
+ 
+-            if (gift.Gift.OverallLimits != null && (gift.Gift.OverallLimits.RemainingCount > 0 || gift.MinResaleStarCount == 0))
+-            {
+-                StarCount.Text = gift.Gift.StarCount.ToString("N0");
+-
+-                if (gift.Gift.OverallLimits.RemainingCount > 0)
+-                {
+-                    if (gift.Gift.IsPremium)
+-                    {
+-                        FindName(nameof(PremiumRoot));
+-                        PremiumRoot.Visibility = Visibility.Visible;
+-
+-                        Ribbon.Visibility = Visibility.Visible;
+-                        Ribbon.Text = gift.Gift.UserLimits != null
+-                            ? Locale.Declension(Strings.R.Gift2AvailabilityLeft, gift.Gift.UserLimits.RemainingCount)
+-                            : Strings.Gift2LimitedPremium;
+-
+-                        RibbonTop.Color = _ribbonPremiumTop;
+-                        RibbonBottom.Color = _ribbonPremiumBottom;
+-                    }
+-                    else
+-                    {
+-                        PremiumRoot?.Visibility = Visibility.Collapsed;
+-
+-                        Ribbon.Visibility = Visibility.Visible;
+-                        Ribbon.Text = Strings.Gift2LimitedRibbon;
++            var listed = resale && gift.ResaleCount > 0;
++            var soldOut = gift.Gift.OverallLimits?.RemainingCount == 0;
++            var auction = gift.Gift.AuctionInfo;
+ 
+-                        RibbonTop.Color = _ribbonLimitedTop;
+-                        RibbonBottom.Color = _ribbonLimitedBottom;
+-                    }
+-                }
+-                else
+-                {
+-                    PremiumRoot?.Visibility = Visibility.Collapsed;
+-
+-                    Ribbon.Visibility = Visibility.Visible;
+-                    Ribbon.Text = Strings.Gift2SoldOut;
+-
+-                    RibbonTop.Color = _ribbonSoldOutTop;
+-                    RibbonBottom.Color = _ribbonSoldOutBottom;
+-                }
++            // Gold marks what isn't for everyone right now: Premium gifts and running auctions.
++            if (!listed && (gift.Gift.IsPremium || auction != null && !soldOut))
++            {
++                FindName(nameof(PremiumRoot));
++                PremiumRoot.Visibility = Visibility.Visible;
+             }
+-            else if (gift.MinResaleStarCount > 0)
++            else
+             {
+                 PremiumRoot?.Visibility = Visibility.Collapsed;
++            }
+ 
+-                StarCount.Text = gift.MinResaleStarCount.ToString("N0");
+-
+-                Ribbon.Visibility = Visibility.Visible;
+-                Ribbon.Text = Strings.Gift2Resale;
+-
+-                RibbonTop.Color = _ribbonResaleTop;
+-                RibbonBottom.Color = _ribbonResaleBottom;
++            if (!listed && gift.Gift.NextSendDate > clientService.UnixTime)
++            {
++                FindName(nameof(Locked));
++                Locked.Visibility = Visibility.Visible;
+             }
+             else
+             {
+-                PremiumRoot?.Visibility = Visibility.Collapsed;
++                Locked?.Visibility = Visibility.Collapsed;
++            }
+ 
+-                StarCount.Text = gift.Gift.StarCount.ToString("N0");
++            if (listed)
++            {
++                // "+" says there are dearer listings too, unless the cheapest is already at the cap.
++                StarCount.Text = gift.ResaleCount > 1 && gift.MinResaleStarCount < clientService.Options.GiftResaleStarCountMax
++                    ? Icons.PremiumStar + " " + gift.MinResaleStarCount.ToString("N0") + "+"
++                    : Icons.PremiumStar + " " + gift.MinResaleStarCount.ToString("N0");
++            }
++            else if (auction != null && gift.ResaleCount == 0)
++            {
++                StarCount.Text = soldOut ? Strings.Gift2AuctionPriceView : Strings.Gift2AuctionPriceJoin;
++            }
++            else
++            {
++                var starCount = gift.Gift.StarCount + (upgrade ? gift.Gift.UpgradeStarCount : 0);
++                StarCount.Text = Icons.PremiumStar + " " + starCount.ToString("N0");
++            }
+ 
++            if (listed)
++            {
++                UpdateRibbon(Strings.Gift2Resale, _ribbonResaleTop, _ribbonResaleBottom);
++            }
++            else if (soldOut)
++            {
++                UpdateRibbon(Strings.Gift2SoldOut, _ribbonSoldOutTop, _ribbonSoldOutBottom);
++            }
++            else if (auction != null)
++            {
++                UpdateRibbon(auction.StartDate > clientService.UnixTime ? Strings.Gift2LimitedAuctionSoon : Strings.Gift2LimitedAuction, _ribbonPremiumTop, _ribbonPremiumBottom);
++            }
++            else if (gift.Gift.IsPremium)
++            {
++                UpdateRibbon(Strings.Gift2LimitedPremium, _ribbonPremiumTop, _ribbonPremiumBottom);
++            }
++            else if (gift.Gift.OverallLimits != null)
++            {
++                UpdateRibbon(Strings.Gift2LimitedRibbon, _ribbonLimitedTop, _ribbonLimitedBottom);
++            }
++            else
++            {
+                 Ribbon.Visibility = Visibility.Collapsed;
+             }
+ 
+             Hidden?.Visibility = Visibility.Collapsed;
+         }
++
++        private void UpdateRibbon(string text, Color top, Color bottom)
++        {
++            Ribbon.Visibility = Visibility.Visible;
++            Ribbon.Text = text;
++
++            RibbonTop.Color = top;
++            RibbonBottom.Color = bottom;
++        }
+     }
+ }
+diff --git a/Telegram/Controls/Messages/Service/MessageUpgradedGiftContent.xaml.cs b/Telegram/Controls/Messages/Service/MessageUpgradedGiftContent.xaml.cs
+@@ -58,8 +58,48 @@ protected override void UpdateContent(MessageViewModel message)
+ 
+             Subtitle.Text = upgradedGift.Gift.ToName();
+ 
+-            AttributeInfo.Text = Strings.Gift2AttributeModel + "\n" + Strings.Gift2AttributeBackdrop + "\n" + Strings.Gift2AttributeSymbol;
+-            AttributeText.Text = upgradedGift.Gift.Model.Name + "\n" + upgradedGift.Gift.Backdrop.Name + "\n" + upgradedGift.Gift.Symbol.Name;
++            // A message takes the place of the attributes, and its sender stays hidden with the name.
++            if (upgradedGift.Text?.Text.Length > 0)
++            {
++                if (GiftMessage == null)
++                {
++                    FindName(nameof(GiftMessage));
++                }
++
++                GiftMessage.Visibility = Visibility.Visible;
++                AttributeInfo.Visibility = Visibility.Collapsed;
++                AttributeText.Visibility = Visibility.Collapsed;
++
++                GiftMessageText.SetText(message.ClientService, upgradedGift.Text);
++
++                if (upgradedGift.IsPrivate || upgradedGift.SenderId == null)
++                {
++                    GiftMessagePhoto.Visibility = Visibility.Collapsed;
++                }
++                else
++                {
++                    GiftMessagePhoto.Visibility = Visibility.Visible;
++                    GiftMessagePhoto.Source = ProfilePictureSource.MessageSender(message.ClientService, upgradedGift.SenderId);
++                }
++            }
++            else
++            {
++                GiftMessage?.Visibility = Visibility.Collapsed;
++                AttributeInfo.Visibility = Visibility.Visible;
++                AttributeText.Visibility = Visibility.Visible;
++
++                AttributeInfo.Text = Strings.Gift2AttributeModel + "\n" + Strings.Gift2AttributeBackdrop + "\n" + Strings.Gift2AttributeSymbol;
++                AttributeText.Text = upgradedGift.Gift.Model.Name + "\n" + upgradedGift.Gift.Backdrop.Name + "\n" + upgradedGift.Gift.Symbol.Name;
++            }
++        }
++
++        /// <summary>
++        /// The label of the card's button: View in chat, Send Now in the preview before buying.
++        /// </summary>
++        public string ButtonText
++        {
++            get => ViewLabel.Text;
++            set => ViewLabel.Text = value;
+         }
+ 
+         public override void Recycle()
+diff --git a/Telegram/ViewModels/ChooseChatsViewModel.cs b/Telegram/ViewModels/ChooseChatsViewModel.cs
+@@ -873,22 +873,10 @@ private async void SendExecute()
+             }
+             else if (_configuration is ChooseChatsConfigurationTransferGift transferGift)
+             {
+-                var confirm = await NavigationService.ShowPopupAsync(new TransferGiftPopup(ClientService, transferGift.Gift, chats[0], false));
+-                if (confirm == ContentDialogResult.Primary)
++                if (await TransferGiftPopup.ConfirmTransferAsync(ClientService, NavigationService, transferGift.Gift, chats[0]))
+                 {
+                     NavigationService.HidePopup(typeof(ChooseChatsPopup));
+-
+-                    var response = await ClientService.SendAsync(new TransferGift(transferGift.Gift.ReceivedGiftId, chats[0].ToMessageSender(), transferGift.Gift.TransferStarCount));
+-                    if (response is Ok && transferGift.Gift.Gift is SentGiftUpgraded upgraded)
+-                    {
+-                        Aggregator.Publish(new UpdateGiftIsSold(transferGift.Gift.ReceivedGiftId));
+-
+-                        ShowToast(string.Format(Strings.Gift2TransferredText, upgraded.Gift.ToName(), chats[0].Title));
+-                    }
+-                    else if (response is Error error)
+-                    {
+-                        ToastPopup.ShowError(XamlRoot, error);
+-                    }
++                    await TransferGiftPopup.TransferAsync(ClientService, NavigationService, transferGift.Gift, chats[0]);
+                 }
+             }
+             else if (_configuration is ChooseChatsConfigurationCreateGroupCall)
+diff --git a/Telegram/ViewModels/DialogViewModel.Messages.cs b/Telegram/ViewModels/DialogViewModel.Messages.cs
+@@ -2567,6 +2567,10 @@ public async void ExecuteServiceMessage(MessageViewModel message)
+ 
+                 ShowPopup(new ReceivedGiftPopup(ClientService, NavigationService, receivedGift, gift.ReceiverId, null));
+             }
++            else if (message.Content is MessageUpgradedGift { Gift.IsBurned: true })
++            {
++                ShowToast(Strings.UniqueGiftNotFoundBurned, ToastPopupIcon.Error);
++            }
+             else if (message.Content is MessageUpgradedGift upgradedGift)
+             {
+                 ReceivedGift receivedGift = null;
+@@ -2575,9 +2579,9 @@ public async void ExecuteServiceMessage(MessageViewModel message)
+                     receivedGift = await ClientService.SendAsync(new GetReceivedGift(upgradedGift.ReceivedGiftId)) as ReceivedGift;
+                 }
+ 
+-                receivedGift ??= new ReceivedGift(upgradedGift.ReceivedGiftId, upgradedGift.SenderId, upgradedGift.Gift.OriginalDetails?.Text ?? string.Empty.AsFormattedText(), 0, true, upgradedGift.IsSaved, false, false, upgradedGift.CanBeTransferred, false, false, message.Date, new SentGiftUpgraded(upgradedGift.Gift), Array.Empty<int>(), 0, 0, false, upgradedGift.TransferStarCount, upgradedGift.DropOriginalDetailsStarCount, upgradedGift.NextTransferDate, upgradedGift.NextResaleDate, upgradedGift.ExportDate, string.Empty, upgradedGift.CraftDate);
++                receivedGift ??= new ReceivedGift(upgradedGift.ReceivedGiftId, upgradedGift.SenderId, upgradedGift.Text, 0, upgradedGift.IsPrivate, upgradedGift.IsSaved, false, false, upgradedGift.CanBeTransferred, false, false, message.Date, new SentGiftUpgraded(upgradedGift.Gift), Array.Empty<int>(), 0, 0, false, upgradedGift.TransferStarCount, upgradedGift.DropOriginalDetailsStarCount, upgradedGift.NextTransferDate, upgradedGift.NextResaleDate, upgradedGift.ExportDate, string.Empty, upgradedGift.CraftDate);
+ 
+-                ShowPopup(new ReceivedGiftPopup(ClientService, NavigationService, receivedGift, upgradedGift.ReceiverId, null));
++                ShowPopup(new ReceivedGiftPopup(ClientService, NavigationService, receivedGift, upgradedGift.ReceiverId, null, fromMessage: true));
+             }
+             else if (message.Content is MessageGiftedStars giftedStars)
+             {
+@@ -2708,6 +2712,15 @@ public void MarkPollOption(MessagePollOption option)
+             }
+         }
+ 
++        public async void AddPollOption(MessageViewModel message, FormattedText text, InputPollMedia media)
++        {
++            var response = await ClientService.SendAsync(new AddPollOption(message.ChatId, message.Id, new InputPollOption(text, media)));
++            if (response is Error error)
++            {
++                ShowToast(error);
++            }
++        }
++
+         public void DeletePollOption(MessagePollOption option)
+         {
+             ClientService.SendAsync(new DeletePollOption(option.Message.ChatId, option.Message.Id, option.Option.Id));
+diff --git a/Telegram/ViewModels/Settings/SettingsProfileColorViewModel.cs b/Telegram/ViewModels/Settings/SettingsProfileColorViewModel.cs
+@@ -221,23 +221,18 @@ public override async void Continue()
+ 
+             if (SelectedItemView is GiftForResale giftForResale)
+             {
+-                var confirm = await NavigationService.ShowPopupAsync(new TransferGiftPopup(ClientService, giftForResale, null));
+-                if (confirm == ContentDialogResult.Primary)
++                var response = await TransferGiftPopup.BuyAsync(ClientService, NavigationService, giftForResale.Gift, null, ClientService.MyId, string.Empty.AsFormattedText(), false);
++                if (response is GiftResaleResultOk)
+                 {
+-                    // TODO: text, isPrivate
+-                    var response = await ClientService.SendPaymentAsync(giftForResale.Gift.ResaleParameters.StarCount, new SendResoldGift(giftForResale.Gift.Name, ClientService.MyId, new GiftResalePriceStar(giftForResale.Gift.ResaleParameters.StarCount), string.Empty.AsFormattedText(), false));
+-                    if (response is GiftResaleResultOk)
+-                    {
+-                        ContinueImpl(giftForResale, null);
+-                    }
+-                    else if (response is Error error)
+-                    {
+-                        ToastPopup.ShowError(XamlRoot, error);
+-                    }
+-                    else if (response is ErrorStarsNeeded)
+-                    {
+-                        NavigationService.ShowPopup(new BuyPopup(), BuyStarsArgs.ForChannel(giftForResale.Gift.ResaleParameters.StarCount, 0));
+-                    }
++                    ContinueImpl(giftForResale, null);
++                }
++                else if (response is Error error)
++                {
++                    ToastPopup.ShowError(XamlRoot, error);
++                }
++                else if (response is ErrorStarsNeeded)
++                {
++                    NavigationService.ShowPopup(new BuyPopup(), BuyStarsArgs.ForChannel(giftForResale.Gift.ResaleParameters.StarCount, 0));
+                 }
+             }
+             else
+diff --git a/Telegram/Views/Gifts/Popups/GiftCraftChoosePopup.xaml.cs b/Telegram/Views/Gifts/Popups/GiftCraftChoosePopup.xaml.cs
+@@ -205,46 +205,31 @@ private async void OnItemClick(object sender, ItemClickEventArgs e)
+             {
+                 var chat = await _clientService.GetChatFromMessageSenderAsync(null);
+ 
+-                var confirm = await _navigationService.ShowPopupAsync(new TransferGiftPopup(_clientService, giftForResale, chat));
+-                if (confirm == ContentDialogResult.Primary)
++                var response = await TransferGiftPopup.BuyAsync(_clientService, _navigationService, giftForResale.Gift, chat, _clientService.MyId, string.Empty.AsFormattedText(), false);
++                if (response is GiftResaleResultOk ok)
+                 {
+-                    GiftResalePrice price;
+-                    if (giftForResale.Gift.ResaleParameters.GramOnly)
+-                    {
+-                        price = new GiftResalePriceGram(giftForResale.Gift.ResaleParameters.GramCentCount);
+-                    }
+-                    else
+-                    {
+-                        price = new GiftResalePriceStar(giftForResale.Gift.ResaleParameters.StarCount);
+-                    }
+-
+-                    // TODO: text, isPrivate
+-                    var response = await _clientService.SendPaymentAsync(giftForResale.Gift.ResaleParameters.StarCount, new SendResoldGift(giftForResale.Gift.Name, _clientService.MyId, price, string.Empty.AsFormattedText(), false));
+-                    if (response is GiftResaleResultOk ok)
+-                    {
+-                        //_aggregator.Publish(new UpdateGiftIsSold(_gift.ReceivedGiftId));
+-                        SelectedGift = new ReceivedGift(ok.ReceivedGiftId, null, null, 0, false, false, false, false, false, false, false, 0, new SentGiftUpgraded(giftForResale.Gift), Array.Empty<int>(), 0, 0, false, 0, 0, 0, 0, 0, string.Empty, 0); ;
+-                        Hide(ContentDialogResult.Primary);
+-
+-                        //if (chat != null)
+-                        //{
+-                        //    _navigationService.NavigateToChat(chat.Id);
+-                        //    ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.BoughtResoldGiftToTitle, string.Format(Strings.BoughtResoldGiftToText, chat.Title)), new DelayedFileSource(_clientService, upgraded.Gift.Model.Sticker));
+-                        //}
+-                        //else
+-                        //{
+-                        //    ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.BoughtResoldGiftTitle, string.Format(Strings.BoughtResoldGiftText, upgraded.Gift.ToName())), new DelayedFileSource(_clientService, upgraded.Gift.Model.Sticker));
+-                        //}
+-                    }
+-                    else if (response is Error error)
+-                    {
+-                        ToastPopup.ShowError(XamlRoot, error);
+-                    }
+-                    else if (response is ErrorStarsNeeded)
+-                    {
+-                        Hide();
+-                        await _navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(giftForResale.Gift.ResaleParameters.StarCount, 0));
+-                    }
++                    //_aggregator.Publish(new UpdateGiftIsSold(_gift.ReceivedGiftId));
++                    SelectedGift = new ReceivedGift(ok.ReceivedGiftId, null, null, 0, false, false, false, false, false, false, false, 0, new SentGiftUpgraded(giftForResale.Gift), Array.Empty<int>(), 0, 0, false, 0, 0, 0, 0, 0, string.Empty, 0); ;
++                    Hide(ContentDialogResult.Primary);
++
++                    //if (chat != null)
++                    //{
++                    //    _navigationService.NavigateToChat(chat.Id);
++                    //    ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.BoughtResoldGiftToTitle, string.Format(Strings.BoughtResoldGiftToText, chat.Title)), new DelayedFileSource(_clientService, upgraded.Gift.Model.Sticker));
++                    //}
++                    //else
++                    //{
++                    //    ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.BoughtResoldGiftTitle, string.Format(Strings.BoughtResoldGiftText, upgraded.Gift.ToName())), new DelayedFileSource(_clientService, upgraded.Gift.Model.Sticker));
++                    //}
++                }
++                else if (response is Error error)
++                {
++                    ToastPopup.ShowError(XamlRoot, error);
++                }
++                else if (response is ErrorStarsNeeded)
++                {
++                    Hide();
++                    await _navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(giftForResale.Gift.ResaleParameters.StarCount, 0));
+                 }
+ 
+                 //Hide(ContentDialogResult.Primary);
+diff --git a/Telegram/Views/Popups/TransferGiftPopup.xaml.cs b/Telegram/Views/Popups/TransferGiftPopup.xaml.cs
+@@ -5,105 +5,379 @@
+ // file LICENSE or copy at https://www.gnu.org/licenses/gpl-3.0.txt)
+ //
+ 
++using System;
++using System.Threading.Tasks;
+ using Telegram.Common;
+ using Telegram.Controls;
++using Telegram.Controls.Media;
++using Telegram.Converters;
+ using Telegram.Navigation;
++using Telegram.Navigation.Services;
+ using Telegram.Services;
+ using Telegram.Streams;
+ using Telegram.Td.Api;
++using Telegram.Views.Stars.Popups;
+ using Windows.UI.Xaml;
++using Windows.UI.Xaml.Controls;
+ 
+ namespace Telegram.Views.Popups
+ {
+     public sealed partial class TransferGiftPopup : ModalPopup
+     {
++        private readonly UpgradedGift _resale;
++        private readonly Chat _chat;
++
++        private bool _gram;
++
+         public string Text { get; set; } = string.Empty;
+ 
+-        public TransferGiftPopup(IClientService clientService, ReceivedGift gift, Chat chat, bool resale)
++        public TransferGiftPopup(IClientService clientService, ReceivedGift gift, Chat chat)
+         {
+             InitializeComponent();
+ 
+             if (gift.Gift is SentGiftUpgraded upgraded)
+             {
+-                Animated.Source = new DelayedFileSource(clientService, upgraded.Gift.Model.Sticker);
++                var name = clientService.GetTitle(chat, true);
++
++                InitializePhotos(clientService, upgraded.Gift, chat);
++                InitializeAttributes(upgraded.Gift);
++
++                if (gift.TransferStarCount > 0)
++                {
++                    TextBlockHelper.SetMarkdown(MessageLabel, Locale.Declension(Strings.R.Gift2TransferPriceText, gift.TransferStarCount, upgraded.Gift.ToName(), name));
++                    PrimaryButtonText = string.Format(Strings.Gift2TransferDoPrice, gift.TransferStarCount.ToString("N0")).ReplaceStar(Icons.Premium);
++                }
++                else
++                {
++                    TextBlockHelper.SetMarkdown(MessageLabel, string.Format(Strings.Gift2TransferText, upgraded.Gift.ToName(), name));
++                    PrimaryButtonText = Strings.Gift2TransferDo;
++                }
++            }
++
++            PrimaryButtonStyle = BootStrapper.Current.Resources["AccentButtonStyle"] as Style;
++            SecondaryButtonContent = Strings.Cancel;
++        }
++
++        /// <summary>
++        /// Confirms buying a gift on sale, for the current user when chat is null.
++        /// </summary>
++        public TransferGiftPopup(IClientService clientService, UpgradedGift gift, Chat chat, bool gram)
++        {
++            InitializeComponent();
++
++            _resale = gift;
++            _chat = chat;
++
++            InitializePhotos(clientService, gift, chat);
++
++            PrimaryButtonStyle = BootStrapper.Current.Resources["AccentButtonStyle"] as Style;
++            SecondaryButtonContent = Strings.Cancel;
++
++            if (gift.ResaleParameters.GramOnly)
++            {
++                CurrencyInfo.Text = Strings.Gift2BuyPriceOnlyTON;
++                CurrencyInfo.Visibility = Visibility.Visible;
++                UpdateCurrency(true);
++            }
++            else
++            {
++                Currency.Visibility = Visibility.Visible;
++                Currency.SelectedIndex = gram ? 1 : 0;
++                Currency.SelectionChanged += Currency_SelectionChanged;
++                UpdateCurrency(gram);
++            }
++        }
++
++        public bool IsGram => _gram;
++
++        public GiftResalePrice Price => _gram
++            ? new GiftResalePriceGram(_resale.ResaleParameters.GramCentCount)
++            : new GiftResalePriceStar(_resale.ResaleParameters.StarCount);
++
++        private void InitializePhotos(IClientService clientService, UpgradedGift gift, Chat chat)
++        {
++            Animated.Source = new DelayedFileSource(clientService, gift.Model.Sticker);
++
++            Photo1.Update(clientService, gift);
++
++            if (chat != null)
++            {
++                Photo2.Source = ProfilePictureSource.Chat(clientService, chat);
++            }
++            else if (clientService.TryGetUser(clientService.Options.MyId, out User user))
++            {
++                Photo2.Source = ProfilePictureSource.User(clientService, user);
++            }
++        }
++
++        private void InitializeAttributes(UpgradedGift gift)
++        {
++            Attributes.Visibility = Visibility.Visible;
++
++            ModelText.Text = gift.Model.Name;
++            ModelRarity.Glyph = gift.Model.Rarity.ToText();
++            gift.Model.Rarity.ToColor(ModelRarity);
++            BackdropText.Text = gift.Backdrop.Name;
++            BackdropRarity.Glyph = gift.Backdrop.Rarity.ToText();
++            gift.Backdrop.Rarity.ToColor(BackdropRarity);
++            SymbolText.Text = gift.Symbol.Name;
++            SymbolRarity.Glyph = gift.Symbol.Rarity.ToText();
++            gift.Symbol.Rarity.ToColor(SymbolRarity);
++
++            if (gift.ValueAmount != 0)
++            {
++                ValueRow.Content = "~" + Locale.FormatCurrency(gift.ValueAmount, gift.ValueCurrency);
++                ValueRow.Visibility = Visibility.Visible;
++            }
++        }
++
++        private void UpdateCurrency(bool gram)
++        {
++            _gram = gram;
++
++            var parameters = _resale.ResaleParameters;
++            var name = _resale.ToName();
++
++            if (gram)
++            {
++                var amount = FormatGram(parameters.GramCentCount);
++
++                TextBlockHelper.SetMarkdown(MessageLabel, _chat != null
++                    ? string.Format(Strings.Gift2BuyPriceTextTON, amount, name, _chat.Title)
++                    : string.Format(Strings.Gift2BuyPriceSelfTextTON, amount, name));
++
++                PrimaryButtonText = string.Format(Strings.Gift2BuyDoPrice2TON, amount).ReplaceStar(Icons.Gram14);
++            }
++            else
++            {
++                TextBlockHelper.SetMarkdown(MessageLabel, _chat != null
++                    ? Locale.Declension(Strings.R.Gift2BuyPriceText, parameters.StarCount, name, _chat.Title)
++                    : Locale.Declension(Strings.R.Gift2BuyPriceSelfText, parameters.StarCount, name));
++
++                PrimaryButtonText = Locale.Declension(Strings.R.Gift2BuyDoPrice2, parameters.StarCount).ReplaceStar(Icons.Premium);
++            }
++
++            // The hint sells Grams, so it goes once they are picked.
++            if (!parameters.GramOnly)
++            {
++                CurrencyInfo.Text = Strings.Gift2BuyPricePayHintTON;
++                CurrencyInfo.Visibility = gram ? Visibility.Collapsed : Visibility.Visible;
++            }
++        }
++
++        private void Currency_SelectionChanged(object sender, SelectionChangedEventArgs e)
++        {
++            if (Currency.SelectedIndex >= 0)
++            {
++                UpdateCurrency(Currency.SelectedIndex == 1);
++            }
++        }
++
++        public static string FormatGram(long gramCentCount)
++        {
++            return (gramCentCount / 100d).ToString("0.##");
++        }
++
++        /// <summary>
++        /// Confirms and pays for a gift on sale, asking again whenever the seller raised the price meanwhile.
++        /// Returns null when the user gave up, otherwise TDLib's answer or <see cref="ErrorStarsNeeded"/>.
++        /// </summary>
++        public static async Task<Object> BuyAsync(IClientService clientService, INavigationService navigationService, UpgradedGift gift, Chat chat, MessageSender ownerId, FormattedText text, bool isPrivate)
++        {
++            var gram = gift.ResaleParameters.GramOnly;
++
++            while (true)
++            {
++                var popup = new TransferGiftPopup(clientService, gift, chat, gram);
++
++                var confirm = await navigationService.ShowPopupAsync(popup);
++                if (confirm != ContentDialogResult.Primary)
++                {
++                    return null;
++                }
+ 
+-                Photo1.Update(clientService, upgraded.Gift);
++                gram = popup.IsGram;
+ 
+-                if (chat != null)
++                var function = new SendResoldGift(gift.Name, ownerId, popup.Price, text, isPrivate);
++                Object response;
++
++                if (gram)
+                 {
+-                    Photo2.Source = ProfilePictureSource.Chat(clientService, chat);
++                    if (!await HasGramsAsync(clientService, navigationService, gift.ResaleParameters.GramCentCount))
++                    {
++                        return null;
++                    }
++
++                    response = await clientService.SendAsync(function);
+                 }
+-                else if (clientService.TryGetUser(clientService.Options.MyId, out User user))
++                else
+                 {
+-                    Photo2.Source = ProfilePictureSource.User(clientService, user);
++                    response = await clientService.SendPaymentAsync(gift.ResaleParameters.StarCount, function);
+                 }
+ 
+-                if (resale && upgraded.Gift.ResaleParameters != null)
++                if (response is GiftResaleResultPriceIncreased increased)
+                 {
+-                    if (chat != null)
++                    if (increased.Price is GiftResalePriceStar star)
+                     {
+-                        TextBlockHelper.SetMarkdown(MessageLabel, Locale.Declension(Strings.R.Gift2BuyPriceText, upgraded.Gift.ResaleParameters.StarCount, upgraded.Gift.ToName(), chat.Title));
++                        gift.ResaleParameters.StarCount = star.StarCount;
+                     }
+-                    else
++                    else if (increased.Price is GiftResalePriceGram grams)
+                     {
+-                        TextBlockHelper.SetMarkdown(MessageLabel, Locale.Declension(Strings.R.Gift2BuyPriceSelfText, upgraded.Gift.ResaleParameters.StarCount, upgraded.Gift.ToName()));
++                        gift.ResaleParameters.GramCentCount = grams.GramCentCount;
+                     }
+ 
+-                    PrimaryButtonContent = Strings.Gift2TransferDo;
++                    navigationService.ShowToast(Strings.GiftOnchainErrorPriceChangedFixed, ToastPopupIcon.Info);
++                    continue;
+                 }
+-                else if (gift.TransferStarCount > 0)
++
++                return response;
++            }
++        }
++
++        /// <summary>
++        /// False, after saying when it can, while the gift can't be transferred yet.
++        /// </summary>
++        public static bool CheckTransferDate(INavigationService navigationService, ReceivedGift gift)
++        {
++            var now = DateTime.Now.ToUnixTimeSeconds();
++            if (now >= gift.NextTransferDate)
++            {
++                return true;
++            }
++
++            var diff = Formatter.ToLocalTime(gift.NextTransferDate) - DateTime.Now;
++
++            var message = diff.TotalDays >= 1
++                ? string.Format(Strings.Gift2TransferTimeoutDate, Formatter.DateAt(gift.NextTransferDate))
++                : string.Format(Strings.Gift2TransferTimeout, Locale.FormatTtl(gift.NextTransferDate - now));
++
++            navigationService.ShowPopup(message, Strings.Gift2TransferTimeoutTitle, Strings.OK);
++            return false;
++        }
++
++        /// <summary>
++        /// False, after saying why, when the gift can't be transferred yet or the chat takes no
++        /// upgraded gifts; otherwise asks to confirm the transfer.
++        /// </summary>
++        public static async Task<bool> ConfirmTransferAsync(IClientService clientService, INavigationService navigationService, ReceivedGift gift, Chat chat)
++        {
++            if (!CheckTransferDate(navigationService, gift))
++            {
++                return false;
++            }
++
++            if (chat.Type is ChatTypeSupergroup supergroup)
++            {
++                if (!clientService.TryGetSupergroupFull(supergroup.SupergroupId, out SupergroupFullInfo fullInfo))
+                 {
+-                    TextBlockHelper.SetMarkdown(MessageLabel, Locale.Declension(Strings.R.Gift2TransferPriceText, gift.TransferStarCount, upgraded.Gift.ToName(), chat.Title));
+-                    PrimaryButtonContent = Strings.Gift2TransferDo;
++                    var response = await clientService.SendAsync(new GetSupergroupFullInfo(supergroup.SupergroupId));
++                    if (response is Error error)
++                    {
++                        navigationService.ShowToast(error);
++                        return false;
++                    }
++
++                    fullInfo = response as SupergroupFullInfo;
+                 }
+-                else
++
++                if (fullInfo?.CanSendGift is false)
+                 {
+-                    TextBlockHelper.SetMarkdown(MessageLabel, string.Format(Strings.Gift2TransferText, upgraded.Gift.ToName(), chat.Title));
+-                    PrimaryButtonContent = Strings.Gift2TransferDo;
++                    await navigationService.ShowPopupAsync(Strings.Gift2ChannelDoesntSupportGiftsText, Strings.Gift2ChannelDoesntSupportGiftsTitle, Strings.OK);
++                    return false;
+                 }
+             }
++            else if (chat.Type is ChatTypePrivate privata)
++            {
++                if (!clientService.TryGetUserFull(privata.UserId, out UserFullInfo fullInfo))
++                {
++                    var response = await clientService.SendAsync(new GetUserFullInfo(privata.UserId));
++                    if (response is Error error)
++                    {
++                        navigationService.ShowToast(error);
++                        return false;
++                    }
+ 
++                    fullInfo = response as UserFullInfo;
++                }
+ 
+-            PrimaryButtonStyle = BootStrapper.Current.Resources["AccentButtonStyle"] as Style;
+-            SecondaryButtonContent = Strings.Cancel;
++                if (fullInfo?.GiftSettings?.AcceptedGiftTypes?.UpgradedGifts is false)
++                {
++                    navigationService.ShowToast(string.Format(Strings.UserDisallowedGifts, clientService.GetTitle(chat, true)), ToastPopupIcon.Error);
++                    return false;
++                }
++            }
+ 
++            var confirm = await navigationService.ShowPopupAsync(new TransferGiftPopup(clientService, gift, chat));
++            return confirm == ContentDialogResult.Primary;
+         }
+ 
+-        public TransferGiftPopup(IClientService clientService, GiftForResale upgraded, Chat chat)
++        /// <summary>
++        /// Transfers a gift the user already confirmed, paying its transfer price when it has one.
++        /// </summary>
++        public static async Task TransferAsync(IClientService clientService, INavigationService navigationService, ReceivedGift gift, Chat chat)
+         {
+-            InitializeComponent();
++            if (gift.Gift is not SentGiftUpgraded upgraded)
++            {
++                return;
++            }
+ 
+-            Animated.Source = new DelayedFileSource(clientService, upgraded.Gift.Model.Sticker);
++            var function = new TransferGift(gift.ReceivedGiftId, chat.ToMessageSender(), gift.TransferStarCount);
++            var response = gift.TransferStarCount > 0
++                ? await clientService.SendPaymentAsync(gift.TransferStarCount, function)
++                : await clientService.SendAsync(function);
+ 
+-            Photo1.Update(clientService, upgraded.Gift);
++            if (response is Ok)
++            {
++                clientService.Session.Resolve<IEventAggregator>().Publish(new UpdateGiftIsSold(gift.ReceivedGiftId));
+ 
+-            if (chat != null)
++                // From one user to another the gift arrives as a message, so the chat is where it can be seen.
++                if (chat.Type is ChatTypePrivate && upgraded.Gift.OwnerId is MessageSenderUser)
++                {
++                    navigationService.NavigateToChat(chat);
++                }
++
++                var text = string.Format(Strings.Gift2TransferredText, upgraded.Gift.ToName(), clientService.GetTitle(chat, true));
++                navigationService.ShowToast(string.Format("**{0}**\n{1}", Strings.Gift2TransferredTitle, text), ToastPopupIcon.Forward);
++            }
++            else if (response is ErrorStarsNeeded needed)
+             {
+-                Photo2.Source = ProfilePictureSource.Chat(clientService, chat);
++                await navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(needed.StarCount, 0));
+             }
+-            else if (clientService.TryGetUser(clientService.Options.MyId, out User user))
++            else if (response is Error error)
+             {
+-                Photo2.Source = ProfilePictureSource.User(clientService, user);
++                navigationService.ShowToast(error);
+             }
++        }
+ 
+-            if (upgraded.Gift.ResaleParameters != null)
++        /// <summary>
++        /// False, after offering to top up, when the balance is short of <paramref name="gramCentCount"/>.
++        /// </summary>
++        public static async Task<bool> HasGramsAsync(IClientService clientService, INavigationService navigationService, long gramCentCount)
++        {
++            // The balance is in nanograms, and a gram cent is 10^7 of them.
++            var required = gramCentCount * 10_000_000;
++            if (clientService.OwnedGramCount < required)
+             {
+-                if (chat != null)
+-                {
+-                    TextBlockHelper.SetMarkdown(MessageLabel, Locale.Declension(Strings.R.Gift2BuyPriceText, upgraded.Gift.ResaleParameters.StarCount, upgraded.Gift.ToName(), chat.Title));
+-                }
+-                else
+-                {
+-                    TextBlockHelper.SetMarkdown(MessageLabel, Locale.Declension(Strings.R.Gift2BuyPriceSelfText, upgraded.Gift.ResaleParameters.StarCount, upgraded.Gift.ToName()));
+-                }
++                await clientService.GetTonTransactionsAsync(null, string.Empty, 1);
++            }
+ 
+-                PrimaryButtonContent = Strings.Gift2TransferDo;
++            var missing = required - clientService.OwnedGramCount;
++            if (missing <= 0)
++            {
++                return true;
+             }
+ 
++            // Rounded up, so that topping up the amount shown is always enough.
++            var title = string.Format(Strings.TonNeededTitle, FormatGram((missing + 9_999_999) / 10_000_000));
+ 
+-            PrimaryButtonStyle = BootStrapper.Current.Resources["AccentButtonStyle"] as Style;
+-            SecondaryButtonContent = Strings.Cancel;
++            var confirm = await navigationService.ShowPopupAsync(Strings.FragmentAddFunds, title, Strings.TopUpViaFragment, Strings.Cancel);
++            if (confirm == ContentDialogResult.Primary)
++            {
++                var url = clientService.Options.GramTopUpUrl;
++                MessageHelper.OpenUrl(null, null, string.IsNullOrEmpty(url) ? Strings.TopUpViaFragmentLink : url);
++            }
+ 
++            return false;
+         }
+     }
+ }
+diff --git a/Telegram/Views/Premium/Popups/GiftPopup.xaml.cs b/Telegram/Views/Premium/Popups/GiftPopup.xaml.cs
+@@ -35,10 +35,10 @@ public enum GiftGroupType
+ 
+     public partial class GiftGroup
+     {
+-        public GiftGroup(GiftGroupType key, IEnumerable<AvailableGift> source)
++        public GiftGroup(GiftGroupType key, List<object> source)
+         {
+             Type = key;
+-            ItemsSource = source.ToList();
++            ItemsSource = source;
+         }
+ 
+         public GiftGroup(GiftGroupType key, ObservableCollection<ReceivedGift> source)
+@@ -52,6 +52,20 @@ public GiftGroup(GiftGroupType key, ObservableCollection<ReceivedGift> source)
+         public object ItemsSource { get; }
+     }
+ 
++    /// <summary>
++    /// The cell that opens a gift's resale listings. A gift still in stock has it next to the
++    /// cell that buys it new; a sold out one has only this.
++    /// </summary>
++    public partial class AvailableGiftResale
++    {
++        public AvailableGiftResale(AvailableGift gift)
++        {
++            Gift = gift;
++        }
++
++        public AvailableGift Gift { get; }
++    }
++
+     public sealed partial class GiftPopup : ModalPopup
+     {
+         private readonly IClientService _clientService;
+@@ -60,10 +74,15 @@ public sealed partial class GiftPopup : ModalPopup
+         private readonly MessageSender _receiverId;
+         private readonly Chat _chat;
+ 
+-        private readonly DiffObservableCollection<AvailableGift> _gifts = new();
++        private readonly DiffObservableCollection<object> _gifts = new();
+ 
+         private readonly GiftGroupType _initialGroup;
+ 
++        /// <summary>
++        /// What the receiving user accepts; null for the current user and for channels.
++        /// </summary>
++        private readonly AcceptedGiftTypes _accepted;
++
+         public GiftPopup(IClientService clientService, INavigationService navigationService, User user, UserFullInfo fullInfo, GiftGroupType initialGroup = GiftGroupType.All)
+         {
+             InitializeComponent();
+@@ -79,15 +98,25 @@ public GiftPopup(IClientService clientService, INavigationService navigationServ
+ 
+             if (user.Id != clientService.Options.MyId)
+             {
+-                TextBlockHelper.SetMarkdown(PremiumInfo, string.Format(Strings.Gift2PremiumInfo, user.FirstName));
++                _accepted = fullInfo.GiftSettings.AcceptedGiftTypes;
++
++                if (_accepted.PremiumSubscription)
++                {
++                    TextBlockHelper.SetMarkdown(PremiumInfo, string.Format(Strings.Gift2PremiumInfo, user.FirstName));
++                    AddLink(PremiumInfo, Strings.Gift2PremiumInfoLink, PremiumInfoLink_Click);
++
++                    InitializeOptions(clientService);
++                }
++                else
++                {
++                    PremiumTitle.Visibility = Visibility.Collapsed;
++                    PremiumInfo.Visibility = Visibility.Collapsed;
++                }
+ 
+                 StarsTitle.Text = Strings.Gift2Stars;
+                 TextBlockHelper.SetMarkdown(StarsInfo, string.Format(Strings.Gift2StarsInfo, user.FirstName));
+ 
+-                AddLink(PremiumInfo, Strings.Gift2PremiumInfoLink, PremiumInfoLink_Click);
+                 AddLink(StarsInfo, Strings.Gift2StarsInfoLink, StarsInfoLink_Click);
+-
+-                InitializeOptions(clientService);
+             }
+             else
+             {
+@@ -169,65 +198,124 @@ private async void InitializeOptions(IClientService clientService)
+             }
+         }
+ 
++        /// <summary>
++        /// False, after saying so, when the user takes no gift of any kind and the picker would be empty.
++        /// </summary>
++        public static bool CanReceiveGifts(IClientService clientService, INavigationService navigationService, User user, UserFullInfo fullInfo)
++        {
++            var accepted = fullInfo.GiftSettings.AcceptedGiftTypes;
++            if (user.Id == clientService.Options.MyId || accepted.PremiumSubscription || accepted.UnlimitedGifts || accepted.LimitedGifts || accepted.UpgradedGifts)
++            {
++                return true;
++            }
++
++            navigationService.ShowToast(string.Format(Strings.UserDisallowedGifts, user.FirstName), ToastPopupIcon.Error);
++            return false;
++        }
++
++        private bool IsAccepted(Gift gift)
++        {
++            // Channels can't take part in auctions.
++            if (_receiverId is MessageSenderChat && gift.AuctionInfo != null)
++            {
++                return false;
++            }
++            else if (_accepted == null)
++            {
++                return true;
++            }
++
++            // A limited gift the user refuses can still arrive upgraded, the upgrade paid with it.
++            return gift.OverallLimits != null
++                ? _accepted.LimitedGifts || gift.UpgradeStarCount > 0 && _accepted.UpgradedGifts
++                : _accepted.UnlimitedGifts;
++        }
++
+         private async void InitializeGifts(IClientService clientService, bool birthday, bool self)
+         {
+             var navigation = new ObservableCollection<GiftGroup>();
+ 
+             var response = await clientService.SendAsync(new GetAvailableGifts());
+             if (response is AvailableGifts gifts)
+             {
+-                var all = new List<AvailableGift>();
+-                var remaining = new List<AvailableGift>();
++                // Sold out gifts go last; on the user's birthday, birthday gifts lead the rest.
++                var sorted = gifts.Gifts
++                    .Where(x => IsAccepted(x.Gift))
++                    .OrderBy(x => x.Gift.OverallLimits?.RemainingCount == 0 ? 1 : 0)
++                    .ThenBy(x => birthday && x.Gift.IsForBirthday ? 0 : 1);
++
++                // Resales are upgraded gifts, so a user who refuses those gets none.
++                var resales = _accepted?.UpgradedGifts is not false;
++
++                var all = new List<object>();
++                var collectibles = new List<object>();
+ 
+-                foreach (var gift in gifts.Gifts)
++                foreach (var gift in sorted)
+                 {
+-                    if (gift.Gift.IsForBirthday && birthday)
++                    if (resales && gift.ResaleCount > 0)
+                     {
+-                        all.Add(gift);
++                        var resale = new AvailableGiftResale(gift);
++
++                        if (gift.Gift.OverallLimits?.RemainingCount != 0)
++                        {
++                            all.Add(gift);
++                        }
++
++                        all.Add(resale);
++                        collectibles.Add(resale);
+                     }
+                     else
+                     {
+-                        remaining.Add(gift);
++                        all.Add(gift);
++
++                        if (gift.Gift.IsPremium || gift.Gift.NextSendDate != 0)
++                        {
++                            collectibles.Add(gift);
++                        }
+                     }
+                 }
+ 
+-                all.AddRange(remaining);
+-
+-                navigation.Add(new GiftGroup(GiftGroupType.All, all));
+-
+-                if (all.Any(x => x.MinResaleStarCount > 0))
++                if (all.Count > 0)
+                 {
+-                    navigation.Add(new GiftGroup(GiftGroupType.Collectibles, all.Where(x => x.MinResaleStarCount > 0)));
++                    navigation.Add(new GiftGroup(GiftGroupType.All, all));
++                    navigation.Add(new GiftGroup(GiftGroupType.Collectibles, collectibles));
+                 }
+ 
+                 Navigation.ItemsSource = navigation;
+-                Navigation.SelectedIndex = Math.Max(0, navigation.IndexOf(navigation.FirstOrDefault(x => x.Type == _initialGroup)));
++
++                if (navigation.Count > 0)
++                {
++                    Navigation.SelectedIndex = Math.Max(0, navigation.IndexOf(navigation.FirstOrDefault(x => x.Type == _initialGroup)));
++                }
+             }
+ 
+-            if (self)
++            if (self || _accepted?.UpgradedGifts is false)
+             {
++                UpdateStarsVisibility(navigation);
+                 return;
+             }
+ 
+             response = await _clientService.SendAsync(new GetReceivedGifts(_clientService.MyId, 0, false, false, true, true, true, false, false, true, false, string.Empty, 50));
+             if (response is ReceivedGifts receivedGifts && receivedGifts.Gifts.Count > 0)
+             {
+-                var transferable = new List<ReceivedGift>();
+-                var now = DateTime.Now.ToUnixTimeSeconds();
+-
+-                foreach (var gift in receivedGifts.Gifts)
+-                {
+-                    if (gift.Gift is SentGiftUpgraded upgraded && gift.CanBeTransferred && gift.NextTransferDate < now)
+-                    {
+-                        transferable.Add(gift);
+-                    }
+-                }
++                navigation.Insert(Math.Min(navigation.Count, 1), new GiftGroup(GiftGroupType.Mine, new ReceivedGiftsCollection(_clientService, receivedGifts.Gifts, receivedGifts.NextOffset)));
+ 
+-                if (transferable.Count > 0)
++                if (navigation.Count == 1)
+                 {
+-                    navigation.Insert(Math.Min(navigation.Count, 1), new GiftGroup(GiftGroupType.Mine, new ReceivedGiftsCollection(_clientService, transferable, receivedGifts.NextOffset)));
++                    Navigation.SelectedIndex = 0;
+                 }
+             }
++
++            UpdateStarsVisibility(navigation);
++        }
++
++        private void UpdateStarsVisibility(ObservableCollection<GiftGroup> navigation)
++        {
++            var visibility = navigation.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
++
++            StarsTitle.Visibility = visibility;
++            StarsInfo.Visibility = visibility;
++            Navigation.Visibility = visibility;
+         }
+ 
+         public partial class ReceivedGiftsCollection : IncrementalCollection<ReceivedGift>
+@@ -236,7 +324,7 @@ public partial class ReceivedGiftsCollection : IncrementalCollection<ReceivedGif
+ 
+             private string _nextOffset;
+ 
+-            public ReceivedGiftsCollection(IClientService clientService, IList<ReceivedGift> gifts, string nextOffset)
++            public ReceivedGiftsCollection(IClientService clientService, IEnumerable<ReceivedGift> gifts, string nextOffset)
+                 : base(gifts)
+             {
+                 _clientService = clientService;
+@@ -250,18 +338,12 @@ protected override async Task<IncrementalLoadResult> OnLoadMoreItemsAsync(uint c
+                 var totalCount = 0u;
+                 var hasMoreItems = false;
+ 
+-                var now = DateTime.Now.ToUnixTimeSeconds();
+-
+                 var response = await _clientService.SendAsync(new GetReceivedGifts(_clientService.MyId, 0, false, false, true, true, true, false, false, true, false, _nextOffset, 50));
+                 if (response is ReceivedGifts gifts)
+                 {
+                     foreach (var gift in gifts.Gifts)
+                     {
+-                        if (gift.Gift is SentGiftUpgraded && gift.CanBeTransferred && gift.NextTransferDate < now)
+-                        {
+-                            Add(gift);
+-                        }
+-
++                        Add(gift);
+                         totalCount++;
+                     }
+ 
+@@ -275,71 +357,62 @@ protected override async Task<IncrementalLoadResult> OnLoadMoreItemsAsync(uint c
+ 
+         private async void OnItemClick(object sender, ItemClickEventArgs e)
+         {
+-            ContentDialogResult confirm = ContentDialogResult.Primary;
++            ContentDialogResult confirm = ContentDialogResult.None;
++
++            if (e.ClickedItem is ReceivedGift receivedGift)
++            {
++                if (await TransferGiftPopup.ConfirmTransferAsync(_clientService, _navigationService, receivedGift, _chat))
++                {
++                    Hide();
++                    await TransferGiftPopup.TransferAsync(_clientService, _navigationService, receivedGift, _chat);
++                }
+ 
+-            if (e.ClickedItem is AvailableGift available)
++                return;
++            }
++            else if (e.ClickedItem is AvailableGiftResale resale)
+             {
+-                if (available is AvailableGift { Gift.UserLimits.RemainingCount: 0, MinResaleStarCount: 0 })
++                confirm = await _navigationService.ShowPopupAsync(new ResoldGiftsPopup(_clientService, _navigationService, resale.Gift, _receiverId));
++            }
++            else if (e.ClickedItem is AvailableGift availableGift)
++            {
++                if (availableGift.Gift.OverallLimits?.RemainingCount == 0)
++                {
++                    await _navigationService.ShowPopupAsync(new ReceivedGiftPopup(_clientService, _navigationService, availableGift.Gift));
++                    return;
++                }
++                else if (availableGift.Gift.UserLimits?.RemainingCount == 0)
+                 {
+-                    ToastPopup.Show(XamlRoot, Locale.Declension(Strings.R.Gift2PerUserLimit, available.Gift.UserLimits.TotalCount), new DelayedFileSource(_clientService, available.Gift.Sticker));
++                    ToastPopup.Show(XamlRoot, Locale.Declension(Strings.R.Gift2PerUserLimit, availableGift.Gift.UserLimits.TotalCount), new DelayedFileSource(_clientService, availableGift.Gift.Sticker));
+                     return;
+                 }
+-                else if (available.Gift.NextSendDate > _clientService.UnixTime)
++                else if (availableGift.Gift.NextSendDate > _clientService.UnixTime)
+                 {
+-                    var response = await _clientService.SendAsync(new CanSendGift(available.Gift.Id));
++                    // Once the server allows a locked gift, it goes straight to the send sheet, Premium or not.
++                    var response = await _clientService.SendAsync(new CanSendGift(availableGift.Gift.Id));
+                     if (response is CanSendGiftResultFail fail)
+                     {
+-                        _navigationService.ShowPopup(fail.Reason, Strings.GiftLocked, Strings.OK);
+-                        return;
+-                    }
+-                }
+-            }
+-            else if (e.ClickedItem is ReceivedGift receivedGift)
+-            {
+-                confirm = await _navigationService.ShowPopupAsync(new TransferGiftPopup(_clientService, receivedGift, _chat, false));
++                        var popup = MessagePopup.Create(Strings.GiftLocked, Strings.OK);
++                        popup.FormattedMessage = fail.Reason;
++                        popup.LinkClick += OnLockedLinkClick;
+ 
+-                if (confirm == ContentDialogResult.Primary)
+-                {
+-                    Hide();
++                        await _navigationService.ShowPopupAsync(popup);
+ 
+-                    var response = await _clientService.SendAsync(new TransferGift(receivedGift.ReceivedGiftId, _receiverId, receivedGift.TransferStarCount));
+-                    if (response is Ok && receivedGift.Gift is SentGiftUpgraded upgraded)
+-                    {
+-                        ToastPopup.Show(XamlRoot, string.Format(Strings.Gift2TransferredText, upgraded.Gift.ToName(), _chat.Title));
++                        popup.LinkClick -= OnLockedLinkClick;
++                        return;
+                     }
+                     else if (response is Error error)
+                     {
+                         ToastPopup.ShowError(XamlRoot, error);
++                        return;
+                     }
+                 }
+-
+-                return;
+-            }
+-
+-            if (e.ClickedItem is AvailableGift availableGift)
+-            {
+-                if (availableGift.Gift.UserLimits != null && availableGift.Gift.UserLimits.RemainingCount == 0 && availableGift.MinResaleStarCount == 0)
+-                {
+-                    ToastPopup.Show(XamlRoot, Locale.Declension(Strings.R.Gift2PerUserLimit, availableGift.Gift.UserLimits.TotalCount), new DelayedFileSource(_clientService, availableGift.Gift.Sticker));
+-                }
+                 else if (availableGift.Gift.IsPremium && !_clientService.IsPremium)
+                 {
+-                    await _navigationService.ShowPopupAsync(new Views.Premium.Popups.PromoPopup(_clientService, availableGift));
+-                    confirm = ContentDialogResult.None;
+-                }
+-                else if (availableGift.Gift.OverallLimits == null || availableGift.Gift.OverallLimits.RemainingCount > 0)
+-                {
+-                    confirm = await _navigationService.ShowPopupAsync(new SendGiftPopup(_clientService, _navigationService, availableGift.Gift, _receiverId));
+-                }
+-                else if (availableGift.MinResaleStarCount > 0)
+-                {
+-                    confirm = await _navigationService.ShowPopupAsync(new ResoldGiftsPopup(_clientService, _navigationService, availableGift, _receiverId));
+-                }
+-                else
+-                {
+-                    await _navigationService.ShowPopupAsync(new ReceivedGiftPopup(_clientService, _navigationService, availableGift.Gift));
+-                    confirm = ContentDialogResult.None;
++                    await _navigationService.ShowPopupAsync(new PromoPopup(_clientService, availableGift));
++                    return;
+                 }
++
++                confirm = await _navigationService.ShowPopupAsync(new SendGiftPopup(_clientService, _navigationService, availableGift.Gift, _receiverId, _accepted));
+             }
+             else if (e.ClickedItem is PremiumGiftPaymentOption option && _receiverId is MessageSenderUser user)
+             {
+@@ -352,6 +425,18 @@ private async void OnItemClick(object sender, ItemClickEventArgs e)
+             }
+         }
+ 
++        private void OnLockedLinkClick(object sender, TextUrlClickEventArgs e)
++        {
++            // Wherever the reason links to opens under the popups, so both close first.
++            if (sender is MessagePopup popup)
++            {
++                popup.Hide();
++            }
++
++            Hide();
++            MessageHelper.OpenUrl(_clientService, _navigationService, e.Url);
++        }
++
+         private void OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+         {
+             if (args.InRecycleQueue)
+@@ -362,7 +447,13 @@ private void OnContainerContentChanging(ListViewBase sender, ContainerContentCha
+             {
+                 if (args.Item is AvailableGift availableGift)
+                 {
+-                    receivedGiftCell.UpdateGift(_clientService, availableGift);
++                    // The send sheet forces the upgrade on a limited gift the user takes only unique.
++                    var upgrade = availableGift.Gift.OverallLimits != null && _accepted?.LimitedGifts is false;
++                    receivedGiftCell.UpdateGift(_clientService, availableGift, false, upgrade);
++                }
++                else if (args.Item is AvailableGiftResale resale)
++                {
++                    receivedGiftCell.UpdateGift(_clientService, resale.Gift, true, false);
+                 }
+                 else if (args.Item is ReceivedGift receivedGift)
+                 {
+@@ -381,9 +472,9 @@ private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+         {
+             if (Navigation.SelectedItem is GiftGroup group)
+             {
+-                if (group.ItemsSource is List<AvailableGift> groupSource)
++                if (group.ItemsSource is List<object> groupSource)
+                 {
+-                    if (ScrollingHost.ItemsSource is DiffObservableCollection<AvailableGift>)
++                    if (ScrollingHost.ItemsSource is DiffObservableCollection<object>)
+                     {
+                         _gifts.ReplaceDiff(groupSource);
+                     }
+diff --git a/Telegram/Views/Settings/SettingsPasskeysPage.xaml.cs b/Telegram/Views/Settings/SettingsPasskeysPage.xaml.cs
+@@ -78,5 +78,10 @@ private void Info_Click(object sender, TextUrlClickEventArgs e)
+         {
+             ViewModel.Info();
+         }
++
++        private void OnItemClick(object sender, ItemClickEventArgs e)
++        {
++            ViewModel.Delete(e.ClickedItem as Passkey);
++        }
+     }
+ }
+diff --git a/Telegram/Views/Stars/Popups/GiftMessagePopup.xaml.cs b/Telegram/Views/Stars/Popups/GiftMessagePopup.xaml.cs
+@@ -0,0 +1,114 @@
++//
++// Copyright (c) Fela Ameghino 2015-2026
++//
++// Distributed under the GNU General Public License v3.0. (See accompanying
++// file LICENSE or copy at https://www.gnu.org/licenses/gpl-3.0.txt)
++//
++
++using System;
++using Telegram.Common;
++using Telegram.Controls;
++using Telegram.Controls.Drawers;
++using Telegram.Services;
++using Telegram.Td.Api;
++using Telegram.ViewModels;
++using Telegram.ViewModels.Drawers;
++using Windows.UI.Xaml;
++using Windows.UI.Xaml.Controls.Primitives;
++
++namespace Telegram.Views.Stars.Popups
++{
++    /// <summary>
++    /// The message added to a gift bought on sale for someone else, previewed as the chat will show it.
++    /// </summary>
++    public sealed partial class GiftMessagePopup : ModalPopup
++    {
++        private readonly IClientService _clientService;
++        private readonly ISettingsService _settings;
++
++        private readonly UpgradedGift _gift;
++        private readonly MessageSender _receiverId;
++        private readonly Chat _chat;
++
++        public GiftMessagePopup(IClientService clientService, UpgradedGift gift, MessageSender receiverId)
++        {
++            InitializeComponent();
++
++            _clientService = clientService;
++            _settings = clientService.Session.Resolve<ISettingsService>();
++
++            _gift = gift;
++            _receiverId = receiverId;
++
++            clientService.TryGetChatFromUser(clientService.Options.MyId, out _chat);
++
++            Title = Strings.GiftMessageAddTitle;
++            TextBlockHelper.SetMarkdown(Description, string.Format(Strings.GiftMessageAddDescription, clientService.GetTitle(receiverId, true), gift.ToName()));
++
++            var emoji = EmojiDrawerViewModel.Create(clientService.Session);
++            EmojiPanel.DataContext = emoji;
++            CaptionInput.DataContext = emoji;
++            CaptionInput.CustomEmoji = CustomEmoji;
++            CaptionInput.MaxLength = (int)clientService.Options.GiftTextLengthMax;
++            CaptionInput.PlaceholderText = Strings.GiftMessageAddHint;
++            CaptionInput.AllowedEntities = FormattedTextEntity.Bold
++                | FormattedTextEntity.Italic
++                | FormattedTextEntity.Underline
++                | FormattedTextEntity.Strikethrough
++                | FormattedTextEntity.Spoiler
++                | FormattedTextEntity.CustomEmoji;
++
++            PrimaryButtonText = Strings.GiftMessageSendNow;
++
++            BackgroundControl.Update(clientService, null);
++            UpdatePreview(string.Empty.AsFormattedText());
++        }
++
++        public FormattedText Text => CaptionInput.GetFormattedText();
++
++        public bool IsPrivate => MakePublic.IsChecked is not true;
++
++        private void UpdatePreview(FormattedText text)
++        {
++            // Not private even when unticked: the receiver still sees the sender, and the preview is theirs.
++            var price = _gift.ResaleParameters?.GramOnly is true
++                ? new GiftResalePriceGram(_gift.ResaleParameters.GramCentCount)
++                : (GiftResalePrice)new GiftResalePriceStar(_gift.ResaleParameters?.StarCount ?? 0);
++
++            var content = new MessageUpgradedGift(_gift, _clientService.MyId, _receiverId, new UpgradedGiftOriginResale(price), string.Empty, text, false, false, false, false, 0, 0, 0, 0, 0, 0);
++            var message = new Message(0, _clientService.MyId, null, 0, null, null, false, false, false, false, false, false, false, false, false, false, 0, 0, null, null, null, Array.Empty<UnreadReaction>(), null, null, null, null, null, 0, 0, 0, null, 0, 0, string.Empty, 0, string.Empty, 0, 0, null, string.Empty, content, null, null);
++
++            var delegato = new ChatMessageDelegate(_clientService, _settings, _chat);
++            var viewModel = new MessageViewModel(_clientService, delegato, _chat, null, null, message, true);
++
++            Message.UpdateMessage(viewModel);
++            Message.ButtonText = Strings.GiftMessageSendNow;
++        }
++
++        private void OnContentChanged(object sender, EventArgs e)
++        {
++            UpdatePreview(CaptionInput.GetFormattedText());
++        }
++
++        private void Emoji_Click(object sender, RoutedEventArgs e)
++        {
++            // We don't want to unfocus the text are when the context menu gets opened
++            EmojiPanel.ViewModel.Update();
++            EmojiFlyout.ShowAt(CaptionPanel, FlyoutPlacementMode.Auto, FlyoutShowMode.Transient, source: EmojiButton);
++        }
++
++        private void Emoji_ItemClick(object sender, EmojiDrawerItemClickEventArgs e)
++        {
++            if (e.ClickedItem is EmojiData emoji)
++            {
++                CaptionInput.InsertText(emoji.Value);
++                CaptionInput.FocusInput(FocusState.Programmatic);
++            }
++            else if (e.ClickedItem is StickerViewModel sticker)
++            {
++                CaptionInput.InsertEmoji(sticker);
++                CaptionInput.FocusInput(FocusState.Programmatic);
++            }
++        }
++    }
++}
+diff --git a/Telegram/Views/Stars/Popups/GiftOfferConfirmPopup.xaml.cs b/Telegram/Views/Stars/Popups/GiftOfferConfirmPopup.xaml.cs
+@@ -0,0 +1,61 @@
++//
++// Copyright (c) Fela Ameghino 2015-2026
++//
++// Distributed under the GNU General Public License v3.0. (See accompanying
++// file LICENSE or copy at https://www.gnu.org/licenses/gpl-3.0.txt)
++//
++
++using Telegram.Common;
++using Telegram.Controls;
++using Telegram.Controls.Media;
++using Telegram.Td.Api;
++using Telegram.Views.Popups;
++using Windows.UI.Xaml;
++
++namespace Telegram.Views.Stars.Popups
++{
++    /// <summary>
++    /// What an offer to buy a gift costs: the offer itself, the owner's message price, and how long
++    /// it stands.
++    /// </summary>
++    public sealed partial class GiftOfferConfirmPopup : ModalPopup
++    {
++        public GiftOfferConfirmPopup(UpgradedGift gift, string ownerName, bool gram, long value, long fee, int duration)
++        {
++            InitializeComponent();
++
++            Title = Strings.GiftOfferConfirmSend;
++            SecondaryButtonText = Strings.Cancel;
++
++            var amount = gram ? TransferGiftPopup.FormatGram(value) : value.ToString("N0");
++
++            TextBlockHelper.SetMarkdown(MessageLabel, string.Format(gram ? Strings.GiftOfferTransferInfoTextTON : Strings.GiftOfferTransferInfoTextStars, amount, ownerName, gift.ToName()));
++
++            OfferRow.Content = string.Format(Strings.GiftOfferAmount, amount).ReplaceStar(gram ? Icons.Gram14 : Icons.PremiumStar);
++            DurationRow.Content = Locale.Declension(Strings.R.GiftOfferHours, duration / 3600);
++
++            if (fee > 0)
++            {
++                FeeRow.Content = string.Format(Strings.GiftOfferAmount, fee.ToString("N0")).ReplaceStar(Icons.PremiumStar);
++                FeeRow.Visibility = Visibility.Visible;
++            }
++
++            // The fee is always in Stars, so a Gram offer with a fee pays in both.
++            if (gram && fee > 0)
++            {
++                var grams = string.Format(Strings.GiftOfferPayMultiPart, amount).ReplaceStar(Icons.Gram14);
++                var stars = string.Format(Strings.GiftOfferPayMultiPart, fee.ToString("N0")).ReplaceStar(Icons.Premium);
++
++                PrimaryButtonText = string.Format(Strings.GiftOfferPayMulti, grams, stars);
++            }
++            else if (gram)
++            {
++                PrimaryButtonText = string.Format(Strings.GiftOfferPay, amount).ReplaceStar(Icons.Gram14);
++            }
++            else
++            {
++                PrimaryButtonText = string.Format(Strings.GiftOfferPay, (value + fee).ToString("N0")).ReplaceStar(Icons.Premium);
++            }
++        }
++    }
++}
+diff --git a/Telegram/Views/Stars/Popups/GiftOfferPopup.xaml.cs b/Telegram/Views/Stars/Popups/GiftOfferPopup.xaml.cs
+@@ -0,0 +1,252 @@
++//
++// Copyright (c) Fela Ameghino 2015-2026
++//
++// Distributed under the GNU General Public License v3.0. (See accompanying
++// file LICENSE or copy at https://www.gnu.org/licenses/gpl-3.0.txt)
++//
++
++using System;
++using System.Threading.Tasks;
++using Telegram.Common;
++using Telegram.Controls;
++using Telegram.Controls.Media;
++using Telegram.Converters;
++using Telegram.Navigation.Services;
++using Telegram.Services;
++using Telegram.Td.Api;
++using Telegram.Views.Popups;
++using Windows.Globalization.NumberFormatting;
++using Windows.UI.Xaml;
++using Windows.UI.Xaml.Controls;
++using Windows.UI.Xaml.Hosting;
++using Windows.UI.Xaml.Input;
++
++namespace Telegram.Views.Stars.Popups
++{
++    /// <summary>
++    /// An offer to buy someone else's upgraded gift: Stars, or 1/100 of a Gram, held until the owner
++    /// answers or the offer expires.
++    /// </summary>
++    public sealed partial class GiftOfferPopup : ModalPopup
++    {
++        // The only durations sendGiftPurchaseOffer accepts, in seconds.
++        private static readonly int[] _durations = { 21600, 43200, 86400, 129600, 172800, 259200 };
++
++        private readonly IClientService _clientService;
++        private readonly INumberFormatter2 _formatter;
++        private readonly UpgradedGift _gift;
++        private readonly string _ownerName;
++
++        private bool _gram;
++        private long _value;
++
++        public GiftOfferPopup(IClientService clientService, UpgradedGift gift, string ownerName)
++        {
++            InitializeComponent();
++
++            _clientService = clientService;
++            _formatter = GiftResalePricePopup.CreateFormatter();
++            _gift = gift;
++            _ownerName = ownerName;
++
++            Title = Strings.GiftOfferToBuyTitle;
++            SecondaryButtonText = Strings.Cancel;
++
++            var scope = new InputScope();
++            var name = new InputScopeName();
++
++            name.NameValue = InputScopeNameValue.Number;
++
++            scope.Names.Add(name);
++            Label.InputScope = scope;
++            Label.Padding = new Thickness(36, Label.Padding.Top, Label.Padding.Right, Label.Padding.Bottom);
++
++            foreach (var duration in _durations)
++            {
++                OfferDuration.Items.Add(Locale.Declension(Strings.R.GiftOfferHours, duration / 3600));
++            }
++
++            OfferDuration.SelectedIndex = 2;
++
++            SetCurrency(false, false);
++            Currency.SelectedIndex = 0;
++
++            Label.Focus(FocusState.Keyboard);
++        }
++
++        public bool IsGram => _gram;
++
++        public long Value => _value;
++
++        public GiftResalePrice Price => _gram
++            ? new GiftResalePriceGram(_value)
++            : new GiftResalePriceStar(_value);
++
++        public int Duration => _durations[OfferDuration.SelectedIndex];
++
++        private long Minimum => _gram
++            ? Math.Max(_clientService.Options.GiftResaleGramCentCountMin, 1)
++            : _clientService.Options.GiftResaleStarCountMin;
++
++        private long Maximum => _gram
++            ? _clientService.Options.GiftResaleGramCentCountMax
++            : _clientService.Options.GiftResaleStarCountMax;
++
++        private void SetCurrency(bool gram, bool animated)
++        {
++            _gram = gram;
++
++            HeaderText.Text = gram ? Strings.GiftOfferTONToOffer : Strings.GiftOfferStarsToOffer;
++            TextBlockHelper.SetMarkdown(DurationInfo, string.Format(gram ? Strings.GiftOfferDurationInfoTON : Strings.GiftOfferDurationInfoStars, _ownerName));
++
++            if (animated)
++            {
++                GiftResalePricePopup.AnimateIcon(StarCount, !gram);
++                GiftResalePricePopup.AnimateIcon(TonCount, gram);
++            }
++            else
++            {
++                ElementComposition.GetElementVisual(StarCount).Opacity = gram ? 0 : 1;
++                ElementComposition.GetElementVisual(TonCount).Opacity = gram ? 1 : 0;
++            }
++
++            // The maximum's digits, plus a separator and two decimals for Grams.
++            Label.MaxLength = gram
++                ? _formatter.FormatInt(Maximum / 100).Length + 3
++                : _formatter.FormatInt(Maximum).Length;
++
++            Label.Text = string.Empty;
++
++            UpdateValue(0);
++        }
++
++        private void UpdateValue(long value)
++        {
++            _value = value;
++
++            var tooBig = value > Maximum;
++            var tooSmall = value > 0 && value < Minimum;
++
++            var gift = _gift.ToName();
++
++            if (tooBig || tooSmall)
++            {
++                var limit = FormatAmount(tooBig ? Maximum : Minimum);
++                var text = _gram
++                    ? tooBig ? Strings.GiftOfferTONToOfferInfoIsHigh : Strings.GiftOfferTONToOfferInfoIsLow
++                    : tooBig ? Strings.GiftOfferStarsToOfferInfoIsHigh : Strings.GiftOfferStarsToOfferInfoIsLow;
++
++                TextBlockHelper.SetMarkdown(ErrorText, string.Format(text, limit, gift));
++                ErrorText.Visibility = Visibility.Visible;
++                FooterText.Visibility = Visibility.Collapsed;
++            }
++            else
++            {
++                TextBlockHelper.SetMarkdown(FooterText, string.Format(_gram ? Strings.GiftOfferTONToOfferInfo : Strings.GiftOfferStarsToOfferInfo, gift));
++                FooterText.Visibility = Visibility.Visible;
++                ErrorText.Visibility = Visibility.Collapsed;
++            }
++
++            IsPrimaryButtonEnabled = value > 0 && !tooBig && !tooSmall;
++            PrimaryButtonText = string.Format(Strings.GiftOfferButtonStars, FormatAmount(value)).ReplaceStar(_gram ? Icons.Gram14 : Icons.Premium);
++
++            var usd = _gram
++                ? value / 1000000d * _clientService.Options.MillionGramToUsdRate
++                : value / 1000d * _clientService.Options.ThousandStarToUsdRate;
++
++            UsdEstimate.Text = "~" + Formatter.FormatAmount((long)usd, "USD");
++        }
++
++        private string FormatAmount(long value)
++        {
++            return _gram ? TransferGiftPopup.FormatGram(value) : value.ToString("N0");
++        }
++
++        private void Label_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
++        {
++            if (args.NewText.Length == 0)
++            {
++                UpdateValue(0);
++            }
++            else if (GiftResalePricePopup.Parse(_formatter, args.NewText, _gram) is long value)
++            {
++                UpdateValue(value);
++            }
++            else
++            {
++                args.Cancel = true;
++            }
++        }
++
++        private void Label_KeyDown(object sender, KeyRoutedEventArgs e)
++        {
++            if (e.Key == Windows.System.VirtualKey.Enter && IsPrimaryButtonEnabled)
++            {
++                e.Handled = true;
++                Hide(ContentDialogResult.Primary);
++            }
++        }
++
++        private void Currency_SelectionChanged(object sender, SelectionChangedEventArgs e)
++        {
++            var gram = Currency.SelectedIndex == 1;
++            if (gram != _gram)
++            {
++                SetCurrency(gram, true);
++                Label.Focus(FocusState.Keyboard);
++            }
++        }
++
++        /// <summary>
++        /// Asks for the offer, confirms it with the owner's message price added, and sends it.
++        /// Returns null when the user gave up, otherwise TDLib's answer or <see cref="ErrorStarsNeeded"/>.
++        /// </summary>
++        public static async Task<Object> OfferAsync(IClientService clientService, INavigationService navigationService, UpgradedGift gift, string ownerName)
++        {
++            var popup = new GiftOfferPopup(clientService, gift, ownerName);
++
++            var confirm = await navigationService.ShowPopupAsync(popup);
++            if (confirm != ContentDialogResult.Primary)
++            {
++                return null;
++            }
++
++            // An offer reaches a user as a message, so it costs what their messages cost.
++            long fee = 0;
++
++            if (gift.OwnerId is MessageSenderUser user)
++            {
++                if (clientService.TryGetUserFull(user.UserId, out UserFullInfo cached))
++                {
++                    fee = cached.OutgoingPaidMessageStarCount;
++                }
++                else if (await clientService.SendAsync(new GetUserFullInfo(user.UserId)) is UserFullInfo fullInfo)
++                {
++                    fee = fullInfo.OutgoingPaidMessageStarCount;
++                }
++            }
++
++            var summary = new GiftOfferConfirmPopup(gift, ownerName, popup.IsGram, popup.Value, fee, popup.Duration);
++
++            confirm = await navigationService.ShowPopupAsync(summary);
++            if (confirm != ContentDialogResult.Primary)
++            {
++                return null;
++            }
++
++            var function = new SendGiftPurchaseOffer(gift.OwnerId, gift.Name, popup.Price, popup.Duration, fee);
++
++            if (popup.IsGram)
++            {
++                if (!await TransferGiftPopup.HasGramsAsync(clientService, navigationService, popup.Value))
++                {
++                    return null;
++                }
++
++                return await clientService.SendPaymentAsync(fee, function);
++            }
++
++            return await clientService.SendPaymentAsync(popup.Value + fee, function);
++        }
++    }
++}
+diff --git a/Telegram/Views/Stars/Popups/ReceivedGiftPopup.xaml.cs b/Telegram/Views/Stars/Popups/ReceivedGiftPopup.xaml.cs
+@@ -25,12 +25,16 @@
+ using Telegram.Views.Gifts.Popups;
+ using Telegram.Views.Popups;
+ using Telegram.Views.Premium.Popups;
++using Windows.ApplicationModel.DataTransfer;
+ using Windows.Foundation;
++using Windows.UI;
++using Windows.UI.Composition;
+ using Windows.UI.Xaml;
+ using Windows.UI.Xaml.Controls;
+ using Windows.UI.Xaml.Controls.Primitives;
+ using Windows.UI.Xaml.Documents;
+ using Windows.UI.Xaml.Hosting;
++using Windows.UI.Xaml.Input;
+ using Windows.UI.Xaml.Media;
+ 
+ namespace Telegram.Views.Stars.Popups
+@@ -50,10 +54,16 @@ public sealed partial class ReceivedGiftPopup : ModalPopup
+ 
+         private readonly MessageSender _sendGiftTo;
+ 
++        /// <summary>
++        /// Opened from the gift's message: the header names its sender and shows its text.
++        /// </summary>
++        private readonly bool _fromMessage;
++
+         // The profile list the popup was opened from, if any: pinning edits that list's order.
+         private readonly ProfileGiftsTabViewModel _profile;
+ 
+         private TaskCompletionSource<long> _resaleStarCount;
++        private bool _resaleShown;
+ 
+         private TaskCompletionSource<UpgradedGiftValueInfo> _valueInfo;
+ 
+@@ -82,11 +92,16 @@ private enum GiftPage
+         // the owner_id of an upgraded one. Recomputed when the gift is upgraded in place.
+         private bool _owned;
+ 
+-        public ReceivedGiftPopup(IClientService clientService, INavigationService navigationService, ReceivedGift gift, MessageSender receiverId, MessageSender sendGiftTo, ProfileGiftsTabViewModel profile = null)
++        // A gift on the blockchain stays with the Telegram account that hosts it; that account can
++        // wear and share it, but nothing that would move it.
++        private bool _hosted;
++
++        public ReceivedGiftPopup(IClientService clientService, INavigationService navigationService, ReceivedGift gift, MessageSender receiverId, MessageSender sendGiftTo, ProfileGiftsTabViewModel profile = null, bool fromMessage = false)
+         {
+             InitializeComponent();
+ 
+             _profile = profile;
++            _fromMessage = fromMessage;
+ 
+             _clientService = clientService;
+             _navigationService = navigationService;
+@@ -116,6 +131,9 @@ public ReceivedGiftPopup(IClientService clientService, INavigationService naviga
+             {
+                 InitializeValue(upgraded.Gift);
+                 InitializeUpgraded(clientService, gift, upgraded.Gift);
++
++                // The sale price depends on the subtitle InitializeUpgraded has just decided on.
++                UpdateVisibility();
+             }
+         }
+ 
+@@ -127,9 +145,12 @@ private void UpdateOwned()
+                 SentGiftUpgraded upgraded => IsOwned(_clientService, upgraded.Gift.OwnerId),
+                 _ => false
+             };
++
++            _hosted = _gift?.Gift is SentGiftUpgraded { Gift.HostId: not null } hosted
++                && IsOwned(_clientService, hosted.Gift.HostId);
+         }
+ 
+-        private void UpdateVisibility()
++        private void UpdateVisibility(bool animate = false)
+         {
+             var upgraded = (_gift?.Gift as SentGiftUpgraded)?.Gift;
+             var details = _page == GiftPage.Details;
+@@ -157,8 +178,9 @@ private void UpdateVisibility()
+             UpgradedRoot.Visibility = upgraded != null ? Visibility.Visible : Visibility.Collapsed;
+ 
+             Ribbon.Visibility = details && upgraded?.IsCrafted is true ? Visibility.Visible : Visibility.Collapsed;
+-            ResaleStarCountRoot.Visibility = details && upgraded?.ResaleParameters != null ? Visibility.Visible : Visibility.Collapsed;
+-            MoreButton.Visibility = details && (upgraded != null || CanToggleSaved || _gift?.CanBeDeleted is true) ? Visibility.Visible : Visibility.Collapsed;
++            // The price takes the subtitle's place, so a gift whose header has no subtitle shows none.
++            ShowResalePrice(details && upgraded?.ResaleParameters != null && UpgradedSubtitle.Visibility == Visibility.Visible, animate);
++            MoreButton.Visibility = details && (upgraded != null || CanToggleSaved || _gift?.CanBeDeleted is true || ProfileOwner != null) ? Visibility.Visible : Visibility.Collapsed;
+             MoreButton.RequestedTheme = upgradedHeader ? ElementTheme.Dark : ElementTheme.Default;
+         }
+ 
+@@ -317,7 +339,7 @@ private void InitializeRegular(IClientService clientService, ReceivedGift receiv
+ 
+             // A prepaid upgrade is part of what the gift cost, unless it was bought afterwards.
+             var value = gift.StarCount + (receivedGift.IsUpgradeSeparate ? 0 : receivedGift.PrepaidUpgradeStarCount);
+-            StarCount.Text = value.ToString("N0");
++            StarCount.Text = Icons.PremiumStar + " " + value.ToString("N0");
+ 
+             if (gift.OverallLimits != null && !receivedGift.WasRefunded)
+             {
+@@ -468,9 +490,20 @@ private void InitializeUpgraded(IClientService clientService, ReceivedGift recei
+ 
+             UpgradedHeader.Update(clientService, gift);
+             UpgradedAnimatedPhoto.Source = DelayedFileSource.FromSticker(clientService, gift.Model.Sticker);
+-            UpgradedTitle.Text = gift.Title;
++            UpgradedTitle.Inlines.Clear();
++            UpgradedTitle.Inlines.Add(new Run { Text = gift.Title + " " });
++            UpgradedTitle.Inlines.Add(new Run
++            {
++                Text = "#" + gift.Number.ToString("N0"),
++                FontSize = UpgradedTitle.FontSize * 0.85,
++                Foreground = new SolidColorBrush(Color.FromArgb(0xBE, 0xFF, 0xFF, 0xFF))
++            });
+ 
+             Ribbon.Text = Strings.GiftCrafted;
++            ResaleStarCountRoot.Background = new SolidColorBrush(QrShareColors.Mix(gift.Backdrop.Colors.EdgeColor.ToColor(), gift.Backdrop.Colors.SymbolColor.ToColor(), 0.25f));
++
++            // TDLib still names a private gift's sender to its receiver; the header leaves it out for everyone.
++            var from = _fromMessage && !receivedGift.IsPrivate ? receivedGift.SenderId : null;
+ 
+             if (clientService.TryGetChat(gift.PublisherChatId, out Chat publisherChat)
+                 && clientService.TryGetSupergroup(publisherChat, out Supergroup publisher)
+@@ -483,17 +516,85 @@ private void InitializeUpgraded(IClientService clientService, ReceivedGift recei
+             else
+             {
+                 UpgradedPublisher.Visibility = Visibility.Collapsed;
+-                UpgradedSubtitle.Visibility = Visibility.Visible;
+-                UpgradedSubtitle.Text = Locale.Declension(Strings.R.Gift2CollectionNumber, gift.Number);
++
++                if (from != null)
++                {
++                    UpgradedSubtitle.Visibility = Visibility.Visible;
++                    TextBlockHelper.SetMarkdown(UpgradedSubtitle, string.Format(Strings.UniqueGiftFrom, clientService.GetTitle(from, true)));
++                }
++                else if (gift.PublisherChatId == 0)
++                {
++                    UpgradedSubtitle.Visibility = Visibility.Visible;
++                    UpgradedSubtitle.Text = gift.Model.Name;
++                }
++                else
++                {
++                    // A publisher without a public username gets no line, and no subtitle either.
++                    UpgradedSubtitle.Visibility = Visibility.Collapsed;
++                }
++            }
++
++            if (_fromMessage && receivedGift.Text?.Text.Length > 0)
++            {
++                UpgradedMessage.Visibility = Visibility.Visible;
++                UpgradedMessageText.SetText(clientService, receivedGift.Text);
++
++                if (from != null)
++                {
++                    UpgradedMessagePhoto.Visibility = Visibility.Visible;
++                    UpgradedMessagePhoto.Source = ProfilePictureSource.MessageSender(clientService, from);
++                }
++                else
++                {
++                    UpgradedMessagePhoto.Visibility = Visibility.Collapsed;
++                }
++            }
++            else
++            {
++                UpgradedMessage.Visibility = Visibility.Collapsed;
++            }
++
++            var hosted = gift.HostId != null;
++            var holder = HolderOf(gift);
++
++            if (gift.OwnerAddress.Length > 0)
++            {
++                // The tail stays whole so the address is cut in the middle, however much of it fits.
++                var split = Math.Max(0, gift.OwnerAddress.Length - 6);
++
++                UpgradedOwnerAddress.Header = hosted ? Strings.Gift2HostAddress : Strings.Gift2Owner;
++                UpgradedOwnerAddress.Visibility = Visibility.Visible;
++                UpgradedOwnerAddressStart.Text = gift.OwnerAddress.Substring(0, split);
++                UpgradedOwnerAddressEnd.Text = gift.OwnerAddress.Substring(split);
++            }
++            else
++            {
++                UpgradedOwnerAddress.Visibility = Visibility.Collapsed;
+             }
+ 
+-            if (clientService.TryGetUser(gift.OwnerId, out User user))
++            UpgradedOwner.Header = hosted ? Strings.Gift2Host : Strings.Gift2Owner;
++            UpgradedOwner.Visibility = hosted || gift.OwnerAddress.Length == 0
++                ? Visibility.Visible
++                : Visibility.Collapsed;
++
++            if (gift.OwnerAddress.Length > 0 && gift.GiftAddress.Length > 0)
++            {
++                // Above the table when a Telegram account hosts the gift, below it otherwise.
++                Grid.SetRow(UpgradedBlockchain, hosted ? 0 : 3);
++                UpgradedBlockchain.Visibility = Visibility.Visible;
++            }
++            else
++            {
++                UpgradedBlockchain.Visibility = Visibility.Collapsed;
++            }
++
++            if (clientService.TryGetUser(holder, out User user))
+             {
+                 UpgradedFromPhoto.Source = ProfilePictureSource.User(clientService, user);
+                 UpgradedFromPhoto.Visibility = Visibility.Visible;
+                 UpgradedFromTitle.Text = user.FullName();
+             }
+-            else if (clientService.TryGetChat(gift.OwnerId, out Chat chat))
++            else if (clientService.TryGetChat(holder, out Chat chat))
+             {
+                 UpgradedFromPhoto.Source = ProfilePictureSource.Chat(clientService, chat);
+                 UpgradedFromPhoto.Visibility = Visibility.Visible;
+@@ -543,57 +644,65 @@ private void InitializeUpgraded(IClientService clientService, ReceivedGift recei
+                 var date = Formatter.Date(gift.OriginalDetails.Date);
+                 var dateText = date.AsFormattedText();
+ 
+-                FormattedText text = null;
++                FormattedText text;
+ 
+-                if (gift.OriginalDetails.Text.Text.Length > 0)
+-                {
+-                    if (senderName.Length > 0 && receiverName.Length > 0)
+-                    {
+-                        text = ClientEx.Format(Strings.Gift2AttributeOriginalDetailsComment, senderText, receiverText, dateText, gift.OriginalDetails.Text);
+-                    }
+-                    else if (senderName.Length > 0)
+-                    {
+-                        text = ClientEx.Format(Strings.Gift2AttributeOriginalDetailsSelfComment, senderText, dateText, gift.OriginalDetails.Text);
+-                    }
+-                    else if (receiverName.Length > 0)
+-                    {
+-                        text = ClientEx.Format(Strings.Gift2AttributeOriginalDetailsNoSenderComment, receiverText, dateText, gift.OriginalDetails.Text);
+-                    }
+-                }
+-                else if (senderName.Length > 0 && receiverName.Length > 0)
++                var comment = gift.OriginalDetails.Text.Text.Length > 0;
++                var self = gift.OriginalDetails.SenderId.AreTheSame(gift.OriginalDetails.ReceiverId);
++
++                if (self)
+                 {
+-                    text = ClientEx.Format(Strings.Gift2AttributeOriginalDetails, senderText, receiverText, dateText);
++                    text = comment
++                        ? ClientEx.Format(Strings.Gift2AttributeOriginalDetailsSelfComment, senderText, dateText, gift.OriginalDetails.Text)
++                        : ClientEx.Format(Strings.Gift2AttributeOriginalDetailsSelf, senderText, dateText);
+                 }
+-                else if (senderName.Length > 0)
++                else if (senderText != null)
+                 {
+-                    text = ClientEx.Format(Strings.Gift2AttributeOriginalDetailsSelf, senderText, dateText);
++                    text = comment
++                        ? ClientEx.Format(Strings.Gift2AttributeOriginalDetailsComment, senderText, receiverText, dateText, gift.OriginalDetails.Text)
++                        : ClientEx.Format(Strings.Gift2AttributeOriginalDetails, senderText, receiverText, dateText);
+                 }
+-                else if (receiverName.Length > 0)
++                else
+                 {
+-                    text = ClientEx.Format(Strings.Gift2AttributeOriginalDetailsNoSender, receiverText, dateText);
++                    text = comment
++                        ? ClientEx.Format(Strings.Gift2AttributeOriginalDetailsNoSenderComment, receiverText, dateText, gift.OriginalDetails.Text)
++                        : ClientEx.Format(Strings.Gift2AttributeOriginalDetailsNoSender, receiverText, dateText);
+                 }
+ 
+                 UpgradedCaption.SetText(clientService, text);
+             }
+ 
+-            if (_owned && receivedGift.ReceivedGiftId.Length > 0)
++            if ((_owned || _hosted) && receivedGift.ReceivedGiftId.Length > 0)
+             {
+-                UpdateUpgradedInfo(receivedGift, gift);
+-
+                 UpgradedButtons.Visibility = Visibility.Visible;
+-                UpgradedCaptionRemove.Visibility = receivedGift.DropOriginalDetailsStarCount > 0
+-                    ? Visibility.Visible
+-                    : Visibility.Collapsed;
+ 
+-                if (gift.ResaleParameters != null)
++                // The host's Transfer stays in place, dimmed, and explains itself when clicked.
++                TransferButton.Opacity = _owned ? 1 : 0.5;
++
++                if (_owned)
+                 {
+-                    ResellButton.Glyph = Icons.TagOffFilled;
+-                    ResellButton.Content = Strings.Gift2ActionUnlist;
++                    UpdateUpgradedInfo(receivedGift, gift);
++
++                    UpgradedCaptionRemove.Visibility = receivedGift.DropOriginalDetailsStarCount > 0
++                        ? Visibility.Visible
++                        : Visibility.Collapsed;
++
++                    if (gift.ResaleParameters != null)
++                    {
++                        ResellButton.Glyph = Icons.TagOffFilled;
++                        ResellButton.Content = Strings.Gift2ActionUnlist;
++                    }
++                    else
++                    {
++                        ResellButton.Glyph = Icons.TagFilled;
++                        ResellButton.Content = Strings.Gift2ActionResell;
++                    }
+                 }
+                 else
+                 {
+-                    ResellButton.Glyph = Icons.TagFilled;
+-                    ResellButton.Content = Strings.Gift2ActionResell;
++                    Info.Visibility = Visibility.Collapsed;
++
++                    ResellButton.Glyph = Icons.ShareFilled;
++                    ResellButton.Content = Strings.Gift2ActionShare;
+                 }
+ 
+                 UpdateWearButton(IsWorn(gift));
+@@ -605,7 +714,7 @@ private void InitializeUpgraded(IClientService clientService, ReceivedGift recei
+ 
+             if (gift.ResaleParameters != null)
+             {
+-                ResaleStarCount.Text = gift.ResaleParameters.StarCount.ToString("N0");
++                UpdateResalePrice(gift.ResaleParameters);
+             }
+ 
+             PrimaryButtonText = GetUpgradedPrimaryButtonText(gift);
+@@ -628,7 +737,9 @@ private string GetUpgradedPrimaryButtonText(UpgradedGift gift)
+         {
+             // Opened from a link, the current user's own gift arrives without a received gift identifier.
+             return gift.ResaleParameters != null && !_owned
+-                ? Locale.Declension(Strings.R.ResellGiftBuy, gift.ResaleParameters.StarCount).ReplaceStar(Icons.Premium)
++                ? gift.ResaleParameters.GramOnly
++                    ? string.Format(Strings.ResellGiftBuyTON, TransferGiftPopup.FormatGram(gift.ResaleParameters.GramCentCount)).ReplaceStar(Icons.Gram14)
++                    : Locale.Declension(Strings.R.ResellGiftBuy, gift.ResaleParameters.StarCount).ReplaceStar(Icons.Premium)
+                 : _nextUpgrade != null
+                 ? Strings.Gift2UpgradeNext
+                 : Strings.OK;
+@@ -664,11 +775,19 @@ public ReceivedGiftPopup(IClientService clientService, INavigationService naviga
+             Subtitle.Text = Strings.Gift2SoldOutSheetSubtitle;
+             Subtitle.Foreground = BootStrapper.Current.Resources["SystemFillColorCriticalBrush"] as Brush;
+ 
+-            FirstSale.Visibility = Visibility.Visible;
+-            LastSale.Visibility = Visibility.Visible;
++            if (gift.FirstSendDate != 0)
++            {
++                FirstSale.Visibility = Visibility.Visible;
++                FirstSale.Content = Formatter.DateAt(gift.FirstSendDate);
++            }
+ 
+-            FirstSale.Content = Formatter.DateAt(gift.FirstSendDate);
+-            LastSale.Content = Formatter.DateAt(gift.LastSendDate);
++            if (gift.LastSendDate != 0)
++            {
++                LastSale.Visibility = Visibility.Visible;
++                LastSale.Content = Formatter.DateAt(gift.LastSendDate);
++            }
++
++            StarCountRoot.Header = Strings.Gift2SoldOutSheetValue;
+ 
+             Convert.Visibility = Visibility.Collapsed;
+             Info.Visibility = Visibility.Collapsed;
+@@ -678,14 +797,47 @@ public ReceivedGiftPopup(IClientService clientService, INavigationService naviga
+ 
+             Date.Visibility = Visibility.Collapsed;
+ 
+-            StarCount.Text = gift.StarCount.ToString("N0");
++            StarCount.Text = Icons.PremiumStar + " " + gift.StarCount.ToString("N0");
+ 
+             Availability.Visibility = Visibility.Visible;
+             Availability.Content = gift.RemainingText();
+ 
+             PrimaryButtonText = Strings.OK;
+         }
+ 
++        /// <summary>
++        /// The upgrade page on its own, telling the sender what an upgrade would give the recipient.
++        /// </summary>
++        public ReceivedGiftPopup(IClientService clientService, INavigationService navigationService, GiftUpgradePreview preview, string receiverName)
++        {
++            InitializeComponent();
++
++            _clientService = clientService;
++            _navigationService = navigationService;
++
++            _preview = preview;
++            _page = GiftPage.Upgrade;
++
++            UpdateVisibility();
++
++            UpgradedTitle.Text = Strings.Gift2LearnMoreTitle;
++            UpgradedSubtitle.Text = string.Format(Strings.Gift2LearnMoreText, receiverName);
++
++            UpgradeText1.Content = Strings.Gift2UpgradeFeature1Title;
++            UpgradeText1.Badge = Strings.Gift2UpgradeFeature1TextLearn;
++            UpgradeText2.Content = Strings.Gift2UpgradeFeature2Title;
++            UpgradeText2.Badge = Strings.Gift2UpgradeFeature2TextLearn;
++            UpgradeText3.Content = Strings.Gift2UpgradeFeature3Title;
++            UpgradeText3.Badge = Strings.Gift2UpgradeFeature3TextLearn;
++
++            KeepOriginalDetails.Visibility = Visibility.Collapsed;
++
++            UpgradedAnimatedPhoto.LoopCompleted += OnLoopCompleted;
++            UpdateGift();
++
++            PrimaryButtonText = Strings.OK;
++        }
++
+         private void OnPrimaryButtonClick(ModalPopup sender, ModalPopupButtonClickEventArgs args)
+         {
+             if (_rolling)
+@@ -906,13 +1058,13 @@ private void UpdateUpgradedInfo(ReceivedGift receivedGift, UpgradedGift gift)
+         {
+             if (receivedGift.IsSaved)
+             {
+-                Info.Text = gift.OwnerId is MessageSenderUser
++                Info.Text = HolderOf(gift) is MessageSenderUser
+                     ? Strings.Gift2ProfileVisible4
+                     : Strings.Gift2ChannelProfileVisible3;
+             }
+             else
+             {
+-                Info.Text = gift.OwnerId is MessageSenderUser
++                Info.Text = HolderOf(gift) is MessageSenderUser
+                     ? Strings.Gift2ProfileInvisible4
+                     : Strings.Gift2ChannelProfileInvisible3;
+             }
+@@ -1424,8 +1576,8 @@ private void UpdateGift()
+ 
+         protected override void OnDismissButtonClick()
+         {
+-            // The dismiss button goes back from a page to the details.
+-            if (_page == GiftPage.Details)
++            // The dismiss button goes back from a page to the details, if there are any.
++            if (_page == GiftPage.Details || _gift == null)
+             {
+                 base.OnDismissButtonClick();
+             }
+@@ -1439,6 +1591,16 @@ protected override void OnDismissButtonClick()
+         // screen; everywhere else the footer's link still toggles the profile.
+         private bool CanToggleSaved => _profile != null && _owned && _gift?.ReceivedGiftId.Length > 0;
+ 
++        /// <summary>
++        /// Whose gifts View in Profile opens; null when the popup was opened from that list already.
++        /// </summary>
++        private MessageSender ProfileOwner => _profile != null ? null : _gift?.Gift switch
++        {
++            SentGiftUpgraded upgraded => HolderOf(upgraded.Gift),
++            SentGiftRegular => _receiverId,
++            _ => null
++        };
++
+         private void More_ContextRequested(object sender, RoutedEventArgs e)
+         {
+             var flyout = new MenuFlyout();
+@@ -1452,7 +1614,7 @@ private void More_ContextRequested(object sender, RoutedEventArgs e)
+ 
+             if (upgraded != null && _owned)
+             {
+-                if (upgraded.CraftProbabilityPerMille != 0)
++                if (!upgraded.IsCrafted && _gift.CraftDate > 0)
+                 {
+                     // TODO: Icon
+                     flyout.CreateFlyoutItem(Craft, Strings.GiftCraft, Icons.Hamburger);
+@@ -1469,6 +1631,11 @@ private void More_ContextRequested(object sender, RoutedEventArgs e)
+                 flyout.CreateFlyoutItem(CopyLink, Strings.CopyLink, Icons.Link);
+                 flyout.CreateFlyoutItem(Share, Strings.ShareFile, Icons.Share);
+ 
++                if (upgraded.CanSendPurchaseOffer)
++                {
++                    flyout.CreateFlyoutItem(OfferToBuy, Strings.GiftOfferToBuyMenu, Icons.Coin);
++                }
++
+                 // A chat theme belongs to a user, so a channel's gift cannot be one.
+                 if (upgraded.IsThemeAvailable && upgraded.OwnerId.IsUser(_clientService.Options.MyId))
+                 {
+@@ -1486,6 +1653,11 @@ private void More_ContextRequested(object sender, RoutedEventArgs e)
+                 flyout.CreateFlyoutItem(Transfer, Strings.Gift2TransferOption, Icons.Replace);
+             }
+ 
++            if (ProfileOwner != null)
++            {
++                flyout.CreateFlyoutItem(ViewInProfile, Strings.Gift2ViewInProfile, Icons.PersonCircle);
++            }
++
+             if (_gift.CanBeDeleted)
+             {
+                 flyout.CreateFlyoutItem(Delete, Strings.Gift2DeleteOption, Icons.Delete, destructive: true);
+@@ -1526,9 +1698,31 @@ private async void Delete()
+             }
+         }
+ 
++        private void ViewInProfile()
++        {
++            if (ProfileOwner is MessageSender owner)
++            {
++                Hide();
++                _navigationService.NavigateToSender(owner, new NavigationState { { "open_gifts", true } });
++            }
++        }
++
+         private void Craft()
+         {
+-            if (_gift.Gift is SentGiftUpgraded upgraded)
++            if (_gift.Gift is not SentGiftUpgraded upgraded)
++            {
++                return;
++            }
++
++            if (_gift.CraftDate > DateTime.Now.ToUnixTimeSeconds())
++            {
++                _ = MessagePopup.ShowNestedAsync(XamlRoot, string.Format(Strings.GiftCraftLaterText, Formatter.DateAt(_gift.CraftDate)), Strings.GiftCraftLaterTitle, Strings.OK);
++            }
++            else if (upgraded.Gift.GiftAddress.Length > 0)
++            {
++                _ = MessagePopup.ShowNestedAsync(XamlRoot, Strings.GiftCraftCantChooseFirst, Strings.GiftCraftCantChooseFirstTitle, Strings.OK);
++            }
++            else
+             {
+                 Hide();
+                 _navigationService.ShowPopup(new GiftCraftPopup(_clientService, _navigationService, _gift));
+@@ -1598,10 +1792,14 @@ private async void Resell()
+                     {
+                         upgraded.Gift.ResaleParameters = null;
+ 
+-                        UpdateVisibility();
++                        _aggregator.Publish(new UpdateGiftUpgraded(_gift.ReceivedGiftId, _gift.ReceivedGiftId, _gift));
++
++                        UpdateVisibility(true);
+ 
+                         ResellButton.Glyph = Icons.TagFilled;
+                         ResellButton.Content = Strings.Gift2ActionResell;
++
++                        ToastPopup.Show(XamlRoot, string.Format(Strings.Gift2ResaleDisable, upgraded.Gift.ToName()), ToastPopupIcon.Success);
+                     }
+                     else if (response is Error error)
+                     {
+@@ -1622,105 +1820,189 @@ private async void ChangePrice()
+                 return;
+             }
+ 
+-            var resaleStarCount = upgraded.Gift.ResaleParameters?.StarCount ?? 0;
+-            if (resaleStarCount == 0)
++            GiftResalePrice price;
++
++            if (upgraded.Gift.ResaleParameters is GiftResaleParameters listed)
+             {
+-                resaleStarCount = await _resaleStarCount.Task;
++                price = listed.GramOnly
++                    ? new GiftResalePriceGram(listed.GramCentCount)
++                    : new GiftResalePriceStar(listed.StarCount);
+             }
+-
+-            var popup = new InputPopup(InputPopupType.Stars);
+-            popup.Value = Math.Clamp(resaleStarCount, _clientService.Options.GiftResaleStarCountMin, _clientService.Options.GiftResaleStarCountMax);
+-            //popup.Minimum = _clientService.Options.GiftResaleStarCountMin;
+-            popup.Maximum = _clientService.Options.GiftResaleStarCountMax;
+-
+-            popup.Title = Strings.ResellGiftTitle;
+-            popup.Header = Strings.ResellGiftPriceTitle;
+-            popup.PrimaryButtonContent = Strings.ResellGiftButton;
+-            popup.PrimaryButtonStyle = BootStrapper.Current.Resources["AccentButtonStyle"] as Style;
+-            popup.SecondaryButtonContent = Strings.Cancel;
+-            popup.IsLightDismissEnabled = false;
+-
+-            popup.ValueChanged += (s, args) =>
++            else
+             {
+-                if (args.Value < _clientService.Options.GiftResaleStarCountMin)
+-                {
+-                    args.Footer = Locale.Declension(Strings.R.ResellGiftInfoMin, _clientService.Options.GiftResaleStarCountMin);
+-                }
+-                else
+-                {
+-                    var xtr = args.Value / 1000d;
+-                    var usd = (long)(xtr * _clientService.Options.ThousandStarToUsdRate);
+-                    var stars = (long)(xtr * _clientService.Options.GiftResaleStarEarningsPerMille);
+-
+-                    args.Footer = string.Format("{0} ~{1}", Locale.Declension(Strings.R.ResellGiftInfo, stars), Formatter.FormatAmount(usd, "USD"));
+-                }
+-            };
++                var floor = await _resaleStarCount.Task;
++                price = new GiftResalePriceStar(Math.Clamp(floor, _clientService.Options.GiftResaleStarCountMin, _clientService.Options.GiftResaleStarCountMax));
++            }
+ 
+-            popup.Validating += (s, args) =>
+-            {
+-                if (args.Value < _clientService.Options.GiftResaleStarCountMin)
+-                {
+-                    _navigationService.ShowToast(Locale.Declension(Strings.R.ResellGiftInfoMin, _clientService.Options.GiftResaleStarCountMin), ToastPopupIcon.Info);
+-                    args.Cancel = true;
+-                }
+-            };
++            var popup = new GiftResalePricePopup(_clientService, price);
+ 
+             var confirm = await popup.ShowAsync(XamlRoot);
+             if (confirm != ContentDialogResult.Primary)
+             {
+                 return;
+             }
+ 
+-            var response = await _clientService.SendAsync(new SetGiftResalePrice(_gift.ReceivedGiftId, new GiftResalePriceStar(popup.Value)));
++            var listing = upgraded.Gift.ResaleParameters == null;
++
++            var response = await _clientService.SendAsync(new SetGiftResalePrice(_gift.ReceivedGiftId, popup.Price));
+             if (response is Ok)
+             {
+-                upgraded.Gift.ResaleParameters = new GiftResaleParameters(popup.Value, 0, false);
++                upgraded.Gift.ResaleParameters = popup.Parameters;
+ 
+                 _aggregator.Publish(new UpdateGiftUpgraded(_gift.ReceivedGiftId, _gift.ReceivedGiftId, _gift));
+ 
+-                UpdateVisibility();
+-                ResaleStarCount.Text = upgraded.Gift.ResaleParameters.StarCount.ToString("N0");
++                UpdateResalePrice(upgraded.Gift.ResaleParameters);
++                UpdateVisibility(true);
+ 
+                 ResellButton.Glyph = Icons.TagOffFilled;
+                 ResellButton.Content = Strings.Gift2ActionUnlist;
++
++                if (listing)
++                {
++                    ToastPopup.Show(XamlRoot, string.Format(Strings.Gift2ResaleEnable, upgraded.Gift.ToName()), ToastPopupIcon.Success);
++                }
+             }
+             else if (response is Error error)
+             {
+                 ToastPopup.ShowError(XamlRoot, error);
+             }
+         }
+ 
++        private void ResaleStarCountRoot_Tapped(object sender, TappedRoutedEventArgs e)
++        {
++            if (_owned)
++            {
++                ChangePrice();
++            }
++        }
++
++        private void UpdateResalePrice(GiftResaleParameters parameters)
++        {
++            // The glyphs are drawn for Segoe UI's baseline, so they go inline rather than beside the text.
++            ResaleStarCount.Text = string.Format(Strings.GiftOnSale, parameters.GramOnly
++                ? Icons.Gram14 + " " + TransferGiftPopup.FormatGram(parameters.GramCentCount)
++                : Icons.Star14 + " " + parameters.StarCount.ToString("N0"));
++        }
++
++        private void ShowResalePrice(bool show, bool animate)
++        {
++            var price = ElementComposition.GetElementVisual(ResaleStarCountRoot);
++            var subtitle = ElementComposition.GetElementVisual(UpgradedSubtitle);
++
++            if (!animate)
++            {
++                _resaleShown = show;
++
++                price.StopAnimation("Scale");
++                price.StopAnimation("Opacity");
++                subtitle.StopAnimation("Opacity");
++
++                price.Scale = Vector3.One;
++                price.Opacity = 1;
++                subtitle.Opacity = show ? 0 : 1;
++
++                ResaleStarCountRoot.IsHitTestVisible = show;
++                ResaleStarCountRoot.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
++                return;
++            }
++            else if (show == _resaleShown)
++            {
++                return;
++            }
++
++            _resaleShown = show;
++
++            if (show && ResaleStarCountRoot.Visibility == Visibility.Collapsed)
++            {
++                price.Scale = new Vector3(0.4f, 0.4f, 1);
++                price.Opacity = 0;
++                ResaleStarCountRoot.Visibility = Visibility.Visible;
++            }
++
++            ResaleStarCountRoot.IsHitTestVisible = show;
++
++            var compositor = price.Compositor;
++            var easing = compositor.CreateCubicBezierEasingFunction(new Vector2(.23f, 1), new Vector2(.32f, 1));
++            var duration = TimeSpan.FromMilliseconds(420);
++
++            // The pill is collapsed until now, so its size is only known once it is laid out.
++            price.StartAnimation("CenterPoint", compositor.CreateExpressionAnimation("Vector3(this.Target.Size.X * 0.5, this.Target.Size.Y * 0.5, 0)"));
++
++            var scale = compositor.CreateVector3KeyFrameAnimation();
++            scale.InsertExpressionKeyFrame(0, "this.StartingValue");
++            scale.InsertKeyFrame(1, show ? Vector3.One : new Vector3(0.4f, 0.4f, 1), easing);
++            scale.Duration = duration;
++
++            var opacity = compositor.CreateScalarKeyFrameAnimation();
++            opacity.InsertExpressionKeyFrame(0, "this.StartingValue");
++            opacity.InsertKeyFrame(1, show ? 1 : 0, easing);
++            opacity.Duration = duration;
++
++            var fade = compositor.CreateScalarKeyFrameAnimation();
++            fade.InsertExpressionKeyFrame(0, "this.StartingValue");
++            fade.InsertKeyFrame(1, show ? 0 : 1, easing);
++            fade.Duration = duration;
++
++            var batch = compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
++            batch.Completed += ResalePrice_Completed;
++
++            price.StartAnimation("Scale", scale);
++            price.StartAnimation("Opacity", opacity);
++            subtitle.StartAnimation("Opacity", fade);
++
++            batch.End();
++        }
++
++        private void ResalePrice_Completed(object sender, CompositionBatchCompletedEventArgs args)
++        {
++            if (sender is CompositionScopedBatch batch)
++            {
++                batch.Completed -= ResalePrice_Completed;
++            }
++
++            // A show that started while this hide was running interrupts it, and keeps the pill.
++            if (!_resaleShown)
++            {
++                ResaleStarCountRoot.Visibility = Visibility.Collapsed;
++            }
++        }
++
+         private void Transfer()
+         {
+             if (_gift.Gift is not SentGiftUpgraded upgraded)
+             {
+                 return;
+             }
+ 
+-            var now = DateTime.Now.ToUnixTimeSeconds();
+-            if (now < _gift.NextTransferDate)
++            if (TransferGiftPopup.CheckTransferDate(_navigationService, _gift))
+             {
+-                var date = Formatter.ToLocalTime(_gift.NextTransferDate);
+-                var diff = date - DateTime.Now;
++                Hide();
++                _navigationService.ShowPopup(new ChooseChatsPopup(), new ChooseChatsConfigurationTransferGift(_gift));
++            }
++        }
+ 
+-                string message;
+-                if (diff.TotalDays >= 1)
+-                {
+-                    message = Formatter.DateAt(_gift.NextTransferDate);
+-                    message = string.Format(Strings.Gift2TransferTimeoutDate, message);
+-                }
+-                else
+-                {
+-                    message = Locale.FormatTtl(_gift.NextTransferDate - now);
+-                    message = string.Format(Strings.Gift2TransferTimeout, message);
+-                }
++        private async void OfferToBuy()
++        {
++            if (_gift.Gift is not SentGiftUpgraded upgraded)
++            {
++                return;
++            }
++
++            var ownerName = _clientService.GetTitle(upgraded.Gift.OwnerId, true);
+ 
+-                _navigationService.ShowPopup(message, Strings.Gift2TransferTimeoutTitle, Strings.OK);
++            var response = await GiftOfferPopup.OfferAsync(_clientService, _navigationService, upgraded.Gift, ownerName);
++            if (response is Ok)
++            {
++                ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.GiftOfferSentTitle, string.Format(Strings.GiftOfferSentText, upgraded.Gift.ToName(), ownerName)), ToastPopupIcon.Forward);
+             }
+-            else
++            else if (response is Error error)
++            {
++                ToastPopup.ShowError(XamlRoot, error);
++            }
++            else if (response is ErrorStarsNeeded needed)
+             {
+                 Hide();
+-                _navigationService.ShowPopup(new ChooseChatsPopup(), new ChooseChatsConfigurationTransferGift(_gift));
++                await _navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(needed.StarCount, 0));
+             }
+         }
+ 
+@@ -1733,40 +2015,57 @@ private async void BuyResale()
+ 
+             var chat = await _clientService.GetChatFromMessageSenderAsync(_sendGiftTo);
+ 
+-            var confirm = await _navigationService.ShowPopupAsync(new TransferGiftPopup(_clientService, _gift, chat, true));
+-            if (confirm == ContentDialogResult.Primary)
++            var text = string.Empty.AsFormattedText();
++            var isPrivate = false;
++
++            if (_sendGiftTo != null && !_sendGiftTo.IsUser(_clientService.Options.MyId))
+             {
+-                // TODO: text, isPrivate
+-                var response = await _clientService.SendPaymentAsync(upgraded.Gift.ResaleParameters.StarCount, new SendResoldGift(upgraded.Gift.Name, _sendGiftTo ?? _clientService.MyId, new GiftResalePriceStar(upgraded.Gift.ResaleParameters.StarCount), string.Empty.AsFormattedText(), false));
+-                if (response is GiftResaleResultOk)
+-                {
+-                    _aggregator.Publish(new UpdateGiftIsSold(_gift.ReceivedGiftId));
+-                    Hide(ContentDialogResult.Primary);
++                var popup = new GiftMessagePopup(_clientService, upgraded.Gift, _sendGiftTo);
+ 
+-                    if (chat != null)
+-                    {
+-                        _navigationService.NavigateToChat(chat.Id);
+-                        ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.BoughtResoldGiftToTitle, string.Format(Strings.BoughtResoldGiftToText, chat.Title)), new DelayedFileSource(_clientService, upgraded.Gift.Model.Sticker));
+-                    }
+-                    else
+-                    {
+-                        ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.BoughtResoldGiftTitle, string.Format(Strings.BoughtResoldGiftText, upgraded.Gift.ToName())), new DelayedFileSource(_clientService, upgraded.Gift.Model.Sticker));
+-                    }
+-                }
+-                else if (response is Error error)
++                var confirm = await _navigationService.ShowPopupAsync(popup);
++                if (confirm != ContentDialogResult.Primary)
+                 {
+                     _submitted = false;
+-                    ToastPopup.ShowError(XamlRoot, error);
++                    return;
+                 }
+-                else if (response is ErrorStarsNeeded)
++
++                text = popup.Text;
++                isPrivate = popup.IsPrivate;
++            }
++
++            var response = await TransferGiftPopup.BuyAsync(_clientService, _navigationService, upgraded.Gift, chat, _sendGiftTo ?? _clientService.MyId, text, isPrivate);
++            if (response is GiftResaleResultOk)
++            {
++                _aggregator.Publish(new UpdateGiftIsSold(_gift.ReceivedGiftId));
++                Hide(ContentDialogResult.Primary);
++
++                if (chat != null)
+                 {
+-                    Hide();
+-                    await _navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(upgraded.Gift.ResaleParameters.StarCount, 0));
++                    _navigationService.NavigateToChat(chat.Id);
++                    ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.BoughtResoldGiftToTitle, string.Format(Strings.BoughtResoldGiftToText, chat.Title)), new DelayedFileSource(_clientService, upgraded.Gift.Model.Sticker));
+                 }
++                else
++                {
++                    ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.BoughtResoldGiftTitle, string.Format(Strings.BoughtResoldGiftText, upgraded.Gift.ToName())), new DelayedFileSource(_clientService, upgraded.Gift.Model.Sticker));
++                }
++
++                return;
+             }
+-            else
++
++            _submitted = false;
++
++            // A raised price was confirmed or declined in the loop, and the sheet has to show it either way.
++            PrimaryButtonText = GetUpgradedPrimaryButtonText(upgraded.Gift);
++            UpdateResalePrice(upgraded.Gift.ResaleParameters);
++
++            if (response is Error error)
+             {
+-                _submitted = false;
++                ToastPopup.ShowError(XamlRoot, error);
++            }
++            else if (response is ErrorStarsNeeded)
++            {
++                Hide();
++                await _navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(upgraded.Gift.ResaleParameters.StarCount, 0));
+             }
+         }
+ 
+@@ -1794,7 +2093,7 @@ private async void FromSendGift_Click(object sender, RoutedEventArgs e)
+                 fullInfo = await _clientService.SendAsync(new GetUserFullInfo(user.Id)) as UserFullInfo;
+             }
+ 
+-            if (fullInfo != null)
++            if (fullInfo != null && GiftPopup.CanReceiveGifts(_clientService, _navigationService, user, fullInfo))
+             {
+                 Hide();
+                 _navigationService.ShowPopup(new GiftPopup(_clientService, _navigationService, user, fullInfo));
+@@ -1805,9 +2104,9 @@ private void Owner_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+         {
+             Hide();
+ 
+-            if (_gift.Gift is SentGiftUpgraded upgraded && upgraded.Gift.OwnerId != null)
++            if (_gift.Gift is SentGiftUpgraded upgraded && HolderOf(upgraded.Gift) is MessageSender holder)
+             {
+-                _navigationService.NavigateToSender(upgraded.Gift.OwnerId);
++                _navigationService.NavigateToSender(holder);
+             }
+             else
+             {
+@@ -1817,7 +2116,48 @@ private void Owner_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+ 
+         private void TransferButton_Click(object sender, RoutedEventArgs e)
+         {
+-            Transfer();
++            if (_owned)
++            {
++                Transfer();
++            }
++            else
++            {
++                ShowActionLocked();
++            }
++        }
++
++        private async void ShowActionLocked()
++        {
++            if (_gift.Gift is not SentGiftUpgraded upgraded)
++            {
++                return;
++            }
++
++            var confirm = await MessagePopup.ShowNestedAsync(XamlRoot, Strings.Gift2CantDoText, Strings.Gift2CantDoTitle, Strings.OpenFragment, Strings.Cancel);
++            if (confirm == ContentDialogResult.Primary)
++            {
++                MessageHelper.OpenUrl(_clientService, _navigationService, "https://fragment.com/gift/" + upgraded.Gift.Name);
++            }
++        }
++
++        private void OwnerAddress_Click(object sender, RoutedEventArgs e)
++        {
++            if (_gift.Gift is SentGiftUpgraded upgraded)
++            {
++                var dataPackage = new DataPackage();
++                dataPackage.SetText(upgraded.Gift.OwnerAddress);
++                ClipboardEx.TrySetContent(dataPackage);
++
++                ToastPopup.Show(XamlRoot, Strings.WalletAddressCopied, ToastPopupIcon.Copied);
++            }
++        }
++
++        private void Blockchain_Click(object sender, TextUrlClickEventArgs e)
++        {
++            if (_gift.Gift is SentGiftUpgraded upgraded)
++            {
++                MessageHelper.OpenUrl(_clientService, _navigationService, _clientService.Options.TonBlockchainExplorerUrl + upgraded.Gift.GiftAddress);
++            }
+         }
+ 
+         private void WearButton_Click(object sender, RoutedEventArgs e)
+@@ -1852,7 +2192,7 @@ private async void ToggleWear()
+ 
+             if (worn is false)
+             {
+-                if (gift.OwnerId is MessageSenderChat senderChat)
++                if (HolderOf(gift) is MessageSenderChat senderChat)
+                 {
+                     if (await CanSetChatEmojiStatusAsync(senderChat.ChatId) is false)
+                     {
+@@ -1877,7 +2217,7 @@ private async void ToggleWear()
+                 status = new EmojiStatus(type, 0);
+             }
+ 
+-            Function function = gift.OwnerId is MessageSenderChat ownerChat
++            Function function = HolderOf(gift) is MessageSenderChat ownerChat
+                 ? new SetChatEmojiStatus(ownerChat.ChatId, status)
+                 : new SetEmojiStatus(status);
+ 
+@@ -1921,15 +2261,26 @@ private async Task<bool> CanSetChatEmojiStatusAsync(long chatId)
+             return false;
+         }
+ 
++        /// <summary>
++        /// The Telegram account the gift is with: its owner, or for a gift on the blockchain the
++        /// account hosting it.
++        /// </summary>
++        private static MessageSender HolderOf(UpgradedGift gift)
++        {
++            return gift.HostId ?? gift.OwnerId;
++        }
++
+         private bool IsWorn(UpgradedGift gift)
+         {
+             EmojiStatus status = null;
+ 
+-            if (_clientService.TryGetUser(gift.OwnerId, out User user))
++            var holder = HolderOf(gift);
++
++            if (_clientService.TryGetUser(holder, out User user))
+             {
+                 status = user.EmojiStatus;
+             }
+-            else if (_clientService.TryGetChat(gift.OwnerId, out Chat chat))
++            else if (_clientService.TryGetChat(holder, out Chat chat))
+             {
+                 status = chat.EmojiStatus;
+             }
+@@ -1955,7 +2306,14 @@ private void UpdateWearButton(bool worn)
+ 
+         private void ResellButton_Click(object sender, RoutedEventArgs e)
+         {
+-            Resell();
++            if (_owned)
++            {
++                Resell();
++            }
++            else
++            {
++                Share();
++            }
+         }
+ 
+         private void Publisher_Click(Hyperlink sender, HyperlinkClickEventArgs args)
+@@ -2010,6 +2368,11 @@ private async void UpgradedCaptionRemove_Click(object sender, RoutedEventArgs e)
+                     UpgradedTableRoot.CornerRadius = new CornerRadius(4);
+ 
+                     UpgradedCaptionRoot.Visibility = Visibility.Collapsed;
++
++                    if (_gift.Gift is SentGiftUpgraded removed)
++                    {
++                        ToastPopup.Show(XamlRoot, ClientEx.ParseMarkdown(string.Format(Strings.GiftRemovedDescription, removed.Gift.ToName())), new DelayedFileSource(_clientService, removed.Gift.Model.Sticker));
++                    }
+                 }
+                 else if (response is Error error)
+                 {
+diff --git a/Telegram/Views/Stars/Popups/SendGiftPopup.xaml.cs b/Telegram/Views/Stars/Popups/SendGiftPopup.xaml.cs
+@@ -39,7 +39,8 @@ public sealed partial class SendGiftPopup : ModalPopup
+ 
+         private readonly MessageSender _receiverId;
+ 
+-        public SendGiftPopup(IClientService clientService, INavigationService navigationService, Gift gift, MessageSender receiverId)
++        /// <param name="accepted">What the receiving user accepts; null for the current user and for channels.</param>
++        public SendGiftPopup(IClientService clientService, INavigationService navigationService, Gift gift, MessageSender receiverId, AcceptedGiftTypes accepted)
+         {
+             InitializeComponent();
+ 
+@@ -49,7 +50,9 @@ public SendGiftPopup(IClientService clientService, INavigationService navigation
+             _gift = gift;
+             _receiverId = receiverId;
+ 
+-            base.Title = Strings.Gift2Title;
++            var self = receiverId.IsUser(clientService.Options.MyId);
++
++            base.Title = self ? Strings.Gift2TitleSelf2 : Strings.Gift2Title;
+ 
+             clientService.TryGetChatFromUser(clientService.Options.MyId, out Chat chat);
+ 
+@@ -75,32 +78,49 @@ public SendGiftPopup(IClientService clientService, INavigationService navigation
+                 | FormattedTextEntity.Underline
+                 | FormattedTextEntity.Strikethrough
+                 | FormattedTextEntity.Spoiler
+-                | FormattedTextEntity.CustomEmoji;
++                | FormattedTextEntity.CustomEmoji
++                | FormattedTextEntity.Date;
+ 
+             CaptionInfo.Visibility = Visibility.Collapsed;
++            CaptionPanel.Visibility = ChargesForMessages() ? Visibility.Collapsed : Visibility.Visible;
+ 
+-            if (receiverId.IsUser(clientService.Options.MyId))
++            if (self)
+             {
+                 HideMyName.Content = Strings.Gift2HideSelf;
++                HideMyName.IsChecked = true;
+                 HideMyNameInfo.Text = Strings.Gift2HideSelfInfo;
+ 
+                 UpgradeableRoot.Visibility = Visibility.Collapsed;
+             }
+             else
+             {
+-                HideMyNameInfo.Text = string.Format(Strings.Gift2HideInfo, _clientService.GetTitle(receiverId));
++                HideMyNameInfo.Text = receiverId is MessageSenderChat
++                    ? Strings.Gift2HideChannelInfo
++                    : string.Format(Strings.Gift2HideInfo, _clientService.GetTitle(receiverId));
+ 
+                 if (gift.UpgradeStarCount > 0)
+                 {
+-                    UpgradeableInfo.Text = string.Format(Strings.Gift2UpgradeInfo, _clientService.GetTitle(receiverId));
++                    UpgradeableText.Text = string.Format(Strings.Gift2Upgrade, gift.UpgradeStarCount).ReplaceStar(Icons.PremiumStar);
+ 
+-                    var text = string.Format(Strings.Gift2Upgrade, gift.UpgradeStarCount);
+-                    var index = text.IndexOf("\u2B50\uFE0F");
++                    // A user who takes limited gifts only plain, or only unique, decides the upgrade for the sender.
++                    if (gift.OverallLimits != null && accepted?.LimitedGifts is false)
++                    {
++                        Upgradeable.IsChecked = true;
++                        Upgradeable.IsEnabled = false;
+ 
+-                    if (index != -1)
++                        UpgradeableInfo.IsLink = false;
++                        UpgradeableInfo.Text = string.Format(Strings.Gift2UpgradeForcedInfo, _clientService.GetTitle(receiverId));
++                    }
++                    else if (gift.OverallLimits != null && accepted?.UpgradedGifts is false)
+                     {
+-                        UpgradeableTextPart1.Text = text.Substring(0, index);
+-                        UpgradeableTextPart2.Text = text.Substring(index + 2);
++                        Upgradeable.IsEnabled = false;
++
++                        UpgradeableInfo.IsLink = false;
++                        UpgradeableInfo.Text = string.Format(Strings.Gift2NoUpgradeForcedInfo, _clientService.GetTitle(receiverId));
++                    }
++                    else
++                    {
++                        UpgradeableInfo.Text = string.Format(receiverId is MessageSenderChat ? Strings.Gift2UpgradeChannelInfo : Strings.Gift2UpgradeInfo, _clientService.GetTitle(receiverId));
+                     }
+                 }
+                 else
+@@ -117,11 +137,75 @@ public SendGiftPopup(IClientService clientService, INavigationService navigation
+                 NextLimit.Text = NextLimitBelow.Text = Locale.Declension(Strings.R.Gift2AvailabilityLeft, gift.OverallLimits.RemainingCount);
+             }
+ 
+-            PrimaryButtonText = Locale.Declension(Strings.R.Gift2Send, gift.StarCount).ReplaceStar(Icons.Premium);
++            UpdatePrimaryButton();
+ 
+             InitializeGiftsForResale();
+         }
+ 
++        private long StarCount => _gift != null
++            ? _gift.StarCount + (Upgradeable.IsChecked is true ? _gift.UpgradeStarCount : 0)
++            : _option.StarCount;
++
++        private StackPanel _primaryContent;
++        private TextBlock _primaryText;
++        private TextBlock _primaryBalance;
++
++        private void UpdatePrimaryButton()
++        {
++            var starCount = StarCount;
++            var text = Locale.Declension(_receiverId.IsUser(_clientService.Options.MyId) ? Strings.R.Gift2SendSelf : Strings.R.Gift2Send, starCount).ReplaceStar(Icons.Premium);
++
++            PrimaryButtonText = text;
++
++            // Reading the balance requests it; until it loads it reads as zero, which is not being short.
++            var balance = _clientService.OwnedStarCount;
++            if (_clientService.IsOwnedStarCountAvailable && starCount > balance.StarCount)
++            {
++                if (_primaryContent == null)
++                {
++                    _primaryText = new TextBlock
++                    {
++                        TextAlignment = TextAlignment.Center
++                    };
++
++                    _primaryBalance = new TextBlock
++                    {
++                        TextAlignment = TextAlignment.Center,
++                        FontSize = 12,
++                        Opacity = 0.8
++                    };
++
++                    _primaryContent = new StackPanel();
++                    _primaryContent.Children.Add(_primaryText);
++                    _primaryContent.Children.Add(_primaryBalance);
++                }
++
++                _primaryText.Text = text;
++                _primaryBalance.Text = Locale.Declension(Strings.R.Gift2SendYourBalance, balance.StarCount);
++
++                PrimaryButtonContent = _primaryContent;
++            }
++            else
++            {
++                PrimaryButtonContent = text;
++            }
++        }
++
++        /// <summary>
++        /// A recipient who charges for messages gets the gift without one.
++        /// </summary>
++        private bool ChargesForMessages()
++        {
++            if (_receiverId is MessageSenderUser user)
++            {
++                return _clientService.TryGetUserFull(user.UserId, out UserFullInfo fullInfo)
++                    && fullInfo.OutgoingPaidMessageStarCount > 0;
++            }
++
++            return _clientService.TryGetChat(_receiverId, out Chat chat)
++                && PaidMessageHelper.OutgoingStarCount(_clientService, chat) > 0;
++        }
++
+         private async void InitializeGiftsForResale()
+         {
+             var response = await _clientService.SendAsync(new SearchGiftsForResale(_gift.Id, new GiftForResaleOrderPrice(), false, false, Array.Empty<UpgradedGiftAttributeId>(), string.Empty, 1));
+@@ -170,17 +254,55 @@ public SendGiftPopup(IClientService clientService, INavigationService navigation
+                 | FormattedTextEntity.Underline
+                 | FormattedTextEntity.Strikethrough
+                 | FormattedTextEntity.Spoiler
+-                | FormattedTextEntity.CustomEmoji;
++                | FormattedTextEntity.CustomEmoji
++                | FormattedTextEntity.Date;
+ 
+             HideMyNameRoot.Visibility = Visibility.Collapsed;
+             UpgradeableRoot.Visibility = Visibility.Collapsed;
+ 
+-            if (clientService.TryGetUser(userId, out User user))
++            if (ChargesForMessages())
++            {
++                CaptionPanel.Visibility = Visibility.Collapsed;
++                CaptionInfo.Visibility = Visibility.Collapsed;
++            }
++            else if (clientService.TryGetUser(userId, out User user))
+             {
+                 CaptionInfo.Text = string.Format(Strings.Gift2MessagePremiumInfo, user.FirstName);
+             }
+ 
+-            PrimaryButtonText = string.Format(Strings.Gift2SendPremium, Formatter.FormatAmount(option.Amount, option.Currency));
++            if (option.StarCount > 0)
++            {
++                PayWithStarsRoot.Visibility = Visibility.Visible;
++                PayWithStarsText.Text = string.Format(Strings.Gift2MessageStars.ReplaceStar(Icons.Premium), option.StarCount.ToString("N0"));
++                UpdateStarsBalance();
++            }
++
++            PrimaryButtonText = GetPremiumButtonText();
++        }
++
++        private bool PayInStars => _option.StarCount > 0 && PayWithStars.IsChecked is true;
++
++        private string GetPremiumButtonText()
++        {
++            return PayInStars
++                ? string.Format(Strings.Gift2SendPremiumStars.ReplaceStar(Icons.Premium), _option.StarCount.ToString("N0"))
++                : string.Format(Strings.Gift2SendPremium, Formatter.FormatAmount(_option.Amount, _option.Currency));
++        }
++
++        private void UpdateStarsBalance()
++        {
++            PayWithStarsInfo.Text = string.Format(Strings.Gift2MessageStarsInfo.ReplaceStar(Icons.Premium), _clientService.OwnedStarCount.ToValue()) + " " + Strings.Gift2MessageStarsInfoLink;
++        }
++
++        private async void PayWithStarsInfo_Click(object sender, TextUrlClickEventArgs e)
++        {
++            // BuyPopup is a ContentPopup, which does not open over this one.
++            Hide();
++
++            await _navigationService.ShowPopupAsync(new BuyPopup(), new BuyStarsArgs());
++            await this.ShowQueuedAsync(XamlRoot);
++
++            UpdateStarsBalance();
+         }
+ 
+         private void OnContentChanged(object sender, EventArgs e)
+@@ -197,13 +319,15 @@ private void OnTextChanged(object sender, RoutedEventArgs e)
+             {
+                 content = new MessageGift(_gift, _clientService.MyId, _receiverId, string.Empty, text, 0, _gift.DefaultSellStarCount, Upgradeable.IsChecked is true ? _gift.UpgradeStarCount : 0, false, false, false, false, false, false, false, false, false, false, string.Empty, string.Empty);
+ 
+-                PrimaryButtonText = Locale.Declension(Strings.R.Gift2Send, _gift.StarCount + (Upgradeable.IsChecked is true ? _gift.UpgradeStarCount : 0)).ReplaceStar(Icons.Premium);
++                UpdatePrimaryButton();
+             }
+             else if (_option != null && _receiverId is MessageSenderUser user)
+             {
+-                content = new MessageGiftedPremium(_clientService.Options.MyId, user.UserId, text, _option.Currency, _option.Amount, string.Empty, 0, _option.MonthCount, 0, _option.Sticker);
++                content = PayInStars
++                    ? new MessageGiftedPremium(_clientService.Options.MyId, user.UserId, text, "XTR", _option.StarCount, string.Empty, 0, _option.MonthCount, 0, _option.Sticker)
++                    : new MessageGiftedPremium(_clientService.Options.MyId, user.UserId, text, _option.Currency, _option.Amount, string.Empty, 0, _option.MonthCount, 0, _option.Sticker);
+ 
+-                PrimaryButtonText = string.Format(Strings.Gift2SendPremium, Formatter.FormatAmount(_option.Amount, _option.Currency));
++                PrimaryButtonText = GetPremiumButtonText();
+             }
+             else
+             {
+@@ -267,7 +391,7 @@ private async void OnPrimaryButtonClick(ModalPopup sender, ModalPopupButtonClick
+ 
+                 if (result == PayResult.StarsNeeded)
+                 {
+-                    await _navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(_gift.StarCount, 0));
++                    await _navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(StarCount, 0));
+                 }
+ 
+                 return;
+@@ -294,20 +418,51 @@ private Task<PayResult> SubmitAsync()
+             return Task.FromResult(PayResult.Failed);
+         }
+ 
+-        public Task<PayResult> SubmitGiftCodeAsync()
++        public async Task<PayResult> SubmitGiftCodeAsync()
+         {
+             var text = CaptionInput.GetFormattedText();
+             var user = _receiverId as MessageSenderUser;
+ 
+-            _navigationService.NavigateToInvoice(new InputInvoiceTelegram(new TelegramPaymentPurposePremiumGift(_option.Currency, _option.Amount, user.UserId, _option.MonthCount, text)));
+-            return Task.FromResult(PayResult.Succeeded);
++            if (PayInStars is false)
++            {
++                _navigationService.NavigateToInvoice(new InputInvoiceTelegram(new TelegramPaymentPurposePremiumGift(_option.Currency, _option.Amount, user.UserId, _option.MonthCount, text)));
++                return PayResult.Succeeded;
++            }
++
++            // The same purpose in XTR is paid from the balance, without the checkout window.
++            var invoice = new InputInvoiceTelegram(new TelegramPaymentPurposePremiumGift("XTR", _option.StarCount, user.UserId, _option.MonthCount, text));
++
++            var form = await _clientService.SendAsync(new GetPaymentForm(invoice, null));
++            if (form is PaymentForm paymentForm && paymentForm.Type is PaymentFormTypeStars stars)
++            {
++                var response = await _clientService.SendPaymentAsync(stars.StarCount, new SendPaymentForm(invoice, paymentForm.Id, string.Empty, string.Empty, null, 0));
++                if (response is PaymentResult { Success: true })
++                {
++                    ToastPopup.Show(XamlRoot, string.Format("**{0}**\n{1}", Strings.StarsGiftCompleted, Locale.Declension(Strings.R.StarsGiftCompletedText, stars.StarCount)), DelayedFileSource.FromSticker(_clientService, _option.Sticker));
++                    return PayResult.Succeeded;
++                }
++                else if (response is ErrorStarsNeeded)
++                {
++                    return PayResult.StarsNeeded;
++                }
++                else if (response is Error error)
++                {
++                    ToastPopup.ShowError(XamlRoot, error);
++                }
++            }
++            else if (form is Error error)
++            {
++                ToastPopup.ShowError(XamlRoot, error);
++            }
++
++            return PayResult.Failed;
+         }
+ 
+         public async Task<PayResult> SubmitGiftAsync()
+         {
+             var text = CaptionInput.GetFormattedText();
+ 
+-            var response = await _clientService.SendPaymentAsync(_gift.StarCount, new SendGift(_gift.Id, _receiverId, text, HideMyName.IsChecked is true, Upgradeable.IsChecked is true));
++            var response = await _clientService.SendPaymentAsync(StarCount, new SendGift(_gift.Id, _receiverId, text, HideMyName.IsChecked is true, Upgradeable.IsChecked is true));
+             if (response is Ok result)
+             {
+                 //var user = ClientService.GetUser(PaymentForm.SellerBotUserId);
+@@ -354,9 +509,13 @@ public async Task<PayResult> SubmitGiftAsync()
+             return PayResult.Failed;
+         }
+ 
+-        private void UpgradeableInfo_Click(object sender, TextUrlClickEventArgs e)
++        private async void UpgradeableInfo_Click(object sender, TextUrlClickEventArgs e)
+         {
+-
++            var response = await _clientService.SendAsync(new GetGiftUpgradePreview(_gift.Id));
++            if (response is GiftUpgradePreview preview)
++            {
++                _navigationService.ShowPopup(new ReceivedGiftPopup(_clientService, _navigationService, preview, _clientService.GetTitle(_receiverId, true)));
++            }
+         }
+ 
+         private void LimitedRoot_SizeChanged(object sender, SizeChangedEventArgs e)

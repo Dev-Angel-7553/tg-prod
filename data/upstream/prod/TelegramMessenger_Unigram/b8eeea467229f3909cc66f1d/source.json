@@ -1,0 +1,105 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/Unigram:faac00447680f79b759977d06cc67024c6fa4e74:code:mixed",
+  "files": [
+    {
+      "additions": 5,
+      "deletions": 1,
+      "filename": "Telegram/Common/MessageHelper.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 81,
+      "deletions": 56,
+      "filename": "Telegram/Controls/Cells/ReceivedGiftCell.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 42,
+      "deletions": 2,
+      "filename": "Telegram/Controls/Messages/Service/MessageUpgradedGiftContent.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 14,
+      "filename": "Telegram/ViewModels/ChooseChatsViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 15,
+      "deletions": 2,
+      "filename": "Telegram/ViewModels/DialogViewModel.Messages.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 11,
+      "deletions": 16,
+      "filename": "Telegram/ViewModels/Settings/SettingsProfileColorViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 24,
+      "deletions": 39,
+      "filename": "Telegram/Views/Gifts/Popups/GiftCraftChoosePopup.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 315,
+      "deletions": 41,
+      "filename": "Telegram/Views/Popups/TransferGiftPopup.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 181,
+      "deletions": 90,
+      "filename": "Telegram/Views/Premium/Popups/GiftPopup.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 0,
+      "filename": "Telegram/Views/Settings/SettingsPasskeysPage.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 114,
+      "deletions": 0,
+      "filename": "Telegram/Views/Stars/Popups/GiftMessagePopup.xaml.cs",
+      "status": "added"
+    },
+    {
+      "additions": 61,
+      "deletions": 0,
+      "filename": "Telegram/Views/Stars/Popups/GiftOfferConfirmPopup.xaml.cs",
+      "status": "added"
+    },
+    {
+      "additions": 252,
+      "deletions": 0,
+      "filename": "Telegram/Views/Stars/Popups/GiftOfferPopup.xaml.cs",
+      "status": "added"
+    },
+    {
+      "additions": 514,
+      "deletions": 151,
+      "filename": "Telegram/Views/Stars/Popups/ReceivedGiftPopup.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 184,
+      "deletions": 25,
+      "filename": "Telegram/Views/Stars/Popups/SendGiftPopup.xaml.cs",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "develop",
+    "date": "2026-11-21T09:17:25Z",
+    "repo": "TelegramMessenger/Unigram",
+    "sha": "faac00447680f79b759977d06cc67024c6fa4e74",
+    "url": "https://github.com/TelegramMessenger/Unigram/compare/ed3daeb6982cb63c310e51664e2a3497c0d0d800...faac00447680f79b759977d06cc67024c6fa4e74"
+  }
+}

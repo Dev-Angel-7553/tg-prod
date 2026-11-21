@@ -1,0 +1,65 @@
+diff --git a/data/web_tr/translations.telegram.org/en/weba/unsorted.json b/data/web_tr/translations.telegram.org/en/weba/unsorted.json
+@@ -20949,15 +20949,15 @@
+     "ShortcutNextMedia": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutNextMedia",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Next media"
+         }
+     },
+     "ShortcutNextStory": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutNextStory",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Next story"
+         }
+@@ -20997,15 +20997,15 @@
+     "ShortcutPreviousMedia": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutPreviousMedia",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Previous media"
+         }
+     },
+     "ShortcutPreviousStory": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/ShortcutPreviousStory",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Previous story"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/webk/unsorted.json b/data/web_tr/translations.telegram.org/en/webk/unsorted.json
+@@ -9315,7 +9315,7 @@
+     "Chat.Input.Editor.Media.Next": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/Chat.Input.Editor.Media.Next",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Next media"
+         }
+@@ -20191,7 +20191,7 @@
+     "KeyboardShortcuts.Action.NextStory": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/KeyboardShortcuts.Action.NextStory",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Next story"
+         }
+@@ -20231,7 +20231,7 @@
+     "KeyboardShortcuts.Action.PreviousStory": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/KeyboardShortcuts.Action.PreviousStory",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Previous story"
+         }

@@ -1,0 +1,32 @@
+{
+  "category": "server",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:a7896129e854f73309cd53905655c353a794a905:server:prod",
+  "files": [
+    {
+      "additions": 6,
+      "deletions": 6,
+      "filename": "aicompose.getTones.json",
+      "status": "modified"
+    },
+    {
+      "additions": 26,
+      "deletions": 2,
+      "filename": "help.getAppConfig.json",
+      "status": "modified"
+    },
+    {
+      "additions": 12,
+      "deletions": 12,
+      "filename": "messages.getTranscriptionModels.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-22T20:20:33Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "a7896129e854f73309cd53905655c353a794a905",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/a7896129e854f73309cd53905655c353a794a905"
+  }
+}

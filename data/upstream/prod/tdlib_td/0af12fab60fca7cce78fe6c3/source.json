@@ -1,0 +1,153 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "tdlib/td:f10611ee1f03f91ddae8185483a1ccfd3d664668:code:mixed",
+  "files": [
+    {
+      "additions": 56,
+      "deletions": 19,
+      "filename": "td/generate/scheme/telegram_api.tl",
+      "status": "modified"
+    },
+    {
+      "additions": 43,
+      "deletions": 1,
+      "filename": "td/telegram/ConfigManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "filename": "td/telegram/DialogAction.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 427,
+      "deletions": 59,
+      "filename": "td/telegram/MessageContent.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 20,
+      "deletions": 0,
+      "filename": "td/telegram/MessageContentType.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "td/telegram/MessageContentType.h",
+      "status": "modified"
+    },
+    {
+      "additions": 314,
+      "deletions": 0,
+      "filename": "td/telegram/MessageQueryManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 20,
+      "deletions": 0,
+      "filename": "td/telegram/MessageQueryManager.h",
+      "status": "modified"
+    },
+    {
+      "additions": 166,
+      "deletions": 200,
+      "filename": "td/telegram/MessagesManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 18,
+      "deletions": 10,
+      "filename": "td/telegram/MessagesManager.h",
+      "status": "modified"
+    },
+    {
+      "additions": 15,
+      "deletions": 1,
+      "filename": "td/telegram/OptionManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 119,
+      "deletions": 12,
+      "filename": "td/telegram/Requests.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 32,
+      "deletions": 2,
+      "filename": "td/telegram/Requests.h",
+      "status": "modified"
+    },
+    {
+      "additions": 28,
+      "deletions": 12,
+      "filename": "td/telegram/StarGift.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 332,
+      "deletions": 8,
+      "filename": "td/telegram/StarGiftManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 32,
+      "deletions": 1,
+      "filename": "td/telegram/StarGiftManager.h",
+      "status": "modified"
+    },
+    {
+      "additions": 39,
+      "deletions": 0,
+      "filename": "td/telegram/StarManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 90,
+      "deletions": 6,
+      "filename": "td/telegram/TonWalletManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "td/telegram/TonWalletManager.h",
+      "status": "modified"
+    },
+    {
+      "additions": 81,
+      "deletions": 1,
+      "filename": "td/telegram/TranscriptionManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "td/telegram/TranscriptionManager.h",
+      "status": "modified"
+    },
+    {
+      "additions": 32,
+      "deletions": 4,
+      "filename": "td/telegram/UpdatesManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 160,
+      "deletions": 10,
+      "filename": "td/telegram/cli.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "master",
+    "date": "2026-11-21T23:26:03Z",
+    "repo": "tdlib/td",
+    "sha": "f10611ee1f03f91ddae8185483a1ccfd3d664668",
+    "url": "https://github.com/tdlib/td/compare/03220f6b3043c6fd7785fbf0901d63f19ad19974...f10611ee1f03f91ddae8185483a1ccfd3d664668"
+  }
+}

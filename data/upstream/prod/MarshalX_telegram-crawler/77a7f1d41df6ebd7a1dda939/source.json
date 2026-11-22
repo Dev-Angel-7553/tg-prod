@@ -1,0 +1,74 @@
+{
+  "category": "web",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:ac7f1b4bf5c5bb5993181394141cf66fe9088b95:web:mixed",
+  "files": [
+    {
+      "additions": 19,
+      "deletions": 0,
+      "filename": "data/web/blogfork.telegram.org/bots/api-changelog.html",
+      "status": "modified"
+    },
+    {
+      "additions": 21,
+      "deletions": 0,
+      "filename": "data/web/blogfork.telegram.org/bots/api-changelog.md",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 2,
+      "filename": "data/web/blogfork.telegram.org/bots/api.md",
+      "status": "modified"
+    },
+    {
+      "additions": 19,
+      "deletions": 0,
+      "filename": "data/web/core.telegram.org/bots/api-changelog.html",
+      "status": "modified"
+    },
+    {
+      "additions": 21,
+      "deletions": 0,
+      "filename": "data/web/core.telegram.org/bots/api-changelog.md",
+      "status": "modified"
+    },
+    {
+      "additions": 232,
+      "deletions": 51,
+      "filename": "data/web/core.telegram.org/bots/api.html",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 2,
+      "filename": "data/web/core.telegram.org/bots/api.md",
+      "status": "modified"
+    },
+    {
+      "additions": 19,
+      "deletions": 0,
+      "filename": "data/web/corefork.telegram.org/bots/api-changelog.html",
+      "status": "modified"
+    },
+    {
+      "additions": 2560,
+      "deletions": 1945,
+      "filename": "data/web/raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/td_api.tl",
+      "status": "modified"
+    },
+    {
+      "additions": 56,
+      "deletions": 19,
+      "filename": "data/web/raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/telegram_api.tl",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-22T10:17:12Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "ac7f1b4bf5c5bb5993181394141cf66fe9088b95",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/ac7f1b4bf5c5bb5993181394141cf66fe9088b95"
+  }
+}

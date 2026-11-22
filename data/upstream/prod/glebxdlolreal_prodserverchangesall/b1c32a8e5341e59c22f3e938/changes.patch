@@ -1,0 +1,178 @@
+diff --git a/my-telegram.css b/my-telegram.css
+@@ -743,9 +743,11 @@ html.ios-chrome body { min-height: calc(100vh + 2px); }
+    One grouped block: the country row on top (flag, name, chevron) opens the list; under a hairline the
+    phone row holds the dial code (own input, as wide as its text), a short divider and the number.
+    The list opens right under the country row and covers the phone row. */
++@property --phone-fill { syntax: '<color>'; inherits: true; initial-value: transparent; }
+ .phone-group {
+-  position: relative; background: var(--surface-2); border: 1.5px solid transparent; border-radius: 12px;
+-  transition: border-color .15s, background .15s;
++  --phone-fill: var(--surface-2);
++  position: relative; background: var(--phone-fill); border: 1.5px solid transparent; border-radius: 12px;
++  transition: border-color .15s, --phone-fill .15s;
+ }
+ .phone-field .country-btn {
+   position: relative; display: flex; align-items: center; gap: 10px;
+@@ -763,7 +765,7 @@ html.ios-chrome body { min-height: calc(100vh + 2px); }
+ .phone-field.no-country .country-btn .cname { color: var(--text-3); }
+ .phone-field .country-btn .chev { position: absolute; right: 14px; top: 50%; width: 18px; height: 18px; margin-top: -9px; color: var(--text-2); transition: transform 220ms cubic-bezier(.2, 0, 0, 1); }
+ .phone-row { position: relative; display: flex; align-items: center; height: 52px; padding: 0 14px; }
+-.phone-row::before { content: ''; position: absolute; left: 14px; right: 14px; top: 0; height: 1px; background: color-mix(in srgb, var(--text) 14%, transparent); transition: opacity 160ms ease-out; }
++.phone-row::before { content: ''; position: absolute; z-index: 3; pointer-events: none; left: 14px; right: 14px; top: 0; height: 1px; background: color-mix(in srgb, var(--text) 14%, transparent); transition: opacity 160ms ease-out; }
+ .phone-row input { box-sizing: border-box; border: 0; outline: 0; background: transparent; font: inherit; font-size: 15px; line-height: 52px; color: var(--text); padding: 0; height: 52px; }
+ .phone-row input::placeholder { color: var(--text-3); }
+ .phone-row input:focus::placeholder { color: transparent; }
+@@ -772,8 +774,10 @@ html.ios-chrome body { min-height: calc(100vh + 2px); }
+ .phone-num { position: relative; flex: 1; min-width: 0; height: 52px; }
+ .phone-num > .ghost { display: block; }
+ .phone-num > input { width: 100%; position: relative; }
+-.phone-group:has(.phone-row input:focus) { border-color: var(--accent); background: var(--surface); }
+-.phone-field.err .phone-group, .phone-field.err .phone-group:has(.phone-row input:focus) { border-color: var(--danger); background: var(--surface); box-shadow: none; }
++.phone-autofill-cover { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; white-space: pre; background: var(--phone-fill); color: var(--text); font: inherit; font-size: 15px; line-height: 52px; }
++.phone-group:has(.phone-row input:focus) { border-color: var(--accent); --phone-fill: var(--surface); }
++.phone-field.err .phone-group, .phone-field.err .phone-group:has(.phone-row input:focus) { border-color: var(--danger); --phone-fill: var(--surface); box-shadow: none; }
++.phone-row input:-webkit-autofill, .phone-row input[chrome-autofilled] { -webkit-text-fill-color: var(--text); box-shadow: 0 0 0 100px var(--phone-fill) inset; }
+ .phone-field.open .country-btn, .phone-field.open .country-btn:hover {
+   background: color-mix(in srgb, var(--surface) 72%, transparent); border: 1px solid var(--win-edge); border-bottom-width: 0; border-radius: 12px 12px 0 0;
+   -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
+@@ -1096,6 +1100,7 @@ body.signed-out .page { grid-template-columns: 1fr; max-width: 640px; padding-to
+   textarea, select { font-size: 16px !important; }
+   .field > input, .field > textarea { scroll-margin: 0; }
+   .phone-group input { scroll-margin: 0; }
++  .phone-autofill-cover { font-size: 16px; }
+   #app_edit_form .field .hint { opacity: 1 !important; transform: none !important; transition: none !important; }
+   #app_edit_form .grid2 { row-gap: 36px; margin-bottom: 14px; }
+ }
+diff --git a/my-telegram.js b/my-telegram.js
+@@ -744,6 +744,10 @@
+     var search = $('#countrySearch', field);
+     var input = $('#my_login_phone', field);
+     var codeIn = $('#my_login_code', field);
++    input.type = 'tel';
++    codeIn.type = 'tel';
++    input.autocomplete = 'tel';
++    codeIn.autocomplete = 'tel';
+     var flagEl = $('#cFlag', field);
+     var nameEl = $('#cName', field);
+     var current = codeIn.value;
+@@ -1086,6 +1090,30 @@
+ 
+     /* Writes the national number using the country mask. */
+     var lastValue = '';
++    var autofillCover = null, autofillCoverTimer = null;
++    function clearAutofillCover() {
++      clearTimeout(autofillCoverTimer);
++      if (autofillCover) autofillCover.remove();
++      autofillCover = null;
++    }
++    input.addEventListener('beforeinput', function (event) {
++      // Safari may clear the old value without an input event before inserting autofill digits.
++      if (!event.isTrusted || event.inputType !== 'insertText' || !lastValue || input.value || autofillCover) return;
++      autofillCover = document.createElement('span');
++      autofillCover.className = 'phone-autofill-cover';
++      autofillCover.setAttribute('aria-hidden', 'true');
++      autofillCover.textContent = lastValue;
++      input.parentNode.appendChild(autofillCover);
++      autofillCoverTimer = setTimeout(clearAutofillCover, 150);
++    });
++    input.addEventListener('input', function () {
++      if (!autofillCover) return;
++      clearTimeout(autofillCoverTimer);
++      autofillCoverTimer = setTimeout(clearAutofillCover, 150);
++    });
++    input.addEventListener('change', function () {
++      if (autofillCover) requestAnimationFrame(clearAutofillCover);
++    });
+     function format(raw, caretDigits, caretPos) {
+       var max = maskDigits(phoneMask(maskC()));
+       var digits = raw.replace(/\D/g, '');
+@@ -1111,7 +1139,7 @@
+       }
+     }
+ 
+-    input.addEventListener('input', function () {
++    input.addEventListener('input', function (e) {
+       var raw = input.value;
+       var caret = input.selectionStart == null ? raw.length : input.selectionStart;
+       var plus = raw.indexOf('+');
+@@ -1147,7 +1175,8 @@
+           return;
+         }
+       }
+-      if (digits.length > max && digits.length - lastValue.replace(/\D/g, '').length > 1) {
++      var bulk = digits.length - lastValue.replace(/\D/g, '').length > 1;
++      if (digits.length > max && (bulk || e.inputType === 'insertReplacementText' || input.matches(':-webkit-autofill'))) {
+         // a whole number was pasted: own code without "+", "8 999..." (RU, KZ), trunk 0 -> national number
+         var dialD = current.replace(/\D/g, '');
+         var hit2 = digits.slice(0, 2) === '00' ? countryFor(digits.slice(2)) : null;
+@@ -1162,6 +1191,18 @@
+         else if (codeOk && (country[0] === 'RU' || country[0] === 'KZ') && digits.charAt(0) === '8' && digits.length === max + 1) nat = digits.slice(1);
+         else if (digits.charAt(0) === '0' && digits.length === max + 1) nat = digits.slice(1);
+         if (nat != null) { format(nat, nat.length); return; }
++        /* Autofill may omit the leading "+" while still including another country's calling code.
++           Bulk insertions only: an IME can report a single typed digit as insertReplacementText,
++           and the country's own digits must never re-parse as a foreign dial code. */
++        var filledCountry = bulk ? countryFor(digits) : null;
++        if (filledCountry) {
++          var filledNational = digits.slice(filledCountry.len);
++          if (filledNational.length >= filledCountry.c[4] && filledNational.length <= filledCountry.c[5]) {
++            setCountry(filledCountry.c);
++            format(filledNational, filledNational.length);
++            return;
++          }
++        }
+       }
+       var before = raw.slice(0, caret).replace(/\D/g, '').length;
+       var cleanCaret = raw.slice(0, caret).replace(/[^\d ]/g, '').length;
+@@ -1259,6 +1300,23 @@
+       setTimeout(function () { if (!codeOk && document.activeElement !== codeIn) setUnknown(codeIn.value); }, 0);
+     });
+     codeIn.addEventListener('input', function (e) {
++      var raw = codeIn.value;
++      var digits = raw.replace(/\D/g, '');
++      // A complete autofilled number replaces the old number; it is not a typed calling code.
++      if (digits.length >= 7) {
++        var international = /^\s*\+/.test(raw) || digits.length > maskDigits(phoneMask(maskC()));
++        var hit = international ? countryFor(digits) : null;
++        var national = hit ? digits.slice(hit.len) : digits;
++        if (hit && national.length >= hit.c[4] && national.length <= hit.c[5]) setCountry(hit.c);
++        else if (international) { onCode(false); return; }
++        else codeIn.value = current;
++        lastValue = '';
++        format(national, national.length);
++        syncGhost();
++        // pasted, not autofilled: continue typing in the number (browser autofill must not steal focus)
++        if (e.inputType === 'insertFromPaste') { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
++        return;
++      }
+       onCode(!!(e.inputType && e.inputType.indexOf('insert') === 0 && e.inputType !== 'insertFromPaste'));
+     });
+     codeIn.addEventListener('keydown', function (e) {
+diff --git a/translations.js b/translations.js
+@@ -1044,7 +1044,7 @@ var Screenshots = {
+                 return showAlert(result.error);
+               }
+               if (result.row) {
+-                $(result.row).insertBefore('.tr-screenshot-upload-row');
++                $(result.row).insertAfter('.tr-screenshot-upload-row');
+                 $('.tr-screenshots').sortable('refresh');
+               }
+               if (result.id) {
+@@ -1138,7 +1138,7 @@ var Screenshots = {
+     var $selectedEls = $('.tr-screenshot-row[data-screenshot-id].selected');
+     var selectedCount = $selectedEls.size();
+     if (!selectedCount) return;
+-    $selectedEls.prependTo('.tr-screenshots').removeClass('selected');
++    $selectedEls.insertAfter('.tr-screenshot-upload-row').removeClass('selected');
+     Screenshots.orderChanged();
+     $('.tr-screenshots').sortable('refresh');
+     Screenshots.updateSelected();
+@@ -1147,7 +1147,7 @@ var Screenshots = {
+     var $selectedEls = $('.tr-screenshot-row[data-screenshot-id].selected');
+     var selectedCount = $selectedEls.size();
+     if (!selectedCount) return;
+-    $selectedEls.insertBefore('.tr-screenshot-upload-row').removeClass('selected');
++    $selectedEls.appendTo('.tr-screenshots').removeClass('selected');
+     Screenshots.orderChanged();
+     $('.tr-screenshots').sortable('refresh');
+     Screenshots.updateSelected();

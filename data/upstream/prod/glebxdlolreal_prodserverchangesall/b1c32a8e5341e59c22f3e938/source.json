@@ -1,0 +1,32 @@
+{
+  "category": "web",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:a7896129e854f73309cd53905655c353a794a905:web:prod",
+  "files": [
+    {
+      "additions": 10,
+      "deletions": 5,
+      "filename": "my-telegram.css",
+      "status": "modified"
+    },
+    {
+      "additions": 60,
+      "deletions": 2,
+      "filename": "my-telegram.js",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 3,
+      "filename": "translations.js",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-22T20:20:33Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "a7896129e854f73309cd53905655c353a794a905",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/a7896129e854f73309cd53905655c353a794a905"
+  }
+}

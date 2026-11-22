@@ -1,0 +1,33 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "ton-blockchain/ton:3e011176e9b850400aa0832eca0b505645b0849d:code:mixed",
+  "files": [
+    {
+      "additions": 6,
+      "deletions": 7,
+      "filename": "crypto/smc-envelope/SmartContractCode.h",
+      "status": "modified"
+    },
+    {
+      "additions": 53,
+      "deletions": 362,
+      "filename": "tonlib/tonlib/TonlibClient.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 383,
+      "filename": "tonlib/tonlib/tonlib-cli.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "testnet",
+    "date": "2026-11-22T14:14:20Z",
+    "repo": "ton-blockchain/ton",
+    "sha": "3e011176e9b850400aa0832eca0b505645b0849d",
+    "url": "https://github.com/ton-blockchain/ton/compare/6459b09edd3087b88e14c6a112514e2c7509f078...3e011176e9b850400aa0832eca0b505645b0849d"
+  }
+}

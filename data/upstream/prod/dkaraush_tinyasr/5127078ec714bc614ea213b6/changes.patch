@@ -1,0 +1,1736 @@
+diff --git a/src/file.rs b/src/file.rs
+@@ -2,7 +2,8 @@
+ //!
+ //! Silero VAD marks speech over the whole file first. Then each piece runs from the end of the last one to the end of the sentence: a pause where
+ //! the end-of-turn head says the speaker has finished (asked at 0.24 s into each pause, as live), or 3 s of silence; at
+-//! most 20 s. It is decoded with the live session's pause compression and left context; a piece cut at 20 s keeps
++//! most 20 s. It is decoded with the live session's pause compression and left context (a piece the head ended: from
++//! the encoder output the head read, `next_here`); a piece cut at 20 s keeps
+ //! its words up to the last . ? ! (else up to its longest pause) and the rest is decoded again with the next piece,
+ //! as the live session does.
+ 
+@@ -12,7 +13,7 @@ use alloc::vec::Vec;
+ use crate::model::Token;
+ 
+ use crate::session::{CAP, FR, PAD, SR, close, compress, longest_pause, open_end};
+-use crate::text::{W, balance_quotes, cap, end_mark, is_end, show_quotes, spans, trim_trail, units, words};
++use crate::text::{W, balance_quotes, cap, end_mark, heard_until, is_end, show_quotes, spans, trim_trail, units, words};
+ use crate::vad::{CHUNK, VadState};
+ use crate::{Models, Word, allowed};
+ 
+@@ -94,18 +95,40 @@ impl Iterator for Transcription<'_> {
+ impl Transcription<'_> {
+     fn next_here(&mut self) -> Option<Vec<Word>> {
+         let n = self.vf.len();
++        // one language: when the end-of-turn head ends the sentence, the piece is decoded from the encoder output the
++        // head has just read: one encoder pass, not two. That audio ends 0.24 s into the pause, with no silence added
++        // (the head needs it so: with 0.8 s more silence heard, its P falls from ~0.95 to ~0.4); the words come out
++        // the same or better (FLEURS, LibriSpeech, Golos, VOA: WER within +-0.3 of decoding the piece again with the
++        // silence added, no last words lost)
++        let share = self.langs.len() == 1 && self.m.asr.has_head();
+         loop {
+             let first = (self.open0..n).find(|&i| self.vf[i])?;
+             // the piece: up to 3 s of silence, at most CAP of audio from its first speech
+             let cap_end = first + (CAP / FR) as usize;
+             let (mut b, mut quiet, mut eou) = (first, 0, false);
++            let mut pre = None; // the frame map and encoder output the head read
++            let mut heard = None; // and where its audio stops (s)
+             while b < n && b < cap_end && quiet < LONG {
+                 quiet = if self.vf[b] { 0 } else { quiet + 1 };
+                 b += 1;
+                 // 0.24 s into a pause: has the speaker finished? (the turn so far, <= 30 s; ended at 0.48 s of silence)
+                 if quiet == 6 && self.m.asr.has_head() && self.vf[b..(b + 6).min(n)].iter().all(|v| !v) {
+-                    let from = self.open0.max(b.saturating_sub(750));
+-                    if self.m.eou(&self.audio[from * FR as usize..b * FR as usize], self.lang).is_some_and(|p| p > 0.5) {
++                    let p = if share && self.ctx == 0 {
++                        // the turn as a decoding hears it (long silences cut), up to this point of the pause
++                        let (mut x, map) = compress(&self.audio[self.open0 * FR as usize..b * FR as usize], &self.vf[self.open0..b], self.open0 as i64);
++                        x.truncate(map.len() * FR as usize);
++                        let e = self.m.asr.encode_audio(&x, self.lang);
++                        let p = e.as_ref().and_then(|(enc, te)| self.m.asr.head_on(enc, *te, self.lang).1);
++                        if p.is_some_and(|p| p > 0.5) {
++                            pre = e.map(|e| (map, e));
++                            heard = Some((b as i64 * FR) as f64 / SR as f64);
++                        }
++                        p
++                    } else {
++                        let from = self.open0.max(b.saturating_sub(750));
++                        self.m.eou(&self.audio[from * FR as usize..b * FR as usize], self.lang)
++                    };
++                    if p.is_some_and(|p| p > 0.5) {
+                         b = (b + 6).min(n);
+                         eou = true;
+                         break;
+@@ -116,15 +139,24 @@ impl Transcription<'_> {
+             let full = !end && b >= cap_end && b < n; // cut short: more speech may follow
+             let last = !end && b >= n; // the audio ends inside the sentence
+             let a = self.open0.saturating_sub(self.ctx);
+-            let (x, map) = compress(&self.audio[a * FR as usize..b * FR as usize], &self.vf[a..b], a as i64);
+-            let (tk, picked) = self.m.full(&x, &self.langs, self.beam, false);
++            let (tk, picked, map) = match pre {
++                Some((map, (enc, te))) => (self.m.asr.search(&enc, te, self.lang, self.beam, false), Some(self.lang), map),
++                None => {
++                    let (x, map) = compress(&self.audio[a * FR as usize..b * FR as usize], &self.vf[a..b], a as i64);
++                    let (tk, picked) = self.m.full(&x, &self.langs, self.beam, false);
++                    (tk, picked, map)
++                }
++            };
+             if let Some(l) = picked {
+                 self.lang = l;
+             }
+             let tk: Vec<Token> = tk.iter().map(|t| Token { frame: map[(t.frame as usize).min(map.len() - 1)] as u32, ..*t }).collect();
+             // the left context's own words are dropped
+             let o0 = (self.open0 as i64 * FR) as f64 / SR as f64 - 0.02;
+             let mut ws: Vec<W> = words(&self.m.asr.pieces, &tk, 0.0).into_iter().filter(|w| w.t >= o0).collect();
++            if let (Some(t), Some(w)) = (heard, ws.last_mut()) {
++                heard_until(w, t);
++            }
+             let (keep, next, ctx) = if !full || ws.len() < 2 {
+                 // a sentence end or the end of the audio
+                 if end {
+diff --git a/src/kernels.rs b/src/kernels.rs
+@@ -49,7 +49,7 @@ impl Packed {
+ pub fn gemm(a: &[f32], m: usize, b: &Packed, bias: Option<&[f32]>) -> Vec<f32> {
+     let (n, k) = (b.n, b.k);
+     assert!(a.len() >= m * k);
+-    let mut out = vec![0.0; m * n];
++    let mut out = crate::pool::any(m * n); // every value is written
+     gemm_rows(&a[..m * k], b, bias, &mut out);
+     out
+ }
+@@ -70,6 +70,10 @@ trait Panels {
+     fn k(&self) -> usize;
+     /// Panel `jp`: stored, or widened into `scratch` (k x NR).
+     fn panel<'s>(&'s self, jp: usize, scratch: &'s mut [f32]) -> &'s [f32];
++    /// Whether `panel` needs the scratch (false: it may be empty).
++    fn widens(&self) -> bool {
++        true
++    }
+ }
+ 
+ impl Panels for Packed {
+@@ -82,6 +86,9 @@ impl Panels for Packed {
+     fn panel<'s>(&'s self, jp: usize, _: &'s mut [f32]) -> &'s [f32] {
+         Packed::panel(self, jp)
+     }
++    fn widens(&self) -> bool {
++        false
++    }
+ }
+ 
+ /// The cache-blocked loop around the micro-kernel: blocks of MB rows of `a`, one weight panel at a time.
+@@ -93,7 +100,7 @@ fn blocked(a: &[f32], b: &(impl Panels + Sync), bias: Option<&[f32]>, out: &mut
+     crate::par::chunks_mut(out, mb * n, m * n * k, |blk, out| {
+         let i0 = blk * mb;
+         let i1 = (i0 + mb).min(m);
+-        let mut scratch = vec![0f32; k * NR];
++        let mut scratch = vec![0f32; if b.widens() { k * NR } else { 0 }];
+         for jp in 0..n.div_ceil(NR) {
+             let panel = b.panel(jp, &mut scratch);
+             let j0 = jp * NR;
+@@ -253,8 +260,8 @@ pub fn ln(x: f32) -> f32 {
+ }
+ 
+ /// `swoosh` (model.rs) on NEON, 4 values at a time: softplus(v - shift) - 0.08 v - c with softplus(y) =
+-/// max(y, 0) + ln(1 + e^-|y|), the same polynomials as `exp` and `ln`; ln's division by a reciprocal estimate refined
+-/// twice (Newton), within an ulp or so. x.len() a multiple of 4.
++/// max(y, 0) + ln(1 + e^-|y|): e^-|y| with the polynomial of `exp`, ln(1 + e) with one polynomial in e (e <= 1), within
++/// ~2e-7 of the scalar form. x.len() a multiple of 4.
+ #[cfg(target_arch = "aarch64")]
+ #[allow(unsafe_code, clippy::approx_constant)]
+ pub fn swoosh4(x: &mut [f32], shift: f32, c: f32) {
+@@ -275,22 +282,12 @@ pub fn swoosh4(x: &mut [f32], shift: f32, c: f32) {
+                 p = vfmaq_f32(f(k), p, fr);
+             }
+             let e = vmulq_f32(vreinterpretq_f32_s32(vshlq_n_s32::<23>(vaddq_s32(vcvtq_s32_f32(i), vdupq_n_s32(127)))), p);
+-            // ln(1 + e) (as `ln`)
+-            let u = vaddq_f32(f(1.0), e);
+-            let b = vreinterpretq_u32_f32(u);
+-            let ex = vshrq_n_s32::<23>(vreinterpretq_s32_u32(vsubq_u32(b, vdupq_n_u32(0x3f35_04f3))));
+-            let m = vreinterpretq_f32_u32(vsubq_u32(b, vshlq_n_u32::<23>(vreinterpretq_u32_s32(ex))));
+-            let den = vaddq_f32(m, f(1.0));
+-            let mut r = vrecpeq_f32(den);
+-            r = vmulq_f32(r, vrecpsq_f32(den, r));
+-            r = vmulq_f32(r, vrecpsq_f32(den, r));
+-            let sv = vmulq_f32(vsubq_f32(m, f(1.0)), r);
+-            let z = vmulq_f32(sv, sv);
+-            let mut q = f(0.181_818_2);
+-            for k in [0.222_222_2, 0.285_714_3, 0.4, 0.666_666_7, 2.0] {
+-                q = vfmaq_f32(f(k), q, z);
+-            }
+-            let ln = vfmaq_f32(vmulq_f32(sv, q), vcvtq_f32_s32(ex), f(core::f32::consts::LN_2));
++            // ln(1 + e) for e in (0, 1]: e q(e), q of degree 7 (near-minimax fit, abs. err ~1e-7 with the rounding)
++            let mut q = f(-0.006_452_612_6);
++            for k in [0.036_084_52, -0.095_322_49, 0.167_647_85, -0.240_730_76, 0.331_798_26, -0.499_874_06, 0.999_996_4] {
++                q = vfmaq_f32(f(k), q, e);
++            }
++            let ln = vmulq_f32(e, q);
+             let sp = vaddq_f32(vmaxq_f32(y, f(0.0)), ln);
+             vst1q_f32(ch.as_mut_ptr(), vsubq_f32(vsubq_f32(sp, vmulq_f32(f(0.08), v)), f(c)));
+         }
+@@ -360,8 +357,13 @@ pub fn tanh(x: f32) -> f32 {
+ // - scales: per panel, per group, 8 f32 (one per output).
+ //
+ // Activations are quantized per call to int8 per row and per group (`pack_act`), interleaved the same way in pairs of
+-// rows, so one 16-byte load is [row 2r: k..k+8 | row 2r+1: k..k+8]. A kernel call computes 2 x 2 output blocks for 1 or
+-// 2 row pairs x the 4 output pairs of a panel; int32 sums are scaled into f32 at every group end.
++// rows, so one 16-byte load is [row 2r: k..k+8 | row 2r+1: k..k+8]. A kernel call computes 2 x 2 output blocks for 1 to
++// 4 row pairs x the 4 output pairs of a panel; int32 sums are scaled into f32 at every group end.
++//
++// The `sdot` path (dotprod without i8mm) has its own panel layout instead (`lay4`, chosen at load): for every 4 k, two
++// 16-byte vectors of 4 outputs x those 4 k ([o0: k..k+4 | o1 | o2 | o3], then o4..o7) - the operand of `sdot` by
++// element, which multiplies them by 4 k of one activation row (a lane) into the 4 outputs' sums. int4: one vector per
++// 4 outputs and 8 k, low nibbles the 4 k at k, high nibbles those at k + 4. Activations: plain int8 rows (`pack_rows`).
+ 
+ /// How `Quant` multiplies, picked once from the CPU.
+ #[derive(Clone, Copy, PartialEq, Eq, Debug)]
+@@ -383,13 +385,11 @@ pub enum Path {
+     X86,
+ }
+ 
+-/// Lanes of a 2 x 2 result block (row offset, output offset). Kernels hand back the `smmla` order; `Dot` accumulates in
+-/// its own (the activation scales are packed to match) and reorders at the end.
+ /// Row pairs per kernel call at most (i8mm: 4, the others 2).
+ const RPMAX: usize = 4;
+ 
++/// Lanes of a 2 x 2 result block (row offset, output offset), the `smmla` order: every pair-layout kernel hands it back.
+ const MMLA_LANES: [(usize, usize); 4] = [(0, 0), (0, 1), (1, 0), (1, 1)];
+-const DOT_LANES: [(usize, usize); 4] = [(0, 0), (1, 1), (1, 0), (0, 1)];
+ 
+ /// The integer kernel of this CPU. std builds: TINYASR_KERNEL=f32|scalar|neon|dot|i8mm forces one (for tests;
+ /// one the CPU lacks is ignored); INT8_DOT=0 is TINYASR_KERNEL=f32.
+@@ -468,6 +468,18 @@ pub fn path() -> Path {
+     }
+ }
+ 
++/// Whether the CPU has i8mm (with dotprod).
++#[cfg(target_arch = "aarch64")]
++fn has_i8mm() -> bool {
++    #[cfg(feature = "std")]
++    return std::arch::is_aarch64_feature_detected!("i8mm") && std::arch::is_aarch64_feature_detected!("dotprod");
++    #[cfg(not(feature = "std"))]
++    {
++        let (mmla, dot) = cpu_features();
++        mmla && dot
++    }
++}
++
+ /// (i8mm, dotprod) without std: what the kernel reports (Linux, Android: auxiliary vector), sysctl (Apple), else what
+ /// the build targets.
+ #[cfg(all(target_arch = "aarch64", not(feature = "std")))]
+@@ -512,10 +524,38 @@ pub struct Quant {
+     pub k: usize,
+     group: usize,
+     int4: bool,
++    lay: Lay,
+     w: Vec<u8>,   // ceil(n / 8) panels of k * 8 (int8) or k * 4 (int4) bytes
+     s: Vec<f32>, // ceil(n / 8) panels x k / group groups x 8 scales
+ }
+ 
++/// The weight layout, chosen at load for the path that multiplies it.
++#[derive(Clone, Copy, PartialEq, Eq, Debug)]
++enum Lay {
++    /// Panels of 8 outputs in pairs (`smmla`, plain NEON, wasm, portable).
++    Pair,
++    /// Panels of 8 outputs, 4 outputs x 4 k per vector (`sdot` by element).
++    Dot4,
++}
++
++impl Lay {
++    /// Outputs per panel.
++    fn width(self) -> usize {
++        8
++    }
++}
++
++/// Where weight (output o of a panel, k index kk) is in the panel: (byte, in the high nibble) - int4: nibbles.
++#[inline(always)]
++fn place(lay: Lay, int4: bool, o: usize, kk: usize) -> (usize, bool) {
++    match (lay, int4) {
++        (Lay::Pair, false) => ((o / 2) * 16 + (o % 2) * 8 + (kk / 8) * 64 + kk % 8, false),
++        (Lay::Pair, true) => ((o / 2) * 16 + (o % 2) * 8 + (kk / 16) * 64 + kk % 8, (kk / 8) % 2 == 1),
++        (Lay::Dot4, false) => ((kk / 4) * 32 + (o / 4) * 16 + (o % 4) * 4 + kk % 4, false),
++        (Lay::Dot4, true) => ((kk / 8) * 32 + (o / 4) * 16 + (o % 4) * 4 + kk % 4, (kk / 4) % 2 == 1),
++    }
++}
++
+ /// Activations quantized to int8 per row and per group, rows interleaved in pairs (see above).
+ struct Act {
+     q: Vec<i8>,   // ceil(m / 2) pairs x 2k
+@@ -526,41 +566,87 @@ impl Quant {
+     /// From codes (int8 values, or int4 in -8..=7) and the scale of each (row, group); `group` divides k and is a
+     /// multiple of 16.
+     pub fn new(n: usize, k: usize, group: usize, int4: bool, code: impl Fn(usize, usize) -> i8, scale: impl Fn(usize, usize) -> f32) -> Quant {
++        let lay = if path() == Path::Dot { Lay::Dot4 } else { Lay::Pair };
++        Quant::with_layout(n, k, group, int4, lay, code, scale)
++    }
++
++    /// `lay`: the layout of the path that will multiply it.
++    fn with_layout(n: usize, k: usize, group: usize, int4: bool, lay: Lay, code: impl Fn(usize, usize) -> i8, scale: impl Fn(usize, usize) -> f32) -> Quant {
+         assert!(n > 0 && group > 0 && group.is_multiple_of(16) && k.is_multiple_of(group));
+-        let pb = k * if int4 { 4 } else { 8 };
++        let wd = lay.width();
++        let pb = k * wd / if int4 { 2 } else { 1 };
+         let ng = k / group;
+-        let mut w = vec![0u8; n.div_ceil(8) * pb];
+-        let mut s = vec![0f32; n.div_ceil(8) * ng * 8];
++        let np = n.div_ceil(wd);
++        let mut w = vec![0u8; np * pb];
++        let mut s = vec![0f32; np * ng * wd];
+         for j in 0..n {
+-            let (jp, o) = (j / 8, j % 8);
+-            let base = jp * pb + (o / 2) * 16 + (o % 2) * 8;
++            let (jp, o) = (j / wd, j % wd);
+             for kk in 0..k {
+                 let v = code(j, kk);
++                let (b, hi) = place(lay, int4, o, kk);
+                 if int4 {
+                     debug_assert!((-8..=7).contains(&v));
+                     let nib = v as u8 & 15;
+-                    w[base + (kk / 16) * 64 + kk % 8] |= if (kk / 8).is_multiple_of(2) { nib } else { nib << 4 };
++                    w[jp * pb + b] |= if hi { nib << 4 } else { nib };
+                 } else {
+-                    w[base + (kk / 8) * 64 + kk % 8] = v as u8;
++                    w[jp * pb + b] = v as u8;
+                 }
+             }
+             for c in 0..ng {
+-                s[(jp * ng + c) * 8 + o] = scale(j, c) / if int4 { 16.0 } else { 1.0 };
++                s[(jp * ng + c) * wd + o] = scale(j, c) / if int4 { 16.0 } else { 1.0 };
+             }
+         }
+-        Quant { n, k, group, int4, w, s }
++        Quant { n, k, group, int4, lay, w, s }
+     }
+ 
+     fn panel_bytes(&self) -> usize {
+-        self.k * if self.int4 { 4 } else { 8 }
++        self.k * self.lay.width() / if self.int4 { 2 } else { 1 }
++    }
++
++    /// Weight (j, kk) as the kernels see it (int4: times 16) and its scale.
++    fn at(&self, j: usize, kk: usize) -> (i8, f32) {
++        let wd = self.lay.width();
++        let (jp, o) = (j / wd, j % wd);
++        let (b, hi) = place(self.lay, self.int4, o, kk);
++        let b = self.w[jp * self.panel_bytes() + b];
++        let v = if self.int4 { (if hi { b & 0xf0 } else { b << 4 }) as i8 } else { b as i8 };
++        (v, self.s[(jp * (self.k / self.group) + kk / self.group) * wd + o])
+     }
+ 
+     /// out (m x n) = a (m x k) * W^T (+ bias).
+     fn gemm(&self, a: &[f32], m: usize, bias: Option<&[f32]>) -> Vec<f32> {
+-        assert!(a.len() >= m * self.k);
+-        let a = &a[..m * self.k];
++        self.gemm_as(a, m, bias, false)
++    }
++
++    /// `gemm` with the activations at 16-bit precision, for layers where int8 activations would cost accuracy: every
++    /// row x becomes two int8 rows, x ~ (255 hi + lo) * max / 32512 (`quant16`), multiplied by the same integer kernels
++    /// (twice the work of `gemm`), and the two products are added. Integer paths only.
++    fn gemm_wide(&self, a: &[f32], m: usize, bias: Option<&[f32]>) -> Vec<f32> {
++        let n = self.n;
++        let two = self.gemm_as(a, 2 * m, None, true);
++        let mut out = crate::pool::any(m * n); // every value is written
++        for (r, o) in out.chunks_exact_mut(n).enumerate() {
++            let (hi, lo) = (&two[2 * r * n..(2 * r + 1) * n], &two[(2 * r + 1) * n..(2 * r + 2) * n]);
++            match bias {
++                Some(b) => o.iter_mut().zip(hi).zip(lo).zip(b).for_each(|(((o, h), l), b)| *o = h + l + b),
++                None => o.iter_mut().zip(hi).zip(lo).for_each(|((o, h), l)| *o = h + l),
++            }
++        }
++        crate::pool::give(two);
++        out
++    }
++
++    /// `gemm` of m rows; `wide`: they are the m / 2 rows of `a` as (hi, lo) pairs of int8 rows (`gemm_wide`).
++    fn gemm_as(&self, a: &[f32], m: usize, bias: Option<&[f32]>, wide: bool) -> Vec<f32> {
++        let per = if wide { 2 } else { 1 }; // rows of the product per row of `a`
++        assert!(m.is_multiple_of(per) && a.len() >= m / per * self.k);
++        let a = &a[..m / per * self.k];
+         let path = path();
+-        let mut out = vec![0.0; m * self.n];
++        assert!(!wide || !matches!(path, Path::F32 | Path::X86), "16-bit activations: integer kernels only");
++        if !matches!(path, Path::F32 | Path::X86) && self.lay == Lay::Dot4 {
++            return self.gemm4(a, m, bias, wide);
++        }
++        let mut out = crate::pool::any(m * self.n); // every value is written (blocks of rows, or groups of columns)
+         if path == Path::F32 {
+             #[cfg(target_arch = "x86_64")]
+             if m <= SMALL && x86() >= X86::Avx2 {
+@@ -575,8 +661,14 @@ impl Quant {
+             self.gemm_x86(a, m, bias, &mut out);
+             return out;
+         }
++        // the pair layout's own kernels (its layout follows the path; the others meet it only in tests)
++        #[cfg(target_arch = "aarch64")]
++        let path = match path {
++            Path::Dot if has_i8mm() => Path::Mmla,
++            Path::Dot => Path::Neon,
++            p => p,
++        };
+         let (n, k, g) = (self.n, self.k, self.group);
+-        let dot = path == Path::Dot;
+         let pairs = m.div_ceil(2);
+         let np = n.div_ceil(8);
+         let zero = vec![0f32; if bias.is_some() { 0 } else { np * 8 }];
+@@ -588,7 +680,7 @@ impl Quant {
+         if threads > 1 && pairs.div_ceil(mbp) < 2 * threads && np >= 2 * threads && work >= crate::par::MIN_WORK {
+             // few rows (streaming chunks, decoding): groups of output panels instead, one task each, into their own
+             // columns
+-            let act = pack_act(a, m, k, g, dot);
++            let act = if wide { pack_act16(a, m / 2, k, g) } else { pack_act(a, m, k, g) };
+             let pg = np.div_ceil(4 * threads);
+             let parts = crate::par::map(np.div_ceil(pg), work, |grp| {
+                 let (jp0, jp1) = (grp * pg, (grp * pg + pg).min(np));
+@@ -611,7 +703,7 @@ impl Quant {
+         crate::par::chunks_mut(&mut out, 2 * mbp * n, work, |blk, out| {
+             let (p0, r0) = (blk * mbp, 2 * blk * mbp); // first pair, first row of the block
+             let rows = out.len() / n;
+-            let act = pack_act(&a[r0 * k..(r0 + rows) * k], rows, k, g, dot);
++            let act = if wide { pack_act16(&a[r0 / 2 * k..(r0 + rows) / 2 * k], rows / 2, k, g) } else { pack_act(&a[r0 * k..(r0 + rows) * k], rows, k, g) };
+             self.block(path, &act, p0, (p0 + mbp).min(pairs), m, 0, np, bias, out, r0, 0, n);
+         });
+         out
+@@ -707,17 +799,67 @@ impl Quant {
+             let w = &self.w[jp * pb..(jp + 1) * pb];
+             let sw = &self.s[jp * ng * 8..(jp + 1) * ng * 8];
+             let j0 = jp * 8;
++            #[cfg(target_arch = "aarch64")]
++            #[allow(unsafe_code)]
++            if path == Path::Mmla {
++                // a whole panel of whole row pairs: sums + bias straight into `out`; an odd last row or the last,
++                // narrower panel through `part`
++                let pairs = p1 - p0;
++                let (rows, cols) = ((2 * p1).min(m) - 2 * p0, 8.min(n - j0));
++                let direct = rows == 2 * pairs && cols == 8;
++                let mut b8 = [0f32; 8];
++                b8[..cols].copy_from_slice(&bias[j0..j0 + cols]);
++                let mut part = if direct { Vec::new() } else { vec![0f32; pairs * 16] };
++                let o0 = (2 * p0 - r0) * stride + j0 - c0;
++                let (op, st) = if direct { (out[o0..].as_mut_ptr(), stride) } else { (part.as_mut_ptr(), 8) };
++                assert!(!direct || pairs == 0 || o0 + (rows - 1) * stride + 8 <= out.len());
++                assert!(act.q.len() >= pairs * 2 * k && act.s.len() >= pairs * ng * 4 && w.len() >= k * if self.int4 { 4 } else { 8 } && sw.len() >= ng * 8);
++                assert!(g.is_multiple_of(16) && k.is_multiple_of(g));
++                // SAFETY: the path was picked for this CPU's features (`path`); `pairs` row pairs of 2k codes and of
++                // ng x 4 scales in act, the panel's weights and scales, 8 bias values and 2 * pairs rows of 8 outputs
++                // `st` apart from op (asserted).
++                unsafe {
++                    if self.int4 {
++                        neon::panel_mm::<true>(act.q.as_ptr(), act.s.as_ptr(), pairs, w.as_ptr(), sw.as_ptr(), k, ng, g, b8.as_ptr(), op, st)
++                    } else {
++                        neon::panel_mm::<false>(act.q.as_ptr(), act.s.as_ptr(), pairs, w.as_ptr(), sw.as_ptr(), k, ng, g, b8.as_ptr(), op, st)
++                    }
++                }
++                for (r, p) in part.chunks_exact(8).take(rows).enumerate() {
++                    out[o0 + r * stride..o0 + r * stride + cols].copy_from_slice(&p[..cols]);
++                }
++                continue;
++            }
+             let mut p = p0;
+             while p < p1 {
+                 let rp = if path == Path::Mmla && p1 - p >= 4 { 4 } else if p1 - p >= 2 { 2 } else { 1 };
+                 let (a, sa) = (&act.q[(p - p0) * 2 * k..(p - p0 + rp) * 2 * k], &act.s[(p - p0) * ng * 4..(p - p0 + rp) * ng * 4]);
+                 let mut t = [[[0f32; 4]; 4]; RPMAX];
+-                tile(path, rp, rp == 1 && 2 * p + 1 == m, self.int4, a, sa, w, sw, k, g, &mut t);
++                tile(path, rp, self.int4, a, sa, w, sw, k, g, &mut t);
+                 for (r, t) in t.iter().enumerate().take(rp) {
+                     let rr = 2 * (p + r);
+                     if rr + 2 <= m && j0 + 8 <= n {
+                         // whole block: row rr is lanes 0, 1 of every pair, row rr + 1 lanes 2, 3
+                         let b = &bias[j0..j0 + 8];
++                        #[cfg(target_arch = "aarch64")]
++                        #[allow(unsafe_code)]
++                        {
++                            use core::arch::aarch64::*;
++                            let o0 = (rr - r0) * stride + j0 - c0;
++                            assert!(o0 + stride + 8 <= out.len());
++                            // SAFETY: NEON is mandatory on aarch64; t[pp] holds 4 floats, b 8, and rows rr, rr + 1 of
++                            // out 8 each from o0 (asserted). The same sums as below.
++                            unsafe {
++                                let tv: [float32x4_t; 4] = core::array::from_fn(|pp| vld1q_f32(t[pp].as_ptr()));
++                                let (b0, b1) = (vld1q_f32(b.as_ptr()), vld1q_f32(b.as_ptr().add(4)));
++                                let op = out.as_mut_ptr().add(o0);
++                                vst1q_f32(op, vaddq_f32(vcombine_f32(vget_low_f32(tv[0]), vget_low_f32(tv[1])), b0));
++                                vst1q_f32(op.add(4), vaddq_f32(vcombine_f32(vget_low_f32(tv[2]), vget_low_f32(tv[3])), b1));
++                                vst1q_f32(op.add(stride), vaddq_f32(vcombine_f32(vget_high_f32(tv[0]), vget_high_f32(tv[1])), b0));
++                                vst1q_f32(op.add(stride + 4), vaddq_f32(vcombine_f32(vget_high_f32(tv[2]), vget_high_f32(tv[3])), b1));
++                            }
++                        }
++                        #[cfg(not(target_arch = "aarch64"))]
+                         for h in 0..2 {
+                             let o0 = (rr + h - r0) * stride + j0 - c0;
+                             let o = &mut out[o0..o0 + 8];
+@@ -743,9 +885,129 @@ impl Quant {
+     }
+ }
+ 
++impl Quant {
++    /// `gemm` for the `sdot` layout: blocks of rows (or, few rows, groups of output panels), one task each.
++    fn gemm4(&self, a: &[f32], m: usize, bias: Option<&[f32]>, wide: bool) -> Vec<f32> {
++        let (n, k, g) = (self.n, self.k, self.group);
++        let np = n.div_ceil(8);
++        let zero = vec![0f32; if bias.is_some() { 0 } else { np * 8 }];
++        let bias = bias.unwrap_or(&zero);
++        let mut out = crate::pool::any(m * n); // every value is written
++        let work = m * n * k;
++        let mb = crate::par::block_rows(m, 32);
++        let threads = crate::par::threads();
++        if threads > 1 && m.div_ceil(mb) < 2 * threads && np >= 2 * threads && work >= crate::par::MIN_WORK {
++            let (q, sa) = if wide { pack_rows16(a, m / 2, k, g) } else { pack_rows(a, m, k, g) };
++            let pg = np.div_ceil(4 * threads);
++            let parts = crate::par::map(np.div_ceil(pg), work, |grp| {
++                let (jp0, jp1) = (grp * pg, (grp * pg + pg).min(np));
++                let w = (jp1 - jp0) * 8;
++                let mut o = vec![0f32; m * w];
++                self.block4(&q, &sa, m, jp0, jp1, bias, &mut o, jp0 * 8, w);
++                o
++            });
++            for (grp, o) in parts.iter().enumerate() {
++                let j0 = grp * pg * 8;
++                let w = o.len() / m;
++                let c = w.min(n - j0);
++                for r in 0..m {
++                    out[r * n + j0..r * n + j0 + c].copy_from_slice(&o[r * w..r * w + c]);
++                }
++            }
++            return out;
++        }
++        crate::par::chunks_mut(&mut out, mb * n, work, |blk, out| {
++            let (r0, rows) = (blk * mb, out.len() / n);
++            let (q, sa) = if wide { pack_rows16(&a[r0 / 2 * k..(r0 + rows) / 2 * k], rows / 2, k, g) } else { pack_rows(&a[r0 * k..(r0 + rows) * k], rows, k, g) };
++            self.block4(&q, &sa, rows, 0, np, bias, out, 0, n);
++        });
++        out
++    }
++
++    /// `rows` activation rows (`q`, `sa`) x output panels jp0..jp1 into `out` (row r, column j at r * stride + j - c0).
++    #[allow(clippy::too_many_arguments)]
++    fn block4(&self, q: &[i8], sa: &[f32], rows: usize, jp0: usize, jp1: usize, bias: &[f32], out: &mut [f32], c0: usize, stride: usize) {
++        let (n, k, g) = (self.n, self.k, self.group);
++        let ng = k / g;
++        let pb = self.panel_bytes();
++        assert!(q.len() >= rows * k && sa.len() >= rows * ng && g.is_multiple_of(16));
++        for jp in jp0..jp1 {
++            let w = &self.w[jp * pb..(jp + 1) * pb];
++            let sw = &self.s[jp * ng * 8..(jp + 1) * ng * 8];
++            let j0 = jp * 8;
++            let cols = 8.min(n - j0);
++            #[cfg(target_arch = "aarch64")]
++            #[allow(unsafe_code)]
++            {
++                // a whole panel: every row's 8 sums + bias straight into `out`; the last, narrower one through `part`
++                let mut b8 = [0f32; 8];
++                b8[..cols].copy_from_slice(&bias[j0..j0 + cols]);
++                let mut part = if cols < 8 { vec![0f32; rows * 8] } else { Vec::new() };
++                let (op, st) = if cols < 8 { (part.as_mut_ptr(), 8) } else { (out[j0 - c0..].as_mut_ptr(), stride) };
++                assert!(cols < 8 || rows == 0 || (rows - 1) * stride + j0 - c0 + 8 <= out.len());
++                assert!(w.len() >= k * if self.int4 { 4 } else { 8 } && sw.len() >= ng * 8 && k.is_multiple_of(g));
++                // SAFETY: the `sdot` layout is built only on the dotprod path (`Quant::new`); `rows` rows of k codes in
++                // q and of ng scales in sa (asserted above the loop), the panel's weights and scales, 8 bias values and
++                // rows of 8 outputs `st` apart from op (asserted here).
++                unsafe {
++                    if self.int4 {
++                        neon::panel4::<true>(q.as_ptr(), sa.as_ptr(), rows, w.as_ptr(), sw.as_ptr(), k, ng, g, b8.as_ptr(), op, st)
++                    } else {
++                        neon::panel4::<false>(q.as_ptr(), sa.as_ptr(), rows, w.as_ptr(), sw.as_ptr(), k, ng, g, b8.as_ptr(), op, st)
++                    }
++                }
++                for (r, p) in part.chunks_exact(8).enumerate() {
++                    out[r * stride + j0 - c0..r * stride + j0 - c0 + cols].copy_from_slice(&p[..cols]);
++                }
++            }
++            #[cfg(not(target_arch = "aarch64"))]
++            {
++                let mut r = 0;
++                while r < rows {
++                    let rr = 4.min(rows - r);
++                    let mut t = [[0f32; 8]; 4];
++                    tile4(rr, self.int4, &q[r * k..(r + rr) * k], &sa[r * ng..(r + rr) * ng], w, sw, k, g, &mut t);
++                    for (i, t) in t.iter().enumerate().take(rr) {
++                        let o = (r + i) * stride + j0 - c0;
++                        for l in 0..cols {
++                            out[o + l] = t[l] + bias[j0 + l];
++                        }
++                    }
++                    r += rr;
++                }
++            }
++        }
++    }
++}
++
++/// `rr` (1..=4) activation rows x one panel (8 outputs) in the `sdot` layout -> t[row][output], portable (the layout
++/// is built only for the aarch64 `sdot` path, which has its own loop: `neon::panel4`; this keeps other targets compiling).
++#[cfg(not(target_arch = "aarch64"))]
++#[allow(clippy::too_many_arguments)]
++fn tile4(rr: usize, int4: bool, a: &[i8], sa: &[f32], w: &[u8], sw: &[f32], k: usize, g: usize, t: &mut [[f32; 8]; 4]) {
++    let ng = k / g;
++    assert!((1..=4).contains(&rr) && a.len() >= rr * k && sa.len() >= rr * ng);
++    assert!(w.len() >= k * if int4 { 4 } else { 8 } && sw.len() >= ng * 8 && g.is_multiple_of(16) && k.is_multiple_of(g));
++    for r in 0..rr {
++        for o in 0..8 {
++            let mut f = 0f32;
++            for c in 0..ng {
++                let mut d = 0i32;
++                for kk in c * g..(c + 1) * g {
++                    let (b, hi) = place(Lay::Dot4, int4, o, kk);
++                    let v = if int4 { (if hi { w[b] & 0xf0 } else { w[b] << 4 }) as i8 } else { w[b] as i8 };
++                    d += a[r * k + kk] as i32 * v as i32;
++                }
++                f += d as f32 * (sw[c * 8 + o] * sa[r * ng + c]);
++            }
++            t[r][o] = f;
++        }
++    }
++}
++
+ /// Rows of `a` (k each) -> int8 per `g` values, interleaved in row pairs; lane scales in the order of the kernel's
+-/// 2 x 2 blocks (`dot`: DOT_LANES, else MMLA_LANES).
+-fn pack_act(a: &[f32], m: usize, k: usize, g: usize, dot: bool) -> Act {
++/// 2 x 2 blocks (MMLA_LANES).
++fn pack_act(a: &[f32], m: usize, k: usize, g: usize) -> Act {
+     let pairs = m.div_ceil(2);
+     let ng = k / g;
+     let mut q = vec![0i8; pairs * 2 * k];
+@@ -763,23 +1025,120 @@ fn pack_act(a: &[f32], m: usize, k: usize, g: usize, dot: bool) -> Act {
+                 quant8(&x[st * 8..st * 8 + 8], inv, &mut dst[o..o + 8]);
+             }
+             let sv = &mut s[(p * ng + c) * 4..(p * ng + c + 1) * 4];
+-            let lanes = if dot { &DOT_LANES } else { &MMLA_LANES };
+-            for (l, &(ri, _)) in lanes.iter().enumerate() {
+-                // `dot`: a lone last row fills the whole pair (both halves are it: see `neon::dot`, SINGLE)
+-                if ri == h || dot && r + 1 == m && h == 0 {
++            for (l, &(ri, _)) in MMLA_LANES.iter().enumerate() {
++                if ri == h {
+                     sv[l] = max / 127.0;
+                 }
+             }
+         }
+-        if dot && r + 1 == m && h == 0 {
+-            for st in 0..k / 8 {
+-                dst.copy_within(st * 16..st * 16 + 8, st * 16 + 8);
++    }
++    Act { q, s }
++}
++
++/// Rows of `a` (k each) -> plain int8 rows (m x k) and one scale per row and group (m x k / g): the `sdot` path's
++/// activations, quantized exactly as `pack_act` does.
++fn pack_rows(a: &[f32], m: usize, k: usize, g: usize) -> (Vec<i8>, Vec<f32>) {
++    let ng = k / g;
++    let mut q = vec![0i8; m * k];
++    let mut s = vec![0f32; m * ng];
++    for r in 0..m {
++        for c in 0..ng {
++            let x = &a[r * k + c * g..r * k + (c + 1) * g];
++            let max = absmax(x);
++            let inv = if max > 0.0 { 127.0 / max } else { 0.0 };
++            for st in 0..g / 8 {
++                let o = r * k + c * g + st * 8;
++                quant8(&x[st * 8..st * 8 + 8], inv, &mut q[o..o + 8]);
++            }
++            s[r * ng + c] = max / 127.0;
++        }
++    }
++    (q, s)
++}
++
++/// `pack_act` at 16-bit precision: row r of `a` becomes the pair (hi, lo) of int8 rows (`quant16`), their lane scales
++/// 255 s and s with s = max / 32512.
++fn pack_act16(a: &[f32], m: usize, k: usize, g: usize) -> Act {
++    let ng = k / g;
++    let mut q = vec![0i8; m * 2 * k];
++    let mut s = vec![0f32; m * ng * 4];
++    for r in 0..m {
++        let dst = &mut q[r * 2 * k..(r + 1) * 2 * k];
++        for c in 0..ng {
++            let x = &a[r * k + c * g..r * k + (c + 1) * g];
++            let max = absmax(x);
++            let inv = if max > 0.0 { W16 / max } else { 0.0 };
++            for st in 0..g / 8 {
++                let o = (c * g / 8 + st) * 16;
++                let (hi, lo) = dst[o..o + 16].split_at_mut(8);
++                quant16(&x[st * 8..st * 8 + 8], inv, hi, lo);
++            }
++            let sv = &mut s[(r * ng + c) * 4..(r * ng + c + 1) * 4];
++            for (l, &(ri, _)) in MMLA_LANES.iter().enumerate() {
++                sv[l] = max / W16 * if ri == 0 { 255.0 } else { 1.0 };
+             }
+         }
+     }
+     Act { q, s }
+ }
+ 
++/// `pack_rows` at 16-bit precision: row r of `a` becomes rows 2r (hi) and 2r + 1 (lo), as `pack_act16`.
++fn pack_rows16(a: &[f32], m: usize, k: usize, g: usize) -> (Vec<i8>, Vec<f32>) {
++    let ng = k / g;
++    let mut q = vec![0i8; 2 * m * k];
++    let mut s = vec![0f32; 2 * m * ng];
++    for r in 0..m {
++        let (hi, lo) = q[2 * r * k..(2 * r + 2) * k].split_at_mut(k);
++        for c in 0..ng {
++            let x = &a[r * k + c * g..r * k + (c + 1) * g];
++            let max = absmax(x);
++            let inv = if max > 0.0 { W16 / max } else { 0.0 };
++            for st in 0..g / 8 {
++                let o = c * g + st * 8;
++                quant16(&x[st * 8..st * 8 + 8], inv, &mut hi[o..o + 8], &mut lo[o..o + 8]);
++            }
++            s[2 * r * ng + c] = 255.0 * max / W16;
++            s[(2 * r + 1) * ng + c] = max / W16;
++        }
++    }
++    (q, s)
++}
++
++/// The largest 16-bit activation code: 127 * 255 + 127 (two digits in -127..=127, base 255).
++const W16: f32 = 32512.0;
++
++/// 8 values times `inv` (at most 32512 in size) as v ~ 255 hi + lo, both in -127..=127 (so every integer kernel takes
++/// them as it takes `quant8`'s): hi = round(v / 255), lo = round(v - 255 hi).
++#[inline(always)]
++fn quant16(x: &[f32], inv: f32, hi: &mut [i8], lo: &mut [i8]) {
++    assert!(x.len() >= 8 && hi.len() >= 8 && lo.len() >= 8);
++    #[cfg(target_arch = "aarch64")]
++    #[allow(unsafe_code)]
++    // SAFETY: NEON is mandatory on aarch64; x, hi and lo hold 8 values (asserted).
++    unsafe {
++        use core::arch::aarch64::*;
++        let (iv, b, ib, lim) = (vdupq_n_f32(inv), vdupq_n_f32(255.0), vdupq_n_f32(1.0 / 255.0), vdupq_n_s32(127));
++        let mut h = [vdupq_n_s32(0); 2];
++        let mut l = [vdupq_n_s32(0); 2];
++        for i in 0..2 {
++            let v = vmulq_f32(vld1q_f32(x.as_ptr().add(4 * i)), iv);
++            let hv = vcvtaq_s32_f32(vmulq_f32(v, ib));
++            let lv = vcvtaq_s32_f32(vfmsq_f32(v, vcvtq_f32_s32(hv), b));
++            h[i] = hv;
++            l[i] = vmaxq_s32(vminq_s32(lv, lim), vnegq_s32(lim));
++        }
++        vst1_s8(hi.as_mut_ptr(), vqmovn_s16(vcombine_s16(vqmovn_s32(h[0]), vqmovn_s32(h[1]))));
++        vst1_s8(lo.as_mut_ptr(), vqmovn_s16(vcombine_s16(vqmovn_s32(l[0]), vqmovn_s32(l[1]))));
++    }
++    #[cfg(not(target_arch = "aarch64"))]
++    for i in 0..8 {
++        let v = x[i] * inv;
++        let h = (v * (1.0 / 255.0)).round();
++        hi[i] = h as i8;
++        lo[i] = (v - 255.0 * h).round().clamp(-127.0, 127.0) as i8;
++    }
++}
++
+ #[inline(always)]
+ fn absmax(x: &[f32]) -> f32 {
+     // 16 independent lanes so the reduction vectorizes (max is exact in any order); `v > m` skips NaN as `max` does,
+@@ -825,14 +1184,13 @@ fn quant8(x: &[f32], inv: f32, out: &mut [i8]) {
+ /// One kernel call: rp (1, 2) row pairs x the 4 output pairs of one panel, 2 x 2 blocks of f32 into t[row pair][pair].
+ #[allow(clippy::too_many_arguments)]
+ #[inline(always)]
+-fn tile(path: Path, rp: usize, single: bool, int4: bool, a: &[i8], sa: &[f32], w: &[u8], sw: &[f32], k: usize, g: usize, t: &mut [[[f32; 4]; 4]; RPMAX]) {
++fn tile(path: Path, rp: usize, int4: bool, a: &[i8], sa: &[f32], w: &[u8], sw: &[f32], k: usize, g: usize, t: &mut [[[f32; 4]; 4]; RPMAX]) {
+     let ng = k / g;
+-    let _ = single; // the `sdot` path only
+     assert!((1..=RPMAX).contains(&rp) && (rp <= 2 || path == Path::Mmla) && a.len() >= rp * 2 * k && sa.len() >= rp * ng * 4);
+     assert!(w.len() >= k * if int4 { 4 } else { 8 } && sw.len() >= ng * 8 && g.is_multiple_of(16) && k.is_multiple_of(g));
+     match path {
+         #[cfg(target_arch = "aarch64")]
+-        Path::Mmla | Path::Dot | Path::Neon => {
++        Path::Mmla | Path::Neon => {
+             #[allow(unsafe_code)]
+             // SAFETY: the path was picked for this CPU's features (`path`); every read stays inside the slices asserted
+             // above (row pair r: a[r*2k + 0..2k], sa[r*ng*4 + 0..ng*4]; the panel: w[0..k*8 or k*4], sw[0..ng*8]).
+@@ -848,14 +1206,6 @@ fn tile(path: Path, rp: usize, single: bool, int4: bool, a: &[i8], sa: &[f32], w
+                     };
+                 }
+                 match path {
+-                    Path::Dot if single => {
+-                        // one row (packed twice): the diagonal sdot gives both of its outputs per pair
+-                        if int4 {
+-                            neon::dot::<1, true, true>(a.as_ptr(), sa.as_ptr(), w.as_ptr(), sw.as_ptr(), k, g, t)
+-                        } else {
+-                            neon::dot::<1, false, true>(a.as_ptr(), sa.as_ptr(), w.as_ptr(), sw.as_ptr(), k, g, t)
+-                        }
+-                    }
+                     Path::Mmla if rp == 4 => {
+                         if int4 {
+                             neon::mmla::<4, true>(a.as_ptr(), sa.as_ptr(), w.as_ptr(), sw.as_ptr(), k, g, t)
+@@ -864,7 +1214,6 @@ fn tile(path: Path, rp: usize, single: bool, int4: bool, a: &[i8], sa: &[f32], w
+                         }
+                     }
+                     Path::Mmla => go!(mmla),
+-                    Path::Dot => go!(dot2),
+                     _ => go!(plain),
+                 }
+             }
+@@ -955,18 +1304,12 @@ mod neon {
+             core::arch::asm!("smmla {acc:v}.4s, {a:v}.16b, {w:v}.16b", acc = inout(vreg) $acc, a = in(vreg) $a, w = in(vreg) $w, options(pure, nomem, nostack))
+         };
+     }
+-    macro_rules! sdot {
+-        ($acc:expr, $a:expr, $w:expr) => {
+-            // sdot (vdotq_s32 is still unstable in core::arch)
+-            core::arch::asm!("sdot {acc:v}.4s, {a:v}.16b, {w:v}.16b", acc = inout(vreg) $acc, a = in(vreg) $a, w = in(vreg) $w, options(pure, nomem, nostack))
+-        };
+-    }
+-
+-    /// i8mm: one smmla per (row pair, output pair) and 8 k gives the whole 2 x 2 block.
++    /// i8mm: one smmla per (row pair, output pair) and 8 k gives the whole 2 x 2 block: RP row pairs x the 4 output
++    /// pairs of a panel, each block's lanes in MMLA_LANES order.
++    #[inline]
+     #[target_feature(enable = "i8mm")]
+-    pub unsafe fn mmla<const RP: usize, const INT4: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, g: usize, t: &mut [[[f32; 4]; 4]; super::RPMAX]) {
+-        let ng = k / g;
+-        // SAFETY: the caller (`tile`) guarantees RP row pairs of 2k activations and ng x 4 scales each, and a panel.
++    unsafe fn mmla_acc<const RP: usize, const INT4: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, ng: usize, g: usize) -> [[float32x4_t; 4]; RP] {
++        // SAFETY: the caller guarantees RP row pairs of 2k activations and ng x 4 scales each, and a panel.
+         unsafe {
+             let mut accf = [[vdupq_n_f32(0.0); 4]; RP];
+             for c in 0..ng {
+@@ -1005,85 +1348,140 @@ mod neon {
+                     }
+                 }
+             }
+-            store(&accf, t);
++            accf
++        }
++    }
++
++    /// `mmla_acc` into t[row pair][output pair].
++    #[target_feature(enable = "i8mm")]
++    pub unsafe fn mmla<const RP: usize, const INT4: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, g: usize, t: &mut [[[f32; 4]; 4]; super::RPMAX]) {
++        // SAFETY: as `mmla_acc`.
++        unsafe { store(&mmla_acc::<RP, INT4>(a, sa, w, sw, k, k / g, g), t) }
++    }
++
++    /// i8mm: `pairs` row pairs x one panel of 8 outputs, 4 pairs per `mmla_acc` while they last (then 2, 1): rows 2p and
++    /// 2p + 1 of the sums + bias at out + 2p * stride and one row further. The same sums as `mmla`.
++    #[allow(clippy::too_many_arguments)]
++    #[target_feature(enable = "i8mm")]
++    pub unsafe fn panel_mm<const INT4: bool>(a: *const i8, sa: *const f32, pairs: usize, w: *const u8, sw: *const f32, k: usize, ng: usize, g: usize, bias: *const f32, out: *mut f32, stride: usize) {
++        // SAFETY: the caller's: pairs of 2k codes in a and of ng x 4 scales in sa, a panel, 8 bias values, 2 * pairs
++        // rows of 8 outputs.
++        unsafe {
++            let (b0, b1) = (vld1q_f32(bias), vld1q_f32(bias.add(4)));
++            let mut p = 0;
++            macro_rules! go {
++                ($n:literal) => {{
++                    let acc = mmla_acc::<$n, INT4>(a.add(p * 2 * k), sa.add(p * ng * 4), w, sw, k, ng, g);
++                    for (r, t) in acc.iter().enumerate() {
++                        // row 2p: lanes 0, 1 of every output pair; row 2p + 1: lanes 2, 3
++                        let o = out.add(2 * (p + r) * stride);
++                        vst1q_f32(o, vaddq_f32(vcombine_f32(vget_low_f32(t[0]), vget_low_f32(t[1])), b0));
++                        vst1q_f32(o.add(4), vaddq_f32(vcombine_f32(vget_low_f32(t[2]), vget_low_f32(t[3])), b1));
++                        vst1q_f32(o.add(stride), vaddq_f32(vcombine_f32(vget_high_f32(t[0]), vget_high_f32(t[1])), b0));
++                        vst1q_f32(o.add(stride + 4), vaddq_f32(vcombine_f32(vget_high_f32(t[2]), vget_high_f32(t[3])), b1));
++                    }
++                    p += $n;
++                }};
++            }
++            while p < pairs {
++                match pairs - p {
++                    4.. => go!(4),
++                    2..4 => go!(2),
++                    _ => go!(1),
++                }
++            }
+         }
+     }
+ 
+     /// dotprod: per (row pair, output pair) and 8 k, sdot of [r0|r1] . [o0|o1] (r0 o0, r1 o1) and of [r1|r0] . [o0|o1]
+     /// (r1 o0, r0 o1), two lanes each; added pairwise at the group end: DOT_LANES. Two output pairs at a time (registers).
+-    /// `dot` for full row pairs (`go!` takes kernels with two const parameters).
+-    #[inline(always)]
+-    pub unsafe fn dot2<const RP: usize, const INT4: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, g: usize, t: &mut [[[f32; 4]; 4]; super::RPMAX]) {
+-        // SAFETY: as `dot`.
+-        unsafe { dot::<RP, INT4, false>(a, sa, w, sw, k, g, t) }
++    macro_rules! sdot_lane {
++        ($acc:expr, $w:expr, $a:expr, $l:literal) => {
++            // sdot by element (vdotq_laneq_s32 is still unstable in core::arch)
++            core::arch::asm!(concat!("sdot {acc:v}.4s, {w:v}.16b, {a:v}.4b[", $l, "]"), acc = inout(vreg) $acc, w = in(vreg) $w, a = in(vreg) $a, options(pure, nomem, nostack))
++        };
+     }
+ 
+-    /// SINGLE (RP = 1): the pair holds one row twice ([r0|r0], `pack_act`); the diagonal sdot alone gives r0 o0 and
+-    /// r0 o1, already in MMLA_LANES order (lanes 0, 1), with no cross products.
++    /// dotprod, `sdot` layout: `rows` rows x one panel of 8 outputs, 8 rows per `dot4` while they last (then 4, 2, 1):
++    /// row r's sums + bias at out + r * stride.
++    #[allow(clippy::too_many_arguments)]
+     #[target_feature(enable = "dotprod")]
+-    pub unsafe fn dot<const RP: usize, const INT4: bool, const SINGLE: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, g: usize, t: &mut [[[f32; 4]; 4]; super::RPMAX]) {
+-        let ng = k / g;
+-        // SAFETY: as `mmla`.
++    pub unsafe fn panel4<const INT4: bool>(q: *const i8, sa: *const f32, rows: usize, w: *const u8, sw: *const f32, k: usize, ng: usize, g: usize, bias: *const f32, out: *mut f32, stride: usize) {
++        let mut r = 0;
++        // SAFETY: the caller's: rows of k codes in q and of ng scales in sa, a panel, 8 bias values, rows of 8 outputs.
+         unsafe {
+-            let mut accf = [[vdupq_n_f32(0.0); 4]; RP];
+-            for half in 0..2 {
+-                for c in 0..ng {
+-                    let mut ad = [[vdupq_n_s32(0); 2]; RP];
+-                    let mut ax = [[vdupq_n_s32(0); 2]; RP];
+-                    let mut kk = c * g;
+-                    while kk < (c + 1) * g {
+-                        if INT4 {
+-                            let wp = w.add(kk * 4 + 32 * half) as *const i8;
+-                            let wv: [(int8x16_t, int8x16_t); 2] = core::array::from_fn(|p| unpack(vld1q_s8(wp.add(16 * p))));
+-                            for r in 0..RP {
+-                                let ap = a.add(r * 2 * k + kk * 2);
+-                                let (a0, a1) = (vld1q_s8(ap), vld1q_s8(ap.add(16)));
+-                                let (x0, x1) = (vextq_s8::<8>(a0, a0), vextq_s8::<8>(a1, a1));
+-                                for p in 0..2 {
+-                                    sdot!(ad[r][p], a0, wv[p].0);
+-                                    sdot!(ad[r][p], a1, wv[p].1);
+-                                    if !SINGLE {
+-                                        sdot!(ax[r][p], x0, wv[p].0);
+-                                        sdot!(ax[r][p], x1, wv[p].1);
+-                                    }
+-                                }
+-                            }
+-                            kk += 16;
+-                        } else {
+-                            let wp = w.add(kk * 8 + 32 * half) as *const i8;
+-                            let wv: [int8x16_t; 2] = core::array::from_fn(|p| vld1q_s8(wp.add(16 * p)));
+-                            for r in 0..RP {
+-                                let a0 = vld1q_s8(a.add(r * 2 * k + kk * 2));
+-                                let x0 = vextq_s8::<8>(a0, a0);
+-                                for p in 0..2 {
+-                                    sdot!(ad[r][p], a0, wv[p]);
+-                                    if !SINGLE {
+-                                        sdot!(ax[r][p], x0, wv[p]);
+-                                    }
+-                                }
++            macro_rules! go {
++                ($n:literal) => {{
++                    dot4::<$n, INT4>(q.add(r * k), sa.add(r * ng), w, sw, k, ng, g, bias, out.add(r * stride), stride);
++                    r += $n;
++                }};
++            }
++            while r < rows {
++                match rows - r {
++                    8.. => go!(8),
++                    4..8 => go!(4),
++                    2..4 => go!(2),
++                    _ => go!(1),
++                }
++            }
++        }
++    }
++
++    /// dotprod, `sdot` layout: R (1, 2, 4, 8) rows x 8 outputs. Per 16 k: each row's 16 activations in one register,
++    /// used by lane (4 k each) against 2 vectors of 4 outputs x 4 k, two k-steps' weights loaded at a time (R = 8: 16
++    /// accumulators, 8 activation rows and 4 weight vectors live); one accumulator per (row, 4 outputs), lane = output.
++    /// Each row's sums are the same whatever R is.
++    #[allow(clippy::too_many_arguments)]
++    #[inline]
++    #[target_feature(enable = "dotprod")]
++    unsafe fn dot4<const R: usize, const INT4: bool>(a: *const i8, sa: *const f32, w: *const u8, sw: *const f32, k: usize, ng: usize, g: usize, bias: *const f32, out: *mut f32, stride: usize) {
++        // SAFETY: the caller (`panel4`) guarantees R rows of k activations and ng scales each, a panel, 8 bias values
++        // and R rows of 8 outputs.
++        unsafe {
++            let mut accf = [[vdupq_n_f32(0.0); 2]; R];
++            for c in 0..ng {
++                let mut acc = [[vdupq_n_s32(0); 2]; R];
++                let mut kk = c * g;
++                while kk < (c + 1) * g {
++                    let av: [int8x16_t; R] = core::array::from_fn(|r| vld1q_s8(a.add(r * k + kk)));
++                    // two k-steps (4 k each): their weights for outputs 0..4 and 4..8, against lanes $l0, $l1
++                    macro_rules! half {
++                        ($w0:expr, $w1:expr, $l0:literal, $l1:literal) => {
++                            let (w0, w1) = ($w0, $w1);
++                            for r in 0..R {
++                                sdot_lane!(acc[r][0], w0.0, av[r], $l0);
++                                sdot_lane!(acc[r][1], w0.1, av[r], $l0);
++                                sdot_lane!(acc[r][0], w1.0, av[r], $l1);
++                                sdot_lane!(acc[r][1], w1.1, av[r], $l1);
+                             }
+-                            kk += 8;
+-                        }
++                        };
+                     }
+-                    for p in 0..2 {
+-                        let pp = 2 * half + p;
+-                        let s = wscale(sw.add(c * 8 + 2 * pp));
+-                        for r in 0..RP {
+-                            let sc = vmulq_f32(vld1q_f32(sa.add((r * ng + c) * 4)), s);
+-                            let x = if SINGLE { ad[r][p] } else { ax[r][p] };
+-                            accf[r][pp] = vfmaq_f32(accf[r][pp], vcvtq_f32_s32(vpaddq_s32(ad[r][p], x)), sc);
+-                        }
++                    if INT4 {
++                        // per 8 k: low nibbles the 4 k at k, high nibbles those at k + 4
++                        let wp = w.add(kk * 4) as *const i8;
++                        let ((l0, h0), (l1, h1)) = (unpack(vld1q_s8(wp)), unpack(vld1q_s8(wp.add(16))));
++                        half!((l0, l1), (h0, h1), "0", "1");
++                        let ((l2, h2), (l3, h3)) = (unpack(vld1q_s8(wp.add(32))), unpack(vld1q_s8(wp.add(48))));
++                        half!((l2, l3), (h2, h3), "2", "3");
++                    } else {
++                        let wp = w.add(kk * 8) as *const i8;
++                        half!((vld1q_s8(wp), vld1q_s8(wp.add(16))), (vld1q_s8(wp.add(32)), vld1q_s8(wp.add(48))), "0", "1");
++                        half!((vld1q_s8(wp.add(64)), vld1q_s8(wp.add(80))), (vld1q_s8(wp.add(96)), vld1q_s8(wp.add(112))), "2", "3");
+                     }
++                    kk += 16;
+                 }
+-            }
+-            // DOT_LANES -> MMLA_LANES: lanes 0, 3, 2, 1 (SINGLE: already)
+-            let idx = vld1q_u8([0u8, 1, 2, 3, 12, 13, 14, 15, 8, 9, 10, 11, 4, 5, 6, 7].as_ptr());
+-            for r in 0..if SINGLE { 0 } else { RP } {
+-                for p in 0..4 {
+-                    accf[r][p] = vreinterpretq_f32_u8(vqtbl1q_u8(vreinterpretq_u8_f32(accf[r][p]), idx));
++                let (s0, s1) = (vld1q_f32(sw.add(c * 8)), vld1q_f32(sw.add(c * 8 + 4)));
++                for r in 0..R {
++                    let x = *sa.add(r * ng + c);
++                    accf[r][0] = vfmaq_f32(accf[r][0], vcvtq_f32_s32(acc[r][0]), vmulq_n_f32(s0, x));
++                    accf[r][1] = vfmaq_f32(accf[r][1], vcvtq_f32_s32(acc[r][1]), vmulq_n_f32(s1, x));
+                 }
+             }
+-            store(&accf, t);
++            let (b0, b1) = (vld1q_f32(bias), vld1q_f32(bias.add(4)));
++            for r in 0..R {
++                vst1q_f32(out.add(r * stride), vaddq_f32(accf[r][0], b0));
++                vst1q_f32(out.add(r * stride + 4), vaddq_f32(accf[r][1], b1));
++            }
+         }
+     }
+ 
+@@ -1296,6 +1694,21 @@ impl Panels for Quant {
+     fn panel<'s>(&'s self, jp: usize, scratch: &'s mut [f32]) -> &'s [f32] {
+         const { assert!(NR == 16) };
+         let (k, g) = (self.k, self.group);
++        if self.lay != Lay::Pair {
++            // another layout (met here only when the path is forced to f32, and in tests): weight by weight
++            let j0 = jp * NR;
++            let cols = NR.min(self.n - j0);
++            if cols < NR {
++                scratch.fill(0.0);
++            }
++            for l in 0..cols {
++                for p in 0..k {
++                    let (q, s) = self.at(j0 + l, p);
++                    scratch[p * NR + l] = q as f32 * s;
++                }
++            }
++            return scratch;
++        }
+         let (ng, pb) = (k / g, self.panel_bytes());
+         // f32 panel jp (16 columns) = integer panels 2jp, 2jp + 1 (8 outputs each); a missing second one is zeros
+         for h in 0..2 {
+@@ -1362,10 +1775,24 @@ pub struct QuantF {
+     pub k: usize,
+     q: Vec<i8>,  // ceil(n / NR) panels x k x NR (k-major, as `Packed`)
+     s: Vec<f32>, // ceil(n / NR) * NR
++    /// The weights for the integer kernels instead (then `q`, `s` are empty): see `QuantF::new`.
++    wide: Option<Quant>,
+ }
+ 
+ impl QuantF {
++    /// On aarch64 with an integer kernel (`path`), the product runs on it with the activations at 16-bit precision
++    /// (`Quant::gemm_wide`: within ~1e-4 of the f32 product relative to the row's largest term, 3-7x faster) and the
++    /// weights are stored for it alone.
+     pub fn new(n: usize, k: usize, code: impl Fn(usize, usize) -> i8, scale: impl Fn(usize) -> f32) -> QuantF {
++        let int = cfg!(target_arch = "aarch64") && matches!(path(), Path::Neon | Path::Dot | Path::Mmla) && k.is_multiple_of(16);
++        QuantF::new_as(n, k, int, code, scale)
++    }
++
++    /// `wide`: for the integer kernels (see `new`); else multiplied in f32.
++    fn new_as(n: usize, k: usize, wide: bool, code: impl Fn(usize, usize) -> i8, scale: impl Fn(usize) -> f32) -> QuantF {
++        if wide {
++            return QuantF { n, k, q: Vec::new(), s: Vec::new(), wide: Some(Quant::new(n, k, k, false, code, |j, _| scale(j))) };
++        }
+         let mut q = vec![0i8; n.div_ceil(NR) * k * NR];
+         let mut s = vec![0f32; n.div_ceil(NR) * NR];
+         for j in 0..n {
+@@ -1375,11 +1802,14 @@ impl QuantF {
+             }
+             s[j] = scale(j);
+         }
+-        QuantF { n, k, q, s }
++        QuantF { n, k, q, s, wide: None }
+     }
+ 
+     fn gemm(&self, a: &[f32], m: usize, bias: Option<&[f32]>) -> Vec<f32> {
+         assert!(a.len() >= m * self.k);
++        if let Some(w) = &self.wide {
++            return w.gemm_wide(a, m, bias);
++        }
+         let mut out = vec![0.0; m * self.n];
+         if m <= 8 {
+             // few rows (decoding): widen in registers instead of a scratch panel per call; groups of panels are
+@@ -2550,7 +2980,7 @@ mod tests {
+         for &(m, n, k, g, int4) in &[(1, 8, 64, 64, true), (5, 19, 128, 64, true), (33, 40, 512, 64, true), (3, 13, 512, 512, false), (36, 24, 96, 32, false), (2, 7, 32, 16, true)] {
+             let codes: Vec<i8> = (0..n * k).map(|_| (rnd(&mut seed) * if int4 { 8.0 } else { 127.0 }).floor().clamp(if int4 { -8.0 } else { -127.0 }, if int4 { 7.0 } else { 127.0 }) as i8).collect();
+             let scales: Vec<f32> = (0..n * k / g).map(|_| 0.01 + rnd(&mut seed).abs() * 0.05).collect();
+-            let q = Quant::new(n, k, g, int4, |j, p| codes[j * k + p], |j, c| scales[j * (k / g) + c]);
++            let q = Quant::with_layout(n, k, g, int4, Lay::Pair, |j, p| codes[j * k + p], |j, c| scales[j * (k / g) + c]);
+             let a: Vec<f32> = (0..m * k).map(|_| rnd(&mut seed)).collect();
+             let bias: Vec<f32> = (0..n).map(|_| rnd(&mut seed)).collect();
+             let dense: Vec<f32> = (0..n * k).map(|i| codes[i] as f32 * scales[(i / k) * (k / g) + (i % k) / g]).collect();
+@@ -2576,24 +3006,21 @@ mod tests {
+             #[cfg(target_arch = "aarch64")]
+             {
+                 paths.push(Path::Neon);
+-                if std::arch::is_aarch64_feature_detected!("dotprod") {
+-                    paths.push(Path::Dot);
+-                }
+                 if std::arch::is_aarch64_feature_detected!("i8mm") {
+                     paths.push(Path::Mmla);
+                 }
+             }
+             let mut first: Option<Vec<f32>> = None;
+             for &path in &paths {
+-                let act = pack_act(&a, m, k, g, path == Path::Dot);
++                let act = pack_act(&a, m, k, g);
+                 let lanes = &MMLA_LANES;
+                 let mut got = vec![0f32; m * n];
+                 let pb = k * if int4 { 4 } else { 8 };
+                 let ng = k / g;
+                 for p in 0..m.div_ceil(2) {
+                     for jp in 0..n.div_ceil(8) {
+                         let mut t = [[[0f32; 4]; 4]; RPMAX];
+-                        tile(path, 1, 2 * p + 1 == m, int4, &act.q[p * 2 * k..], &act.s[p * ng * 4..], &q.w[jp * pb..], &q.s[jp * ng * 8..], k, g, &mut t);
++                        tile(path, 1, int4, &act.q[p * 2 * k..], &act.s[p * ng * 4..], &q.w[jp * pb..], &q.s[jp * ng * 8..], k, g, &mut t);
+                         for pp in 0..4 {
+                             for (l, &(ri, oi)) in lanes.iter().enumerate() {
+                                 let (r, o) = (2 * p + ri, jp * 8 + 2 * pp + oi);
+@@ -2618,6 +3045,26 @@ mod tests {
+                 }
+                 first.get_or_insert(got);
+             }
++            // the `sdot` layout, through its driver (dotprod CPUs), and its f32 view
++            let q4 = Quant::with_layout(n, k, g, int4, Lay::Dot4, |j, p| codes[j * k + p], |j, c| scales[j * (k / g) + c]);
++            #[cfg(target_arch = "aarch64")]
++            if std::arch::is_aarch64_feature_detected!("dotprod") {
++                let got = q4.gemm4(&a, m, Some(&bias), false);
++                let f = first.as_ref().unwrap();
++                for i in 0..m * n {
++                    assert!((got[i] - want[i]).abs() < 1e-3 * (1.0 + want[i].abs()), "sdot m{m} n{n} k{k} [{i}]: {} vs {}", got[i], want[i]);
++                    assert!((got[i] - f[i]).abs() < 1e-4 * (1.0 + f[i].abs()), "sdot vs scalar [{i}]");
++                }
++            }
++            let mut scratch4 = vec![0f32; k * NR];
++            for jp in 0..n.div_ceil(NR) {
++                let pnl = Panels::panel(&q4, jp, &mut scratch4).to_vec();
++                for l in 0..NR.min(n - jp * NR) {
++                    for p in 0..k {
++                        assert_eq!(pnl[p * NR + l], dense[(jp * NR + l) * k + p]);
++                    }
++                }
++            }
+             // the f32 view of the packed weights is the dense matrix exactly
+             let mut scratch = vec![0f32; k * NR];
+             for jp in 0..n.div_ceil(NR) {
+@@ -2765,7 +3212,7 @@ mod tests {
+             for (a, &v) in y.iter().zip(&x) {
+                 let sp = (v - shift).max(0.0) + ln(1.0 + exp(-(v - shift).abs()));
+                 let want = sp - 0.08 * v - c;
+-                assert!((a - want).abs() <= 2e-7 * (1.0 + want.abs()), "{v}: {a} vs {want}");
++                assert!((a - want).abs() <= 4e-7 * (1.0 + want.abs()), "{v}: {a} vs {want}");
+             }
+         }
+     }
+@@ -2780,13 +3227,55 @@ mod tests {
+         for &(m, n, k, g, int4) in &[(1, 2080, 512, 512, false), (4, 2048, 512, 512, false), (16, 1536, 512, 64, true), (300, 768, 256, 64, true), (77, 384, 128, 128, false)] {
+             let codes: Vec<i8> = (0..n * k).map(|_| (rnd(&mut seed) * 7.9).floor() as i8).collect();
+             let sc: Vec<f32> = (0..n * k / g).map(|_| 0.01 + rnd(&mut seed).abs() * 0.05).collect();
+-            let q = Quant::new(n, k, g, int4, |j, p| codes[j * k + p], |j, c| sc[j * (k / g) + c]);
+-            let qf = QuantF::new(n, k, |j, p| codes[j * k + p], |j| sc[j * (k / g)]);
++            let q = Quant::with_layout(n, k, g, int4, Lay::Pair, |j, p| codes[j * k + p], |j, c| sc[j * (k / g) + c]);
++            let qf = QuantF::new_as(n, k, false, |j, p| codes[j * k + p], |j| sc[j * (k / g)]);
++            if cfg!(target_arch = "aarch64") && path() != Path::F32 {
++                let qw = QuantF::new_as(n, k, true, |j, p| codes[j * k + p], |j| sc[j * (k / g)]);
++                assert!(qw.gemm(&a_w(m, k), m, None) == enter(Some(&ex), || qw.gemm(&a_w(m, k), m, None)), "wide m{m} n{n} k{k}");
++            }
+             let a: Vec<f32> = (0..m * k).map(|_| rnd(&mut seed)).collect();
+             let bias: Vec<f32> = (0..n).map(|_| rnd(&mut seed)).collect();
+             let one = (q.gemm(&a, m, Some(&bias)), qf.gemm(&a, m, Some(&bias)), gemm(&a, m, &Packed::from_rows(&qf_dense(&qf), n, k), None));
+             let three = enter(Some(&ex), || (q.gemm(&a, m, Some(&bias)), qf.gemm(&a, m, Some(&bias)), gemm(&a, m, &Packed::from_rows(&qf_dense(&qf), n, k), None)));
+             assert!(one == three, "m{m} n{n} k{k}");
++            #[cfg(target_arch = "aarch64")]
++            if std::arch::is_aarch64_feature_detected!("dotprod") {
++                let q4 = Quant::with_layout(n, k, g, int4, Lay::Dot4, |j, p| codes[j * k + p], |j, c| sc[j * (k / g) + c]);
++                let (one, three) = (q4.gemm4(&a, m, Some(&bias), false), enter(Some(&ex), || q4.gemm4(&a, m, Some(&bias), false)));
++                assert!(one == three, "sdot m{m} n{n} k{k}");
++                // and the same bits as the pair layout's integer kernels
++                assert!(one == q.gemm(&a, m, Some(&bias)), "sdot vs pair layout m{m} n{n} k{k}");
++            }
++        }
++    }
++
++    #[cfg(feature = "std")]
++    fn a_w(m: usize, k: usize) -> Vec<f32> {
++        let mut seed = 5;
++        (0..m * k).map(|_| rnd(&mut seed)).collect()
++    }
++
++    /// 16-bit activations on the integer kernels against the f32 product of the same int8 weights.
++    #[cfg(target_arch = "aarch64")]
++    #[test]
++    fn quantf_wide_matches_f32() {
++        if path() == Path::F32 {
++            return;
++        }
++        let mut seed = 3;
++        for &(m, n, k) in &[(1, 37, 64), (4, 2080, 512), (3, 5, 16), (9, 33, 96), (70, 192, 2432)] {
++            let codes: Vec<i8> = (0..n * k).map(|_| (rnd(&mut seed) * 127.0) as i8).collect();
++            let sc: Vec<f32> = (0..n).map(|_| 0.01 + rnd(&mut seed).abs()).collect();
++            let dense: Vec<f32> = (0..n * k).map(|i| codes[i] as f32 * sc[i / k]).collect();
++            let a: Vec<f32> = (0..m * k).map(|_| rnd(&mut seed) * 3.0).collect();
++            let bias: Vec<f32> = (0..n).map(|_| rnd(&mut seed)).collect();
++            let q = QuantF::new_as(n, k, true, |j, p| codes[j * k + p], |j| sc[j]);
++            let (got, want) = (q.gemm(&a, m, Some(&bias)), gemm(&a, m, &Packed::from_rows(&dense, n, k), Some(&bias)));
++            for (i, (g, w)) in got.iter().zip(&want).enumerate() {
++                // per activation: half a code of 3 / 32512; times |w| <= 127 sc, sqrt(k) of them (random signs), x8 margin
++                let tol = 8.0 * 0.5 * 3.0 / 32512.0 * 127.0 * sc[i % n] * (k as f32).sqrt() + 1e-4 * w.abs();
++                assert!((g - w).abs() < tol, "m{m} n{n} k{k}: {g} vs {w} (tol {tol})");
++            }
+         }
+     }
+ 
+@@ -2882,7 +3371,7 @@ mod tests {
+         for &(m, n, k) in &[(1, 37, 64), (4, 16, 512), (3, 5, 8), (9, 33, 100), (70, 20, 48)] {
+             let codes: Vec<i8> = (0..n * k).map(|_| (rnd(&mut seed) * 127.0) as i8).collect();
+             let sc: Vec<f32> = (0..n).map(|_| 0.01 + rnd(&mut seed).abs()).collect();
+-            let q = QuantF::new(n, k, |j, p| codes[j * k + p], |j| sc[j]);
++            let q = QuantF::new_as(n, k, false, |j, p| codes[j * k + p], |j| sc[j]);
+             let dense: Vec<f32> = (0..n * k).map(|i| codes[i] as f32 * sc[i / k]).collect();
+             let a: Vec<f32> = (0..m * k).map(|_| rnd(&mut seed)).collect();
+             let bias: Vec<f32> = (0..n).map(|_| rnd(&mut seed)).collect();
+diff --git a/src/lib.rs b/src/lib.rs
+@@ -45,6 +45,7 @@ mod file;
+ mod no_std_runtime;
+ mod onnx;
+ mod par;
++mod pool;
+ mod session;
+ mod text;
+ mod vad;
+@@ -148,9 +149,11 @@ impl Models {
+     /// Runs `body` with this instance's threads.
+     fn with_threads<R>(&self, body: impl FnOnce() -> R) -> R {
+         #[cfg(feature = "std")]
+-        return par::enter(self.exec.as_ref(), body);
++        let r = par::enter(self.exec.as_ref(), body);
+         #[cfg(not(feature = "std"))]
+-        body()
++        let r = body();
++        pool::clear(); // the pass's temporary buffers
++        r
+     }
+ 
+     /// The languages of the recognizer: the codes its file names, in its order.
+diff --git a/src/model.rs b/src/model.rs
+@@ -15,6 +15,7 @@ use alloc::vec::Vec;
+ #[cfg(not(feature = "std"))]
+ use crate::compat::F32Ext;
+ use crate::fbank::{BINS, Fbank};
++use crate::pool::{copy, give, zeros};
+ use crate::kernels::{Linear, Packed, Quant, QuantF, Weight, exp, gemm, ln, sigmoid, tanh};
+ use alloc::format;
+ 
+@@ -377,6 +378,7 @@ fn add_rows(x: &mut [f32], t: usize, work: usize, f: impl Fn(&[f32], usize, usiz
+     crate::par::chunks_mut(x, rb * d, work, |b, xo| {
+         let y = f(xo, b * rb, xo.len() / d);
+         add(xo, &y);
++        give(y);
+     });
+ }
+ 
+@@ -410,7 +412,9 @@ impl FeedForward {
+         add_rows(x, t, 2 * t * k * self.inp.n(), |xb, _, r| {
+             let mut h = self.inp.apply(xb, r);
+             swoosh_l(&mut h);
+-            self.out.apply(&h, r)
++            let o = self.out.apply(&h, r);
++            give(h);
++            o
+         });
+     }
+ }
+@@ -446,7 +450,7 @@ impl AttnWeights {
+         let y = self.in_proj.apply(x, t);
+         let w = y.len() / t;
+         let qdim = h * qd;
+-        let mut k = vec![0.0; t * qdim];
++        let mut k = zeros(t * qdim);
+         for i in 0..t {
+             k[i * qdim..(i + 1) * qdim].copy_from_slice(&y[i * w + qdim..i * w + 2 * qdim]);
+         }
+@@ -455,10 +459,10 @@ impl AttnWeights {
+         // projected encodings of relative positions -(left + t - 1) ..= t - 1
+         let np = left + 2 * t - 1;
+         let p = self.pos.apply(pe, np);
+-        let mut out = vec![0.0; h * t * tk];
++        let mut out = zeros(h * t * tk);
+         // heads: one task each
+         crate::par::chunks_mut(&mut out, t * tk, h * t * tk * (qd + pd), |hh, out| {
+-            let (mut qh, mut kh, mut pt) = (vec![0.0; t * qd], vec![0.0; tk * qd], vec![0.0; pd * np]);
++            let (mut qh, mut kh, mut pt) = (zeros(t * qd), zeros(tk * qd), zeros(pd * np));
+             // content scores: Q_h (t x qd) K_h^T, as one product
+             for i in 0..t {
+                 qh[i * qd..(i + 1) * qd].copy_from_slice(&y[i * w + hh * qd..i * w + (hh + 1) * qd]);
+@@ -493,7 +497,9 @@ impl AttnWeights {
+                 let inv = 1.0 / s;
+                 row.iter_mut().for_each(|v| *v *= inv);
+             }
++            [qh, kh, pt].into_iter().for_each(give);
+         });
++        [y, k, p].into_iter().for_each(give);
+         out
+     }
+ }
+@@ -560,23 +566,26 @@ fn transpose(x: &[f32], rows: usize, cols: usize) -> Vec<f32> {
+ /// out (t x heads*d): per head, weights (t x tk) times values (tk x heads*d, head slice).
+ fn weighted(wts: &[f32], heads: usize, t: usize, tk: usize, v: &[f32], d: usize) -> Vec<f32> {
+     let vd = v.len() / tk;
+-    let mut out = vec![0.0; t * heads * d];
++    let mut out = zeros(t * heads * d);
+     // heads: one task each
+     let per_head = crate::par::map(heads, heads * t * tk * d, |hh| {
+         // values of this head, transposed (d x tk): the right-hand matrix of W_h (t x tk) V_h
+-        let mut vt = vec![0.0; d * tk];
++        let mut vt = zeros(d * tk);
+         for j in 0..tk {
+             for c in 0..d {
+                 vt[c * tk + j] = v[j * vd + hh * d + c];
+             }
+         }
+-        gemm(&wts[hh * t * tk..(hh + 1) * t * tk], t, &Packed::from_rows(&vt, d, tk), None)
++        let o = gemm(&wts[hh * t * tk..(hh + 1) * t * tk], t, &Packed::from_rows(&vt, d, tk), None);
++        give(vt);
++        o
+     });
+     for (hh, o) in per_head.iter().enumerate() {
+         for i in 0..t {
+             out[i * heads * d + hh * d..i * heads * d + (hh + 1) * d].copy_from_slice(&o[i * d..(i + 1) * d]);
+         }
+     }
++    per_head.into_iter().for_each(give);
+     out
+ }
+ 
+@@ -594,6 +603,8 @@ impl SelfAttn {
+         let o = weighted(wts, self.heads, t, tk, &v, d);
+         let k = o.len() / t;
+         add_rows(x, t, t * k * self.out.n(), |_, r0, r| self.out.apply(&o[r0 * k..(r0 + r) * k], r));
++        give(v);
++        give(o);
+     }
+ }
+ 
+@@ -608,7 +619,7 @@ impl NonlinAttn {
+     fn add_to(&self, x: &mut [f32], t: usize, wts: &[f32], tk: usize, cache: Option<&mut Vec<f32>>) {
+         let hid = self.hid;
+         let z = self.inp.apply(x, t);
+-        let mut xs = vec![0.0; t * hid];
++        let mut xs = zeros(t * hid);
+         crate::par::chunks_mut(&mut xs, 64 * hid, t * hid * 16, |b, o| {
+             crate::kernels::vector(#[inline(always)] || {
+                 for (i, row) in o.chunks_exact_mut(hid).enumerate() {
+@@ -622,13 +633,16 @@ impl NonlinAttn {
+         let xs = cat_cache(cache, xs);
+         let o = weighted(&wts[..t * tk], 1, t, tk, &xs, hid);
+         add_rows(x, t, t * hid * self.out.n(), |_, r0, r| {
+-            let mut ob = o[r0 * hid..(r0 + r) * hid].to_vec();
++            let mut ob = copy(&o[r0 * hid..(r0 + r) * hid]);
+             for (i, row) in ob.chunks_exact_mut(hid).enumerate() {
+                 let zr = &z[(r0 + i) * 3 * hid + 2 * hid..(r0 + i + 1) * 3 * hid];
+                 row.iter_mut().zip(zr).for_each(|(v, z)| *v *= z);
+             }
+-            self.out.apply(&ob, r)
++            let y = self.out.apply(&ob, r);
++            give(ob);
++            y
+         });
++        [z, xs, o].into_iter().for_each(give);
+     }
+ }
+ 
+@@ -651,7 +665,7 @@ impl Conv {
+         let (d, k) = (self.dim, self.kernel);
+         let lp = k / 2;
+         // input projection and gate, row blocks: one task each
+-        let mut g = vec![0.0; t * d];
++        let mut g = zeros(t * d);
+         let rb = crate::par::block_rows(t, RB);
+         crate::par::chunks_mut(&mut g, rb * d, 2 * t * d * d, |b, o| {
+             let r = o.len() / d;
+@@ -663,11 +677,12 @@ impl Conv {
+                     }
+                 }
+             });
++            give(z);
+         });
+         // causal part over (left pad or cache) + this input
+         let mut pad = match &cache {
+-            Some(c) => (*c).clone(),
+-            None => vec![0.0; lp * d],
++            Some(c) => copy(c),
++            None => zeros(lp * d),
+         };
+         pad.extend_from_slice(&g);
+         if let Some(c) = cache {
+@@ -676,7 +691,7 @@ impl Conv {
+         let half = lp + 1;
+         // depthwise, output projection and the residual, row blocks: one task each
+         add_rows(x, t, t * d * (half + k + d), |_, r0, rows| {
+-            let mut yo = vec![0.0; rows * d];
++            let mut yo = zeros(rows * d);
+             let mut b = vec![0.0; d];
+             for i in r0..r0 + rows {
+                 let a = &mut yo[(i - r0) * d..(i - r0 + 1) * d];
+@@ -693,8 +708,12 @@ impl Conv {
+                 }
+             }
+             swoosh_r(&mut yo);
+-            self.out.apply(&yo, rows)
++            let y = self.out.apply(&yo, rows);
++            give(yo);
++            y
+         });
++        give(g);
++        give(pad);
+     }
+ }
+ 
+@@ -726,7 +745,7 @@ struct Layer {
+ 
+ impl Layer {
+     fn forward(&self, x: &mut Vec<f32>, t: usize, st: Option<&mut LayerState>, left: usize, masked: &[bool], pe: &[f32]) {
+-        let orig = x.clone();
++        let orig = copy(x);
+         let tk = left + t;
+         let (mut key, mut nl, mut v1, mut v2, mut c1, mut c2) = (None, None, None, None, None, None);
+         if let Some(s) = st {
+@@ -753,6 +772,8 @@ impl Layer {
+             self.norm.apply(xo);
+             bypass(&orig[b * rb * d..b * rb * d + xo.len()], xo, &self.bypass);
+         });
++        give(orig);
++        give(w);
+     }
+ }
+ 
+@@ -775,7 +796,7 @@ fn softmax(b: &[f32]) -> Vec<f32> {
+ fn downsample(x: &[f32], t: usize, d: usize, w: &[f32]) -> (Vec<f32>, usize) {
+     let ds = w.len();
+     let dt = t.div_ceil(ds);
+-    let mut out = vec![0.0; dt * d];
++    let mut out = zeros(dt * d);
+     for i in 0..dt {
+         for (k, wk) in w.iter().enumerate() {
+             let s = (i * ds + k).min(t - 1);
+@@ -796,16 +817,18 @@ impl Stack {
+             run(&self.layers, x, t, st, left, &masked, pos_dim);
+             return;
+         }
+-        let orig = x.clone();
++        let orig = copy(x);
+         let (mut y, dt) = downsample(x, t, d, &self.down);
+         masked.resize(left + dt, false);
+         run(&self.layers, &mut y, dt, st, left, &masked, pos_dim);
+-        let mut up = vec![0.0; t * d];
++        let mut up = zeros(t * d);
+         for i in 0..t {
+             up[i * d..(i + 1) * d].copy_from_slice(&y[(i / self.ds) * d..(i / self.ds + 1) * d]);
+         }
+         bypass(&orig, &mut up, &self.combine);
+-        *x = up;
++        give(core::mem::replace(x, up));
++        give(orig);
++        give(y);
+     }
+ }
+ 
+@@ -863,11 +886,11 @@ fn conv3c<const CIN: usize>(x: &[f32], t: usize, f: usize, lin: &Linear, st: usi
+     // output time rows per block: about 256 Ki values of im2col at a time
+     let tb = ((1 << 18) / (fo * 9 * cin)).max(1);
+     let n = lin.n();
+-    let mut y = vec![0.0; (to + 2 * pad) * fo * n];
++    let mut y = zeros((to + 2 * pad) * fo * n);
+     // blocks of tb output time rows: one task each
+     crate::par::chunks_mut(&mut y[pad * fo * n..(pad + to) * fo * n], tb * fo * n, to * fo * 9 * cin * n, |blk, yo| {
+         let (i0, nb) = (blk * tb, yo.len() / (fo * n));
+-        let mut col = vec![0.0; nb * fo * 9 * cin];
++        let mut col = zeros(nb * fo * 9 * cin);
+         for i in i0..i0 + nb {
+             for j in 0..fo {
+                 let row = &mut col[((i - i0) * fo + j) * 9 * cin..((i - i0) * fo + j + 1) * 9 * cin];
+@@ -889,6 +912,8 @@ fn conv3c<const CIN: usize>(x: &[f32], t: usize, f: usize, lin: &Linear, st: usi
+         let mut yb = lin.apply(&col, nb * fo);
+         swoosh_r(&mut yb);
+         yo.copy_from_slice(&yb);
++        give(col);
++        give(yb);
+     });
+     (y, to, fo)
+ }
+@@ -900,8 +925,9 @@ impl Embed {
+         // each output goes once the next convolution has read it
+         let (x0, t, f) = conv3(feats, t, 80, 1, &self.c0, 1, 1, 1, 0);
+         let (x1, t, f) = conv3(&x0, t, f, 8, &self.c1, 2, 2, 0, 0);
+-        drop(x0);
++        give(x0);
+         let (x, t, _) = conv3(&x1, t, f, 32, &self.c2, 1, 2, 0, pad);
++        give(x1);
+         (x, t)
+     }
+ 
+@@ -911,11 +937,11 @@ impl Embed {
+         let t = t_in - 6;
+         let row = FW * C3;
+         let tb = (RB / FW).max(1); // time rows per block (x 19 frequency rows each): one task each
+-        let mut z = vec![0.0; t * row];
++        let mut z = zeros(t * row);
+         let work = t * FW * (2 * C3 * self.pw1.n() + 49 * C3);
+         crate::par::chunks_mut(&mut z, tb * row, work, |blk, zo| {
+             let (i0, nb) = (blk * tb, zo.len() / row);
+-            let mut y = vec![0.0; nb * row];
++            let mut y = zeros(nb * row);
+             for i in i0..i0 + nb {
+                 for f in 0..FW {
+                     let a = &mut y[(i - i0) * row + f * C3..(i - i0) * row + (f + 1) * C3];
+@@ -932,6 +958,7 @@ impl Embed {
+             let mut zb = self.pw2.apply(&h, nb * FW);
+             add(&mut zb, &rows[(3 + i0) * row..(3 + i0 + nb) * row]);
+             zo.copy_from_slice(&zb);
++            [y, h, zb].into_iter().for_each(give);
+         });
+         z
+     }
+@@ -1473,17 +1500,17 @@ impl Model {
+         for (s, st) in self.stacks.iter().enumerate() {
+             if st.dim != cd {
+                 // convert_num_channels: truncate or zero-pad to this stack's width
+-                let mut y = vec![0.0; t * st.dim];
++                let mut y = zeros(t * st.dim);
+                 let m = st.dim.min(cd);
+                 for i in 0..t {
+                     y[i * st.dim..i * st.dim + m].copy_from_slice(&cur[i * cd..i * cd + m]);
+                 }
+-                cur = y;
++                give(core::mem::replace(&mut cur, y));
+                 cd = st.dim;
+             }
+             let ls = states.as_deref_mut().map(|all| &mut all[s][..]);
+             st.forward(&mut cur, t, ls, left, masked, self.pos_dim);
+-            outs.push(cur.clone());
++            outs.push(copy(&cur));
+         }
+         // full-dim output: the last stack, then the extra channels of earlier, wider stacks
+         let last = self.stacks.len() - 1;
+@@ -1496,7 +1523,7 @@ impl Model {
+                 od = d;
+             }
+         }
+-        let mut full = vec![0.0; t * od];
++        let mut full = zeros(t * od);
+         for i in 0..t {
+             let mut o = 0;
+             for &(s, a, b) in &pieces {
+@@ -1505,7 +1532,11 @@ impl Model {
+                 o += b - a;
+             }
+         }
+-        downsample(&full, t, od, &self.out_down)
++        let r = downsample(&full, t, od, &self.out_down);
++        give(full);
++        give(cur);
++        outs.into_iter().for_each(give);
++        r
+     }
+ 
+     /// Full-context encoder output (frames at 25 Hz x 512) for fbank features (t x 80).
+@@ -1867,42 +1898,59 @@ impl Model {
+     /// instead of spinning between them (live re-decodes on a phone: ~10% fewer cycles, words ~7 ms later). The same
+     /// results either way.
+     pub fn full(&self, audio: &[f32], lang: usize, beam: usize, serial_dec: bool) -> Vec<Token> {
+-        let fb = Fbank::new();
++        match self.encode_audio(audio, lang) {
++            Some((enc, te)) => self.search(&enc, te, lang, beam, serial_dec),
++            None => Vec::new(),
++        }
++    }
++
++    /// The full-context encoder output of `audio` (frames at 25 Hz x 512, their count); None if it is too short.
++    pub fn encode_audio(&self, audio: &[f32], lang: usize) -> Option<(Vec<f32>, usize)> {
+         let t = Fbank::num_frames(audio.len());
+         if t < 16 {
+-            return Vec::new();
++            return None;
+         }
+-        let feats = fb.frames(audio, 0, t);
+-        let (enc, te) = self.encode_full(&feats, t, lang);
++        let feats = Fbank::new().frames(audio, 0, t);
++        Some(self.encode_full(&feats, t, lang))
++    }
++
++    /// The decoding of an encoder output (`te` frames): beam search, or greedy for `beam` 1.
++    pub fn search(&self, enc: &[f32], te: usize, lang: usize, beam: usize, serial_dec: bool) -> Vec<Token> {
+         let search = || {
+             if beam > 1 {
+                 if let Some(dur) = &self.dur {
+-                    return self.beam_tdt(dur, &enc, te, lang, beam);
++                    return self.beam_tdt(dur, enc, te, lang, beam);
+                 }
+                 let mut hyps = self.start_beam();
+-                self.beam_rnnt(&enc, te, lang, &mut hyps, 0, beam);
++                self.beam_rnnt(enc, te, lang, &mut hyps, 0, beam);
+                 return Model::best(&hyps);
+             }
+             let mut dec = Decoding::new(self);
+-            self.greedy(&enc, te, lang, &mut dec, 0)
++            self.greedy(enc, te, lang, &mut dec, 0)
+         };
+         if serial_dec { crate::par::serial(search) } else { search() }
+     }
+ 
+     /// Second pass + P(the speaker has finished) from the end-of-turn head (None if the file has no head): the last
+     /// HEAD_K encoder frames and the decoder output after the last text tokens (<eou>, id 12, skipped).
+     pub fn full_head(&self, audio: &[f32], lang: usize) -> (Vec<Token>, Option<f32>) {
+-        let fb = Fbank::new();
+-        let t = Fbank::num_frames(audio.len());
+-        if t < 16 {
++        match self.encode_audio(audio, lang) {
++            Some((enc, te)) => self.head_on(&enc, te, lang),
++            None => (Vec::new(), None),
++        }
++    }
++
++    /// `full_head` on an encoder output (`te` frames): greedy tokens, P(the speaker has finished). The output can then
++    /// be decoded with `search` too (`file.rs`).
++    pub fn head_on(&self, enc: &[f32], te: usize, lang: usize) -> (Vec<Token>, Option<f32>) {
++        if te == 0 {
+             return (Vec::new(), None);
+         }
+-        let feats = fb.frames(audio, 0, t);
+-        let (enc, te) = self.encode_full(&feats, t, lang);
++        let d = self.stacks.iter().map(|s| s.dim).max().unwrap_or(0);
++        let enc = &enc[..te * d];
+         let mut dec = Decoding::new(self);
+-        let toks = self.greedy(&enc, te, lang, &mut dec, 0);
++        let toks = self.greedy(enc, te, lang, &mut dec, 0);
+         let p = self.head.as_ref().map(|h| {
+-            let d = enc.len() / te.max(1);
+             let n = te.min(HEAD_K);
+             let mut last = vec![0.0; HEAD_K * d];
+             last[(HEAD_K - n) * d..].copy_from_slice(&enc[(te - n) * d..te * d]);
+diff --git a/src/pool.rs b/src/pool.rs
+@@ -0,0 +1,107 @@
++//! Reuse of the big temporary buffers of a pass. A pass allocates and frees hundreds of buffers of 16 KiB to a few MiB;
++//! allocators hand such sizes back to the system at once (Android: every use then faults its pages in again, ~15% of
++//! the time of a pass on a phone), so they are kept here instead: `zeros` / `copy` take one, `give` returns it. At most
++//! `CAP` values are kept, and none after the outermost call returns (`clear`): memory at rest is unchanged.
++//! Which buffer a caller gets never changes a result (they are zeroed or overwritten whole).
++
++use alloc::vec::Vec;
++
++/// A buffer of n zeros.
++pub fn zeros(n: usize) -> Vec<f32> {
++    if let Some(mut v) = imp::take(n) {
++        v.clear();
++        v.resize(n, 0.0);
++        return v;
++    }
++    alloc::vec![0.0; n]
++}
++
++/// A buffer of n values the caller writes whole before reading any (a reused one keeps its old contents).
++pub fn any(n: usize) -> Vec<f32> {
++    if let Some(mut v) = imp::take(n) {
++        v.resize(n, 0.0);
++        return v;
++    }
++    alloc::vec![0.0; n]
++}
++
++/// A copy of x.
++pub fn copy(x: &[f32]) -> Vec<f32> {
++    if let Some(mut v) = imp::take(x.len()) {
++        v.clear();
++        v.extend_from_slice(x);
++        return v;
++    }
++    x.to_vec()
++}
++
++pub use imp::{clear, give};
++
++#[cfg(feature = "std")]
++mod imp {
++    use std::sync::Mutex;
++
++    /// Smaller buffers are the allocator's business (values).
++    const MIN: usize = 4096;
++    /// Values kept at most (12 MiB).
++    const CAP: usize = 3 << 20;
++
++    struct Pool {
++        free: Vec<Vec<f32>>,
++        kept: usize, // sum of their capacities
++    }
++
++    static POOL: Mutex<Pool> = Mutex::new(Pool { free: Vec::new(), kept: 0 });
++
++    fn lock() -> std::sync::MutexGuard<'static, Pool> {
++        POOL.lock().unwrap_or_else(|e| e.into_inner())
++    }
++
++    /// The smallest kept buffer that holds n values (and at most 2n: a big one is not spent on a small need).
++    pub fn take(n: usize) -> Option<Vec<f32>> {
++        if n < MIN {
++            return None;
++        }
++        let mut p = lock();
++        let i = (0..p.free.len()).filter(|&i| (n..=2 * n).contains(&p.free[i].capacity())).min_by_key(|&i| p.free[i].capacity())?;
++        let v = p.free.swap_remove(i);
++        p.kept -= v.capacity();
++        Some(v)
++    }
++
++    /// A buffer no longer needed.
++    pub fn give(v: Vec<f32>) {
++        let c = v.capacity();
++        if c < MIN {
++            return;
++        }
++        let mut p = lock();
++        if p.kept + c <= CAP {
++            p.kept += c;
++            p.free.push(v);
++        }
++    }
++
++    /// Frees every kept buffer.
++    pub fn clear() {
++        let free = {
++            let mut p = lock();
++            p.kept = 0;
++            core::mem::take(&mut p.free)
++        };
++        drop(free);
++    }
++}
++
++#[cfg(not(feature = "std"))]
++mod imp {
++    use alloc::vec::Vec;
++
++    pub fn take(_: usize) -> Option<Vec<f32>> {
++        None
++    }
++
++    pub fn give(_: Vec<f32>) {}
++
++    pub fn clear() {}
++}
+diff --git a/src/text.rs b/src/text.rs
+@@ -160,6 +160,12 @@ fn lag() -> f64 {
+     LAG
+ }
+ 
++/// The word was decoded from audio that stops at `t` (s), sooner after its sound than the model's delay: its last
++/// emission came early, so it counts as written at the audio's end (`spans` then ends it with the speech).
++pub fn heard_until(w: &mut W, t: f64) {
++    w.tw = w.tw.max(t + lag() - 0.04);
++}
++
+ /// How late the transducer writes a word after its sound (s): measured on FLEURS against the speech's own starts and ends.
+ const LAG: f64 = 0.32;
+ 

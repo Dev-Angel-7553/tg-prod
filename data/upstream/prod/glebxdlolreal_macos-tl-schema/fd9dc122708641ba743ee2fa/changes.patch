@@ -1,0 +1,19 @@
+diff --git a/main_api.tl b/main_api.tl
+@@ -4,7 +4,7 @@
+ 
+ 
+ // This file is auto-generated from the Telegram for macOS binary
+-// (TLS1 schema blob, build 283567)
++// (TLS1 schema blob, build 283598)
+ // https://github.com/glebxdlolreal/macos-tl-schema
+ 
+ 
+@@ -2401,7 +2401,7 @@ payments.applyGiftCode#f6e26854 slug:string = Updates;
+ payments.assignAppStoreTransaction#80ed747d receipt:bytes purpose:InputStorePaymentPurpose = Updates;
+ payments.assignPlayMarketTransaction#dffd50d3 receipt:DataJSON purpose:InputStorePaymentPurpose = Updates;
+ payments.botCancelStarsSubscription#6dfa0622 flags:# user_id:InputUser charge_id:string = Bool;
+-payments.buyStarGiftOnchain#f6e8a531 flags:# slug:string expected_amount:long peer:flags.0?InputPeer = payments.StarGiftOnchainSalePayload;
++payments.buyStarGiftOnchain#5c76a369 flags:# slug:string expected_amount:long peer:flags.0?InputPeer message:flags.1?TextWithEntities = payments.StarGiftOnchainSalePayload;
+ payments.canPurchaseStore#4fdc5ea7 purpose:InputStorePaymentPurpose = Bool;
+ payments.cancelStarGiftOnchainOffer#1c12babc offer_msg_id:int = payments.StarGiftOnchainOfferTx;
+ payments.cancelStarGiftOnchainSale#a24f493a slug:string = payments.StarGiftOnchainSalePayload;

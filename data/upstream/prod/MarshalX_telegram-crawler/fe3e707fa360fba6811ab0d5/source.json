@@ -1,0 +1,20 @@
+{
+  "category": "web",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:5db89c189fac6eeb9f08e4feedce1c6f8cdbaa64:web:mixed",
+  "files": [
+    {
+      "additions": 57,
+      "deletions": 21,
+      "filename": "data/web/raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/SourceFiles/mtproto/scheme/api.tl",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-23T14:00:08Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "5db89c189fac6eeb9f08e4feedce1c6f8cdbaa64",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/5db89c189fac6eeb9f08e4feedce1c6f8cdbaa64"
+  }
+}

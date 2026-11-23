@@ -1,6 +1,6 @@
 {
-  "changelog": "- Arabic, Indonesian, Malay, French, German speech to text models\n- separate setting for disabling voice dictation while recording\n- fixed local transcription of voice messages in secret chats",
+  "changelog": "- Arabic, Indonesian, Malay, French, German speech to text models\n- separate setting for disabling voice dictation while recording\n- fixed local transcription of voice messages in secret chats\n- updated language detection model for other languages\n- fixed word highlight on rtl transcription text",
   "file_url": "https://cdn4.telesco.pe/file/Telegram-Beta.apk?token=[volatile]",
   "version": "13.3.2",
-  "version_code": 73479
+  "version_code": 73489
 }

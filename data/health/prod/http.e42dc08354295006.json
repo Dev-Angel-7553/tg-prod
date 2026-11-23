@@ -1,6 +1,6 @@
 {
   "check": "http.https://translations.telegram.org/en/macos/unsorted",
-  "error": "TimeoutError",
+  "error": null,
   "scope": "This session and endpoint only; not proof of a global outage.",
-  "status": "transport_error"
+  "status": "ok"
 }

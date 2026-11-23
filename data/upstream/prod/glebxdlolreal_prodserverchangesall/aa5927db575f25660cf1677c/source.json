@@ -1,0 +1,20 @@
+{
+  "category": "server",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:b3f1cf54e6a3dcb8c6da95a6131bc377d8a97d76:server:prod",
+  "files": [
+    {
+      "additions": 2,
+      "deletions": 10,
+      "filename": "help.getAppConfig.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-23T13:48:12Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "b3f1cf54e6a3dcb8c6da95a6131bc377d8a97d76",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/b3f1cf54e6a3dcb8c6da95a6131bc377d8a97d76"
+  }
+}

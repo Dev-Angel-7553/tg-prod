@@ -1,6 +1,6 @@
 {
-  "changelog": "- voice dictation 4x speed up (from 0.57s to 0.14s for text appearing)\n- fixed downloading speech to text models, open settings if auto-download is off\n- talkback in speech to text settings\n- tinyasr update, language variants selection",
+  "changelog": "- Arabic, Indonesian, Malay, French, German speech to text models\n- separate setting for disabling voice dictation while recording\n- fixed local transcription of voice messages in secret chats",
   "file_url": "https://cdn4.telesco.pe/file/Telegram-Beta.apk?token=[volatile]",
-  "version": "13.3.1",
-  "version_code": 73459
+  "version": "13.3.2",
+  "version_code": 73479
 }

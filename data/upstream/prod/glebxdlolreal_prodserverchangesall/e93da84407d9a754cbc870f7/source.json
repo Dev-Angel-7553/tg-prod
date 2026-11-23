@@ -1,0 +1,20 @@
+{
+  "category": "web",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:0aebd0cd971e93434d369e3b6c0d635a81217c59:web:prod",
+  "files": [
+    {
+      "additions": 12,
+      "deletions": 4,
+      "filename": "premiumbot.html",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-23T23:33:48Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "0aebd0cd971e93434d369e3b6c0d635a81217c59",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/0aebd0cd971e93434d369e3b6c0d635a81217c59"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "check": "http.https://telegram.org/dl/android/apk-public-beta.json",
-  "error": null,
+  "error": "HTTPError",
   "scope": "This session and endpoint only; not proof of a global outage.",
-  "status": "ok"
+  "status": "transport_error"
 }

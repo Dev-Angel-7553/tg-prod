@@ -1,0 +1,22 @@
+diff --git a/fragment_tonconnect_icon.png b/fragment_tonconnect_icon.png
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/grain.png b/grain.png
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/premiumbot-tlottie.nosimd.wasm b/premiumbot-tlottie.nosimd.wasm
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/premiumbot-tlottie.wasm b/premiumbot-tlottie.wasm
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/rlottie-wasm.wasm b/rlottie-wasm.wasm
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/tile-backdrop.png b/tile-backdrop.png
+# Patch unavailable from source; see source.json for status.
+
+diff --git a/tonconnect-manifest.json b/tonconnect-manifest.json
+@@ -0,0 +1 @@
++{"url":"https:\/\/fragment.com","name":"Fragment","iconUrl":"https:\/\/fragment.com\/img\/fragment_tonconnect_icon.png","termsOfUseUrl":"https:\/\/fragment.com\/terms","privacyPolicyUrl":"https:\/\/fragment.com\/privacy"}
+\ No newline at end of file

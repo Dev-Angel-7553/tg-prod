@@ -1,0 +1,56 @@
+{
+  "category": "other",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:eb86a1d276f08bf6ac398f59fefcfdcb39295679:other:prod",
+  "files": [
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "fragment_tonconnect_icon.png",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "grain.png",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "premiumbot-tlottie.nosimd.wasm",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "premiumbot-tlottie.wasm",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "rlottie-wasm.wasm",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "tile-backdrop.png",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "tonconnect-manifest.json",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T05:01:04Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "eb86a1d276f08bf6ac398f59fefcfdcb39295679",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/eb86a1d276f08bf6ac398f59fefcfdcb39295679"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "category": "web",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:449983d79b79f835e9bba64c1ff190a252150c28:web:prod",
+  "files": [
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "privacy.html",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "terms.html",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T05:17:55Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "449983d79b79f835e9bba64c1ff190a252150c28",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/449983d79b79f835e9bba64c1ff190a252150c28"
+  }
+}

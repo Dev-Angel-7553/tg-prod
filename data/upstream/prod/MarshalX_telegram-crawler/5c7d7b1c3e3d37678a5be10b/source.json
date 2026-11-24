@@ -1,0 +1,56 @@
+{
+  "category": "translations",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:f228fa61c41ddfde3dd606fd7e18f2b920074d78:translations:mixed",
+  "files": [
+    {
+      "additions": 146,
+      "deletions": 0,
+      "filename": "data/web_tr/translation_keys.json",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 5,
+      "filename": "data/web_tr/translations.telegram.org/en/android/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 5,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/stories.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/macos/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop.html",
+      "status": "modified"
+    },
+    {
+      "additions": 1234,
+      "deletions": 62,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T01:37:06Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "f228fa61c41ddfde3dd606fd7e18f2b920074d78",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/f228fa61c41ddfde3dd606fd7e18f2b920074d78"
+  }
+}

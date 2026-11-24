@@ -1,0 +1,32 @@
+{
+  "category": "translations",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:6cbc9865345316d709bcafcf98e2e7f43937a236:translations:mixed",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/ios/unsorted.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/tdesktop/settings.json",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_tr/translations.telegram.org/en/weba/unsorted.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T11:37:52Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "6cbc9865345316d709bcafcf98e2e7f43937a236",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/6cbc9865345316d709bcafcf98e2e7f43937a236"
+  }
+}

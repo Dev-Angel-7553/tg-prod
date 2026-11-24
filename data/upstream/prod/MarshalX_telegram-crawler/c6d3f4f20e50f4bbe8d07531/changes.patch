@@ -1,0 +1,30 @@
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -12038,7 +12038,7 @@
+         "photo_url": null,
+         "has_binding": true,
+         "values": {
+-            "singular": "**<mark class=\"token\">%1$@</mark>** requests access to your **camera** and **microphone**. You will be able to revoke this access in the profile page of **<mark class=\"token\">%2$@</mark>**."
++            "singular": "**<mark class=\"token\">%1$@</mark>** has requested access to your **camera** and **microphone**. You can manage its access via the profile of **<mark class=\"token\">%2$@</mark>**."
+         }
+     },
+     "WebApp.CameraPermission.Succeed": {
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/settings.json b/data/web_tr/translations.telegram.org/en/tdesktop/settings.json
+@@ -8694,7 +8694,7 @@
+         "photo_url": "https://telegra.ph/file/p/3a568fcea60/03d14bc2982f44941b1f817.jpg?c=16,519,280,280,280,280",
+         "has_binding": true,
+         "values": {
+-            "singular": "Saved Music"
++            "singular": "Saved music"
+         }
+     },
+     "lng_settings_scale_auto": {
+diff --git a/data/web_tr/translations.telegram.org/en/weba/unsorted.json b/data/web_tr/translations.telegram.org/en/weba/unsorted.json
+@@ -13591,7 +13591,7 @@
+         "photo_url": null,
+         "has_binding": true,
+         "values": {
+-            "singular": "**<mark class=\"token\">{name}</mark>** requests access to your **camera** and **microphone**. You will be able to revoke this access in the profile page of **<mark class=\"token\">{name}</mark>**."
++            "singular": "**<mark class=\"token\">{name}</mark>** has requested access to your **camera** and **microphone**. You can manage its access via the profile of **<mark class=\"token\">{name}</mark>**."
+         }
+     },
+     "MediaAccessCameraText": {

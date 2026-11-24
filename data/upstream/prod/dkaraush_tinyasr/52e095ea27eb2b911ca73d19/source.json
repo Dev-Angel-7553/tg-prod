@@ -1,0 +1,21 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "dkaraush/tinyasr:58acbfdfd73e31523f4d9ec80b9aae3c0e582f49:code:mixed",
+  "files": [
+    {
+      "additions": 212,
+      "deletions": 49,
+      "filename": "src/kernels.rs",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "main",
+    "date": "2026-11-24T11:39:03Z",
+    "repo": "dkaraush/tinyasr",
+    "sha": "58acbfdfd73e31523f4d9ec80b9aae3c0e582f49",
+    "url": "https://github.com/dkaraush/tinyasr/compare/5ac356bb1e46c1898ae0941f84337c777f76a1a9...58acbfdfd73e31523f4d9ec80b9aae3c0e582f49"
+  }
+}

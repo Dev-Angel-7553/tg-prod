@@ -1,0 +1,20 @@
+{
+  "category": "web",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:ee430bc08b727aac87ff2f8628a192b43892cdd0:web:prod",
+  "files": [
+    {
+      "additions": 1018,
+      "deletions": 0,
+      "filename": "tchart.css",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T01:21:49Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "ee430bc08b727aac87ff2f8628a192b43892cdd0",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/ee430bc08b727aac87ff2f8628a192b43892cdd0"
+  }
+}

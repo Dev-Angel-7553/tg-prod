@@ -7638,7 +7638,7 @@
     "Nothing leaves the device"
   ],
   "SpeechToTextPrivacyNothingLeavesText": [
-    "Your voice and its text are never sent to a server for this."
+    "Your voice and its text are never sent to any server."
   ],
   "SpeechToTextPrivacyOnPhone": [
     "Recognized on your device"

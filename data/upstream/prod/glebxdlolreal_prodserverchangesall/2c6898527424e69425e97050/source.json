@@ -1,0 +1,3698 @@
+{
+  "category": "web",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:248bbcdd55afec2506a347db24ffa6c398dd68ef:web:prod",
+  "files": [
+    {
+      "additions": 333,
+      "deletions": 0,
+      "filename": "a-/ads-guidelines.html",
+      "status": "added"
+    },
+    {
+      "additions": 268,
+      "deletions": 0,
+      "filename": "a-/ads_tos.html",
+      "status": "added"
+    },
+    {
+      "additions": 6591,
+      "deletions": 0,
+      "filename": "a-/auction.css",
+      "status": "added"
+    },
+    {
+      "additions": 5737,
+      "deletions": 0,
+      "filename": "a-/auction.js",
+      "status": "added"
+    },
+    {
+      "additions": 359,
+      "deletions": 0,
+      "filename": "a-/billboard.css",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "a-/billboard.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3274,
+      "deletions": 0,
+      "filename": "a-/bootstrap-extra.css",
+      "status": "added"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "a-/bootstrap.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "filename": "a-/bootstrap.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 535,
+      "deletions": 0,
+      "filename": "a-/bot-oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 55,
+      "deletions": 0,
+      "filename": "a-/bot-oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 2978,
+      "deletions": 0,
+      "filename": "a-/bot-stickers.css",
+      "status": "added"
+    },
+    {
+      "additions": 1539,
+      "deletions": 0,
+      "filename": "a-/bot-stickers.js",
+      "status": "added"
+    },
+    {
+      "additions": 86,
+      "deletions": 0,
+      "filename": "a-/botfather-functions.js",
+      "status": "added"
+    },
+    {
+      "additions": 3379,
+      "deletions": 0,
+      "filename": "a-/botfather.css",
+      "status": "added"
+    },
+    {
+      "additions": 63,
+      "deletions": 0,
+      "filename": "a-/botfather.html",
+      "status": "added"
+    },
+    {
+      "additions": 3201,
+      "deletions": 0,
+      "filename": "a-/botfather.js",
+      "status": "added"
+    },
+    {
+      "additions": 6543,
+      "deletions": 0,
+      "filename": "a-/bugtracker-app.css",
+      "status": "added"
+    },
+    {
+      "additions": 81,
+      "deletions": 0,
+      "filename": "a-/bugtracker-bugs.css",
+      "status": "added"
+    },
+    {
+      "additions": 969,
+      "deletions": 0,
+      "filename": "a-/bugtracker-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 5480,
+      "deletions": 0,
+      "filename": "a-/bugtracker.css",
+      "status": "added"
+    },
+    {
+      "additions": 5694,
+      "deletions": 0,
+      "filename": "a-/bugtracker.js",
+      "status": "added"
+    },
+    {
+      "additions": 610,
+      "deletions": 0,
+      "filename": "a-/cafe.css",
+      "status": "added"
+    },
+    {
+      "additions": 490,
+      "deletions": 0,
+      "filename": "a-/cafe.html",
+      "status": "added"
+    },
+    {
+      "additions": 486,
+      "deletions": 0,
+      "filename": "a-/cafe.js",
+      "status": "added"
+    },
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "a-/cd_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "a-/closebrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 882,
+      "deletions": 0,
+      "filename": "a-/cloud.html",
+      "status": "added"
+    },
+    {
+      "additions": 190,
+      "deletions": 0,
+      "filename": "a-/codemirror-cloudjs.js",
+      "status": "added"
+    },
+    {
+      "additions": 287,
+      "deletions": 0,
+      "filename": "a-/codemirror-guarded-region.js",
+      "status": "added"
+    },
+    {
+      "additions": 113,
+      "deletions": 0,
+      "filename": "a-/codemirror-instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/codemirror-show-hint.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 372,
+      "deletions": 0,
+      "filename": "a-/codemirror.css",
+      "status": "added"
+    },
+    {
+      "additions": 8890,
+      "deletions": 0,
+      "filename": "a-/codemirror.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/comment.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 2837,
+      "deletions": 0,
+      "filename": "a-/comments.css",
+      "status": "added"
+    },
+    {
+      "additions": 73,
+      "deletions": 0,
+      "filename": "a-/comments.html",
+      "status": "added"
+    },
+    {
+      "additions": 2278,
+      "deletions": 0,
+      "filename": "a-/comments.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/comments_web.svg",
+      "status": "added"
+    },
+    {
+      "additions": 148,
+      "deletions": 0,
+      "filename": "a-/contest-zoo.css",
+      "status": "added"
+    },
+    {
+      "additions": 2949,
+      "deletions": 0,
+      "filename": "a-/contest.css",
+      "status": "added"
+    },
+    {
+      "additions": 391,
+      "deletions": 0,
+      "filename": "a-/contest.html",
+      "status": "added"
+    },
+    {
+      "additions": 1563,
+      "deletions": 0,
+      "filename": "a-/contest.js",
+      "status": "added"
+    },
+    {
+      "additions": 487,
+      "deletions": 0,
+      "filename": "a-/demo.html",
+      "status": "added"
+    },
+    {
+      "additions": 487,
+      "deletions": 0,
+      "filename": "a-/demo2.html",
+      "status": "added"
+    },
+    {
+      "additions": 994,
+      "deletions": 0,
+      "filename": "a-/discussion-widget.css",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "a-/discussion-widget.js",
+      "status": "added"
+    },
+    {
+      "additions": 108,
+      "deletions": 0,
+      "filename": "a-/font-roboto-mono.css",
+      "status": "added"
+    },
+    {
+      "additions": 189,
+      "deletions": 0,
+      "filename": "a-/font-roboto.css",
+      "status": "added"
+    },
+    {
+      "additions": 206,
+      "deletions": 0,
+      "filename": "a-/games.js",
+      "status": "added"
+    },
+    {
+      "additions": 176,
+      "deletions": 0,
+      "filename": "a-/gateway-docs.html",
+      "status": "added"
+    },
+    {
+      "additions": 5514,
+      "deletions": 0,
+      "filename": "a-/gateway.css",
+      "status": "added"
+    },
+    {
+      "additions": 751,
+      "deletions": 0,
+      "filename": "a-/gateway.js",
+      "status": "added"
+    },
+    {
+      "additions": 176,
+      "deletions": 0,
+      "filename": "a-/gateway_tos.html",
+      "status": "added"
+    },
+    {
+      "additions": 130,
+      "deletions": 0,
+      "filename": "a-/gfm.js",
+      "status": "added"
+    },
+    {
+      "additions": 64,
+      "deletions": 0,
+      "filename": "a-/guardtest.html",
+      "status": "added"
+    },
+    {
+      "additions": 1079,
+      "deletions": 0,
+      "filename": "a-/health.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/highlight.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 1213,
+      "deletions": 0,
+      "filename": "a-/highlight.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3200,
+      "deletions": 0,
+      "filename": "a-/instantview.css",
+      "status": "added"
+    },
+    {
+      "additions": 1436,
+      "deletions": 0,
+      "filename": "a-/instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 742,
+      "deletions": 0,
+      "filename": "a-/javascript.js",
+      "status": "added"
+    },
+    {
+      "additions": 1841,
+      "deletions": 0,
+      "filename": "a-/jquery-ex.js",
+      "status": "added"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "a-/jquery-ui.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 9,
+      "deletions": 0,
+      "filename": "a-/jquery-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "a-/jquery.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 211,
+      "deletions": 0,
+      "filename": "a-/jquery.ui.touch-punch.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/json5.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 1288,
+      "deletions": 0,
+      "filename": "a-/main-aj.js",
+      "status": "added"
+    },
+    {
+      "additions": 520,
+      "deletions": 0,
+      "filename": "a-/main-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 726,
+      "deletions": 0,
+      "filename": "a-/main.js",
+      "status": "added"
+    },
+    {
+      "additions": 639,
+      "deletions": 0,
+      "filename": "a-/mainX.js",
+      "status": "added"
+    },
+    {
+      "additions": 803,
+      "deletions": 0,
+      "filename": "a-/markdown.js",
+      "status": "added"
+    },
+    {
+      "additions": 122,
+      "deletions": 0,
+      "filename": "a-/matchbrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 1150,
+      "deletions": 0,
+      "filename": "a-/my-telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 3204,
+      "deletions": 0,
+      "filename": "a-/my-telegram.js",
+      "status": "added"
+    },
+    {
+      "additions": 1044,
+      "deletions": 0,
+      "filename": "a-/oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 51,
+      "deletions": 0,
+      "filename": "a-/oauth.html",
+      "status": "added"
+    },
+    {
+      "additions": 672,
+      "deletions": 0,
+      "filename": "a-/oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 85,
+      "deletions": 0,
+      "filename": "a-/overlay.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/pako-inflate.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3059,
+      "deletions": 0,
+      "filename": "a-/pattern.svg",
+      "status": "added"
+    },
+    {
+      "additions": 78,
+      "deletions": 0,
+      "filename": "a-/placeholder.js",
+      "status": "added"
+    },
+    {
+      "additions": 267,
+      "deletions": 0,
+      "filename": "a-/premiumbot-lottie.js",
+      "status": "added"
+    },
+    {
+      "additions": 542,
+      "deletions": 0,
+      "filename": "a-/premiumbot.css",
+      "status": "added"
+    },
+    {
+      "additions": 44,
+      "deletions": 0,
+      "filename": "a-/premiumbot.html",
+      "status": "added"
+    },
+    {
+      "additions": 389,
+      "deletions": 0,
+      "filename": "a-/premiumbot.js",
+      "status": "added"
+    },
+    {
+      "additions": 538,
+      "deletions": 0,
+      "filename": "a-/promote-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 326,
+      "deletions": 0,
+      "filename": "a-/promote-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 6368,
+      "deletions": 0,
+      "filename": "a-/promote.css",
+      "status": "added"
+    },
+    {
+      "additions": 6363,
+      "deletions": 0,
+      "filename": "a-/promote.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/qr-code-styling.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/rlottie-wasm.js",
+      "status": "added"
+    },
+    {
+      "additions": 72,
+      "deletions": 0,
+      "filename": "a-/runmode.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/show-hint.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 213,
+      "deletions": 0,
+      "filename": "a-/simple.js",
+      "status": "added"
+    },
+    {
+      "additions": 684,
+      "deletions": 0,
+      "filename": "a-/stats.js",
+      "status": "added"
+    },
+    {
+      "additions": 54,
+      "deletions": 0,
+      "filename": "a-/stickers.html",
+      "status": "added"
+    },
+    {
+      "additions": 1018,
+      "deletions": 0,
+      "filename": "a-/tchart.css",
+      "status": "added"
+    },
+    {
+      "additions": 6738,
+      "deletions": 0,
+      "filename": "a-/tchart.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/tchart.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 273,
+      "deletions": 0,
+      "filename": "a-/tchart.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "a-/telegram-ads-pixel.js",
+      "status": "added"
+    },
+    {
+      "additions": 468,
+      "deletions": 0,
+      "filename": "a-/telegram-login.js",
+      "status": "added"
+    },
+    {
+      "additions": 1179,
+      "deletions": 0,
+      "filename": "a-/telegram-theme.css",
+      "status": "added"
+    },
+    {
+      "additions": 4114,
+      "deletions": 0,
+      "filename": "a-/telegram-web-app-beta.js",
+      "status": "added"
+    },
+    {
+      "additions": 3737,
+      "deletions": 0,
+      "filename": "a-/telegram-web-app.js",
+      "status": "added"
+    },
+    {
+      "additions": 5400,
+      "deletions": 0,
+      "filename": "a-/telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 710,
+      "deletions": 0,
+      "filename": "a-/tesseract.js",
+      "status": "added"
+    },
+    {
+      "additions": 212,
+      "deletions": 0,
+      "filename": "a-/tgateway.html",
+      "status": "added"
+    },
+    {
+      "additions": 209,
+      "deletions": 0,
+      "filename": "a-/tgsticker-worker.js",
+      "status": "added"
+    },
+    {
+      "additions": 858,
+      "deletions": 0,
+      "filename": "a-/tgsticker.js",
+      "status": "added"
+    },
+    {
+      "additions": 272,
+      "deletions": 0,
+      "filename": "a-/tgwallpaper.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/tgwallpaper.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 805,
+      "deletions": 0,
+      "filename": "a-/themes.js",
+      "status": "added"
+    },
+    {
+      "additions": 1295,
+      "deletions": 0,
+      "filename": "a-/tonconnect-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 235,
+      "deletions": 0,
+      "filename": "a-/tpromote.html",
+      "status": "added"
+    },
+    {
+      "additions": 6546,
+      "deletions": 0,
+      "filename": "a-/translations.css",
+      "status": "added"
+    },
+    {
+      "additions": 4674,
+      "deletions": 0,
+      "filename": "a-/translations.js",
+      "status": "added"
+    },
+    {
+      "additions": 2479,
+      "deletions": 0,
+      "filename": "a-/tsf.css",
+      "status": "added"
+    },
+    {
+      "additions": 1236,
+      "deletions": 0,
+      "filename": "a-/tsf.js",
+      "status": "added"
+    },
+    {
+      "additions": 323,
+      "deletions": 0,
+      "filename": "a-/webapp-common.js",
+      "status": "added"
+    },
+    {
+      "additions": 345,
+      "deletions": 0,
+      "filename": "a-/webappdemo.css",
+      "status": "added"
+    },
+    {
+      "additions": 1071,
+      "deletions": 0,
+      "filename": "a-/webappdemo.js",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "a-/website_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 2367,
+      "deletions": 0,
+      "filename": "a-/widget-frame.css",
+      "status": "added"
+    },
+    {
+      "additions": 2804,
+      "deletions": 0,
+      "filename": "a-/widget-frame.js",
+      "status": "added"
+    },
+    {
+      "additions": 394,
+      "deletions": 0,
+      "filename": "a-/xml.js",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "b-/auction.css",
+      "status": "added"
+    },
+    {
+      "additions": 5737,
+      "deletions": 0,
+      "filename": "b-/auction.js",
+      "status": "added"
+    },
+    {
+      "additions": 359,
+      "deletions": 0,
+      "filename": "b-/billboard.css",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "b-/billboard.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3274,
+      "deletions": 0,
+      "filename": "b-/bootstrap-extra.css",
+      "status": "added"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "b-/bootstrap.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "filename": "b-/bootstrap.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 535,
+      "deletions": 0,
+      "filename": "b-/bot-oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 55,
+      "deletions": 0,
+      "filename": "b-/bot-oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 2978,
+      "deletions": 0,
+      "filename": "b-/bot-stickers.css",
+      "status": "added"
+    },
+    {
+      "additions": 1539,
+      "deletions": 0,
+      "filename": "b-/bot-stickers.js",
+      "status": "added"
+    },
+    {
+      "additions": 86,
+      "deletions": 0,
+      "filename": "b-/botfather-functions.js",
+      "status": "added"
+    },
+    {
+      "additions": 3379,
+      "deletions": 0,
+      "filename": "b-/botfather.css",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "b-/botfather.html",
+      "status": "added"
+    },
+    {
+      "additions": 3201,
+      "deletions": 0,
+      "filename": "b-/botfather.js",
+      "status": "added"
+    },
+    {
+      "additions": 6543,
+      "deletions": 0,
+      "filename": "b-/bugtracker-app.css",
+      "status": "added"
+    },
+    {
+      "additions": 81,
+      "deletions": 0,
+      "filename": "b-/bugtracker-bugs.css",
+      "status": "added"
+    },
+    {
+      "additions": 969,
+      "deletions": 0,
+      "filename": "b-/bugtracker-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 5480,
+      "deletions": 0,
+      "filename": "b-/bugtracker.css",
+      "status": "added"
+    },
+    {
+      "additions": 5694,
+      "deletions": 0,
+      "filename": "b-/bugtracker.js",
+      "status": "added"
+    },
+    {
+      "additions": 610,
+      "deletions": 0,
+      "filename": "b-/cafe.css",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "b-/cafe.html",
+      "status": "added"
+    },
+    {
+      "additions": 486,
+      "deletions": 0,
+      "filename": "b-/cafe.js",
+      "status": "added"
+    },
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "b-/cd_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "b-/closebrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 190,
+      "deletions": 0,
+      "filename": "b-/codemirror-cloudjs.js",
+      "status": "added"
+    },
+    {
+      "additions": 287,
+      "deletions": 0,
+      "filename": "b-/codemirror-guarded-region.js",
+      "status": "added"
+    },
+    {
+      "additions": 113,
+      "deletions": 0,
+      "filename": "b-/codemirror-instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/codemirror-show-hint.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 372,
+      "deletions": 0,
+      "filename": "b-/codemirror.css",
+      "status": "added"
+    },
+    {
+      "additions": 8890,
+      "deletions": 0,
+      "filename": "b-/codemirror.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/comment.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 148,
+      "deletions": 0,
+      "filename": "b-/contest-zoo.css",
+      "status": "added"
+    },
+    {
+      "additions": 2949,
+      "deletions": 0,
+      "filename": "b-/contest.css",
+      "status": "added"
+    },
+    {
+      "additions": 391,
+      "deletions": 0,
+      "filename": "b-/contest.html",
+      "status": "added"
+    },
+    {
+      "additions": 1563,
+      "deletions": 0,
+      "filename": "b-/contest.js",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "b-/demo.html",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "b-/demo2.html",
+      "status": "added"
+    },
+    {
+      "additions": 994,
+      "deletions": 0,
+      "filename": "b-/discussion-widget.css",
+      "status": "added"
+    },
+    {
+      "additions": 782,
+      "deletions": 0,
+      "filename": "b-/discussion-widget.js",
+      "status": "added"
+    },
+    {
+      "additions": 108,
+      "deletions": 0,
+      "filename": "b-/font-roboto-mono.css",
+      "status": "added"
+    },
+    {
+      "additions": 189,
+      "deletions": 0,
+      "filename": "b-/font-roboto.css",
+      "status": "added"
+    },
+    {
+      "additions": 206,
+      "deletions": 0,
+      "filename": "b-/games.js",
+      "status": "added"
+    },
+    {
+      "additions": 5514,
+      "deletions": 0,
+      "filename": "b-/gateway.css",
+      "status": "added"
+    },
+    {
+      "additions": 751,
+      "deletions": 0,
+      "filename": "b-/gateway.js",
+      "status": "added"
+    },
+    {
+      "additions": 130,
+      "deletions": 0,
+      "filename": "b-/gfm.js",
+      "status": "added"
+    },
+    {
+      "additions": 1079,
+      "deletions": 0,
+      "filename": "b-/health.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/highlight.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 1213,
+      "deletions": 0,
+      "filename": "b-/highlight.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3200,
+      "deletions": 0,
+      "filename": "b-/instantview.css",
+      "status": "added"
+    },
+    {
+      "additions": 1436,
+      "deletions": 0,
+      "filename": "b-/instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 742,
+      "deletions": 0,
+      "filename": "b-/javascript.js",
+      "status": "added"
+    },
+    {
+      "additions": 1841,
+      "deletions": 0,
+      "filename": "b-/jquery-ex.js",
+      "status": "added"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "b-/jquery-ui.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 9,
+      "deletions": 0,
+      "filename": "b-/jquery-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "b-/jquery.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 211,
+      "deletions": 0,
+      "filename": "b-/jquery.ui.touch-punch.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/json5.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 1288,
+      "deletions": 0,
+      "filename": "b-/main-aj.js",
+      "status": "added"
+    },
+    {
+      "additions": 520,
+      "deletions": 0,
+      "filename": "b-/main-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 726,
+      "deletions": 0,
+      "filename": "b-/main.js",
+      "status": "added"
+    },
+    {
+      "additions": 803,
+      "deletions": 0,
+      "filename": "b-/markdown.js",
+      "status": "added"
+    },
+    {
+      "additions": 122,
+      "deletions": 0,
+      "filename": "b-/matchbrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 1150,
+      "deletions": 0,
+      "filename": "b-/my-telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 3204,
+      "deletions": 0,
+      "filename": "b-/my-telegram.js",
+      "status": "added"
+    },
+    {
+      "additions": 1044,
+      "deletions": 0,
+      "filename": "b-/oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "b-/oauth.html",
+      "status": "added"
+    },
+    {
+      "additions": 672,
+      "deletions": 0,
+      "filename": "b-/oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 85,
+      "deletions": 0,
+      "filename": "b-/overlay.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/pako-inflate.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3059,
+      "deletions": 0,
+      "filename": "b-/pattern.svg",
+      "status": "added"
+    },
+    {
+      "additions": 78,
+      "deletions": 0,
+      "filename": "b-/placeholder.js",
+      "status": "added"
+    },
+    {
+      "additions": 267,
+      "deletions": 0,
+      "filename": "b-/premiumbot-lottie.js",
+      "status": "added"
+    },
+    {
+      "additions": 542,
+      "deletions": 0,
+      "filename": "b-/premiumbot.css",
+      "status": "added"
+    },
+    {
+      "additions": 389,
+      "deletions": 0,
+      "filename": "b-/premiumbot.js",
+      "status": "added"
+    },
+    {
+      "additions": 538,
+      "deletions": 0,
+      "filename": "b-/promote-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 326,
+      "deletions": 0,
+      "filename": "b-/promote-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 6368,
+      "deletions": 0,
+      "filename": "b-/promote.css",
+      "status": "added"
+    },
+    {
+      "additions": 6363,
+      "deletions": 0,
+      "filename": "b-/promote.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/qr-code-styling.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/rlottie-wasm.js",
+      "status": "added"
+    },
+    {
+      "additions": 72,
+      "deletions": 0,
+      "filename": "b-/runmode.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/show-hint.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 213,
+      "deletions": 0,
+      "filename": "b-/simple.js",
+      "status": "added"
+    },
+    {
+      "additions": 684,
+      "deletions": 0,
+      "filename": "b-/stats.js",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "b-/stickers.html",
+      "status": "added"
+    },
+    {
+      "additions": 1018,
+      "deletions": 0,
+      "filename": "b-/tchart.css",
+      "status": "added"
+    },
+    {
+      "additions": 6738,
+      "deletions": 0,
+      "filename": "b-/tchart.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/tchart.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 273,
+      "deletions": 0,
+      "filename": "b-/tchart.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "b-/telegram-ads-pixel.js",
+      "status": "added"
+    },
+    {
+      "additions": 468,
+      "deletions": 0,
+      "filename": "b-/telegram-login.js",
+      "status": "added"
+    },
+    {
+      "additions": 1179,
+      "deletions": 0,
+      "filename": "b-/telegram-theme.css",
+      "status": "added"
+    },
+    {
+      "additions": 4114,
+      "deletions": 0,
+      "filename": "b-/telegram-web-app-beta.js",
+      "status": "added"
+    },
+    {
+      "additions": 3737,
+      "deletions": 0,
+      "filename": "b-/telegram-web-app.js",
+      "status": "added"
+    },
+    {
+      "additions": 5400,
+      "deletions": 0,
+      "filename": "b-/telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 710,
+      "deletions": 0,
+      "filename": "b-/tesseract.js",
+      "status": "added"
+    },
+    {
+      "additions": 209,
+      "deletions": 0,
+      "filename": "b-/tgsticker-worker.js",
+      "status": "added"
+    },
+    {
+      "additions": 858,
+      "deletions": 0,
+      "filename": "b-/tgsticker.js",
+      "status": "added"
+    },
+    {
+      "additions": 272,
+      "deletions": 0,
+      "filename": "b-/tgwallpaper.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/tgwallpaper.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 805,
+      "deletions": 0,
+      "filename": "b-/themes.js",
+      "status": "added"
+    },
+    {
+      "additions": 1295,
+      "deletions": 0,
+      "filename": "b-/tonconnect-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 6546,
+      "deletions": 0,
+      "filename": "b-/translations.css",
+      "status": "added"
+    },
+    {
+      "additions": 4674,
+      "deletions": 0,
+      "filename": "b-/translations.js",
+      "status": "added"
+    },
+    {
+      "additions": 2479,
+      "deletions": 0,
+      "filename": "b-/tsf.css",
+      "status": "added"
+    },
+    {
+      "additions": 1236,
+      "deletions": 0,
+      "filename": "b-/tsf.js",
+      "status": "added"
+    },
+    {
+      "additions": 323,
+      "deletions": 0,
+      "filename": "b-/webapp-common.js",
+      "status": "added"
+    },
+    {
+      "additions": 345,
+      "deletions": 0,
+      "filename": "b-/webappdemo.css",
+      "status": "added"
+    },
+    {
+      "additions": 1071,
+      "deletions": 0,
+      "filename": "b-/webappdemo.js",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "b-/website_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 2367,
+      "deletions": 0,
+      "filename": "b-/widget-frame.css",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "b-/widget-frame.js",
+      "status": "added"
+    },
+    {
+      "additions": 394,
+      "deletions": 0,
+      "filename": "b-/xml.js",
+      "status": "added"
+    },
+    {
+      "additions": 6591,
+      "deletions": 0,
+      "filename": "i-/auction.css",
+      "status": "added"
+    },
+    {
+      "additions": 5737,
+      "deletions": 0,
+      "filename": "i-/auction.js",
+      "status": "added"
+    },
+    {
+      "additions": 359,
+      "deletions": 0,
+      "filename": "i-/billboard.css",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "i-/billboard.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3274,
+      "deletions": 0,
+      "filename": "i-/bootstrap-extra.css",
+      "status": "added"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "i-/bootstrap.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "filename": "i-/bootstrap.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 535,
+      "deletions": 0,
+      "filename": "i-/bot-oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 55,
+      "deletions": 0,
+      "filename": "i-/bot-oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 2978,
+      "deletions": 0,
+      "filename": "i-/bot-stickers.css",
+      "status": "added"
+    },
+    {
+      "additions": 1539,
+      "deletions": 0,
+      "filename": "i-/bot-stickers.js",
+      "status": "added"
+    },
+    {
+      "additions": 86,
+      "deletions": 0,
+      "filename": "i-/botfather-functions.js",
+      "status": "added"
+    },
+    {
+      "additions": 3379,
+      "deletions": 0,
+      "filename": "i-/botfather.css",
+      "status": "added"
+    },
+    {
+      "additions": 63,
+      "deletions": 0,
+      "filename": "i-/botfather.html",
+      "status": "added"
+    },
+    {
+      "additions": 3201,
+      "deletions": 0,
+      "filename": "i-/botfather.js",
+      "status": "added"
+    },
+    {
+      "additions": 6543,
+      "deletions": 0,
+      "filename": "i-/bugtracker-app.css",
+      "status": "added"
+    },
+    {
+      "additions": 81,
+      "deletions": 0,
+      "filename": "i-/bugtracker-bugs.css",
+      "status": "added"
+    },
+    {
+      "additions": 969,
+      "deletions": 0,
+      "filename": "i-/bugtracker-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 5480,
+      "deletions": 0,
+      "filename": "i-/bugtracker.css",
+      "status": "added"
+    },
+    {
+      "additions": 5694,
+      "deletions": 0,
+      "filename": "i-/bugtracker.js",
+      "status": "added"
+    },
+    {
+      "additions": 610,
+      "deletions": 0,
+      "filename": "i-/cafe.css",
+      "status": "added"
+    },
+    {
+      "additions": 490,
+      "deletions": 0,
+      "filename": "i-/cafe.html",
+      "status": "added"
+    },
+    {
+      "additions": 486,
+      "deletions": 0,
+      "filename": "i-/cafe.js",
+      "status": "added"
+    },
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "i-/cd_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "i-/closebrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 190,
+      "deletions": 0,
+      "filename": "i-/codemirror-cloudjs.js",
+      "status": "added"
+    },
+    {
+      "additions": 287,
+      "deletions": 0,
+      "filename": "i-/codemirror-guarded-region.js",
+      "status": "added"
+    },
+    {
+      "additions": 113,
+      "deletions": 0,
+      "filename": "i-/codemirror-instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/codemirror-show-hint.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 372,
+      "deletions": 0,
+      "filename": "i-/codemirror.css",
+      "status": "added"
+    },
+    {
+      "additions": 8890,
+      "deletions": 0,
+      "filename": "i-/codemirror.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/comment.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 2837,
+      "deletions": 0,
+      "filename": "i-/comments.css",
+      "status": "added"
+    },
+    {
+      "additions": 2278,
+      "deletions": 0,
+      "filename": "i-/comments.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/comments_web.svg",
+      "status": "added"
+    },
+    {
+      "additions": 148,
+      "deletions": 0,
+      "filename": "i-/contest-zoo.css",
+      "status": "added"
+    },
+    {
+      "additions": 2949,
+      "deletions": 0,
+      "filename": "i-/contest.css",
+      "status": "added"
+    },
+    {
+      "additions": 391,
+      "deletions": 0,
+      "filename": "i-/contest.html",
+      "status": "added"
+    },
+    {
+      "additions": 1563,
+      "deletions": 0,
+      "filename": "i-/contest.js",
+      "status": "added"
+    },
+    {
+      "additions": 487,
+      "deletions": 0,
+      "filename": "i-/demo.html",
+      "status": "added"
+    },
+    {
+      "additions": 487,
+      "deletions": 0,
+      "filename": "i-/demo2.html",
+      "status": "added"
+    },
+    {
+      "additions": 994,
+      "deletions": 0,
+      "filename": "i-/discussion-widget.css",
+      "status": "added"
+    },
+    {
+      "additions": 782,
+      "deletions": 0,
+      "filename": "i-/discussion-widget.js",
+      "status": "added"
+    },
+    {
+      "additions": 108,
+      "deletions": 0,
+      "filename": "i-/font-roboto-mono.css",
+      "status": "added"
+    },
+    {
+      "additions": 189,
+      "deletions": 0,
+      "filename": "i-/font-roboto.css",
+      "status": "added"
+    },
+    {
+      "additions": 206,
+      "deletions": 0,
+      "filename": "i-/games.js",
+      "status": "added"
+    },
+    {
+      "additions": 5514,
+      "deletions": 0,
+      "filename": "i-/gateway.css",
+      "status": "added"
+    },
+    {
+      "additions": 751,
+      "deletions": 0,
+      "filename": "i-/gateway.js",
+      "status": "added"
+    },
+    {
+      "additions": 130,
+      "deletions": 0,
+      "filename": "i-/gfm.js",
+      "status": "added"
+    },
+    {
+      "additions": 64,
+      "deletions": 0,
+      "filename": "i-/guardtest.html",
+      "status": "added"
+    },
+    {
+      "additions": 1079,
+      "deletions": 0,
+      "filename": "i-/health.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/highlight.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 1213,
+      "deletions": 0,
+      "filename": "i-/highlight.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3200,
+      "deletions": 0,
+      "filename": "i-/instantview.css",
+      "status": "added"
+    },
+    {
+      "additions": 1436,
+      "deletions": 0,
+      "filename": "i-/instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 742,
+      "deletions": 0,
+      "filename": "i-/javascript.js",
+      "status": "added"
+    },
+    {
+      "additions": 1841,
+      "deletions": 0,
+      "filename": "i-/jquery-ex.js",
+      "status": "added"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "i-/jquery-ui.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 9,
+      "deletions": 0,
+      "filename": "i-/jquery-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "i-/jquery.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 211,
+      "deletions": 0,
+      "filename": "i-/jquery.ui.touch-punch.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/json5.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 1288,
+      "deletions": 0,
+      "filename": "i-/main-aj.js",
+      "status": "added"
+    },
+    {
+      "additions": 520,
+      "deletions": 0,
+      "filename": "i-/main-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 726,
+      "deletions": 0,
+      "filename": "i-/main.js",
+      "status": "added"
+    },
+    {
+      "additions": 803,
+      "deletions": 0,
+      "filename": "i-/markdown.js",
+      "status": "added"
+    },
+    {
+      "additions": 122,
+      "deletions": 0,
+      "filename": "i-/matchbrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 1150,
+      "deletions": 0,
+      "filename": "i-/my-telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 3204,
+      "deletions": 0,
+      "filename": "i-/my-telegram.js",
+      "status": "added"
+    },
+    {
+      "additions": 1044,
+      "deletions": 0,
+      "filename": "i-/oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "i-/oauth.html",
+      "status": "added"
+    },
+    {
+      "additions": 672,
+      "deletions": 0,
+      "filename": "i-/oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 85,
+      "deletions": 0,
+      "filename": "i-/overlay.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/pako-inflate.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3059,
+      "deletions": 0,
+      "filename": "i-/pattern.svg",
+      "status": "added"
+    },
+    {
+      "additions": 78,
+      "deletions": 0,
+      "filename": "i-/placeholder.js",
+      "status": "added"
+    },
+    {
+      "additions": 1220,
+      "deletions": 0,
+      "filename": "i-/premiumbot-3d.js",
+      "status": "added"
+    },
+    {
+      "additions": 219,
+      "deletions": 0,
+      "filename": "i-/premiumbot-base.css",
+      "status": "added"
+    },
+    {
+      "additions": 1795,
+      "deletions": 0,
+      "filename": "i-/premiumbot-components.css",
+      "status": "added"
+    },
+    {
+      "additions": 1413,
+      "deletions": 0,
+      "filename": "i-/premiumbot-fx.css",
+      "status": "added"
+    },
+    {
+      "additions": 2104,
+      "deletions": 0,
+      "filename": "i-/premiumbot-fx.js",
+      "status": "added"
+    },
+    {
+      "additions": 314,
+      "deletions": 0,
+      "filename": "i-/premiumbot-lottie.js",
+      "status": "added"
+    },
+    {
+      "additions": 467,
+      "deletions": 0,
+      "filename": "i-/premiumbot-screens-commerce.css",
+      "status": "added"
+    },
+    {
+      "additions": 599,
+      "deletions": 0,
+      "filename": "i-/premiumbot-screens-subscription.css",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "i-/premiumbot-tokens.css",
+      "status": "added"
+    },
+    {
+      "additions": 241,
+      "deletions": 0,
+      "filename": "i-/premiumbot.css",
+      "status": "added"
+    },
+    {
+      "additions": 52,
+      "deletions": 0,
+      "filename": "i-/premiumbot.html",
+      "status": "added"
+    },
+    {
+      "additions": 1412,
+      "deletions": 0,
+      "filename": "i-/premiumbot.js",
+      "status": "added"
+    },
+    {
+      "additions": 538,
+      "deletions": 0,
+      "filename": "i-/promote-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 326,
+      "deletions": 0,
+      "filename": "i-/promote-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 6368,
+      "deletions": 0,
+      "filename": "i-/promote.css",
+      "status": "added"
+    },
+    {
+      "additions": 6363,
+      "deletions": 0,
+      "filename": "i-/promote.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/qr-code-styling.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/rlottie-wasm.js",
+      "status": "added"
+    },
+    {
+      "additions": 72,
+      "deletions": 0,
+      "filename": "i-/runmode.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/show-hint.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 213,
+      "deletions": 0,
+      "filename": "i-/simple.js",
+      "status": "added"
+    },
+    {
+      "additions": 684,
+      "deletions": 0,
+      "filename": "i-/stats.js",
+      "status": "added"
+    },
+    {
+      "additions": 54,
+      "deletions": 0,
+      "filename": "i-/stickers.html",
+      "status": "added"
+    },
+    {
+      "additions": 1018,
+      "deletions": 0,
+      "filename": "i-/tchart.css",
+      "status": "added"
+    },
+    {
+      "additions": 6738,
+      "deletions": 0,
+      "filename": "i-/tchart.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/tchart.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 273,
+      "deletions": 0,
+      "filename": "i-/tchart.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "i-/telegram-ads-pixel.js",
+      "status": "added"
+    },
+    {
+      "additions": 468,
+      "deletions": 0,
+      "filename": "i-/telegram-login.js",
+      "status": "added"
+    },
+    {
+      "additions": 1179,
+      "deletions": 0,
+      "filename": "i-/telegram-theme.css",
+      "status": "added"
+    },
+    {
+      "additions": 4114,
+      "deletions": 0,
+      "filename": "i-/telegram-web-app-beta.js",
+      "status": "added"
+    },
+    {
+      "additions": 3737,
+      "deletions": 0,
+      "filename": "i-/telegram-web-app.js",
+      "status": "added"
+    },
+    {
+      "additions": 5400,
+      "deletions": 0,
+      "filename": "i-/telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 710,
+      "deletions": 0,
+      "filename": "i-/tesseract.js",
+      "status": "added"
+    },
+    {
+      "additions": 209,
+      "deletions": 0,
+      "filename": "i-/tgsticker-worker.js",
+      "status": "added"
+    },
+    {
+      "additions": 858,
+      "deletions": 0,
+      "filename": "i-/tgsticker.js",
+      "status": "added"
+    },
+    {
+      "additions": 272,
+      "deletions": 0,
+      "filename": "i-/tgwallpaper.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/tgwallpaper.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 805,
+      "deletions": 0,
+      "filename": "i-/themes.js",
+      "status": "added"
+    },
+    {
+      "additions": 1295,
+      "deletions": 0,
+      "filename": "i-/tonconnect-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 6546,
+      "deletions": 0,
+      "filename": "i-/translations.css",
+      "status": "added"
+    },
+    {
+      "additions": 4674,
+      "deletions": 0,
+      "filename": "i-/translations.js",
+      "status": "added"
+    },
+    {
+      "additions": 2479,
+      "deletions": 0,
+      "filename": "i-/tsf.css",
+      "status": "added"
+    },
+    {
+      "additions": 1236,
+      "deletions": 0,
+      "filename": "i-/tsf.js",
+      "status": "added"
+    },
+    {
+      "additions": 323,
+      "deletions": 0,
+      "filename": "i-/webapp-common.js",
+      "status": "added"
+    },
+    {
+      "additions": 345,
+      "deletions": 0,
+      "filename": "i-/webappdemo.css",
+      "status": "added"
+    },
+    {
+      "additions": 1071,
+      "deletions": 0,
+      "filename": "i-/webappdemo.js",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "i-/website_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 2367,
+      "deletions": 0,
+      "filename": "i-/widget-frame.css",
+      "status": "added"
+    },
+    {
+      "additions": 2804,
+      "deletions": 0,
+      "filename": "i-/widget-frame.js",
+      "status": "added"
+    },
+    {
+      "additions": 394,
+      "deletions": 0,
+      "filename": "i-/xml.js",
+      "status": "added"
+    },
+    {
+      "additions": 333,
+      "deletions": 0,
+      "filename": "l-/ads-guidelines.html",
+      "status": "added"
+    },
+    {
+      "additions": 268,
+      "deletions": 0,
+      "filename": "l-/ads_tos.html",
+      "status": "added"
+    },
+    {
+      "additions": 6591,
+      "deletions": 0,
+      "filename": "l-/auction.css",
+      "status": "added"
+    },
+    {
+      "additions": 5737,
+      "deletions": 0,
+      "filename": "l-/auction.js",
+      "status": "added"
+    },
+    {
+      "additions": 359,
+      "deletions": 0,
+      "filename": "l-/billboard.css",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "l-/billboard.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3274,
+      "deletions": 0,
+      "filename": "l-/bootstrap-extra.css",
+      "status": "added"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "l-/bootstrap.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "filename": "l-/bootstrap.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 535,
+      "deletions": 0,
+      "filename": "l-/bot-oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 55,
+      "deletions": 0,
+      "filename": "l-/bot-oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 2978,
+      "deletions": 0,
+      "filename": "l-/bot-stickers.css",
+      "status": "added"
+    },
+    {
+      "additions": 1539,
+      "deletions": 0,
+      "filename": "l-/bot-stickers.js",
+      "status": "added"
+    },
+    {
+      "additions": 86,
+      "deletions": 0,
+      "filename": "l-/botfather-functions.js",
+      "status": "added"
+    },
+    {
+      "additions": 3379,
+      "deletions": 0,
+      "filename": "l-/botfather.css",
+      "status": "added"
+    },
+    {
+      "additions": 63,
+      "deletions": 0,
+      "filename": "l-/botfather.html",
+      "status": "added"
+    },
+    {
+      "additions": 3201,
+      "deletions": 0,
+      "filename": "l-/botfather.js",
+      "status": "added"
+    },
+    {
+      "additions": 6543,
+      "deletions": 0,
+      "filename": "l-/bugtracker-app.css",
+      "status": "added"
+    },
+    {
+      "additions": 81,
+      "deletions": 0,
+      "filename": "l-/bugtracker-bugs.css",
+      "status": "added"
+    },
+    {
+      "additions": 969,
+      "deletions": 0,
+      "filename": "l-/bugtracker-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 5480,
+      "deletions": 0,
+      "filename": "l-/bugtracker.css",
+      "status": "added"
+    },
+    {
+      "additions": 5694,
+      "deletions": 0,
+      "filename": "l-/bugtracker.js",
+      "status": "added"
+    },
+    {
+      "additions": 610,
+      "deletions": 0,
+      "filename": "l-/cafe.css",
+      "status": "added"
+    },
+    {
+      "additions": 490,
+      "deletions": 0,
+      "filename": "l-/cafe.html",
+      "status": "added"
+    },
+    {
+      "additions": 486,
+      "deletions": 0,
+      "filename": "l-/cafe.js",
+      "status": "added"
+    },
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "l-/cd_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "l-/closebrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 190,
+      "deletions": 0,
+      "filename": "l-/codemirror-cloudjs.js",
+      "status": "added"
+    },
+    {
+      "additions": 287,
+      "deletions": 0,
+      "filename": "l-/codemirror-guarded-region.js",
+      "status": "added"
+    },
+    {
+      "additions": 113,
+      "deletions": 0,
+      "filename": "l-/codemirror-instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/codemirror-show-hint.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 372,
+      "deletions": 0,
+      "filename": "l-/codemirror.css",
+      "status": "added"
+    },
+    {
+      "additions": 8890,
+      "deletions": 0,
+      "filename": "l-/codemirror.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/comment.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 148,
+      "deletions": 0,
+      "filename": "l-/contest-zoo.css",
+      "status": "added"
+    },
+    {
+      "additions": 2949,
+      "deletions": 0,
+      "filename": "l-/contest.css",
+      "status": "added"
+    },
+    {
+      "additions": 1563,
+      "deletions": 0,
+      "filename": "l-/contest.js",
+      "status": "added"
+    },
+    {
+      "additions": 487,
+      "deletions": 0,
+      "filename": "l-/demo.html",
+      "status": "added"
+    },
+    {
+      "additions": 487,
+      "deletions": 0,
+      "filename": "l-/demo2.html",
+      "status": "added"
+    },
+    {
+      "additions": 994,
+      "deletions": 0,
+      "filename": "l-/discussion-widget.css",
+      "status": "added"
+    },
+    {
+      "additions": 782,
+      "deletions": 0,
+      "filename": "l-/discussion-widget.js",
+      "status": "added"
+    },
+    {
+      "additions": 108,
+      "deletions": 0,
+      "filename": "l-/font-roboto-mono.css",
+      "status": "added"
+    },
+    {
+      "additions": 189,
+      "deletions": 0,
+      "filename": "l-/font-roboto.css",
+      "status": "added"
+    },
+    {
+      "additions": 206,
+      "deletions": 0,
+      "filename": "l-/games.js",
+      "status": "added"
+    },
+    {
+      "additions": 5514,
+      "deletions": 0,
+      "filename": "l-/gateway.css",
+      "status": "added"
+    },
+    {
+      "additions": 751,
+      "deletions": 0,
+      "filename": "l-/gateway.js",
+      "status": "added"
+    },
+    {
+      "additions": 130,
+      "deletions": 0,
+      "filename": "l-/gfm.js",
+      "status": "added"
+    },
+    {
+      "additions": 64,
+      "deletions": 0,
+      "filename": "l-/guardtest.html",
+      "status": "added"
+    },
+    {
+      "additions": 1079,
+      "deletions": 0,
+      "filename": "l-/health.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/highlight.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 1213,
+      "deletions": 0,
+      "filename": "l-/highlight.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3200,
+      "deletions": 0,
+      "filename": "l-/instantview.css",
+      "status": "added"
+    },
+    {
+      "additions": 1436,
+      "deletions": 0,
+      "filename": "l-/instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 742,
+      "deletions": 0,
+      "filename": "l-/javascript.js",
+      "status": "added"
+    },
+    {
+      "additions": 1841,
+      "deletions": 0,
+      "filename": "l-/jquery-ex.js",
+      "status": "added"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "l-/jquery-ui.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 9,
+      "deletions": 0,
+      "filename": "l-/jquery-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "l-/jquery.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 211,
+      "deletions": 0,
+      "filename": "l-/jquery.ui.touch-punch.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/json5.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "l-/main-aj.js",
+      "status": "added"
+    },
+    {
+      "additions": 520,
+      "deletions": 0,
+      "filename": "l-/main-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 726,
+      "deletions": 0,
+      "filename": "l-/main.js",
+      "status": "added"
+    },
+    {
+      "additions": 803,
+      "deletions": 0,
+      "filename": "l-/markdown.js",
+      "status": "added"
+    },
+    {
+      "additions": 122,
+      "deletions": 0,
+      "filename": "l-/matchbrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 1150,
+      "deletions": 0,
+      "filename": "l-/my-telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 3204,
+      "deletions": 0,
+      "filename": "l-/my-telegram.js",
+      "status": "added"
+    },
+    {
+      "additions": 1044,
+      "deletions": 0,
+      "filename": "l-/oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "l-/oauth.html",
+      "status": "added"
+    },
+    {
+      "additions": 672,
+      "deletions": 0,
+      "filename": "l-/oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 85,
+      "deletions": 0,
+      "filename": "l-/overlay.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/pako-inflate.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3059,
+      "deletions": 0,
+      "filename": "l-/pattern.svg",
+      "status": "added"
+    },
+    {
+      "additions": 78,
+      "deletions": 0,
+      "filename": "l-/placeholder.js",
+      "status": "added"
+    },
+    {
+      "additions": 267,
+      "deletions": 0,
+      "filename": "l-/premiumbot-lottie.js",
+      "status": "added"
+    },
+    {
+      "additions": 542,
+      "deletions": 0,
+      "filename": "l-/premiumbot.css",
+      "status": "added"
+    },
+    {
+      "additions": 44,
+      "deletions": 0,
+      "filename": "l-/premiumbot.html",
+      "status": "added"
+    },
+    {
+      "additions": 389,
+      "deletions": 0,
+      "filename": "l-/premiumbot.js",
+      "status": "added"
+    },
+    {
+      "additions": 538,
+      "deletions": 0,
+      "filename": "l-/promote-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 326,
+      "deletions": 0,
+      "filename": "l-/promote-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 6368,
+      "deletions": 0,
+      "filename": "l-/promote.css",
+      "status": "added"
+    },
+    {
+      "additions": 6363,
+      "deletions": 0,
+      "filename": "l-/promote.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/qr-code-styling.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/rlottie-wasm.js",
+      "status": "added"
+    },
+    {
+      "additions": 72,
+      "deletions": 0,
+      "filename": "l-/runmode.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/show-hint.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 213,
+      "deletions": 0,
+      "filename": "l-/simple.js",
+      "status": "added"
+    },
+    {
+      "additions": 684,
+      "deletions": 0,
+      "filename": "l-/stats.js",
+      "status": "added"
+    },
+    {
+      "additions": 54,
+      "deletions": 0,
+      "filename": "l-/stickers.html",
+      "status": "added"
+    },
+    {
+      "additions": 1018,
+      "deletions": 0,
+      "filename": "l-/tchart.css",
+      "status": "added"
+    },
+    {
+      "additions": 6738,
+      "deletions": 0,
+      "filename": "l-/tchart.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/tchart.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 273,
+      "deletions": 0,
+      "filename": "l-/tchart.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "l-/telegram-ads-pixel.js",
+      "status": "added"
+    },
+    {
+      "additions": 468,
+      "deletions": 0,
+      "filename": "l-/telegram-login.js",
+      "status": "added"
+    },
+    {
+      "additions": 1179,
+      "deletions": 0,
+      "filename": "l-/telegram-theme.css",
+      "status": "added"
+    },
+    {
+      "additions": 4114,
+      "deletions": 0,
+      "filename": "l-/telegram-web-app-beta.js",
+      "status": "added"
+    },
+    {
+      "additions": 3737,
+      "deletions": 0,
+      "filename": "l-/telegram-web-app.js",
+      "status": "added"
+    },
+    {
+      "additions": 5400,
+      "deletions": 0,
+      "filename": "l-/telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 710,
+      "deletions": 0,
+      "filename": "l-/tesseract.js",
+      "status": "added"
+    },
+    {
+      "additions": 209,
+      "deletions": 0,
+      "filename": "l-/tgsticker-worker.js",
+      "status": "added"
+    },
+    {
+      "additions": 858,
+      "deletions": 0,
+      "filename": "l-/tgsticker.js",
+      "status": "added"
+    },
+    {
+      "additions": 272,
+      "deletions": 0,
+      "filename": "l-/tgwallpaper.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/tgwallpaper.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 805,
+      "deletions": 0,
+      "filename": "l-/themes.js",
+      "status": "added"
+    },
+    {
+      "additions": 1295,
+      "deletions": 0,
+      "filename": "l-/tonconnect-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 235,
+      "deletions": 0,
+      "filename": "l-/tpromote.html",
+      "status": "added"
+    },
+    {
+      "additions": 6546,
+      "deletions": 0,
+      "filename": "l-/translations.css",
+      "status": "added"
+    },
+    {
+      "additions": 4674,
+      "deletions": 0,
+      "filename": "l-/translations.js",
+      "status": "added"
+    },
+    {
+      "additions": 2479,
+      "deletions": 0,
+      "filename": "l-/tsf.css",
+      "status": "added"
+    },
+    {
+      "additions": 1236,
+      "deletions": 0,
+      "filename": "l-/tsf.js",
+      "status": "added"
+    },
+    {
+      "additions": 323,
+      "deletions": 0,
+      "filename": "l-/webapp-common.js",
+      "status": "added"
+    },
+    {
+      "additions": 345,
+      "deletions": 0,
+      "filename": "l-/webappdemo.css",
+      "status": "added"
+    },
+    {
+      "additions": 1071,
+      "deletions": 0,
+      "filename": "l-/webappdemo.js",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "l-/website_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 2367,
+      "deletions": 0,
+      "filename": "l-/widget-frame.css",
+      "status": "added"
+    },
+    {
+      "additions": 2804,
+      "deletions": 0,
+      "filename": "l-/widget-frame.js",
+      "status": "added"
+    },
+    {
+      "additions": 394,
+      "deletions": 0,
+      "filename": "l-/xml.js",
+      "status": "added"
+    },
+    {
+      "additions": 333,
+      "deletions": 0,
+      "filename": "y-/ads-guidelines.html",
+      "status": "added"
+    },
+    {
+      "additions": 268,
+      "deletions": 0,
+      "filename": "y-/ads_tos.html",
+      "status": "added"
+    },
+    {
+      "additions": 6591,
+      "deletions": 0,
+      "filename": "y-/auction.css",
+      "status": "added"
+    },
+    {
+      "additions": 5737,
+      "deletions": 0,
+      "filename": "y-/auction.js",
+      "status": "added"
+    },
+    {
+      "additions": 359,
+      "deletions": 0,
+      "filename": "y-/billboard.css",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "y-/billboard.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3274,
+      "deletions": 0,
+      "filename": "y-/bootstrap-extra.css",
+      "status": "added"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "y-/bootstrap.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "filename": "y-/bootstrap.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 535,
+      "deletions": 0,
+      "filename": "y-/bot-oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 55,
+      "deletions": 0,
+      "filename": "y-/bot-oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 2978,
+      "deletions": 0,
+      "filename": "y-/bot-stickers.css",
+      "status": "added"
+    },
+    {
+      "additions": 1539,
+      "deletions": 0,
+      "filename": "y-/bot-stickers.js",
+      "status": "added"
+    },
+    {
+      "additions": 86,
+      "deletions": 0,
+      "filename": "y-/botfather-functions.js",
+      "status": "added"
+    },
+    {
+      "additions": 3379,
+      "deletions": 0,
+      "filename": "y-/botfather.css",
+      "status": "added"
+    },
+    {
+      "additions": 63,
+      "deletions": 0,
+      "filename": "y-/botfather.html",
+      "status": "added"
+    },
+    {
+      "additions": 3201,
+      "deletions": 0,
+      "filename": "y-/botfather.js",
+      "status": "added"
+    },
+    {
+      "additions": 6543,
+      "deletions": 0,
+      "filename": "y-/bugtracker-app.css",
+      "status": "added"
+    },
+    {
+      "additions": 81,
+      "deletions": 0,
+      "filename": "y-/bugtracker-bugs.css",
+      "status": "added"
+    },
+    {
+      "additions": 969,
+      "deletions": 0,
+      "filename": "y-/bugtracker-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 5480,
+      "deletions": 0,
+      "filename": "y-/bugtracker.css",
+      "status": "added"
+    },
+    {
+      "additions": 5694,
+      "deletions": 0,
+      "filename": "y-/bugtracker.js",
+      "status": "added"
+    },
+    {
+      "additions": 610,
+      "deletions": 0,
+      "filename": "y-/cafe.css",
+      "status": "added"
+    },
+    {
+      "additions": 490,
+      "deletions": 0,
+      "filename": "y-/cafe.html",
+      "status": "added"
+    },
+    {
+      "additions": 486,
+      "deletions": 0,
+      "filename": "y-/cafe.js",
+      "status": "added"
+    },
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "y-/cd_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "y-/closebrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 882,
+      "deletions": 0,
+      "filename": "y-/cloud.html",
+      "status": "added"
+    },
+    {
+      "additions": 190,
+      "deletions": 0,
+      "filename": "y-/codemirror-cloudjs.js",
+      "status": "added"
+    },
+    {
+      "additions": 287,
+      "deletions": 0,
+      "filename": "y-/codemirror-guarded-region.js",
+      "status": "added"
+    },
+    {
+      "additions": 113,
+      "deletions": 0,
+      "filename": "y-/codemirror-instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/codemirror-show-hint.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 372,
+      "deletions": 0,
+      "filename": "y-/codemirror.css",
+      "status": "added"
+    },
+    {
+      "additions": 8890,
+      "deletions": 0,
+      "filename": "y-/codemirror.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/comment.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 148,
+      "deletions": 0,
+      "filename": "y-/contest-zoo.css",
+      "status": "added"
+    },
+    {
+      "additions": 2949,
+      "deletions": 0,
+      "filename": "y-/contest.css",
+      "status": "added"
+    },
+    {
+      "additions": 1563,
+      "deletions": 0,
+      "filename": "y-/contest.js",
+      "status": "added"
+    },
+    {
+      "additions": 487,
+      "deletions": 0,
+      "filename": "y-/demo.html",
+      "status": "added"
+    },
+    {
+      "additions": 487,
+      "deletions": 0,
+      "filename": "y-/demo2.html",
+      "status": "added"
+    },
+    {
+      "additions": 994,
+      "deletions": 0,
+      "filename": "y-/discussion-widget.css",
+      "status": "added"
+    },
+    {
+      "additions": 782,
+      "deletions": 0,
+      "filename": "y-/discussion-widget.js",
+      "status": "added"
+    },
+    {
+      "additions": 108,
+      "deletions": 0,
+      "filename": "y-/font-roboto-mono.css",
+      "status": "added"
+    },
+    {
+      "additions": 189,
+      "deletions": 0,
+      "filename": "y-/font-roboto.css",
+      "status": "added"
+    },
+    {
+      "additions": 206,
+      "deletions": 0,
+      "filename": "y-/games.js",
+      "status": "added"
+    },
+    {
+      "additions": 5514,
+      "deletions": 0,
+      "filename": "y-/gateway.css",
+      "status": "added"
+    },
+    {
+      "additions": 751,
+      "deletions": 0,
+      "filename": "y-/gateway.js",
+      "status": "added"
+    },
+    {
+      "additions": 130,
+      "deletions": 0,
+      "filename": "y-/gfm.js",
+      "status": "added"
+    },
+    {
+      "additions": 64,
+      "deletions": 0,
+      "filename": "y-/guardtest.html",
+      "status": "added"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "y-/health.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/highlight.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 1213,
+      "deletions": 0,
+      "filename": "y-/highlight.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3200,
+      "deletions": 0,
+      "filename": "y-/instantview.css",
+      "status": "added"
+    },
+    {
+      "additions": 1436,
+      "deletions": 0,
+      "filename": "y-/instantview.js",
+      "status": "added"
+    },
+    {
+      "additions": 742,
+      "deletions": 0,
+      "filename": "y-/javascript.js",
+      "status": "added"
+    },
+    {
+      "additions": 1841,
+      "deletions": 0,
+      "filename": "y-/jquery-ex.js",
+      "status": "added"
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "y-/jquery-ui.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 9,
+      "deletions": 0,
+      "filename": "y-/jquery-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "y-/jquery.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 211,
+      "deletions": 0,
+      "filename": "y-/jquery.ui.touch-punch.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/json5.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 1288,
+      "deletions": 0,
+      "filename": "y-/main-aj.js",
+      "status": "added"
+    },
+    {
+      "additions": 520,
+      "deletions": 0,
+      "filename": "y-/main-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 726,
+      "deletions": 0,
+      "filename": "y-/main.js",
+      "status": "added"
+    },
+    {
+      "additions": 803,
+      "deletions": 0,
+      "filename": "y-/markdown.js",
+      "status": "added"
+    },
+    {
+      "additions": 122,
+      "deletions": 0,
+      "filename": "y-/matchbrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 1150,
+      "deletions": 0,
+      "filename": "y-/my-telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 3204,
+      "deletions": 0,
+      "filename": "y-/my-telegram.js",
+      "status": "added"
+    },
+    {
+      "additions": 1044,
+      "deletions": 0,
+      "filename": "y-/oauth.css",
+      "status": "added"
+    },
+    {
+      "additions": 51,
+      "deletions": 0,
+      "filename": "y-/oauth.html",
+      "status": "added"
+    },
+    {
+      "additions": 672,
+      "deletions": 0,
+      "filename": "y-/oauth.js",
+      "status": "added"
+    },
+    {
+      "additions": 85,
+      "deletions": 0,
+      "filename": "y-/overlay.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/pako-inflate.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 3059,
+      "deletions": 0,
+      "filename": "y-/pattern.svg",
+      "status": "added"
+    },
+    {
+      "additions": 78,
+      "deletions": 0,
+      "filename": "y-/placeholder.js",
+      "status": "added"
+    },
+    {
+      "additions": 1220,
+      "deletions": 0,
+      "filename": "y-/premiumbot-3d.js",
+      "status": "added"
+    },
+    {
+      "additions": 219,
+      "deletions": 0,
+      "filename": "y-/premiumbot-base.css",
+      "status": "added"
+    },
+    {
+      "additions": 1795,
+      "deletions": 0,
+      "filename": "y-/premiumbot-components.css",
+      "status": "added"
+    },
+    {
+      "additions": 1413,
+      "deletions": 0,
+      "filename": "y-/premiumbot-fx.css",
+      "status": "added"
+    },
+    {
+      "additions": 2104,
+      "deletions": 0,
+      "filename": "y-/premiumbot-fx.js",
+      "status": "added"
+    },
+    {
+      "additions": 314,
+      "deletions": 0,
+      "filename": "y-/premiumbot-lottie.js",
+      "status": "added"
+    },
+    {
+      "additions": 467,
+      "deletions": 0,
+      "filename": "y-/premiumbot-screens-commerce.css",
+      "status": "added"
+    },
+    {
+      "additions": 599,
+      "deletions": 0,
+      "filename": "y-/premiumbot-screens-subscription.css",
+      "status": "added"
+    },
+    {
+      "additions": 730,
+      "deletions": 0,
+      "filename": "y-/premiumbot-tokens.css",
+      "status": "added"
+    },
+    {
+      "additions": 241,
+      "deletions": 0,
+      "filename": "y-/premiumbot.css",
+      "status": "added"
+    },
+    {
+      "additions": 52,
+      "deletions": 0,
+      "filename": "y-/premiumbot.html",
+      "status": "added"
+    },
+    {
+      "additions": 1412,
+      "deletions": 0,
+      "filename": "y-/premiumbot.js",
+      "status": "added"
+    },
+    {
+      "additions": 538,
+      "deletions": 0,
+      "filename": "y-/promote-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 326,
+      "deletions": 0,
+      "filename": "y-/promote-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 6368,
+      "deletions": 0,
+      "filename": "y-/promote.css",
+      "status": "added"
+    },
+    {
+      "additions": 6363,
+      "deletions": 0,
+      "filename": "y-/promote.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/qr-code-styling.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/rlottie-wasm.js",
+      "status": "added"
+    },
+    {
+      "additions": 72,
+      "deletions": 0,
+      "filename": "y-/runmode.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/show-hint.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 213,
+      "deletions": 0,
+      "filename": "y-/simple.js",
+      "status": "added"
+    },
+    {
+      "additions": 684,
+      "deletions": 0,
+      "filename": "y-/stats.js",
+      "status": "added"
+    },
+    {
+      "additions": 54,
+      "deletions": 0,
+      "filename": "y-/stickers.html",
+      "status": "added"
+    },
+    {
+      "additions": 1018,
+      "deletions": 0,
+      "filename": "y-/tchart.css",
+      "status": "added"
+    },
+    {
+      "additions": 6738,
+      "deletions": 0,
+      "filename": "y-/tchart.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/tchart.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 273,
+      "deletions": 0,
+      "filename": "y-/tchart.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "y-/telegram-ads-pixel.js",
+      "status": "added"
+    },
+    {
+      "additions": 468,
+      "deletions": 0,
+      "filename": "y-/telegram-login.js",
+      "status": "added"
+    },
+    {
+      "additions": 1179,
+      "deletions": 0,
+      "filename": "y-/telegram-theme.css",
+      "status": "added"
+    },
+    {
+      "additions": 4114,
+      "deletions": 0,
+      "filename": "y-/telegram-web-app-beta.js",
+      "status": "added"
+    },
+    {
+      "additions": 3737,
+      "deletions": 0,
+      "filename": "y-/telegram-web-app.js",
+      "status": "added"
+    },
+    {
+      "additions": 5400,
+      "deletions": 0,
+      "filename": "y-/telegram.css",
+      "status": "added"
+    },
+    {
+      "additions": 710,
+      "deletions": 0,
+      "filename": "y-/tesseract.js",
+      "status": "added"
+    },
+    {
+      "additions": 209,
+      "deletions": 0,
+      "filename": "y-/tgsticker-worker.js",
+      "status": "added"
+    },
+    {
+      "additions": 858,
+      "deletions": 0,
+      "filename": "y-/tgsticker.js",
+      "status": "added"
+    },
+    {
+      "additions": 272,
+      "deletions": 0,
+      "filename": "y-/tgwallpaper.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/tgwallpaper.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 805,
+      "deletions": 0,
+      "filename": "y-/themes.js",
+      "status": "added"
+    },
+    {
+      "additions": 1295,
+      "deletions": 0,
+      "filename": "y-/tonconnect-ui.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 235,
+      "deletions": 0,
+      "filename": "y-/tpromote.html",
+      "status": "added"
+    },
+    {
+      "additions": 6546,
+      "deletions": 0,
+      "filename": "y-/translations.css",
+      "status": "added"
+    },
+    {
+      "additions": 4674,
+      "deletions": 0,
+      "filename": "y-/translations.js",
+      "status": "added"
+    },
+    {
+      "additions": 2479,
+      "deletions": 0,
+      "filename": "y-/tsf.css",
+      "status": "added"
+    },
+    {
+      "additions": 1236,
+      "deletions": 0,
+      "filename": "y-/tsf.js",
+      "status": "added"
+    },
+    {
+      "additions": 323,
+      "deletions": 0,
+      "filename": "y-/webapp-common.js",
+      "status": "added"
+    },
+    {
+      "additions": 345,
+      "deletions": 0,
+      "filename": "y-/webappdemo.css",
+      "status": "added"
+    },
+    {
+      "additions": 1071,
+      "deletions": 0,
+      "filename": "y-/webappdemo.js",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "y-/website_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 2367,
+      "deletions": 0,
+      "filename": "y-/widget-frame.css",
+      "status": "added"
+    },
+    {
+      "additions": 2804,
+      "deletions": 0,
+      "filename": "y-/widget-frame.js",
+      "status": "added"
+    },
+    {
+      "additions": 394,
+      "deletions": 0,
+      "filename": "y-/xml.js",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T00:22:41Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "248bbcdd55afec2506a347db24ffa6c398dd68ef",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/248bbcdd55afec2506a347db24ffa6c398dd68ef"
+  }
+}

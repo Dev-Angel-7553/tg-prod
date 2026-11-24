@@ -7623,7 +7623,7 @@
     "On-device transcription"
   ],
   "SpeechToTextOnDeviceInfo": [
-    "Voice messages are transcribed on this device. Private: nothing leaves it."
+    "Voice messages are transcribed privately – nothing leaves this device. "
   ],
   "SpeechToTextPrivacyCompact": [
     "Compact languages"

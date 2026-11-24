@@ -1,8 +1,8 @@
 {
   "analysis": "Decoded resources and selected DEX strings; not full source decompilation.",
   "download_url": "https://telegram.org/dl/android/apk-public-beta",
-  "sha256": "f48a0ab952fcd0c35f0f3bda84ed73c4736f7218ed367d7349d477c28992d9dd",
-  "size_bytes": 82132226,
+  "sha256": "4a833dc7aafafb4047c282168902c494dfb39985ba2a377599307346f2546411",
+  "size_bytes": 94798540,
   "version": "13.3.2",
-  "version_code": 73519
+  "version_code": 73529
 }

@@ -1,0 +1,44 @@
+{
+  "category": "other",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:248bbcdd55afec2506a347db24ffa6c398dd68ef:other:prod",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "a-/tonconnect-ui.min.js.map",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "b-/tonconnect-ui.min.js.map",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "i-/tonconnect-ui.min.js.map",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "l-/tonconnect-ui.min.js.map",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "y-/tonconnect-ui.min.js.map",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T00:22:41Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "248bbcdd55afec2506a347db24ffa6c398dd68ef",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/248bbcdd55afec2506a347db24ffa6c398dd68ef"
+  }
+}

@@ -1,0 +1,207 @@
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js
+@@ -1 +1 @@
+-0657eedc20e7c4c96d0609c1906838b4a9c7b57db2b97185e16e499aa6083849
+\ No newline at end of file
++442402bcf7aaee109767a27b458a3beb9bfea94eff299039f909e891515c83c6
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc
+@@ -1 +1 @@
+-a6b3b5288ffd0ded980f6b795a23cf16e089d350015037306cc5a406c808e8ec
+\ No newline at end of file
++9d917138329e9b21915b071aa9e6f6413c656657175c9b61443b92af8aafa60c
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.js b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.js
+@@ -1 +1 @@
+-7dcd3be17fe93d1e5a02e4cdcf9f237c50acf9061e3b484fbdeac7fd46b3ec42
+\ No newline at end of file
++04c234e4b59d395cff0e7424b34afd58d1ff0dea7e693a2c8305876fa06aeec5
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc b/data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc
+@@ -1 +1 @@
+-b777fa6747a5ddba1e4c92c26f879ec06f360b74243e017818a29d6264c4454f
+\ No newline at end of file
++d290295600f202f7644615436f9dd93063861c1f5bff76b7d8c7726779d91a6a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/WidgetSandbox/manifest.txt b/data/client/android-beta/assets/WidgetSandbox/manifest.txt
+@@ -1 +1 @@
+-d7e80a7fa857923c7e7d56000740cab2cb7e94a139b9b005022b16fea3d412e6
+\ No newline at end of file
++cf63e208af2d1899dc043699082a73fff5031f071bcc14931109e1f7f650c02a
+\ No newline at end of file
+diff --git a/data/client/android-beta/assets/localization_en.txt b/data/client/android-beta/assets/localization_en.txt
+@@ -2868,7 +2868,6 @@
+ -1052049171	Urgent
+ -1051450613	Reconnecting
+ -1049658665	Invite via Link
+--1049613003	Enter Price in TON
+ -1049416742	Collectible #%d
+ -1049198740	Slide to cancel
+ -1048712377	Who can see my profile photo?
+@@ -3087,7 +3086,6 @@
+ -970867055	List **%1$s** on Fragment for **%2$s**? Starting the sale costs **%3$s** from your wallet for the contract fees. The proceeds will go straight to your wallet.
+ -969714900	Stats
+ -969555618	Wrong code
+--968926883	Top Up
+ -968903425	Card Number
+ -968070498	You have used your **%1$d** free transcription this week.
+ -967822493	New Channel
+@@ -3408,7 +3406,7 @@
+ -849987567	Upload scans of a certified English translation of the selected document.
+ -849400845	Mini Apps
+ -849030975	The recipient will be able to send the gift to anyone on Telegram.
+--848860278	https://fragment.com/ads/topup
++-848860278	https://fragment.com
+ -848608905	Add admins
+ -847185043	%1$d online
+ -847084961	Video not found.
+@@ -5507,7 +5505,6 @@
+ -98545069	Close Voice Message
+ -98420892	Include Chats
+ -98347245	today at %1$s
+--98304434	Choose how many TON to pay to publish this message.
+ -98155982	Display folder names for each chat in the chat list.
+ -98081180	%1$s/month
+ -97580148	Unsend My Messages
+@@ -7276,7 +7273,6 @@
+ 492378901	%s pinned
+ 493748197	Remove Audio
+ 493928761	%1$s pinned a quiz %2$s
+-494043012	Use Camera2 recorder
+ 495018903	%1$s free, slow speed
+ 495636931	%1$d star
+ 495812540	From Fragment
+@@ -7447,7 +7443,6 @@
+ 562573537	Earn From Your Channel
+ 562706911	You boosted the group!
+ 563385879	Attach media
+-563692733	You can add funds to your balance via the third-party platform Fragment.
+ 564141337	This gift was downgraded because a request to refund the payment related to this gift was made, and the money was returned.
+ 564761836	Refund already paid %d Stars
+ 564901373	Open file
+@@ -9813,8 +9808,6 @@
+ 1425300959	Read Messages
+ 1425666173	Are you sure you want to remove "%s" from including list?
+ 1426506694	This media
+-1427091836	You can top-up your TON balance via Fragment.
+-1427176648	https://fragment.com/ads/topup
+ 1427277247	Audio saved to **Saved Messages**.
+ 1428118432	Shipping address
+ 1428859232	You can display this gift on your page or turn it into a unique collectible and send to others.
+@@ -10291,7 +10284,6 @@
+ 1620383812	Binary Data
+ 1620434649	**Telegram** needs access to contacts so that you can share them with your friends. Tap Settings -> Permissions, and turn **Contacts** on.
+ 1620813828	%d Stories
+-1621122990	Top-Up via Fragment
+ 1621683364	The bot will know your phone number. This can be useful for integration with other services.
+ 1622081254	Arabic
+ 1622081262	Azerbaijani
+diff --git a/data/client/android-beta/assets/lottie_meta.bin b/data/client/android-beta/assets/lottie_meta.bin
+@@ -1 +1 @@
+-9323b5d79432c924624d60b402a32c41f16b09bfd4b22ccca16a820cb443b097
+\ No newline at end of file
++c308b09daf010919f5c614d304a2a0d0c4f5b9d1e03558880c5a1261cadd44a2
+\ No newline at end of file
+diff --git a/data/client/android-beta/res/values/public.xml b/data/client/android-beta/res/values/public.xml
+@@ -20,7 +20,6 @@
+     <public type="anim" name="btn_radio_to_on_mtrl_dot_group_animation" id="tgcrawl" />
+     <public type="anim" name="btn_radio_to_on_mtrl_ring_outer_animation" id="tgcrawl" />
+     <public type="anim" name="btn_radio_to_on_mtrl_ring_outer_path_animation" id="tgcrawl" />
+-    <public type="anim" name="fragment_fast_out_extra_slow_in" id="tgcrawl" />
+     <public type="anim" name="ft_avd_toarrow_rectangle_1_pivot_0_animation" id="tgcrawl" />
+     <public type="anim" name="ft_avd_toarrow_rectangle_2_pivot_0_animation" id="tgcrawl" />
+     <public type="anim" name="ft_avd_toarrow_rectangle_3_pivot_0_animation" id="tgcrawl" />
+@@ -47,12 +46,6 @@
+     <public type="anim" name="text_in" id="tgcrawl" />
+     <public type="anim" name="text_out" id="tgcrawl" />
+     <public type="anim" name="text_out_down" id="tgcrawl" />
+-    <public type="animator" name="fragment_close_enter" id="tgcrawl" />
+-    <public type="animator" name="fragment_close_exit" id="tgcrawl" />
+-    <public type="animator" name="fragment_fade_enter" id="tgcrawl" />
+-    <public type="animator" name="fragment_fade_exit" id="tgcrawl" />
+-    <public type="animator" name="fragment_open_enter" id="tgcrawl" />
+-    <public type="animator" name="fragment_open_exit" id="tgcrawl" />
+     <public type="array" name="android_wear_capabilities" id="tgcrawl" />
+     <public type="array" name="assume_strong_biometrics_models" id="tgcrawl" />
+     <public type="array" name="crypto_fingerprint_fallback_prefixes" id="tgcrawl" />
+@@ -3313,11 +3306,6 @@
+     <public type="raw" name="record_video_p" id="tgcrawl" />
+     <public type="raw" name="report_police" id="tgcrawl" />
+     <public type="raw" name="round_blur_overlay_text" id="tgcrawl" />
+-    <public type="raw" name="round_blur_stage_0_frag" id="tgcrawl" />
+-    <public type="raw" name="round_blur_stage_1_frag" id="tgcrawl" />
+-    <public type="raw" name="round_blur_stage_2_frag" id="tgcrawl" />
+-    <public type="raw" name="round_blur_stage_3_frag" id="tgcrawl" />
+-    <public type="raw" name="round_blur_vert" id="tgcrawl" />
+     <public type="raw" name="roundcamera_flash_off" id="tgcrawl" />
+     <public type="raw" name="roundcamera_flash_on" id="tgcrawl" />
+     <public type="raw" name="roundcamera_flip" id="tgcrawl" />
+diff --git a/data/client/android-beta/res/values/strings.xml b/data/client/android-beta/res/values/strings.xml
+@@ -4405,7 +4405,6 @@ All secret chats will be lost."</string>
+     <string name="FpnvConsentText">Telegram can confirm the phone number of this SIM card with your carrier and log you in without a code.</string>
+     <string name="FpnvConsentTitle">Log In with SIM Card</string>
+     <string name="Fragment">Fragment</string>
+-    <string name="FragmentAddFunds">You can add funds to your balance via the third-party platform Fragment.</string>
+     <string name="FragmentChannelUsername">The **%1$s** username was acquired on **Fragment** on %2$s for **%3$s** %4$s.</string>
+     <string name="FragmentPhoneCopy">Copy Phone Number</string>
+     <string name="FragmentPhoneMessage">This phone number was bought on **Fragment** on %1$s for **%2$s** %3$s</string>
+@@ -7942,11 +7941,9 @@ countries can vote"</string>
+     <string name="PostSuggestionsOfferForFree">Offer for Free</string>
+     <string name="PostSuggestionsOfferStars">Offer ⭐️%s</string>
+     <string name="PostSuggestionsOfferSubtitleStars">Choose how many Stars to pay to publish this message.</string>
+-    <string name="PostSuggestionsOfferSubtitleTON">Choose how many TON to pay to publish this message.</string>
+     <string name="PostSuggestionsOfferTON">Offer %s TON</string>
+     <string name="PostSuggestionsOfferTitle">Suggest a Message</string>
+     <string name="PostSuggestionsOfferTitlePriceStars">Enter Price in Stars</string>
+-    <string name="PostSuggestionsOfferTitlePriceTON">Enter Price in TON</string>
+     <string name="PostSuggestionsOfferTitleTime">Publishing Time</string>
+     <string name="PostSuggestionsPriceInfo2">You will receive %1$s of the selected fee (~%2$s$) for each incoming message.</string>
+     <string name="PostSuggestionsPriceUpdated_one">un1 now accepts direct messages for %1$d star</string>
+@@ -9020,7 +9017,6 @@ The channels will become private."</string>
+     <string name="RoundVideoGeneralInfo">60 FPS is used only when both front and rear cameras support it. Otherwise recording falls back to 30 FPS.</string>
+     <string name="RoundVideoOutputResolution">Output resolution</string>
+     <string name="RoundVideoSettings">Round Video</string>
+-    <string name="RoundVideoUseNewRecorder">Use Camera2 recorder</string>
+     <string name="SETTINGS">Settings</string>
+     <string name="SMSFee1Text">Telecom providers in your country charge Telegram very high prices for SMS.</string>
+     <string name="SMSFee1TextCountry">Telecom providers in your country (%s) charge Telegram very high prices for SMS.</string>
+@@ -10067,7 +10063,7 @@ on Telegram. What affects it:"</string>
+     <string name="StarsTransactionSubscriptionMonthly">Monthly subscription fee</string>
+     <string name="StarsTransactionTONDate">TON Transaction Date</string>
+     <string name="StarsTransactionTONFromFragment">Fragment</string>
+-    <string name="StarsTransactionTONFromFragmentLink">https://fragment.com/ads/topup</string>
++    <string name="StarsTransactionTONFromFragmentLink">https://fragment.com</string>
+     <string name="StarsTransactionTOS">Review the **Terms of Service** for Stars.</string>
+     <string name="StarsTransactionUnknown">Unknown User</string>
+     <string name="StarsTransactionUnknownLink">https://fragment.com/stars</string>
+@@ -10915,7 +10911,6 @@ You can switch to actions for the list."</string>
+     <string name="TonNeededTextSuggestMessage">Buy **TON** to suggest message to **%s** and others.</string>
+     <string name="TonNeededTitle">%s TON Needed</string>
+     <string name="TonStats">Stats</string>
+-    <string name="TonTopUp">Top Up</string>
+     <string name="TooLargeError">Too large</string>
+     <string name="TooLongError">Too long</string>
+     <string name="TooManyCommunities">Too Many Communities</string>
+@@ -10929,9 +10924,6 @@ Please try again in %1$s."</string>
+     <string name="TopHoursChartTitle">Views by hours</string>
+     <string name="TopInviters">Top inviters</string>
+     <string name="TopMembers">Top members</string>
+-    <string name="TopUpViaFragment">Top-Up via Fragment</string>
+-    <string name="TopUpViaFragmentInfo">You can top-up your TON balance via Fragment.</string>
+-    <string name="TopUpViaFragmentLink">https://fragment.com/ads/topup</string>
+     <string name="TopicChangeIconAndTitleTo">%1$s changed the topic title and icon to %2$s</string>
+     <string name="TopicChangeIconAndTitleToInReply">changed the topic title and icon to %s</string>
+     <string name="TopicClosed">Topic closed</string>
+@@ -12271,11 +12263,11 @@ Do you still remember your password?"</string>
+     <string name="chatDate">MMMM d</string>
+     <string name="chatDateShort">MMM d</string>
+     <string name="chatFullDate">MMMM d, yyyy</string>
+-    <string name="com.google.firebase.crashlytics.mapping_file_id">472df431ac1d46ebadce283fe52db769</string>
++    <string name="com.google.firebase.crashlytics.mapping_file_id">9284977f0db640aa8c59a48f79d5500c</string>
+     <string name="com.google.firebase.crashlytics.version_control_info">"repositories {
+   system: GIT
+   local_root_path: \"$PROJECT_DIR\"
+-  revision: \"db344f27f17601cf8fc0bc04ba9174255330e850\"
++  revision: \"c9f57d24afff2491d34f8289765dce7aea2d0b56\"
+ }
+ "</string>
+     <string name="common_google_play_services_enable_button">Enable</string>

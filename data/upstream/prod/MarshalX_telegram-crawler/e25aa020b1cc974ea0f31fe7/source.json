@@ -1,0 +1,68 @@
+{
+  "category": "clients",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:801d4c6a8929888f3803e3b609c2c256f9b0d2a2:clients:beta",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/manifest.txt",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 9,
+      "filename": "data/client/android-beta/assets/localization_en.txt",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/lottie_meta.bin",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 12,
+      "filename": "data/client/android-beta/res/values/public.xml",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 11,
+      "filename": "data/client/android-beta/res/values/strings.xml",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T21:30:53Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "801d4c6a8929888f3803e3b609c2c256f9b0d2a2",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/801d4c6a8929888f3803e3b609c2c256f9b0d2a2"
+  }
+}

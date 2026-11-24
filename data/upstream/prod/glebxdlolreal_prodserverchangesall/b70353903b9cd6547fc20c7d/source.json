@@ -1,0 +1,158 @@
+{
+  "category": "web",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:65645a26bfaf06b3126076bbdcb7acced214bde0:web:prod",
+  "files": [
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "cd_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 202,
+      "deletions": 0,
+      "filename": "closebrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 287,
+      "deletions": 0,
+      "filename": "codemirror-guarded-region.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "codemirror-show-hint.min.css",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "comment.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "comments_web.svg",
+      "status": "added"
+    },
+    {
+      "additions": 108,
+      "deletions": 0,
+      "filename": "font-roboto-mono.css",
+      "status": "added"
+    },
+    {
+      "additions": 742,
+      "deletions": 0,
+      "filename": "javascript.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "json5.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 122,
+      "deletions": 0,
+      "filename": "matchbrackets.js",
+      "status": "added"
+    },
+    {
+      "additions": 78,
+      "deletions": 0,
+      "filename": "placeholder.js",
+      "status": "added"
+    },
+    {
+      "additions": 1220,
+      "deletions": 0,
+      "filename": "premiumbot-3d.js",
+      "status": "added"
+    },
+    {
+      "additions": 219,
+      "deletions": 0,
+      "filename": "premiumbot-base.css",
+      "status": "added"
+    },
+    {
+      "additions": 1795,
+      "deletions": 0,
+      "filename": "premiumbot-components.css",
+      "status": "added"
+    },
+    {
+      "additions": 1413,
+      "deletions": 0,
+      "filename": "premiumbot-fx.css",
+      "status": "added"
+    },
+    {
+      "additions": 2104,
+      "deletions": 0,
+      "filename": "premiumbot-fx.js",
+      "status": "added"
+    },
+    {
+      "additions": 467,
+      "deletions": 0,
+      "filename": "premiumbot-screens-commerce.css",
+      "status": "added"
+    },
+    {
+      "additions": 599,
+      "deletions": 0,
+      "filename": "premiumbot-screens-subscription.css",
+      "status": "added"
+    },
+    {
+      "additions": 730,
+      "deletions": 0,
+      "filename": "premiumbot-tokens.css",
+      "status": "added"
+    },
+    {
+      "additions": 538,
+      "deletions": 0,
+      "filename": "promote-dark.css",
+      "status": "added"
+    },
+    {
+      "additions": 326,
+      "deletions": 0,
+      "filename": "promote-theme.js",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "show-hint.min.js",
+      "status": "added"
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "filename": "website_icon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 2367,
+      "deletions": 0,
+      "filename": "widget-frame.css",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T00:00:57Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "65645a26bfaf06b3126076bbdcb7acced214bde0",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/65645a26bfaf06b3126076bbdcb7acced214bde0"
+  }
+}

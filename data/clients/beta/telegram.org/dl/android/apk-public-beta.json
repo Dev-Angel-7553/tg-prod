@@ -1,6 +1,6 @@
 {
-  "changelog": "- tgcalls update\n- wallpaper bugfixes\n- twidget update\n- pkpass support",
+  "changelog": "- minimize APK and fixes",
   "file_url": "https://cdn4.telesco.pe/file/Telegram-Beta.apk?token=[volatile]",
   "version": "13.3.2",
-  "version_code": 73529
+  "version_code": 73569
 }

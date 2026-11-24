@@ -1,0 +1,150 @@
+diff --git a/data/web_tr/translations.telegram.org/en/android/unsorted.json b/data/web_tr/translations.telegram.org/en/android/unsorted.json
+@@ -12112,7 +12112,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Your Gram from gifts and ads."
++            "singular": "Your Grams from gifts and ads."
+         }
+     },
+     "GramEarningsUseArrived": {
+@@ -20047,7 +20047,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Voice messages are transcribed on this device. Private: nothing leaves it."
++            "singular": "Voice messages are transcribed privately – nothing leaves this device. "
+         }
+     },
+     "SpeechToTextPrivacyCompact": {
+@@ -20087,7 +20087,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Your voice and its text are never sent to a server for this."
++            "singular": "Your voice and its text are never sent to any server."
+         }
+     },
+     "SpeechToTextPrivacyOnPhone": {
+@@ -25210,7 +25210,7 @@
+         "photo_url": null,
+         "has_binding": true,
+         "values": {
+-            "singular": "Offer cancelled"
++            "singular": "Offer canceled"
+         }
+     },
+     "WalletOnchainGiftOfferDeclined": {
+@@ -25232,15 +25232,15 @@
+     "WalletOnchainGiftOfferSent": {
+         "url": "https://translations.telegram.org/en/android/unsorted/WalletOnchainGiftOfferSent",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Offer sent"
+         }
+     },
+     "WalletOnchainGiftPutOnSale": {
+         "url": "https://translations.telegram.org/en/android/unsorted/WalletOnchainGiftPutOnSale",
+         "photo_url": null,
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Put on sale"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/stories.json b/data/web_tr/translations.telegram.org/en/ios/stories.json
+@@ -2250,7 +2250,7 @@
+     "Story.Camera.SwipeLeftRelease": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Camera.SwipeLeftRelease",
+         "photo_url": "https://telegra.ph/file/p/fbb279aa994/2bf6bf487468cc094c2ba16.jpg?c=10,273,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Release to lock"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -12054,7 +12054,7 @@
+         "photo_url": null,
+         "has_binding": true,
+         "values": {
+-            "singular": "**<mark class=\"token\">%1$@</mark>** requests access to your **camera**. You will be able to revoke this access in the profile page of **<mark class=\"token\">%2$@</mark>**."
++            "singular": "**<mark class=\"token\">%1$@</mark>** has requested access to your **camera**. You can manage its access via the profile of **<mark class=\"token\">%2$@</mark>**."
+         }
+     },
+     "WebApp.ImportData.AccountHeader": {
+@@ -12150,7 +12150,7 @@
+         "photo_url": null,
+         "has_binding": true,
+         "values": {
+-            "singular": "**<mark class=\"token\">%1$@</mark>** requests access to your **microphone**. You will be able to revoke this access in the profile page of **<mark class=\"token\">%2$@</mark>**."
++            "singular": "**<mark class=\"token\">%1$@</mark>** has requested access to your **microphone**. You can manage its access via the profile of **<mark class=\"token\">%2$@</mark>**."
+         }
+     },
+     "WebApp.SelectChat": {
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -57215,7 +57215,7 @@
+     "StoryCreationCamera.ReleaseToLock": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationCamera.ReleaseToLock",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Release to lock"
+         }
+@@ -69015,7 +69015,7 @@
+     "Wallet.TransactionRowItem.OfferSent": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Wallet.TransactionRowItem.OfferSent",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Offer sent"
+         }
+@@ -69055,7 +69055,7 @@
+     "Wallet.TransactionRowItem.Purchased": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Wallet.TransactionRowItem.Purchased",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Purchased"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json b/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json
+@@ -6067,7 +6067,7 @@
+     "lng_context_mark_read_all": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_context_mark_read_all",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Mark all chats as read"
+         }
+@@ -18613,7 +18613,7 @@
+     "lng_wallet_details_onchain_purchased": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_wallet_details_onchain_purchased",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Purchased"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/weba/unsorted.json b/data/web_tr/translations.telegram.org/en/weba/unsorted.json
+@@ -13599,15 +13599,15 @@
+         "photo_url": null,
+         "has_binding": true,
+         "values": {
+-            "singular": "**<mark class=\"token\">{name}</mark>** requests access to your **camera**. You will be able to revoke this access in the profile page of **<mark class=\"token\">{name}</mark>**."
++            "singular": "**<mark class=\"token\">{name}</mark>** has requested access to your **camera**. You can manage its access via the profile of **<mark class=\"token\">{name}</mark>**."
+         }
+     },
+     "MediaAccessMicrophoneText": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/MediaAccessMicrophoneText",
+         "photo_url": null,
+         "has_binding": true,
+         "values": {
+-            "singular": "**<mark class=\"token\">{name}</mark>** requests access to your **microphone**. You will be able to revoke this access in the profile page of **<mark class=\"token\">{name}</mark>**."
++            "singular": "**<mark class=\"token\">{name}</mark>** has requested access to your **microphone**. You can manage its access via the profile of **<mark class=\"token\">{name}</mark>**."
+         }
+     },
+     "MediaAccessReloadNote": {

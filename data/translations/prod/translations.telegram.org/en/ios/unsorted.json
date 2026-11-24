@@ -4574,7 +4574,7 @@
     "**%@** can now have access to your camera and microphone."
   ],
   "WebApp.CameraMicrophonePermission.Text": [
-    "**%1$@** requests access to your **camera** and **microphone**. You will be able to revoke this access in the profile page of **%2$@**."
+    "**%1$@** has requested access to your **camera** and **microphone**. You can manage its access via the profile of **%2$@**."
   ],
   "WebApp.CameraPermission.Succeed": [
     "**%@** can now have access to your camera."

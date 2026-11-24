@@ -5172,7 +5172,7 @@
     "{count} media"
   ],
   "MediaAccessCameraMicrophoneText": [
-    "**{name}** requests access to your **camera** and **microphone**. You will be able to revoke this access in the profile page of **{name}**."
+    "**{name}** has requested access to your **camera** and **microphone**. You can manage its access via the profile of **{name}**."
   ],
   "MediaAccessCameraText": [
     "**{name}** requests access to your **camera**. You will be able to revoke this access in the profile page of **{name}**."

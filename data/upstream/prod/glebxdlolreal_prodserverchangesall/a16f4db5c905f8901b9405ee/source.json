@@ -1,0 +1,182 @@
+{
+  "category": "web",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:eb86a1d276f08bf6ac398f59fefcfdcb39295679:web:prod",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "SiteIconAndroid.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "SiteIconApple.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "TelemintLogoSprite1.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "TelemintLogoSprite2.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "TelemintLogoSprite3.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "Widget_Comments.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "Widget_Login.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "Widget_Post.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "Widget_Share.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "app_icon_android.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "app_icon_desktop.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "app_icon_ios.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "app_icon_macos.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "app_icon_weba.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "app_icon_webk.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "app_icon_webz.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "gift-ribbon.svg",
+      "status": "added"
+    },
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "log-file.svg",
+      "status": "added"
+    },
+    {
+      "additions": 217,
+      "deletions": 0,
+      "filename": "privacy.html",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "star-bloom.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "star-large.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "star-part.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "star-small.svg",
+      "status": "added"
+    },
+    {
+      "additions": 250,
+      "deletions": 0,
+      "filename": "terms.html",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "ui-check.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "ui-premium.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "ui-sparkle.svg",
+      "status": "added"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "ui-star.svg",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T05:01:04Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "eb86a1d276f08bf6ac398f59fefcfdcb39295679",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/eb86a1d276f08bf6ac398f59fefcfdcb39295679"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "category": "gifts",
+  "environment": "prod",
+  "event_id": "glebxdlolreal/prodserverchangesall:248bbcdd55afec2506a347db24ffa6c398dd68ef:gifts:prod",
+  "files": [
+    {
+      "additions": 1736,
+      "deletions": 0,
+      "filename": "a-/giftstudio.css",
+      "status": "added"
+    },
+    {
+      "additions": 1318,
+      "deletions": 0,
+      "filename": "a-/giftstudio.js",
+      "status": "added"
+    },
+    {
+      "additions": 1736,
+      "deletions": 0,
+      "filename": "b-/giftstudio.css",
+      "status": "added"
+    },
+    {
+      "additions": 1318,
+      "deletions": 0,
+      "filename": "b-/giftstudio.js",
+      "status": "added"
+    },
+    {
+      "additions": 1736,
+      "deletions": 0,
+      "filename": "i-/giftstudio.css",
+      "status": "added"
+    },
+    {
+      "additions": 1318,
+      "deletions": 0,
+      "filename": "i-/giftstudio.js",
+      "status": "added"
+    },
+    {
+      "additions": 1736,
+      "deletions": 0,
+      "filename": "l-/giftstudio.css",
+      "status": "added"
+    },
+    {
+      "additions": 1318,
+      "deletions": 0,
+      "filename": "l-/giftstudio.js",
+      "status": "added"
+    },
+    {
+      "additions": 1736,
+      "deletions": 0,
+      "filename": "y-/giftstudio.css",
+      "status": "added"
+    },
+    {
+      "additions": 1318,
+      "deletions": 0,
+      "filename": "y-/giftstudio.js",
+      "status": "added"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-24T00:22:41Z",
+    "repo": "glebxdlolreal/prodserverchangesall",
+    "sha": "248bbcdd55afec2506a347db24ffa6c398dd68ef",
+    "url": "https://github.com/glebxdlolreal/prodserverchangesall/commit/248bbcdd55afec2506a347db24ffa6c398dd68ef"
+  }
+}

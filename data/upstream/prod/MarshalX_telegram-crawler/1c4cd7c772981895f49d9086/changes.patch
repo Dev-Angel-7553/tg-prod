@@ -1,0 +1,186 @@
+diff --git a/data/web_tr/translations.telegram.org/en/android/unsorted.json b/data/web_tr/translations.telegram.org/en/android/unsorted.json
+@@ -4414,7 +4414,7 @@
+     "BotProfileViewInfo": {
+         "url": "https://translations.telegram.org/en/android/unsorted/BotProfileViewInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "View Info"
+         }
+@@ -10602,7 +10602,7 @@
+     "GiftOnchainBuySent": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainBuySent",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Purchase sent. <mark class=\"token\">%s</mark> will appear in your wallet shortly."
+         }
+@@ -10874,7 +10874,7 @@
+     "GiftOnchainErrorWalletCreating": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainErrorWalletCreating",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your wallet is still being created. Please try again in a moment."
+         }
+@@ -11026,7 +11026,7 @@
+     "GiftOnchainOfferDeclineText": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainOfferDeclineText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Decline the offer of **<mark class=\"token\">%1$s</mark>** for **<mark class=\"token\">%2$s</mark>**? The Grams will be returned to the buyer."
+         }
+@@ -11762,7 +11762,7 @@
+     "GiftOnchainTransferUnlistFirst": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GiftOnchainTransferUnlistFirst",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This gift is on sale. Remove it from sale first to transfer it."
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -837,7 +837,7 @@
+     "BotInvite.Error.TooMany": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/BotInvite.Error.TooMany",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You can invite up to 10 users at a time."
+         }
+@@ -4006,7 +4006,7 @@
+     "Gift.Onchain.Buy.Sent": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.Onchain.Buy.Sent",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Purchase sent. **<mark class=\"token\">%@</mark>** will appear in your wallet once the network confirms it."
+         }
+@@ -4198,7 +4198,7 @@
+     "Gift.Onchain.WalletCreating.Text": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.Onchain.WalletCreating.Text",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your wallet is still being created. Please try again in a moment."
+         }
+@@ -4326,7 +4326,7 @@
+     "Gift.OnchainOffer.DurationDescription": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.OnchainOffer.DurationDescription",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Choose how long the owner has to accept your offer. When it expires, your Grams will be automatically refunded."
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/stories.json b/data/web_tr/translations.telegram.org/en/macos/stories.json
+@@ -959,7 +959,7 @@
+     "Story.CreationView.StoryCaption": {
+         "url": "https://translations.telegram.org/en/macos/stories/Story.CreationView.StoryCaption",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Story caption"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -10735,7 +10735,7 @@
+     "BotProfileWidget.ViewInfo": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/BotProfileWidget.ViewInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "View Info"
+         }
+@@ -57489,7 +57489,7 @@
+     "StoryCreationController.RemoveAudio": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StoryCreationController.RemoveAudio",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Remove Audio"
+         }
+@@ -69873,7 +69873,7 @@
+     "WalletUI.Integration.WalletCreating": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/WalletUI.Integration.WalletCreating",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your wallet is still being created. Try again when it is ready."
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json b/data/web_tr/translations.telegram.org/en/tdesktop/unsorted.json
+@@ -4032,7 +4032,7 @@
+     "lng_bot_invite_already_many": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_bot_invite_already_many",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The chosen users already have a chat with this bot."
+         }
+@@ -4064,7 +4064,7 @@
+     "lng_bot_invite_limit": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_bot_invite_limit",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You can invite up to <mark class=\"token\">{count}</mark> user at a time.",
+             "plural": "You can invite up to <mark class=\"token\">{count}</mark> users at a time."
+@@ -8273,7 +8273,7 @@
+     "lng_gift_offer_onchain_sent_text": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_gift_offer_onchain_sent_text",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "<mark class=\"token\">{amount}</mark> held until <mark class=\"token\">{date}</mark>."
+         }
+@@ -8289,7 +8289,7 @@
+     "lng_gift_offer_onchain_you_pay": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_gift_offer_onchain_you_pay",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You pay"
+         }
+@@ -8329,7 +8329,7 @@
+     "lng_gift_onchain_offer_decline_sure": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_gift_onchain_offer_decline_sure",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Decline this offer? The buyer will get their Grams back."
+         }
+@@ -17996,7 +17996,7 @@
+     "lng_wallet_collectible_transfer_on_sale": {
+         "url": "https://translations.telegram.org/en/tdesktop/unsorted/lng_wallet_collectible_transfer_on_sale",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Unlist this gift from sale before transferring it."
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/webk/unsorted.json b/data/web_tr/translations.telegram.org/en/webk/unsorted.json
+@@ -347,7 +347,7 @@
+     "AccDescr.StoryCaption": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/AccDescr.StoryCaption",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Story caption"
+         }

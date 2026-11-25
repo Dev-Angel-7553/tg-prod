@@ -1,0 +1,56 @@
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -6279,15 +6279,15 @@
+     "Notification.BotInvite.UserInvited": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Notification.BotInvite.UserInvited",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "<mark class=\"token\">%@</mark> invited this user to the bot"
+         }
+     },
+     "Notification.BotInvite.UserInvitedUnknown": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Notification.BotInvite.UserInvitedUnknown",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This user was invited to the bot"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -10501,7 +10501,7 @@
+     "Bot.InvitationServiceText.InvitedUser": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Bot.InvitationServiceText.InvitedUser",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "<mark class=\"token\">%1$@</mark> invited this user to the bot."
+         }
+@@ -10517,7 +10517,7 @@
+     "Bot.InvitationServiceText.UserInvited": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Bot.InvitationServiceText.UserInvited",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "This user was invited to the bot."
+         }
+@@ -54012,7 +54012,7 @@
+     "StarGift.OnchainOffer.OfferDeclined": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StarGift.OnchainOffer.OfferDeclined",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "You declined the offer"
+         }
+@@ -54028,7 +54028,7 @@
+     "StarGift.OnchainOffer.OfferExpiresIn": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/StarGift.OnchainOffer.OfferExpiresIn",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The offer expires in<br/><mark class=\"token\">%1$@</mark>"
+         }

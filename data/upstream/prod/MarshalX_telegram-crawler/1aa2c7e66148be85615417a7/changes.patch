@@ -1,0 +1,6 @@
+diff --git a/data/web/telegram.org/dl/android/apk-public-beta.json b/data/web/telegram.org/dl/android/apk-public-beta.json
+@@ -1 +1 @@
+-{"version":"13.3.2","file_url":"https:\/\/cdn4.telesco.pe\/file\/Telegram-Beta.apk?token=telegram-crawler","version_code":73529,"changelog":"- tgcalls update\n- wallpaper bugfixes\n- twidget update\n- pkpass support"}
+\ No newline at end of file
++{"version":"13.3.2","file_url":"https:\/\/cdn4.telesco.pe\/file\/Telegram-Beta.apk?token=telegram-crawler","version_code":73579,"changelog":"- minimize APK and fixes"}
+\ No newline at end of file

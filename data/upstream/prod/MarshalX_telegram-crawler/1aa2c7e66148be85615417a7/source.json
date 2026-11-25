@@ -1,0 +1,20 @@
+{
+  "category": "web",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:be207a8e87fb5b4d301c34aa655999417cddd18e:web:mixed",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web/telegram.org/dl/android/apk-public-beta.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-25T04:34:50Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "be207a8e87fb5b4d301c34aa655999417cddd18e",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/be207a8e87fb5b4d301c34aa655999417cddd18e"
+  }
+}

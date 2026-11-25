@@ -1,0 +1,50 @@
+{
+  "category": "clients",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:f9f607b2c7642256ba7c1a952d6cff91c8e0a536:clients:beta",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.js",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/sandbox-bundle.qbc",
+      "status": "removed"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/WidgetJS/validator-bundle.qbc",
+      "status": "removed"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/WidgetSandbox/manifest.txt",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/client/android-beta/assets/lottie_meta.bin",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/client/android-beta/res/values/strings.xml",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-25T04:32:11Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "f9f607b2c7642256ba7c1a952d6cff91c8e0a536",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/f9f607b2c7642256ba7c1a952d6cff91c8e0a536"
+  }
+}

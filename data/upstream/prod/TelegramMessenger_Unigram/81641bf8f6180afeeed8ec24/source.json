@@ -1,0 +1,171 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "TelegramMessenger/Unigram:2d666bcf103384aea1634bc262634246bc0d4bee:code:mixed",
+  "files": [
+    {
+      "additions": 168,
+      "deletions": 4,
+      "filename": "Telegram/Common/GiftHelper.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 1188,
+      "deletions": 0,
+      "filename": "Telegram/Common/GiftOnChainHelper.cs",
+      "status": "added"
+    },
+    {
+      "additions": 36,
+      "deletions": 4,
+      "filename": "Telegram/Common/MessageHelper.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 208,
+      "deletions": 0,
+      "filename": "Telegram/Common/WalletHelper.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 6,
+      "filename": "Telegram/Controls/Cells/ReceivedGiftCell.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 63,
+      "deletions": 8,
+      "filename": "Telegram/Controls/Cells/WalletTransactionCell.xaml.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 278,
+      "deletions": 1,
+      "filename": "Telegram/Controls/Messages/MessageServiceText.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 154,
+      "deletions": 0,
+      "filename": "Telegram/Controls/Messages/Service/MessageUpgradedGiftOnChainPurchaseOfferContent.xaml.cs",
+      "status": "added"
+    },
+    {
+      "additions": 123,
+      "deletions": 89,
+      "filename": "Telegram/Services/NotificationsService.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 229,
+      "deletions": 185,
+      "filename": "Telegram/Services/OptionsService.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 442,
+      "deletions": 11,
+      "filename": "Telegram/Services/Wallet/Generated/wallet_engine.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 25,
+      "deletions": 0,
+      "filename": "Telegram/Services/Wallet/IWalletService.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 280,
+      "deletions": 9,
+      "filename": "Telegram/Services/Wallet/WalletService.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 77,
+      "deletions": 0,
+      "filename": "Telegram/Services/Wallet/WalletState.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 71,
+      "deletions": 0,
+      "filename": "Telegram/ViewModels/ChooseChatsViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 26,
+      "deletions": 2,
+      "filename": "Telegram/ViewModels/DialogViewModel.Messages.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 500,
+      "deletions": 0,
+      "filename": "Telegram/ViewModels/MainViewModel.ChatListHint.cs",
+      "status": "added"
+    },
+    {
+      "additions": 112,
+      "deletions": 0,
+      "filename": "Telegram/ViewModels/MainViewModel.Suggestions.cs",
+      "status": "added"
+    },
+    {
+      "additions": 3,
+      "deletions": 37,
+      "filename": "Telegram/ViewModels/MainViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 146,
+      "deletions": 2,
+      "filename": "Telegram/ViewModels/Profile/ProfileGiftsTabViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 83,
+      "deletions": 52,
+      "filename": "Telegram/ViewModels/Profile/ProfileTabsViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "Telegram/ViewModels/Settings/SettingsProfileColorViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 62,
+      "filename": "Telegram/ViewModels/SettingsViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 68,
+      "deletions": 12,
+      "filename": "Telegram/ViewModels/Stories/StoryListViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 22,
+      "deletions": 0,
+      "filename": "Telegram/ViewModels/Stories/StoryViewModel.cs",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "Telegram/Views/Gifts/Popups/GiftCraftChoosePopup.xaml.cs",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "develop",
+    "date": "2026-11-25T11:29:48Z",
+    "repo": "TelegramMessenger/Unigram",
+    "sha": "2d666bcf103384aea1634bc262634246bc0d4bee",
+    "url": "https://github.com/TelegramMessenger/Unigram/compare/07fb6ffb3d1c466ba8eb0aaaa10a2c0d738faec3...2d666bcf103384aea1634bc262634246bc0d4bee"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "category": "code",
+  "environment": "mixed",
+  "event_id": "tdlib/td:e7ac61dd69409c31b3c8c7367b33b07eecce701f:code:mixed",
+  "files": [
+    {
+      "additions": 304,
+      "deletions": 0,
+      "filename": "td/telegram/MessageQueryManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 47,
+      "deletions": 316,
+      "filename": "td/telegram/MessagesManager.cpp",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 2,
+      "filename": "td/telegram/SecretChatActor.cpp",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "branch": "master",
+    "date": "2026-11-26T13:21:08Z",
+    "repo": "tdlib/td",
+    "sha": "e7ac61dd69409c31b3c8c7367b33b07eecce701f",
+    "url": "https://github.com/tdlib/td/compare/1b9efe84d6e9a2e2f6eadeeea32b0726d2b8c25d...e7ac61dd69409c31b3c8c7367b33b07eecce701f"
+  }
+}

@@ -3514,7 +3514,7 @@
     "%1$@ / %2$@"
   ],
   "SpeechToText.IntroText": [
-    "Voice messages you dictate are transcribed on this phone. It's fully private."
+    "Voice messages you dictate are transcribed on this device. It's fully private."
   ],
   "SpeechToText.LanguagesHeader": [
     "Languages"

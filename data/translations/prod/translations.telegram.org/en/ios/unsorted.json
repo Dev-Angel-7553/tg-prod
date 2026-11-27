@@ -2250,10 +2250,10 @@
     "%@ can't be transcribed on this phone yet."
   ],
   "Message.AudioTranscription.ErrorLanguageUnknown": [
-    "This language can't be transcribed on this phone yet."
+    "This language can't be transcribed on this device yet."
   ],
   "Message.AudioTranscription.ErrorOnDevice": [
-    "Couldn't transcribe this on your phone."
+    "Couldn't transcribe this on your device."
   ],
   "Message.FakeAccount": [
     "Fake"
@@ -4626,7 +4626,7 @@
     "Offer accepted"
   ],
   "Wallet.Transaction.CollectibleOfferCancelled": [
-    "Offer cancelled"
+    "Offer canceled"
   ],
   "Wallet.Transaction.CollectibleOfferDeclined": [
     "Offer declined"

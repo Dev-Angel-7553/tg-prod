@@ -1,6 +1,6 @@
 {
-  "changelog": "- new speech to text settings\n- news feed, temporarily for premium users",
+  "changelog": "- webrtc update\n- sqlite update\n- crash fixes",
   "file_url": "https://cdn4.telesco.pe/file/Telegram-Beta.apk?token=[volatile]",
   "version": "13.4.0",
-  "version_code": 73699
+  "version_code": 73709
 }

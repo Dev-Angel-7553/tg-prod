@@ -1,0 +1,106 @@
+diff --git a/data/web_tr/translations.telegram.org/en/android/stories.json b/data/web_tr/translations.telegram.org/en/android/stories.json
+@@ -1904,7 +1904,7 @@
+     "SaveToPosts": {
+         "url": "https://translations.telegram.org/en/android/stories/SaveToPosts",
+         "photo_url": "https://telegra.ph/file/p/989c7dd4656/aeba1eb44ee2c0bbc480517.jpg?c=281,135,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Post to Profile"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios/stories.json b/data/web_tr/translations.telegram.org/en/ios/stories.json
+@@ -2403,7 +2403,7 @@
+     "Story.Context.SaveToChannel": {
+         "url": "https://translations.telegram.org/en/ios/stories/Story.Context.SaveToChannel",
+         "photo_url": "https://telegra.ph/file/p/74e48811ebd/ff59005d4b1a12d4a437517.jpg?c=240,219,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Post to Profile"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/macos/stories.json b/data/web_tr/translations.telegram.org/en/macos/stories.json
+@@ -501,7 +501,7 @@
+     "Story.ChannelInput.SaveToProfile": {
+         "url": "https://translations.telegram.org/en/macos/stories/Story.ChannelInput.SaveToProfile",
+         "photo_url": "https://telegra.ph/file/p/b9f0bab0e9d/6e702515c583213f2facc17.jpg?c=307,145,280,280,280,280",
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Post to Profile"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/tdesktop/settings.json b/data/web_tr/translations.telegram.org/en/tdesktop/settings.json
+@@ -3543,7 +3543,7 @@
+     "lng_local_storage_cleared": {
+         "url": "https://translations.telegram.org/en/tdesktop/settings/lng_local_storage_cleared",
+         "photo_url": "https://telegra.ph/file/p/446d57c6203/fd88aa9d0513767ac09b61d.jpg?c=463,492,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "<mark class=\"token\">{size}</mark> freed on your device!"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/unigram/unsorted.json b/data/web_tr/translations.telegram.org/en/unigram/unsorted.json
+@@ -26,7 +26,7 @@
+     "AIEditorAlwaysUse": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorAlwaysUse",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Always use in this chat"
+         }
+@@ -18703,7 +18703,7 @@
+     "Gift2UpgradeChannelInfo": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2UpgradeChannelInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Enable this to let the admins of <mark class=\"token\">{0}</mark> to turn your gift into a unique collectible. **Learn More &gt;**"
+         }
+@@ -32536,7 +32536,7 @@
+     "SaveToProfile": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/SaveToProfile",
+         "photo_url": null,
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Post to Profile"
+         }
+@@ -37379,7 +37379,7 @@
+     "StoryPinnedToPostsDescription": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoryPinnedToPostsDescription",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Saved stories can be viewed by others on the channel’s profile until an admin removes them."
+         }
+@@ -43540,7 +43540,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Offer cancelled"
++            "singular": "Offer canceled"
+         }
+     },
+     "WalletOnchainGiftOfferDeclined": {
+diff --git a/data/web_tr/translations.telegram.org/en/weba/unsorted.json b/data/web_tr/translations.telegram.org/en/weba/unsorted.json
+@@ -19376,7 +19376,7 @@
+     "SaveToPosts": {
+         "url": "https://translations.telegram.org/en/weba/unsorted/SaveToPosts",
+         "photo_url": null,
+-        "has_binding": true,
++        "has_binding": false,
+         "values": {
+             "singular": "Post to Profile"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/webk/unsorted.json b/data/web_tr/translations.telegram.org/en/webk/unsorted.json
+@@ -34548,7 +34548,7 @@
+     "StarGiftUpgradeSubtitleFor": {
+         "url": "https://translations.telegram.org/en/webk/unsorted/StarGiftUpgradeSubtitleFor",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Let <mark class=\"token\">%s</mark> turn this gift into a unique collectible."
+         }

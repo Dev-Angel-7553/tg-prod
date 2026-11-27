@@ -1,6 +1,6 @@
 {
-  "changelog": "- webrtc update\n- sqlite update\n- crash fixes",
+  "changelog": "- local database optimizations (requires migration, but speed ups should be worth it; if db is large, happens in background); x10-1000 on retrieving chats list, opening chat messages, jumping by date, topics etc",
   "file_url": "https://cdn4.telesco.pe/file/Telegram-Beta.apk?token=[volatile]",
   "version": "13.4.0",
-  "version_code": 73709
+  "version_code": 73729
 }

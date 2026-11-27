@@ -1,0 +1,1156 @@
+diff --git a/data/web_tr/translation_keys.json b/data/web_tr/translation_keys.json
+@@ -19758,6 +19758,7 @@
+         "Call.UnlockToSeeVideoNotification",
+         "Call.UnlockToSeeVideoNotificationPad",
+         "Call.Video",
++        "Call.VideoMessageRecordingDisabledMessage",
+         "Call.VoiceChatInProgressCallMessage",
+         "Call.VoiceChatInProgressCallMessage",
+         "Call.VoiceChatInProgressConferenceMessage",
+@@ -20731,6 +20732,13 @@
+         "Chat.AlwaysUseAI.ErrorGeneric",
+         "Chat.AlwaysUseAI.ErrorLimit",
+         "Chat.AlwaysUseAI.ErrorTooLong",
++        "Chat.AlwaysUseAI.HintOffText",
++        "Chat.AlwaysUseAI.HintOffTitle",
++        "Chat.AlwaysUseAI.HintText",
++        "Chat.AlwaysUseAI.HintTitle",
++        "Chat.AlwaysUseAI.LimitGetPremium",
++        "Chat.AlwaysUseAI.LimitText",
++        "Chat.AlwaysUseAI.LimitTitle",
+         "Chat.AttachmentLimitExceeded",
+         "Chat.AttachmentLimitReached",
+         "Chat.AttachmentMultipleFilesDisabled",
+@@ -20845,6 +20853,8 @@
+         "Chat.DeleteReactionInfo",
+         "Chat.Dictation.AllStyles",
+         "Chat.Dictation.ConvertToText",
++        "Chat.Dictation.Downloading",
++        "Chat.Dictation.DownloadingModels",
+         "Chat.Dictation.Enhance",
+         "Chat.Dictation.EnhanceErrorGeneric",
+         "Chat.Dictation.EnhanceErrorLimit",
+@@ -21461,9 +21471,11 @@
+         "Chat.SendAllowedContentTypeVideoMessage",
+         "Chat.SendAllowedContentTypeVoiceMessage",
+         "Chat.SendGiftTooltip",
++        "Chat.SendMessageMenu.AIRewriteTurnOff",
+         "Chat.SendMessageMenu.EditMessage",
+         "Chat.SendMessageMenu.MoveCaptionDown",
+         "Chat.SendMessageMenu.MoveCaptionUp",
++        "Chat.SendMessageMenu.RewriteWithAI",
+         "Chat.SendMessageMenu.ToastPremiumRequired.Text",
+         "Chat.SendNotAllowedAudioMessage",
+         "Chat.SendNotAllowedFile",
+@@ -21492,6 +21504,7 @@
+         "Chat.SlowmodeSendError",
+         "Chat.SlowmodeTooltip",
+         "Chat.SlowmodeTooltipPending",
++        "Chat.SpamBadge",
+         "Chat.SpeedLimitAlert.Download.Text",
+         "Chat.SpeedLimitAlert.Download.Text",
+         "Chat.SpeedLimitAlert.Download.Title",
+@@ -22849,6 +22862,7 @@
+         "Conversation.AudioRateTooltipCustom",
+         "Conversation.AudioRateTooltipNormal",
+         "Conversation.AudioRateTooltipSpeedUp",
++        "Conversation.AutoSpamInfo",
+         "Conversation.AutoremoveActionEdit",
+         "Conversation.AutoremoveActionEdit",
+         "Conversation.AutoremoveActionEnable",
+@@ -23274,6 +23288,7 @@
+         "Conversation.LiveLocationYouAndOther",
+         "Conversation.LiveStream",
+         "Conversation.LiveStreamMediaRecordingRestricted",
++        "Conversation.LiveStreamVideoMessageRecordingRestricted",
+         "Conversation.Location",
+         "Conversation.Megabytes",
+         "Conversation.MessageCopied",
+@@ -23330,6 +23345,8 @@
+         "Conversation.Mute.SetupTitle",
+         "Conversation.Mute.SetupTitle",
+         "Conversation.MyNotes",
++        "Conversation.NotSpam",
++        "Conversation.NotSpamDone.Title",
+         "Conversation.NoticeInvitedByInChannel",
+         "Conversation.NoticeInvitedByInGroup",
+         "Conversation.OpenBotApp",
+@@ -23699,6 +23716,7 @@
+         "Conversation.ViewTheme",
+         "Conversation.VoiceChat",
+         "Conversation.VoiceChatMediaRecordingRestricted",
++        "Conversation.VoiceChatVideoMessageRecordingRestricted",
+         "Conversation.VoiceMessagesRestricted",
+         "Conversation.typing",
+         "Conversation.typing",
+@@ -25122,6 +25140,10 @@
+         "Gift.Setup.AuctionInfo.Gifts",
+         "Gift.Setup.PlaceBid",
+         "Gift.Setup.PlaceBid",
++        "Gift.StarsResaleTon.BuyStars",
++        "Gift.StarsResaleTon.Pay",
++        "Gift.StarsResaleTon.Text",
++        "Gift.StarsResaleTon.Title",
+         "Gift.Store.AllListings",
+         "Gift.Store.Balance.MyStars",
+         "Gift.Store.Balance.MyTon",
+@@ -27004,6 +27026,9 @@
+         "Message.Approximate",
+         "Message.Audio",
+         "Message.AudioTranscription.ErrorEmpty",
++        "Message.AudioTranscription.ErrorLanguage",
++        "Message.AudioTranscription.ErrorLanguageUnknown",
++        "Message.AudioTranscription.ErrorOnDevice",
+         "Message.AudioTranscription.ErrorTooLong",
+         "Message.AudioTranscription.SubscribeToPremium",
+         "Message.AudioTranscription.SubscribeToPremiumAction",
+@@ -31418,6 +31443,34 @@
+         "SocksProxySetup.Warning.Proceed",
+         "SocksProxySetup.Warning.Text",
+         "SocksProxySetup.Warning.Title",
++        "SpeechToText.ActionDownload",
++        "SpeechToText.ActionPause",
++        "SpeechToText.ActionUpdate",
++        "SpeechToText.ActionVariants",
++        "SpeechToText.AutoDetect",
++        "SpeechToText.DeleteAllModels",
++        "SpeechToText.DeleteAllModelsText",
++        "SpeechToText.DownloadProgress",
++        "SpeechToText.IntroText",
++        "SpeechToText.LanguagesHeader",
++        "SpeechToText.LearnMore",
++        "SpeechToText.LiveText",
++        "SpeechToText.LiveTextInfo",
++        "SpeechToText.Title",
++        "SpeechToText.UpdateSize",
++        "SpeechToText.VariantMixed",
++        "SpeechToText.VoiceTranscription",
++        "SpeechToText.VoiceTranscriptionInfo",
++        "SpeechToTextInfo.Compact.Text",
++        "SpeechToTextInfo.Compact.Title",
++        "SpeechToTextInfo.Description",
++        "SpeechToTextInfo.Models.Text",
++        "SpeechToTextInfo.Models.Title",
++        "SpeechToTextInfo.Private.Text",
++        "SpeechToTextInfo.Private.Title",
++        "SpeechToTextInfo.Sample",
++        "SpeechToTextInfo.Title",
++        "SpeechToTextInfo.Understood",
+         "SponsoredMessageInfo.Action",
+         "SponsoredMessageInfo.ActionUrl",
+         "SponsoredMessageInfo.Text",
+@@ -32353,6 +32406,13 @@
+         "Story.Editor.Blur.Portrait",
+         "Story.Editor.Blur.Radial",
+         "Story.Editor.Blur.Title",
++        "Story.Editor.Captions.Clear",
++        "Story.Editor.Captions.Downloading",
++        "Story.Editor.Captions.EditHint",
++        "Story.Editor.Captions.NoSpeech",
++        "Story.Editor.Captions.Title",
++        "Story.Editor.Captions.Transcribing",
++        "Story.Editor.Captions.UnsupportedLanguage",
+         "Story.Editor.CollageDraftAllMediaMissing",
+         "Story.Editor.Curves.All",
+         "Story.Editor.Curves.Blue",
+diff --git a/data/web_tr/translations.telegram.org/en/android/unsorted.json b/data/web_tr/translations.telegram.org/en/android/unsorted.json
+@@ -5494,7 +5494,7 @@
+     "ChannelJoinRequestSent": {
+         "url": "https://translations.telegram.org/en/android/unsorted/ChannelJoinRequestSent",
+         "photo_url": "https://telegra.ph/file/p/d033b0649e0/d8dc9ca15f311c2bb68f317.jpg?c=160,986,280,280,280,280",
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "JOIN REQUEST SENT"
+         }
+@@ -12126,7 +12126,7 @@
+     "GramEarningsUseLate": {
+         "url": "https://translations.telegram.org/en/android/unsorted/GramEarningsUseLate",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The Grams from Gram Earnings are on their way to your wallet. Buy the gift once they arrive."
+         }
+@@ -19885,15 +19885,15 @@
+     "SpeechToTextAutoDetect": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextAutoDetect",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Auto-Detect"
+         }
+     },
+     "SpeechToTextDeleteModels": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextDeleteModels",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Delete all models"
+         }
+@@ -19981,7 +19981,7 @@
+     "SpeechToTextLanguages": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextLanguages",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Languages"
+         }
+@@ -20029,47 +20029,47 @@
+     "SpeechToTextNoText": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextNoText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "No text recognized"
+         }
+     },
+     "SpeechToTextOnDevice": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextOnDevice",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "On-device transcription"
+         }
+     },
+     "SpeechToTextOnDeviceInfo": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextOnDeviceInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Voice messages are transcribed privately – nothing leaves this device. "
+         }
+     },
+     "SpeechToTextPrivacyCompact": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextPrivacyCompact",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Compact languages"
+         }
+     },
+     "SpeechToTextPrivacyCompactText": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextPrivacyCompactText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "About 30 MB per language. Keep only the ones you need."
+         }
+     },
+     "SpeechToTextPrivacyDemo": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextPrivacyDemo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Hey! Running ten minutes late, see you at the café near the station"
+         }
+@@ -20109,15 +20109,15 @@
+     "SpeechToTextPrivacySubtitle": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextPrivacySubtitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Voice messages turn into text<br/>right here, on your device."
+         }
+     },
+     "SpeechToTextPrivacyTitle": {
+         "url": "https://translations.telegram.org/en/android/unsorted/SpeechToTextPrivacyTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Private by design"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/ios.html b/data/web_tr/translations.telegram.org/en/ios.html
+@@ -220,7 +220,7 @@
+ </div></nav>
+     <section class="content clearfix">
+       <section class="tr-content"><h3 class="tr-header">
+-  <a href="/en/" class="tr-back"></a>iOS<span class="tr-header-counter">12869</span>
++  <a href="/en/" class="tr-back"></a>iOS<span class="tr-header-counter">12929</span>
+   <div class="tr-header-tabs"><span class="tr-header-tab"><a href="/en/ios/recent/translations">Translations</a></span><span class="tr-header-tab"><a href="/en/ios/recent/suggestions">Suggestions</a></span><span class="tr-header-tab"><a href="/en/ios/recent/comments">Comments</a></span></div>
+ </h3>
+ <section class="tr-sections clearfix">
+@@ -307,7 +307,7 @@
+ </div><div class="tr-section-col col-lg-4 col-xs-6">
+   <div class="tr-section-wrap"><a href="/en/ios/unsorted/" class="tr-section">
+     <div class="tr-section-cover cover0"></div>
+-    <div class="tr-section-caption">Unsorted (1533)</div>
++    <div class="tr-section-caption">Unsorted (1593)</div>
+   </a></div>
+ </div>
+ </section></section>
+diff --git a/data/web_tr/translations.telegram.org/en/ios/unsorted.json b/data/web_tr/translations.telegram.org/en/ios/unsorted.json
+@@ -1340,6 +1340,14 @@
+             "singular": "video"
+         }
+     },
++    "Call.VideoMessageRecordingDisabledMessage": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Call.VideoMessageRecordingDisabledMessage",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Please end your call before recording a video message."
++        }
++    },
+     "Call.VoiceOver.Minimize": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Call.VoiceOver.Minimize",
+         "photo_url": null,
+@@ -1948,6 +1956,62 @@
+             "singular": "The message is too long for AI, so it wasn't sent. Tap Send to send it as it is."
+         }
+     },
++    "Chat.AlwaysUseAI.HintOffText": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.AlwaysUseAI.HintOffText",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Tap and hold to turn it on."
++        }
++    },
++    "Chat.AlwaysUseAI.HintOffTitle": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.AlwaysUseAI.HintOffTitle",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Auto-Rewrite is OFF"
++        }
++    },
++    "Chat.AlwaysUseAI.HintText": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.AlwaysUseAI.HintText",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Tap and hold to turn it off."
++        }
++    },
++    "Chat.AlwaysUseAI.HintTitle": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.AlwaysUseAI.HintTitle",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Auto-Rewrite is ON"
++        }
++    },
++    "Chat.AlwaysUseAI.LimitGetPremium": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.AlwaysUseAI.LimitGetPremium",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Get Premium"
++        }
++    },
++    "Chat.AlwaysUseAI.LimitText": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.AlwaysUseAI.LimitText",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Auto-Rewrite can't rewrite more messages for now, so this one wasn't sent. Get Telegram Premium for higher AI limits, or turn Auto-Rewrite off to send messages as you write them."
++        }
++    },
++    "Chat.AlwaysUseAI.LimitTitle": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.AlwaysUseAI.LimitTitle",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "AI Limit Reached"
++        }
++    },
+     "Chat.BotInvite.OwnedBy": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Chat.BotInvite.OwnedBy",
+         "photo_url": null,
+@@ -2036,6 +2100,22 @@
+             "singular": "Convert to Text"
+         }
+     },
++    "Chat.Dictation.Downloading": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.Dictation.Downloading",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Downloading… <mark class=\"token\">%@</mark>"
++        }
++    },
++    "Chat.Dictation.DownloadingModels": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.Dictation.DownloadingModels",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Downloading models… <mark class=\"token\">%@</mark>"
++        }
++    },
+     "Chat.Dictation.Enhance": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Chat.Dictation.Enhance",
+         "photo_url": null,
+@@ -2366,6 +2446,22 @@
+             "singular": "Tap here for options"
+         }
+     },
++    "Chat.SendMessageMenu.AIRewriteTurnOff": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.SendMessageMenu.AIRewriteTurnOff",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Turn Off Auto-Rewrite"
++        }
++    },
++    "Chat.SendMessageMenu.RewriteWithAI": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.SendMessageMenu.RewriteWithAI",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Rewrite with AI"
++        }
++    },
+     "Chat.SendNotAllowedAudioMessage": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Chat.SendNotAllowedAudioMessage",
+         "photo_url": null,
+@@ -2470,6 +2566,14 @@
+             "singular": "Slow Mode is enabled. You can't select more items."
+         }
+     },
++    "Chat.SpamBadge": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Chat.SpamBadge",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Spam"
++        }
++    },
+     "Chat.VideoProcessingInfo": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Chat.VideoProcessingInfo",
+         "photo_url": null,
+@@ -3080,6 +3184,14 @@
+             "singular": "Add Contact"
+         }
+     },
++    "Conversation.AutoSpamInfo": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.AutoSpamInfo",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "This message was automatically marked as spam."
++        }
++    },
+     "Conversation.BotInvite.InvitedBy": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.BotInvite.InvitedBy",
+         "photo_url": null,
+@@ -3200,6 +3312,14 @@
+             "singular": "LAUNCH APP"
+         }
+     },
++    "Conversation.LiveStreamVideoMessageRecordingRestricted": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.LiveStreamVideoMessageRecordingRestricted",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "You can't record video messages during a live stream."
++        }
++    },
+     "Conversation.MessageLeaveCommentShort": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.MessageLeaveCommentShort",
+         "photo_url": null,
+@@ -3208,6 +3328,22 @@
+             "singular": "Comment"
+         }
+     },
++    "Conversation.NotSpam": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.NotSpam",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Not Spam"
++        }
++    },
++    "Conversation.NotSpamDone.Title": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.NotSpamDone.Title",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Noted!"
++        }
++    },
+     "Conversation.OpenLink": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.OpenLink",
+         "photo_url": null,
+@@ -3360,6 +3496,14 @@
+             "singular": "VIEW POST"
+         }
+     },
++    "Conversation.VoiceChatVideoMessageRecordingRestricted": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.VoiceChatVideoMessageRecordingRestricted",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "You can't record video messages during a video chat."
++        }
++    },
+     "Conversation.VoiceMessagesRestricted": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Conversation.VoiceMessagesRestricted",
+         "photo_url": "https://telegra.ph/file/p/b99bdfab4d7/d926dc22a7ef848e7797817.jpg?c=76,313,390,390,280,280",
+@@ -4158,7 +4302,7 @@
+     "Gift.Onchain.UseEarnings.Pending": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.Onchain.UseEarnings.Pending",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Your Gram Earnings are on their way to your wallet. Buy the gift once they arrive."
+         }
+@@ -4523,6 +4667,39 @@
+             "singular": "Send"
+         }
+     },
++    "Gift.StarsResaleTon.BuyStars": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Gift.StarsResaleTon.BuyStars",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Buy Stars"
++        }
++    },
++    "Gift.StarsResaleTon.Pay": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Gift.StarsResaleTon.Pay",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Pay <mark class=\"token\">%@</mark> Gram",
++            "plural": "Pay <mark class=\"token\">%@</mark> Grams"
++        }
++    },
++    "Gift.StarsResaleTon.Text": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Gift.StarsResaleTon.Text",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "You can pay **<mark class=\"token\">%1$@</mark>** from your wallet to buy **<mark class=\"token\">%2$@</mark>** for <mark class=\"token\">%3$@</mark>."
++        }
++    },
++    "Gift.StarsResaleTon.Title": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Gift.StarsResaleTon.Title",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Not Enough Stars"
++        }
++    },
+     "Gift.Store.Filter.FixedSale": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Gift.Store.Filter.FixedSale",
+         "photo_url": null,
+@@ -5769,6 +5946,30 @@
+             "singular": "Forward"
+         }
+     },
++    "Message.AudioTranscription.ErrorLanguage": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Message.AudioTranscription.ErrorLanguage",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "<mark class=\"token\">%@</mark> can't be transcribed on this device yet."
++        }
++    },
++    "Message.AudioTranscription.ErrorLanguageUnknown": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Message.AudioTranscription.ErrorLanguageUnknown",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "This language can't be transcribed on this device yet."
++        }
++    },
++    "Message.AudioTranscription.ErrorOnDevice": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Message.AudioTranscription.ErrorOnDevice",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Couldn't transcribe this on your device."
++        }
++    },
+     "Message.FakeAccount": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Message.FakeAccount",
+         "photo_url": null,
+@@ -8978,6 +9179,230 @@
+             "singular": "Use SOCKS5 Proxy"
+         }
+     },
++    "SpeechToText.ActionDownload": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.ActionDownload",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Download"
++        }
++    },
++    "SpeechToText.ActionPause": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.ActionPause",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Pause"
++        }
++    },
++    "SpeechToText.ActionUpdate": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.ActionUpdate",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Update"
++        }
++    },
++    "SpeechToText.ActionVariants": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.ActionVariants",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Choose Variant"
++        }
++    },
++    "SpeechToText.AutoDetect": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.AutoDetect",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Auto-Detect"
++        }
++    },
++    "SpeechToText.DeleteAllModels": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.DeleteAllModels",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Delete All Models"
++        }
++    },
++    "SpeechToText.DeleteAllModelsText": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.DeleteAllModelsText",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Delete the downloaded speech models? They download again when you need them."
++        }
++    },
++    "SpeechToText.DownloadProgress": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.DownloadProgress",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "<mark class=\"token\">%1$@</mark> / <mark class=\"token\">%2$@</mark>"
++        }
++    },
++    "SpeechToText.IntroText": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.IntroText",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Voice messages you dictate are transcribed on this device. It's fully private."
++        }
++    },
++    "SpeechToText.LanguagesHeader": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.LanguagesHeader",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Languages"
++        }
++    },
++    "SpeechToText.LearnMore": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.LearnMore",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Learn More"
++        }
++    },
++    "SpeechToText.LiveText": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.LiveText",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Live Text While Recording"
++        }
++    },
++    "SpeechToText.LiveTextInfo": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.LiveTextInfo",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Lets you send text instead of a voice message. Transcription is done on your device."
++        }
++    },
++    "SpeechToText.Title": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.Title",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Dictation"
++        }
++    },
++    "SpeechToText.UpdateSize": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.UpdateSize",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Update available · <mark class=\"token\">%@</mark>"
++        }
++    },
++    "SpeechToText.VariantMixed": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.VariantMixed",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "<mark class=\"token\">%@</mark> (Mixed)"
++        }
++    },
++    "SpeechToText.VoiceTranscription": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.VoiceTranscription",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "On-Device Voice Transcription"
++        }
++    },
++    "SpeechToText.VoiceTranscriptionInfo": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToText.VoiceTranscriptionInfo",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Voice messages are transcribed privately – nothing leaves this device. "
++        }
++    },
++    "SpeechToTextInfo.Compact.Text": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Compact.Text",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Only 30 MB per language group. Keep only the ones you need."
++        }
++    },
++    "SpeechToTextInfo.Compact.Title": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Compact.Title",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Compact Languages"
++        }
++    },
++    "SpeechToTextInfo.Description": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Description",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Voice messages turn into text right here, on your device."
++        }
++    },
++    "SpeechToTextInfo.Models.Text": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Models.Text",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Custom speech-to-text AI models trained in-house by Telegram."
++        }
++    },
++    "SpeechToTextInfo.Models.Title": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Models.Title",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Models by Telegram"
++        }
++    },
++    "SpeechToTextInfo.Private.Text": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Private.Text",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Nothing leaves the phone. Transcription is done on your device."
++        }
++    },
++    "SpeechToTextInfo.Private.Title": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Private.Title",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Fully Private"
++        }
++    },
++    "SpeechToTextInfo.Sample": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Sample",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Hey! Running ten minutes late, see you at the café near the station"
++        }
++    },
++    "SpeechToTextInfo.Title": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Title",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "Private by Design"
++        }
++    },
++    "SpeechToTextInfo.Understood": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/SpeechToTextInfo.Understood",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Understood"
++        }
++    },
+     "Stars.BotRevenue.Transactions.Title": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Stars.BotRevenue.Transactions.Title",
+         "photo_url": null,
+@@ -9291,6 +9716,62 @@
+             "singular": "Delete Story?"
+         }
+     },
++    "Story.Editor.Captions.Clear": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Story.Editor.Captions.Clear",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Clear"
++        }
++    },
++    "Story.Editor.Captions.Downloading": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Story.Editor.Captions.Downloading",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Downloading…"
++        }
++    },
++    "Story.Editor.Captions.EditHint": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Story.Editor.Captions.EditHint",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Tap a word to edit"
++        }
++    },
++    "Story.Editor.Captions.NoSpeech": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Story.Editor.Captions.NoSpeech",
++        "photo_url": null,
++        "has_binding": true,
++        "values": {
++            "singular": "No speech detected"
++        }
++    },
++    "Story.Editor.Captions.Title": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Story.Editor.Captions.Title",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Captions"
++        }
++    },
++    "Story.Editor.Captions.Transcribing": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Story.Editor.Captions.Transcribing",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Transcribing audio…"
++        }
++    },
++    "Story.Editor.Captions.UnsupportedLanguage": {
++        "url": "https://translations.telegram.org/en/ios/unsorted/Story.Editor.Captions.UnsupportedLanguage",
++        "photo_url": null,
++        "has_binding": false,
++        "values": {
++            "singular": "Captions aren't available for this language"
++        }
++    },
+     "Story.Footer.Views": {
+         "url": "https://translations.telegram.org/en/ios/unsorted/Story.Footer.Views",
+         "photo_url": null,
+diff --git a/data/web_tr/translations.telegram.org/en/macos/unsorted.json b/data/web_tr/translations.telegram.org/en/macos/unsorted.json
+@@ -12461,7 +12461,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "change how you take part in the voice chat"
++            "singular": "change how you take part in the video chat"
+         }
+     },
+     "CallControlActions.ChangeTheCallInProgress": {
+@@ -12485,15 +12485,15 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "leave the voice chat"
++            "singular": "leave the video chat"
+         }
+     },
+     "CallControlActions.MutedByAdmin": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/CallControlActions.MutedByAdmin",
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "An admin muted you in this voice chat; raise your hand to ask to speak."
++            "singular": "An admin muted you in this video chat; raise your hand to ask to speak."
+         }
+     },
+     "CallControlActions.NoCall": {
+@@ -12509,7 +12509,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "You are not in a voice chat."
++            "singular": "You are not in a video chat."
+         }
+     },
+     "CallControlActions.SeeTheCallInProgress": {
+@@ -12525,15 +12525,15 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "see the voice chat you are in"
++            "singular": "see the video chat you are in"
+         }
+     },
+     "CallControlActions.VoiceChatLeft": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/CallControlActions.VoiceChatLeft",
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "You left the voice chat."
++            "singular": "You left the video chat."
+         }
+     },
+     "CallFeedback.Success": {
+@@ -35119,23 +35119,23 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "Join the voice chat?"
++            "singular": "Join the video chat?"
+         }
+     },
+     "Insights.Actions.JoinVoiceChatConfirmation": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Insights.Actions.JoinVoiceChatConfirmation",
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "The agent wants to open the voice chat in “<mark class=\"token\">%1$@</mark>” and join it with your microphone."
++            "singular": "The agent wants to open the video chat in “<mark class=\"token\">%1$@</mark>” and join it with your microphone."
+         }
+     },
+     "Insights.Actions.NoActiveVoiceChat": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/Insights.Actions.NoActiveVoiceChat",
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "“<mark class=\"token\">%1$@</mark>” has no voice chat going right now"
++            "singular": "“<mark class=\"token\">%1$@</mark>” has no video chat going right now"
+         }
+     },
+     "Insights.Actions.PostNotFound": {
+@@ -35207,7 +35207,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "see the voice chat in “<mark class=\"token\">%1$@</mark>”"
++            "singular": "see the video chat in “<mark class=\"token\">%1$@</mark>”"
+         }
+     },
+     "Invite.ChannelsTooMuch": {
+@@ -69456,7 +69456,7 @@
+     "WalletUI.Integration.EarlyWithdrawalCost": {
+         "url": "https://translations.telegram.org/en/macos/unsorted/WalletUI.Integration.EarlyWithdrawalCost",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Withdrawing early costs **<mark class=\"token\">%1$@</mark>**.<br/><br/><mark class=\"token\">%2$@</mark>"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/unigram/unsorted.json b/data/web_tr/translations.telegram.org/en/unigram/unsorted.json
+@@ -34,7 +34,7 @@
+     "AIEditorAlwaysUseInfo": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorAlwaysUseInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Every message you send in this chat will be rewritten with these settings."
+         }
+@@ -58,39 +58,39 @@
+     "AIEditorAutoRewriteOff": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorAutoRewriteOff",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Auto-Rewrite is OFF"
+         }
+     },
+     "AIEditorAutoRewriteOffText": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorAutoRewriteOffText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Right-click to turn it on."
+         }
+     },
+     "AIEditorAutoRewriteOn": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorAutoRewriteOn",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Auto-Rewrite is ON"
+         }
+     },
+     "AIEditorAutoRewriteOnText": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorAutoRewriteOnText",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Right-click to turn it off."
+         }
+     },
+     "AIEditorAutoRewriteTurnOff": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorAutoRewriteTurnOff",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Turn Off Auto-Rewrite"
+         }
+@@ -242,15 +242,15 @@
+     "AIEditorRewriteWithAI": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorRewriteWithAI",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Rewrite with AI"
+         }
+     },
+     "AIEditorSendFailed": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/AIEditorSendFailed",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Couldn't rewrite the message. It wasn't sent."
+         }
+@@ -8023,7 +8023,7 @@
+     "BroadcastGroupInfo": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/BroadcastGroupInfo",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Only admins can send messages in this group."
+         }
+@@ -10339,7 +10339,7 @@
+     "ChannelJoinRequestSent": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/ChannelJoinRequestSent",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "JOIN REQUEST SENT"
+         }
+@@ -16011,7 +16011,7 @@
+     "ForceSetPasswordCancel": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/ForceSetPasswordCancel",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Yes, I'm sure"
+         }
+@@ -18080,7 +18080,7 @@
+     "Gift2SendSelf": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/Gift2SendSelf",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Buy a Gift for <i class=\"emoji\" style=\"background-image:url('//telegram.org/img/emoji/40/E2AD90.png')\"><b>⭐️</b></i> <mark class=\"token\">{0}</mark>",
+             "plural": "Buy a Gift for <i class=\"emoji\" style=\"background-image:url('//telegram.org/img/emoji/40/E2AD90.png')\"><b>⭐️</b></i> <mark class=\"token\">{0}</mark>"
+@@ -19312,7 +19312,7 @@
+     "GiftMessagePreviewInChat": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/GiftMessagePreviewInChat",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Preview in chat"
+         }
+@@ -20514,7 +20514,7 @@
+     "GiftOnchainOfferStatusCancelling": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/GiftOnchainOfferStatusCancelling",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "The offer is being withdrawn…"
+         }
+@@ -21687,7 +21687,7 @@
+     "GoToSettings": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/GoToSettings",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "GO TO SETTINGS"
+         }
+@@ -32078,7 +32078,7 @@
+     "RestorePremiumHintTitle": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/RestorePremiumHintTitle",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Get Premium back with up to **<mark class=\"token\">{0}</mark>%** off"
+         }
+@@ -33494,7 +33494,7 @@
+     "ServerErrorViewers": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/ServerErrorViewers",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Information about viewers wasn't recorded."
+         }
+@@ -37621,7 +37621,7 @@
+     "StoryPrivacyOptionSelectedContacts": {
+         "url": "https://translations.telegram.org/en/unigram/unsorted/StoryPrivacyOptionSelectedContacts",
+         "photo_url": null,
+-        "has_binding": false,
++        "has_binding": true,
+         "values": {
+             "singular": "Selected Users"
+         }
+diff --git a/data/web_tr/translations.telegram.org/en/webk/unsorted.json b/data/web_tr/translations.telegram.org/en/webk/unsorted.json
+@@ -1393,7 +1393,7 @@
+         "photo_url": null,
+         "has_binding": false,
+         "values": {
+-            "singular": "<mark class=\"token\">%s</mark> ended the voice chat"
++            "singular": "<mark class=\"token\">%s</mark> ended the video chat"
+         }
+     },
+     "AdminLog.EditedMessage": {
+@@ -1593,7 +1593,7 @@
+         "photo_url": null,
+         "has_binding": true,
+         "values": {
+-            "singular": "<mark class=\"token\">%s</mark> started a voice chat"
++            "singular": "<mark class=\"token\">%s</mark> started a video chat"
+         }
+     },
+     "AdminLog.ToggleAntiSpamDisabled": {

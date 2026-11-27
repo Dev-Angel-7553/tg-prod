@@ -1,0 +1,20 @@
+{
+  "category": "web",
+  "environment": "mixed",
+  "event_id": "MarshalX/telegram-crawler:d2c6a5d9d0848b7574ed4362b59304ed53d5a990:web:mixed",
+  "files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "data/web_res/td.telegram.org/current6.json",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-27T00:00:49Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "d2c6a5d9d0848b7574ed4362b59304ed53d5a990",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/d2c6a5d9d0848b7574ed4362b59304ed53d5a990"
+  }
+}

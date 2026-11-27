@@ -3541,7 +3541,7 @@
     "On-Device Voice Transcription"
   ],
   "SpeechToText.VoiceTranscriptionInfo": [
-    "Voice messages are transcribed on this phone. Private: nothing leaves it."
+    "Voice messages are transcribed privately – nothing leaves this device. "
   ],
   "SpeechToTextInfo.Compact.Text": [
     "Only 30 MB per language group. Keep only the ones you need."

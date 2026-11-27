@@ -1,0 +1,20 @@
+{
+  "category": "schema",
+  "environment": "prod",
+  "event_id": "TGScheme/Schema:558d3112f260a39cce1b6192e1e206f63aff0216:schema:prod",
+  "files": [
+    {
+      "additions": 16,
+      "deletions": 23,
+      "filename": "main_api.tl",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-27T01:38:18Z",
+    "repo": "TGScheme/Schema",
+    "sha": "558d3112f260a39cce1b6192e1e206f63aff0216",
+    "url": "https://github.com/TGScheme/Schema/commit/558d3112f260a39cce1b6192e1e206f63aff0216"
+  }
+}

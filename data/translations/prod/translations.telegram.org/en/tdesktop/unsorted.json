@@ -7083,7 +7083,7 @@
     "Offer accepted"
   ],
   "lng_wallet_details_onchain_offer_cancelled": [
-    "Offer canceled"
+    "Offer cancelled"
   ],
   "lng_wallet_details_onchain_offer_declined": [
     "Offer declined"
@@ -7281,7 +7281,7 @@
     "Offer accepted for {amount}"
   ],
   "lng_wallet_row_onchain_offer_cancelled": [
-    "Offer canceled"
+    "Offer cancelled"
   ],
   "lng_wallet_row_onchain_offer_declined": [
     "Offer declined"

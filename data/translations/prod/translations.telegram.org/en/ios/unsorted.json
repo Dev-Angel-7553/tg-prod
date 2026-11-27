@@ -1322,7 +1322,7 @@
     "VIEW POST"
   ],
   "Conversation.VoiceChatVideoMessageRecordingRestricted": [
-    "You can't record video messages during a voice chat."
+    "You can't record video messages during a video chat."
   ],
   "Conversation.VoiceMessagesRestricted": [
     "%@ doesn't accept voice or video messages"
@@ -2247,7 +2247,7 @@
     "Forward"
   ],
   "Message.AudioTranscription.ErrorLanguage": [
-    "%@ can't be transcribed on this phone yet."
+    "%@ can't be transcribed on this device yet."
   ],
   "Message.AudioTranscription.ErrorLanguageUnknown": [
     "This language can't be transcribed on this device yet."
@@ -4626,7 +4626,7 @@
     "Offer accepted"
   ],
   "Wallet.Transaction.CollectibleOfferCancelled": [
-    "Offer canceled"
+    "Offer cancelled"
   ],
   "Wallet.Transaction.CollectibleOfferDeclined": [
     "Offer declined"

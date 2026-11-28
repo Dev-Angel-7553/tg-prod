@@ -1,0 +1,26 @@
+{
+  "category": "clients",
+  "environment": "beta",
+  "event_id": "MarshalX/telegram-crawler:84440ffc86c276769da83131b852e1adb928d607:clients:beta",
+  "files": [
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "data/client/android-beta/res/values/public.xml",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "data/client/android-beta/res/values/strings.xml",
+      "status": "modified"
+    }
+  ],
+  "scope": "Selected source diffs archived by TG Signal; not a full repository mirror or original authorship claim.",
+  "upstream": {
+    "date": "2026-11-28T01:29:24Z",
+    "repo": "MarshalX/telegram-crawler",
+    "sha": "84440ffc86c276769da83131b852e1adb928d607",
+    "url": "https://github.com/MarshalX/telegram-crawler/commit/84440ffc86c276769da83131b852e1adb928d607"
+  }
+}
